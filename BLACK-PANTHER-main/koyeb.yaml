@@ -1,0 +1,33 @@
+name: black-panther-md
+services:
+  - name: black-panther-md
+    type: web
+    buildpack: dockerfile
+    ports:
+      - port: 3000
+        protocol: http
+    env:
+      - key: NODE_ENV
+        value: production
+      - key: BOT_NAME
+        value: BLACK PANTHER MD
+      - key: OWNER_NAME
+        value: GuruTech
+      - key: OWNER_NUMBER
+        value: "254105521300"
+      - key: BOT_PREFIX
+        value: "."
+      - key: MODE
+        value: public
+      - key: TIME_ZONE
+        value: Africa/Nairobi
+      - key: AUTO_BIO
+        value: "true"
+      - key: AUTO_LIKE_STATUS
+        value: "true"
+      - key: AUTO_READ_STATUS
+        value: "true"
+      - key: AUTO_REACT
+        value: "false"
+      # SESSION_ID must be set manually in Koyeb dashboard
+      # It must start with GURU~
