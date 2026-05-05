@@ -174,16 +174,28 @@ addCmd({
 
         menu += `╭═❖ _Use categories above_ ❖═╮`;
 
-        await ctx.sock.sendMessage(
-            ctx.from,
-            {
-                image:    { url: MENU_IMAGE },
-                caption:  menu,
-                mentions: [ctx.sender],
-                contextInfo: channelCtx(),
-            },
-            { quoted: ctx.m }
-        );
+        try {
+            await ctx.sock.sendMessage(
+                ctx.from,
+                {
+                    image:    { url: MENU_IMAGE },
+                    caption:  menu,
+                    mentions: [ctx.sender],
+                    contextInfo: channelCtx(),
+                },
+                { quoted: ctx.m }
+            );
+        } catch {
+            await ctx.sock.sendMessage(
+                ctx.from,
+                {
+                    text:     menu,
+                    mentions: [ctx.sender],
+                    contextInfo: channelCtx(),
+                },
+                { quoted: ctx.m }
+            );
+        }
     },
 });
 
@@ -293,16 +305,28 @@ addCmd({
             `🌍 *Mode:*    ${config.MODE}\n\n` +
             `◈ ${config.CHANNEL_NAME}`;
 
-        await ctx.sock.sendMessage(
-            ctx.from,
-            {
-                image:    { url: MENU_IMAGE },
-                caption,
-                mentions: [ctx.sender],
-                contextInfo: channelCtx(),
-            },
-            { quoted: ctx.m }
-        );
+        try {
+            await ctx.sock.sendMessage(
+                ctx.from,
+                {
+                    image:    { url: MENU_IMAGE },
+                    caption,
+                    mentions: [ctx.sender],
+                    contextInfo: channelCtx(),
+                },
+                { quoted: ctx.m }
+            );
+        } catch {
+            await ctx.sock.sendMessage(
+                ctx.from,
+                {
+                    text:     caption,
+                    mentions: [ctx.sender],
+                    contextInfo: channelCtx(),
+                },
+                { quoted: ctx.m }
+            );
+        }
     },
 });
 
@@ -450,11 +474,19 @@ async function sendCategoryDetail(ctx, cat, allCmds) {
     out += `↩  Type *${p}menu* to go back\n`;
     out += `◈ ${config.CHANNEL_NAME}`;
 
-    return ctx.sock.sendMessage(
-        ctx.from,
-        { image: { url: MENU_IMAGE }, caption: out, contextInfo: channelCtx() },
-        { quoted: ctx.m }
-    );
+    try {
+        return await ctx.sock.sendMessage(
+            ctx.from,
+            { image: { url: MENU_IMAGE }, caption: out, contextInfo: channelCtx() },
+            { quoted: ctx.m }
+        );
+    } catch {
+        return ctx.sock.sendMessage(
+            ctx.from,
+            { text: out, contextInfo: channelCtx() },
+            { quoted: ctx.m }
+        );
+    }
 }
 
 // Trigger: pure-number reply within 3 min of receiving the menu
