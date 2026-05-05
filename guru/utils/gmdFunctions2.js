@@ -35,7 +35,7 @@ function channelCtx() {
             renderLargerThumbnail: false,
             showAdAttribution:     true,
             sourceUrl:             config.CHANNEL_URL,
-            thumbnailUrl:          'https://i.ibb.co/HTNTb6F7/7b1c20c0da27.jpg',
+            thumbnailUrl:          'https://i.ibb.co/k6SxWhdr/84bb97a4a575.jpg',
         },
     };
     // Tappable "Forwarded from <channel>" chip on every reply (Vesper-style).

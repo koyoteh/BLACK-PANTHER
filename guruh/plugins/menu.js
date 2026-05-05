@@ -12,7 +12,7 @@ const { channelCtx } = require('../../guru/utils/gmdFunctions2');
 const config = require('../../guru/config/settings');
 const moment = require('moment-timezone');
 
-const MENU_IMAGE = 'https://tmpfiles.org/dl/36257265/panther_1777780194457.jpg';
+const MENU_IMAGE = 'https://i.ibb.co/k6SxWhdr/84bb97a4a575.jpg';
 
 const CATS = [
     { key: 'general',    label: 'GENERAL',     icon: '⚙️',  block: '█' },
