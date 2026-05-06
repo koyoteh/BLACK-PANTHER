@@ -1,5 +1,0 @@
-build:
-  docker:
-    web: Dockerfile
-run:
-  web: node --max-old-space-size=512 --expose-gc index.js
