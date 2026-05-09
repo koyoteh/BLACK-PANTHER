@@ -32,7 +32,7 @@
 
 <div align="center">
   
-[![GET SESSION](https://img.shields.io/badge/🔐_PAIR_NOW-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://pantherr-session.onrender.com)
+[![GET SESSION](https://img.shields.io/badge/🔐_PAIR_NOW-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://panther-pair.gurutech.top)
 
 *⭐ Fork & Star first — then pair!*
 
