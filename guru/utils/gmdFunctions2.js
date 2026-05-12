@@ -192,6 +192,11 @@ function storeMessage(msg) {
     setTimeout(() => msgStore.delete(msg.key.id), 10 * 60 * 1000);
 }
 
+function getStoredMessage(msgId) {
+    if (!msgId) return undefined;
+    return msgStore.get(msgId)?.msg?.message || undefined;
+}
+
 async function PantherAntiDelete(sock, update) {
     try {
         const key  = update?.key;
@@ -541,5 +546,6 @@ module.exports = {
     PantherChatBot,
     PantherAntiGroupMention,
     storeMessage,
+    getStoredMessage,
     chatHistory,
 };
