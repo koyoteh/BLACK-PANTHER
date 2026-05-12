@@ -35,6 +35,7 @@ const {
     PantherAntiDelete,
     PantherAntiEdit,
     storeMessage,
+    getStoredMessage,
     sendWithChannel,
     channelCtx,
 } = require('../utils/gmdFunctions2');
@@ -128,7 +129,7 @@ async function startBot() {
         qrTimeout:                      0,       // disable QR timeout — we handle it manually
         // ── Memory & speed ───────────────────────────────────
         emitOwnEvents:                  true,
-        getMessage:                     async () => undefined,
+        getMessage:                     async (key) => getStoredMessage(key?.id),
         cachedGroupMetadata:            async (jid) => getCached(jid) ?? undefined,
         userDevicesCache,
         // ── Button/template patch ────────────────────────────
