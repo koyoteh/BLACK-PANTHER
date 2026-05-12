@@ -24,10 +24,7 @@ const { getGroupSettings, getSetting }            = require('../db/database');
  * Pass this in the options of every sock.sendMessage() call.
  */
 function channelCtx() {
-    const ctx = {
-        // Marks the message as forwarded — gives the green chip look
-        forwardingScore: 999,
-        isForwarded: true,
+    return {
         externalAdReply: {
             title:                 config.BOT_NAME,
             body:                  '🐾 Follow our WhatsApp Channel',
@@ -38,16 +35,6 @@ function channelCtx() {
             thumbnailUrl:          'https://i.ibb.co/k6SxWhdr/84bb97a4a575.jpg',
         },
     };
-    // Tappable "Forwarded from <channel>" chip on every reply (Vesper-style).
-    // serverMessageId: -1 means no specific server message — avoids "Waiting for this message"
-    if (config.CHANNEL_JID) {
-        ctx.forwardedNewsletterMessageInfo = {
-            newsletterJid:   config.CHANNEL_JID,
-            newsletterName:  config.CHANNEL_NEWSLETTER_NAME,
-            serverMessageId: -1,
-        };
-    }
-    return ctx;
 }
 
 /**
