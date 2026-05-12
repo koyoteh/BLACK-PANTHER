@@ -40,7 +40,7 @@ function gmdBanner(title, lines = [], footer = '') {
 }
 
 function stripEmoji(str) {
-    return str.replace(/[\u{1F300}-\\u{1FAFF}]|[\\u{2600}-\\u{27FF}]|\*|_/gu, '').trim();
+    return str.replace(/[\u{1F300}-\u{1FAFF}]|[\u{2600}-\u{27FF}]|\*|_/gu, '').trim();
 }
 
 function gmdTable(title, rows = [], footer = '') {
