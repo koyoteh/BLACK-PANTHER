@@ -3,7 +3,7 @@ const { addCmd }            = require('../../guru/handlers/loader');
 const { downloadMediaMessage } = require('@whiskeysockets/baileys');
 const ffmpeg                = require('fluent-ffmpeg');
 const ffmpegPath            = require('ffmpeg-static');
-const fs                    = require('fs-extra');
+const fs                    = require('fs');
 const path                  = require('path');
 const Jimp                  = require('jimp');
 const config                = require('../../guru/config/settings');
@@ -11,7 +11,7 @@ const config                = require('../../guru/config/settings');
 ffmpeg.setFfmpegPath(ffmpegPath);
 
 const TEMP = path.join(__dirname, '../../temp');
-fs.ensureDirSync(TEMP);
+if (!fs.existsSync(TEMP)) fs.mkdirSync(TEMP, { recursive: true });
 
 // ── Helper: download quoted/current media ─────────────────────
 async function downloadMedia(ctx, types = ['imageMessage', 'videoMessage', 'audioMessage']) {
@@ -56,9 +56,9 @@ addCmd({
         const inp = path.join(TEMP, `in_${Date.now()}`);
         const out = path.join(TEMP, `out_${Date.now()}.ogg`);
         try {
-            await fs.writeFile(inp, buf);
+            fs.writeFileSync(inp, buf);
             await ffmpegConvert(inp, out, ['-c:a libopus', '-b:a 128k', '-vn']);
-            const result = await fs.readFile(out);
+            const result = fs.readFileSync(out);
             await ctx.send({ audio: result, mimetype: 'audio/ogg; codecs=opus', ptt: true });
             await ctx.react('✅');
         } catch (err) {
@@ -66,8 +66,8 @@ addCmd({
             await ctx.react('❌');
             await ctx.sock.sendMessage(ctx.from, { text: '❌ Conversion failed.', contextInfo: channelCtx() }, { quoted: ctx.m });
         } finally {
-            fs.remove(inp).catch(() => {});
-            fs.remove(out).catch(() => {});
+            try { fs.unlinkSync(inp); } catch {}
+            try { fs.unlinkSync(out); } catch {}
         }
     },
 });
@@ -85,9 +85,9 @@ addCmd({
         const inp = path.join(TEMP, `in_${Date.now()}`);
         const out = path.join(TEMP, `out_${Date.now()}.mp3`);
         try {
-            await fs.writeFile(inp, buf);
+            fs.writeFileSync(inp, buf);
             await ffmpegConvert(inp, out, ['-q:a 0', '-map a']);
-            const result = await fs.readFile(out);
+            const result = fs.readFileSync(out);
             await ctx.send({ audio: result, mimetype: 'audio/mpeg', fileName: 'audio.mp3' });
             await ctx.react('✅');
         } catch (err) {
@@ -95,8 +95,8 @@ addCmd({
             await ctx.react('❌');
             await ctx.sock.sendMessage(ctx.from, { text: '❌ Conversion failed.', contextInfo: channelCtx() }, { quoted: ctx.m });
         } finally {
-            fs.remove(inp).catch(() => {});
-            fs.remove(out).catch(() => {});
+            try { fs.unlinkSync(inp); } catch {}
+            try { fs.unlinkSync(out); } catch {}
         }
     },
 });
@@ -111,7 +111,7 @@ async function applyJimpEffect(ctx, effectName, applyFn) {
         const img = await Jimp.read(buf);
         applyFn(img);
         await img.quality(90).writeAsync(out);
-        const result = await fs.readFile(out);
+        const result = fs.readFileSync(out);
         await ctx.send({ image: result, caption: `✨ *${effectName}*\n\n_${config.BOT_NAME}_` });
         await ctx.react('✅');
     } catch (err) {
@@ -119,7 +119,7 @@ async function applyJimpEffect(ctx, effectName, applyFn) {
         await ctx.react('❌');
         await ctx.sock.sendMessage(ctx.from, { text: '❌ Effect failed.', contextInfo: channelCtx() }, { quoted: ctx.m });
     } finally {
-        fs.remove(out).catch(() => {});
+        try { fs.unlinkSync(out); } catch {}
     }
 }
 
