@@ -1,6 +1,6 @@
 'use strict';
 // ╔══════════════════════════════════════════════════════════════════╗
-//  🐾  BLACK PANTHER MD  —  Session Manager
+//  🐾  BLACK PANTHER MD  —  Session Manager (v7 compatible)
 //
 //  Accepts: GURU~<payload>  where payload is either:
 //    • Plain base64  →  GURU~eyJub2lzZ...
@@ -19,20 +19,17 @@
 //  └──────────────┴─────────────────────────────────────────────┘
 // ╚══════════════════════════════════════════════════════════════════╝
 
-const fs     = require('fs-extra');
+const fs     = require('fs');
 const path   = require('path');
 const zlib   = require('zlib');
 const logger = require('./logger');
 
-// FIXED: Use correct path for sessions
 const SESSION_DIR    = path.join(process.cwd(), 'sessions');
 const CREDS_FILE     = path.join(SESSION_DIR, 'creds.json');
 const SESSION_PREFIX = 'GURU~';
 
-// ── Decode payload — handles plain JSON base64 OR gzip+base64 ──
 function decodePayload(b64) {
     const buf = Buffer.from(b64, 'base64');
-    // Gzip magic bytes: 0x1f 0x8b
     if (buf[0] === 0x1f && buf[1] === 0x8b) {
         return JSON.parse(zlib.gunzipSync(buf).toString('utf-8'));
     }
@@ -61,27 +58,26 @@ async function writeSession(raw) {
     }
     if (!creds?.noiseKey && !creds?.me && !creds?.signedIdentityKey)
         throw new Error('❌  Decoded session is not valid WhatsApp credentials. Generate a fresh SESSION_ID.');
-    await fs.ensureDir(SESSION_DIR);
-    await fs.writeJson(CREDS_FILE, creds, { spaces: 2 });
+    if (!fs.existsSync(SESSION_DIR)) fs.mkdirSync(SESSION_DIR, { recursive: true });
+    fs.writeFileSync(CREDS_FILE, JSON.stringify(creds, null, 2), 'utf8');
     logger.success('SESSION', 'Credentials saved ✓');
 }
 
 function sessionExists() {
     try {
         if (!fs.existsSync(CREDS_FILE)) return false;
-        const d = fs.readJsonSync(CREDS_FILE);
+        const d = JSON.parse(fs.readFileSync(CREDS_FILE, 'utf8'));
         return !!(d?.noiseKey || d?.me || d?.signedIdentityKey);
     } catch { return false; }
 }
 
 function encodeSession() {
     try {
-        const creds = fs.readJsonSync(CREDS_FILE);
+        const creds = JSON.parse(fs.readFileSync(CREDS_FILE, 'utf8'));
         return `${SESSION_PREFIX}${Buffer.from(JSON.stringify(creds)).toString('base64')}`;
     } catch { return null; }
 }
 
-// ── Interactive prompt (Panel / Local only) ────────────────────
 function promptForSession() {
     return new Promise((resolve) => {
         const banner = [
@@ -131,12 +127,9 @@ function promptForSession() {
     });
 }
 
-// ── Main resolver ──────────────────────────────────────────────
 async function resolveSession() {
-    // Log the session directory for debugging
     console.log(`[SESSION] Session directory: ${SESSION_DIR}`);
-    
-    // Already have valid creds on disk — skip everything
+
     if (sessionExists()) {
         console.log(`[SESSION] Session file found at: ${CREDS_FILE}`);
         logger.success('SESSION', 'Existing session loaded ✓');
@@ -151,8 +144,6 @@ async function resolveSession() {
         process.env.KOYEB_SERVICE_NAME
     );
 
-    // ── Cloud platforms (Heroku / Railway / Render / Koyeb) ──
-    // Must use env var — no TTY available for prompts
     if (isCloud) {
         if (!envId) {
             logger.error('SESSION', [
@@ -172,8 +163,6 @@ async function resolveSession() {
         return;
     }
 
-    // ── Panel / VPS / Local ───────────────────────────────────
-    // Use env var if set, otherwise prompt
     if (envId) {
         if (!isValidSession(envId)) {
             logger.error('SESSION', `SESSION_ID must start with "GURU~". Got: "${envId.slice(0, 35)}..."`);
@@ -183,7 +172,6 @@ async function resolveSession() {
         return;
     }
 
-    // No env var and no saved session → show prompt
     if (!process.stdin.isTTY && !process.stdin.readable) {
         logger.error('SESSION', [
             'No SESSION_ID set and no interactive terminal available.',
