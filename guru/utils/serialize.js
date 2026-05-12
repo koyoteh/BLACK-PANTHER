@@ -47,12 +47,32 @@ async function serialize(msg, sock) {
     const text      = args.join(' ');
 
     // ── Quoted message ────────────────────────────────────
-    const quoted    = m.message?.extendedTextMessage?.contextInfo?.quotedMessage || null;
-    const quotedKey = m.message?.extendedTextMessage?.contextInfo
+    // Unwrap ephemeral/documentWithCaption before scanning for contextInfo
+    const _inner =
+        m.message?.ephemeralMessage?.message ||
+        m.message?.documentWithCaptionMessage?.message ||
+        m.message?.viewOnceMessage?.message ||
+        m.message?.viewOnceMessageV2?.message ||
+        m.message || {};
+
+    // contextInfo lives inside whichever message type was sent
+    const _ctx =
+        _inner.extendedTextMessage?.contextInfo ||
+        _inner.imageMessage?.contextInfo ||
+        _inner.videoMessage?.contextInfo ||
+        _inner.audioMessage?.contextInfo ||
+        _inner.documentMessage?.contextInfo ||
+        _inner.stickerMessage?.contextInfo ||
+        _inner.buttonsResponseMessage?.contextInfo ||
+        _inner.listResponseMessage?.contextInfo ||
+        null;
+
+    const quoted    = _ctx?.quotedMessage || null;
+    const quotedKey = _ctx
         ? {
-            id:          m.message.extendedTextMessage.contextInfo.stanzaId,
+            id:          _ctx.stanzaId,
             remoteJid:   from,
-            participant: m.message.extendedTextMessage.contextInfo.participant,
+            participant: _ctx.participant,
           }
         : null;
 
