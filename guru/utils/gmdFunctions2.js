@@ -39,11 +39,12 @@ function channelCtx() {
         },
     };
     // Tappable "Forwarded from <channel>" chip on every reply (Vesper-style).
+    // serverMessageId: -1 means no specific server message — avoids "Waiting for this message"
     if (config.CHANNEL_JID) {
         ctx.forwardedNewsletterMessageInfo = {
             newsletterJid:   config.CHANNEL_JID,
             newsletterName:  config.CHANNEL_NEWSLETTER_NAME,
-            serverMessageId: 100,
+            serverMessageId: -1,
         };
     }
     return ctx;
