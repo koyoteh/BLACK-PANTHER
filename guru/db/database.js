@@ -1,23 +1,22 @@
 'use strict';
 const Database = require('better-sqlite3');
 const path     = require('path');
-const fs       = require('fs-extra');
+const fs       = require('fs');
 
-const DB_PATH = path.join(__dirname, '../GuruTech/sessions/panther.db');
-fs.ensureDirSync(path.dirname(DB_PATH));
+const DB_DIR  = path.join(__dirname, '../GuruTech/sessions');
+const DB_PATH = path.join(DB_DIR, 'panther.db');
+if (!fs.existsSync(DB_DIR)) fs.mkdirSync(DB_DIR, { recursive: true });
 
 const db = new Database(DB_PATH);
 
-// ── Pragma tuning — maximum safe speed for Heroku ─────────────
-db.pragma('journal_mode = WAL');       // WAL = concurrent reads, non-blocking
-db.pragma('synchronous  = NORMAL');    // safe & fast (FULL is too slow)
+db.pragma('journal_mode = WAL');
+db.pragma('synchronous  = NORMAL');
 db.pragma('foreign_keys = ON');
-db.pragma('cache_size   = -8000');     // 8MB page cache (negative = KB)
-db.pragma('temp_store   = MEMORY');    // temp tables in RAM
-db.pragma('mmap_size    = 67108864');  // 64MB memory-mapped I/O
-db.pragma('busy_timeout = 5000');      // wait up to 5s instead of failing instantly
+db.pragma('cache_size   = -8000');
+db.pragma('temp_store   = MEMORY');
+db.pragma('mmap_size    = 67108864');
+db.pragma('busy_timeout = 5000');
 
-// ── Schema ─────────────────────────────────────────────────────
 db.exec(`
     CREATE TABLE IF NOT EXISTS settings (
         key   TEXT PRIMARY KEY,
@@ -43,7 +42,8 @@ db.exec(`
         antiviewonce INTEGER DEFAULT 0,
         antiforeign  INTEGER DEFAULT 0,
         antisticker  INTEGER DEFAULT 0,
-        antiflood    INTEGER DEFAULT 0
+        antiflood    INTEGER DEFAULT 0,
+        welcomeMsg   TEXT DEFAULT ''
     );
 
     CREATE TABLE IF NOT EXISTS warnings (
@@ -62,20 +62,16 @@ db.exec(`
     );
 `);
 
-// ── Indexes — critical for fast lookups at scale ───────────────
 db.exec(`
     CREATE INDEX IF NOT EXISTS idx_warnings_jid_group ON warnings(jid, group_jid);
     CREATE INDEX IF NOT EXISTS idx_notes_group        ON notes(group_jid, name);
 `);
 
-// ── Migrate: add new columns if missing ───────────────────────
-const newCols = ['antimention', 'antiviewonce', 'antiforeign', 'antisticker', 'antiflood'];
+const newCols = ['antimention', 'antiviewonce', 'antiforeign', 'antisticker', 'antiflood', 'welcomeMsg TEXT DEFAULT \'\''];
 for (const col of newCols) {
-    try { db.exec(`ALTER TABLE group_settings ADD COLUMN ${col} INTEGER DEFAULT 0`); } catch {}
+    try { db.exec(`ALTER TABLE group_settings ADD COLUMN ${col}`); } catch {}
 }
 
-// ── Prepared statement cache — compiled once, reused forever ──
-// Avoids re-parsing SQL on every message; measurable speedup under load.
 const stmts = {
     getSetting:        db.prepare('SELECT value FROM settings WHERE key = ?'),
     setSetting:        db.prepare('INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)'),
@@ -86,7 +82,6 @@ const stmts = {
     isSudo:            db.prepare('SELECT 1 FROM sudo WHERE jid = ?'),
     getGroupSettings:  db.prepare('SELECT * FROM group_settings WHERE jid = ?'),
     insertGroupRow:    db.prepare('INSERT OR IGNORE INTO group_settings (jid) VALUES (?)'),
-    setGroupSetting:   (key) => db.prepare(`UPDATE group_settings SET ${key} = ? WHERE jid = ?`),
     addWarning:        db.prepare('INSERT INTO warnings (jid, group_jid, reason) VALUES (?, ?, ?)'),
     countWarnings:     db.prepare('SELECT COUNT(*) as c FROM warnings WHERE jid = ? AND group_jid = ?'),
     clearWarnings:     db.prepare('DELETE FROM warnings WHERE jid = ? AND group_jid = ?'),
@@ -97,10 +92,7 @@ const stmts = {
     deleteNote:        db.prepare('DELETE FROM notes WHERE group_jid = ? AND name = ?'),
 };
 
-// Cache for dynamic setGroupSetting statements (per column)
 const groupSettingStmtCache = new Map();
-
-// ── Helpers ────────────────────────────────────────────────────
 
 function getSetting(key, fallback = null) {
     const row = stmts.getSetting.get(key);
@@ -118,13 +110,11 @@ function seedDefaults(defaults = {}) {
     many(Object.entries(defaults));
 }
 
-// ── Sudo helpers ───────────────────────────────────────────────
 function addSudo(jid)    { stmts.addSudo.run(jid); }
 function removeSudo(jid) { stmts.removeSudo.run(jid); }
 function getSudoList()   { return stmts.getSudoList.all().map(r => r.jid); }
 function isSudo(jid)     { return !!stmts.isSudo.get(jid); }
 
-// ── Group settings helpers ─────────────────────────────────────
 function getGroupSettings(jid) {
     let row = stmts.getGroupSettings.get(jid);
     if (!row) {
@@ -135,14 +125,12 @@ function getGroupSettings(jid) {
 }
 
 function setGroupSetting(jid, key, value) {
-    // Cache prepared statements per-column
     if (!groupSettingStmtCache.has(key)) {
         groupSettingStmtCache.set(key, db.prepare(`UPDATE group_settings SET ${key} = ? WHERE jid = ?`));
     }
     groupSettingStmtCache.get(key).run(value ? 1 : 0, jid);
 }
 
-// ── Warning helpers ────────────────────────────────────────────
 function addWarning(jid, groupJid, reason = '') {
     stmts.addWarning.run(jid, groupJid, reason);
     return stmts.countWarnings.get(jid, groupJid).c;
@@ -157,7 +145,6 @@ function clearWarnings(jid, groupJid) {
     stmts.clearWarnings.run(jid, groupJid);
 }
 
-// ── Note helpers ───────────────────────────────────────────────
 function saveNote(groupJid, name, content) {
     stmts.saveNote.run(groupJid, name, content);
 }
@@ -171,7 +158,6 @@ function deleteNote(groupJid, name) {
     stmts.deleteNote.run(groupJid, name);
 }
 
-// ── Config helpers (JSON store for plugin configs) ─────────────
 function getConfigSync(key, defaultValue = {}) {
     const row = stmts.getSetting.get(key);
     if (!row) return { ...defaultValue };
@@ -182,8 +168,6 @@ async function setConfig(key, value) {
     stmts.setSetting.run(key, JSON.stringify(value));
 }
 
-// ── Graceful shutdown: checkpoint WAL before exit ─────────────
-// Flushes WAL frames into the main DB file so nothing is lost on Heroku dyno restart.
 function checkpoint() {
     try { db.pragma('wal_checkpoint(TRUNCATE)'); } catch {}
 }
