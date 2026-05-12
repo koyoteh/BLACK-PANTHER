@@ -2,33 +2,23 @@
 // ╔══════════════════════════════════════════════════════════════╗
 //  🐾  BLACK PANTHER MD  —  gmdFunctions.js  (Core Utilities)
 //  👑  Owner : GuruTech  |  📞 +254105521300
-//  🔧  Rich formatting · Media tools · Session · Upload helpers
+//  🔧  Rich formatting · Media tools · Upload helpers
 // ╚══════════════════════════════════════════════════════════════╝
 
-const fs        = require('fs-extra');
+const fs        = require('fs');
 const path      = require('path');
 const axios     = require('axios');
 const FormData  = require('form-data');
-const ffmpeg    = require('fluent-ffmpeg');
-const ffmpegPath = require('ffmpeg-static');
 const { downloadContentFromMessage } = require('@whiskeysockets/baileys');
 const config    = require('../config/settings');
 
-ffmpeg.setFfmpegPath(ffmpegPath);
-
 const TEMP_DIR = path.join(__dirname, '../../temp');
-fs.ensureDirSync(TEMP_DIR);
+if (!fs.existsSync(TEMP_DIR)) fs.mkdirSync(TEMP_DIR, { recursive: true });
 
 // ═══════════════════════════════════════════════════════════════
 //  🎨  RICH TEXT FORMATTERS
 // ═══════════════════════════════════════════════════════════════
 
-/**
- * Wraps text in a decorated box banner
- * @param {string} title
- * @param {string[]} lines
- * @param {string} footer
- */
 function gmdBanner(title, lines = [], footer = '') {
     const top    = `╔${'═'.repeat(38)}╗`;
     const mid    = `╠${'═'.repeat(38)}╣`;
@@ -49,17 +39,10 @@ function gmdBanner(title, lines = [], footer = '') {
     return out;
 }
 
-/** Strip emoji/special chars for length calculation */
 function stripEmoji(str) {
-    return str.replace(/[\u{1F300}-\u{1FAFF}]|[\u{2600}-\u{27FF}]|\*|_/gu, '').trim();
+    return str.replace(/[\u{1F300}-\\u{1FAFF}]|[\\u{2600}-\\u{27FF}]|\*|_/gu, '').trim();
 }
 
-/**
- * Build a two-column table
- * @param {string} title  - Table heading
- * @param {Array<[string,string]>} rows - [label, value] pairs
- * @param {string} [footer]
- */
 function gmdTable(title, rows = [], footer = '') {
     const DIV  = `┃${'━'.repeat(38)}┃`;
     const TOP  = `┏${'━'.repeat(38)}┓`;
@@ -82,39 +65,27 @@ function gmdTable(title, rows = [], footer = '') {
     return out;
 }
 
-/**
- * Simple bulleted list with custom emoji bullet
- */
 function gmdList(title, items = [], bullet = '◈', footer = '') {
     let out = `*${title}*\n${'─'.repeat(30)}\n`;
-    items.forEach((item, i) => {
+    items.forEach((item) => {
         out += `${bullet} ${item}\n`;
     });
     if (footer) out += `\n_${footer}_`;
     return out;
 }
 
-/**
- * Progress bar string  ▰▰▰▰▱▱▱▱  (filled/total)
- */
 function gmdProgress(filled, total = 10, label = '') {
     const f = Math.round((filled / total) * 10);
     const bar = '▰'.repeat(f) + '▱'.repeat(10 - f);
     return `${bar} ${Math.round((filled / total) * 100)}%${label ? '  ' + label : ''}`;
 }
 
-/**
- * Convert seconds to mm:ss
- */
 function fmtDuration(seconds) {
     const m = Math.floor(seconds / 60).toString().padStart(2, '0');
     const s = Math.floor(seconds % 60).toString().padStart(2, '0');
     return `${m}:${s}`;
 }
 
-/**
- * Pretty-print bytes
- */
 function fmtBytes(bytes) {
     if (!bytes) return '0 B';
     const k = 1024, sizes = ['B', 'KB', 'MB', 'GB'];
@@ -122,9 +93,6 @@ function fmtBytes(bytes) {
     return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${sizes[i]}`;
 }
 
-/**
- * Fancy Unicode font styles
- */
 const FONTS = {
     bold:    (s) => s.replace(/[a-zA-Z]/g, c => String.fromCodePoint(
         c >= 'a' && c <= 'z' ? 0x1D41A + c.charCodeAt(0) - 97 :
@@ -142,9 +110,6 @@ const FONTS = {
 //  📥  MEDIA DOWNLOAD HELPERS
 // ═══════════════════════════════════════════════════════════════
 
-/**
- * Download media from a Baileys message into a Buffer
- */
 async function gmdBuffer(msg, type = 'buffer') {
     const message = msg?.message;
     if (!message) return null;
@@ -168,71 +133,81 @@ async function gmdBuffer(msg, type = 'buffer') {
     return Buffer.concat(chunks);
 }
 
-/**
- * Download media and save to a temp file, returns file path
- */
 async function gmdSave(msg, ext = '') {
     const buf = await gmdBuffer(msg);
     if (!buf) return null;
     const outPath = path.join(TEMP_DIR, `panther_${Date.now()}${ext ? '.' + ext : ''}`);
-    await fs.writeFile(outPath, buf);
+    fs.writeFileSync(outPath, buf);
     return outPath;
 }
 
 // ═══════════════════════════════════════════════════════════════
-//  🔊  AUDIO / VIDEO CONVERTERS
+//  🔊  AUDIO / VIDEO CONVERTERS  (ffmpeg optional)
 // ═══════════════════════════════════════════════════════════════
 
 function runFfmpeg(inputPath, outputPath, options = []) {
     return new Promise((resolve, reject) => {
-        let cmd = ffmpeg(inputPath);
-        options.forEach(o => cmd = cmd.outputOptions(o));
-        cmd.on('end', resolve).on('error', reject).save(outputPath);
+        try {
+            const ffmpeg     = require('fluent-ffmpeg');
+            const ffmpegPath = require('ffmpeg-static');
+            ffmpeg.setFfmpegPath(ffmpegPath);
+            let cmd = ffmpeg(inputPath);
+            options.forEach(o => cmd = cmd.outputOptions(o));
+            cmd.on('end', resolve).on('error', reject).save(outputPath);
+        } catch (e) {
+            reject(new Error('ffmpeg not available: ' + e.message));
+        }
     });
 }
 
 async function toAudio(buffer, ext = 'mp3') {
     const inp = path.join(TEMP_DIR, `in_${Date.now()}`);
     const out = path.join(TEMP_DIR, `out_${Date.now()}.${ext}`);
-    await fs.writeFile(inp, buffer);
+    fs.writeFileSync(inp, buffer);
     await runFfmpeg(inp, out, ['-q:a 0', '-map a', '-vn']);
-    const result = await fs.readFile(out);
-    await fs.remove(inp).catch(() => {});
-    await fs.remove(out).catch(() => {});
+    const result = fs.readFileSync(out);
+    try { fs.unlinkSync(inp); } catch {}
+    try { fs.unlinkSync(out); } catch {}
     return result;
 }
 
 async function toVideo(buffer) {
     const inp = path.join(TEMP_DIR, `in_${Date.now()}`);
     const out = path.join(TEMP_DIR, `out_${Date.now()}.mp4`);
-    await fs.writeFile(inp, buffer);
+    fs.writeFileSync(inp, buffer);
     await runFfmpeg(inp, out, ['-c:v libx264', '-c:a aac', '-strict experimental']);
-    const result = await fs.readFile(out);
-    await fs.remove(inp).catch(() => {});
-    await fs.remove(out).catch(() => {});
+    const result = fs.readFileSync(out);
+    try { fs.unlinkSync(inp); } catch {}
+    try { fs.unlinkSync(out); } catch {}
     return result;
 }
 
 async function toPtt(buffer) {
     const inp = path.join(TEMP_DIR, `in_${Date.now()}`);
     const out = path.join(TEMP_DIR, `out_${Date.now()}.ogg`);
-    await fs.writeFile(inp, buffer);
+    fs.writeFileSync(inp, buffer);
     await runFfmpeg(inp, out, ['-c:a libopus', '-b:a 64k', '-vbr on', '-vn']);
-    const result = await fs.readFile(out);
-    await fs.remove(inp).catch(() => {});
-    await fs.remove(out).catch(() => {});
+    const result = fs.readFileSync(out);
+    try { fs.unlinkSync(inp); } catch {}
+    try { fs.unlinkSync(out); } catch {}
     return result;
 }
 
 async function getVideoDuration(buffer) {
     const inp = path.join(TEMP_DIR, `dur_${Date.now()}`);
-    await fs.writeFile(inp, buffer);
+    fs.writeFileSync(inp, buffer);
     return new Promise((resolve, reject) => {
-        ffmpeg.ffprobe(inp, (err, meta) => {
-            fs.remove(inp).catch(() => {});
-            if (err) return reject(err);
-            resolve(meta?.format?.duration || 0);
-        });
+        try {
+            const ffmpeg = require('fluent-ffmpeg');
+            ffmpeg.ffprobe(inp, (err, meta) => {
+                try { fs.unlinkSync(inp); } catch {}
+                if (err) return reject(err);
+                resolve(meta?.format?.duration || 0);
+            });
+        } catch (e) {
+            try { fs.unlinkSync(inp); } catch {}
+            resolve(0);
+        }
     });
 }
 
@@ -251,7 +226,6 @@ async function gmdSticker(buffer, packname = config.PACK_NAME, author = config.P
         });
         return sticker.toMessage();
     } catch {
-        // Fallback: return raw buffer marked as sticker
         return { sticker: buffer, mimetype: 'image/webp' };
     }
 }
@@ -337,16 +311,11 @@ function runtime(ms) {
 //  📦  EXPORTS
 // ═══════════════════════════════════════════════════════════════
 module.exports = {
-    // Formatters
     gmdBanner, gmdTable, gmdList, gmdProgress,
     fmtDuration, fmtBytes, FONTS, stripEmoji,
-    // Media
     gmdBuffer, gmdSave, gmdSticker,
-    // Converters
     toAudio, toVideo, toPtt, getVideoDuration, runFfmpeg,
-    // Uploads
     uploadToCatbox, uploadToImgBB, uploadToTmpFiles,
-    // Utils
     sleep, isUrl, isNumber, pickRandom, shuffleArray,
     cleanNumber, formatPhoneNumber, truncate, runtime,
 };
