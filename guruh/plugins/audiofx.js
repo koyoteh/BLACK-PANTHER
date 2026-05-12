@@ -8,13 +8,13 @@ const { addCmd }               = require('../../guru/handlers/loader');
 const { downloadMediaMessage } = require('@whiskeysockets/baileys');
 const ffmpeg                   = require('fluent-ffmpeg');
 const ffmpegPath               = require('ffmpeg-static');
-const fs                       = require('fs-extra');
+const fs                       = require('fs');
 const path                     = require('path');
 
 ffmpeg.setFfmpegPath(ffmpegPath);
 
 const TEMP = path.join(__dirname, '../../temp');
-fs.ensureDirSync(TEMP);
+if (!fs.existsSync(TEMP)) fs.mkdirSync(TEMP, { recursive: true });
 
 // Pull a quoted audio/video buffer
 async function downloadAudio(ctx) {
@@ -79,9 +79,9 @@ for (const fx of EFFECTS) {
             const inp = path.join(TEMP, `fx_${Date.now()}_in`);
             const out = path.join(TEMP, `fx_${Date.now()}_out.mp3`);
             try {
-                await fs.writeFile(inp, buf);
+                fs.writeFileSync(inp, buf);
                 await applyFilter(inp, out, fx.filter);
-                const audio = await fs.readFile(out);
+                const audio = fs.readFileSync(out);
                 await ctx.send(
                     { audio, mimetype: 'audio/mpeg' },
                     { quoted: ctx.m }
@@ -90,8 +90,8 @@ for (const fx of EFFECTS) {
             } catch (err) {
                 await ctx.reply(`❌ ${fx.name} failed: ${err.message}`);
             } finally {
-                await fs.remove(inp).catch(() => {});
-                await fs.remove(out).catch(() => {});
+                try { fs.unlinkSync(inp); } catch {}
+                try { fs.unlinkSync(out); } catch {}
             }
         },
     });
