@@ -15,14 +15,8 @@ const { getGroupSettings, getSetting }            = require('../db/database');
 
 // ═══════════════════════════════════════════════════════════════
 //  📢  CHANNEL CONTEXT INFO
-//  Attaches a "Follow Channel" button to every bot message
 // ═══════════════════════════════════════════════════════════════
 
-/**
- * Returns a Baileys contextInfo object that adds a
- * "Follow Channel" button linking to the GuruTech channel.
- * Pass this in the options of every sock.sendMessage() call.
- */
 function channelCtx() {
     return {
         externalAdReply: {
@@ -37,14 +31,8 @@ function channelCtx() {
     };
 }
 
-/**
- * Wrap any send (text, image, video, audio, document, sticker) with the
- * channel button + newsletter chip. Stickers can't carry contextInfo.
- * Usage: await sendWithChannel(sock, jid, { text: '...' }, { quoted: m })
- */
 async function sendWithChannel(sock, jid, content, opts = {}) {
     const ctx = channelCtx();
-    // Stickers don't support contextInfo — send as-is
     if (content.sticker !== undefined) {
         return sock.sendMessage(jid, content, opts);
     }
@@ -289,7 +277,7 @@ async function PantherPresence(sock, from, type = 'composing') {
 }
 
 // ═══════════════════════════════════════════════════════════════
-//  🌿  AUTO BIO  (ON by default)
+//  🌿  AUTO BIO
 // ═══════════════════════════════════════════════════════════════
 
 const BIO_TEMPLATES = [
@@ -403,23 +391,8 @@ async function PantherAntiGroupMention(sock, msg) {
 
 // ═══════════════════════════════════════════════════════════════
 //  📋  COPY BUTTON HELPER
-//  Sends a message with a native WhatsApp "Copy" button.
-//  Works with nativeFlowMessage / interactiveMessage (Baileys 6+)
 // ═══════════════════════════════════════════════════════════════
 
-/**
- * Send a message with a tappable "Copy" button.
- *
- * @param {object} sock          Baileys socket
- * @param {string} jid           Chat JID
- * @param {object} opts
- *   @param {string}   opts.body        Main message text (supports *bold*)
- *   @param {string}   opts.footer      Footer text (default: bot name)
- *   @param {string}   opts.copyText    The text that gets copied when button is tapped
- *   @param {string}   opts.btnLabel    Button label (default: "📋 Copy")
- *   @param {object}  [opts.header]     Optional Baileys header object
- * @param {object} msgOpts             Extra options passed to sendMessage (e.g. { quoted })
- */
 async function sendCopyButton(sock, jid, opts = {}, msgOpts = {}) {
     const {
         body     = '',
@@ -449,19 +422,6 @@ async function sendCopyButton(sock, jid, opts = {}, msgOpts = {}) {
     }, msgOpts);
 }
 
-/**
- * Send a message with multiple buttons (copy + URL buttons).
- * Each button: { type: 'copy'|'url'|'reply', label, value }
- *
- * @param {object} sock
- * @param {string} jid
- * @param {object} opts
- *   @param {string}   opts.body
- *   @param {string}   opts.footer
- *   @param {Array}    opts.buttons   Array of { type, label, value }
- *   @param {object}  [opts.header]
- * @param {object} msgOpts
- */
 async function sendButtons(sock, jid, opts = {}, msgOpts = {}) {
     const {
         body    = '',
@@ -511,20 +471,17 @@ async function sendButtons(sock, jid, opts = {}, msgOpts = {}) {
     }, msgOpts);
 }
 
-// ═══════════════════════════════════════════════════════════════
-//  📦  EXPORTS
-// ═══════════════════════════════════════════════════════════════
-
 module.exports = {
-    REACT_EMOJIS,
     channelCtx,
     sendWithChannel,
-    sendCopyButton,
-    sendButtons,
+    REACT_EMOJIS,
+    LINK_REGEX,
     PantherAutoReact,
     PantherAntiLink,
     PantherAntiBad,
     PantherAntiCall,
+    storeMessage,
+    getStoredMessage,
     PantherAntiDelete,
     PantherAntiEdit,
     PantherAntiViewOnce,
@@ -533,7 +490,6 @@ module.exports = {
     PantherStatusHandler,
     PantherChatBot,
     PantherAntiGroupMention,
-    storeMessage,
-    getStoredMessage,
-    chatHistory,
+    sendCopyButton,
+    sendButtons,
 };
