@@ -54,15 +54,26 @@ function numberToJid(number = '') {
 
 // ── Message body extractor ─────────────────────────────────────
 // Handles plain text, captions, interactive button responses,
-// list responses, and template replies (from ULTRA-GURU pattern).
+// list responses, and template replies.
+// Also unwraps ephemeral / view-once / document-with-caption wrappers
+// which are common in group chats.
 function getBody(msg) {
     const m = msg.message;
     if (!m) return '';
 
+    // Unwrap common group message wrappers
+    const inner =
+        m.ephemeralMessage?.message ||
+        m.documentWithCaptionMessage?.message ||
+        m.viewOnceMessage?.message ||
+        m.viewOnceMessageV2?.message ||
+        m.viewOnceMessageV2Extension?.message ||
+        m;
+
     // Interactive native-flow response (newer WhatsApp button type)
-    if (m.interactiveResponseMessage) {
+    if (inner.interactiveResponseMessage) {
         try {
-            const paramsJson = m.interactiveResponseMessage
+            const paramsJson = inner.interactiveResponseMessage
                 .nativeFlowResponseMessage?.paramsJson;
             if (paramsJson) {
                 const id = JSON.parse(paramsJson)?.id;
@@ -70,21 +81,22 @@ function getBody(msg) {
             }
         } catch {}
         return (
-            m.interactiveResponseMessage.buttonId ||
-            m.interactiveResponseMessage?.body?.text ||
+            inner.interactiveResponseMessage.buttonId ||
+            inner.interactiveResponseMessage?.body?.text ||
             ''
         );
     }
 
     return (
-        m.conversation ||
-        m.extendedTextMessage?.text ||
-        m.imageMessage?.caption ||
-        m.videoMessage?.caption ||
-        m.documentMessage?.caption ||
-        m.buttonsResponseMessage?.selectedButtonId ||
-        m.listResponseMessage?.singleSelectReply?.selectedRowId ||
-        m.templateButtonReplyMessage?.selectedId ||
+        inner.conversation ||
+        inner.extendedTextMessage?.text ||
+        inner.imageMessage?.caption ||
+        inner.videoMessage?.caption ||
+        inner.documentMessage?.caption ||
+        inner.documentWithCaptionMessage?.message?.documentMessage?.caption ||
+        inner.buttonsResponseMessage?.selectedButtonId ||
+        inner.listResponseMessage?.singleSelectReply?.selectedRowId ||
+        inner.templateButtonReplyMessage?.selectedId ||
         ''
     );
 }
