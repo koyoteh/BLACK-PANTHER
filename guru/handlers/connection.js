@@ -280,12 +280,22 @@ async function startBot() {
     });
 
     // ── Anti-delete ────────────────────────────────────────────
-    sock.ev.on('messages.delete', (update) => PantherAntiDelete(sock, update));
+    // Baileys fires { keys: MessageKey[] } for individual deletes
+    // and { jid: string } for full-chat clears
+    sock.ev.on('messages.delete', (item) => {
+        if (item?.keys) {
+            for (const key of item.keys) {
+                PantherAntiDelete(sock, key).catch(() => {});
+            }
+        }
+    });
 
     // ── Anti-edit ──────────────────────────────────────────────
+    // Baileys fires [{ key: MessageKey, update: Partial<WAMessage> }]
+    // The edited content is inside `update.update.message`, not `update.message`
     sock.ev.on('messages.update', async (updates) => {
         for (const update of updates) {
-            if (update?.message?.protocolMessage?.editedMessage) {
+            if (update?.update?.message?.protocolMessage?.editedMessage) {
                 PantherAntiEdit(sock, update).catch(() => {});
             }
         }
