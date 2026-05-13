@@ -463,14 +463,14 @@ async function sendButtons(sock, jid, opts = {}, msgOpts = {}) {
 
     const bodyText = text || body;
 
-    // Normalise button shapes → { name, buttonParamsJson }
-    // NOTE: gifted-btns only supports: cta_url, cta_call, cta_copy, and a few
-    // interactive types. 'quick_reply' is NOT supported and will throw.
+    // Normalise ONLY explicit { type } helpers into gifted-btns native shape.
+    // gifted-btns sendButtons handles { id, text } shorthand natively —
+    // pass those through unchanged so it can process them correctly.
     const normalised = buttons.map((btn) => {
-        // Already a proper native-flow button
-        if (btn.name && btn.buttonParamsJson !== undefined) return btn;
+        // Already a fully-formed native-flow button OR gifted-btns { id, text } shorthand
+        if (btn.name !== undefined || btn.id !== undefined) return btn;
 
-        // Simple helpers: { type, label, value }
+        // { type: 'url', label, value } helper
         if (btn.type === 'url') {
             return {
                 name:             'cta_url',
@@ -481,6 +481,8 @@ async function sendButtons(sock, jid, opts = {}, msgOpts = {}) {
                 }),
             };
         }
+
+        // { type: 'call', label, value } helper
         if (btn.type === 'call') {
             return {
                 name:             'cta_call',
@@ -491,16 +493,19 @@ async function sendButtons(sock, jid, opts = {}, msgOpts = {}) {
             };
         }
 
-        // Shorthand { id, text } and any other shape → cta_copy (always valid)
-        const label = btn.text || btn.label || btn.display_text || '';
-        const code  = btn.id   || btn.value  || btn.copy_code   || label;
-        return {
-            name:             'cta_copy',
-            buttonParamsJson: JSON.stringify({
-                display_text: label,
-                copy_code:    String(code),
-            }),
-        };
+        // { type: 'copy', label, value } helper
+        if (btn.type === 'copy') {
+            return {
+                name:             'cta_copy',
+                buttonParamsJson: JSON.stringify({
+                    display_text: btn.label || '📋 Copy',
+                    copy_code:    btn.value || '',
+                }),
+            };
+        }
+
+        // Unknown shape — pass through and let gifted-btns decide
+        return btn;
     });
 
     try {
