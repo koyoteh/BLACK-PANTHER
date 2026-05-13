@@ -13,7 +13,7 @@ const config = require('../../guru/config/settings');
 const moment = require('moment-timezone');
 const { sendButtons } = require('gifted-btns');
 
-const MENU_IMAGE = 'https://i.ibb.co/k6SxWhdr/84bb97a4a575.jpg';
+const MENU_IMAGE = 'https://i.ibb.co/PZjVDnBM/upload-1778637749645-4b17ed31-jpg.jpg';
 
 const CATS = [
     { key: 'general',    label: 'GENERAL',     icon: '⚙️',  block: '█' },
