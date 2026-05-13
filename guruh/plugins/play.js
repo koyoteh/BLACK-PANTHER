@@ -613,3 +613,121 @@ addCmd({
         }
     },
 });
+
+// ═══════════════════════════════════════════════════════════════
+//  🎶  PLAYLIST  — queue multiple songs and send them in order
+// ═══════════════════════════════════════════════════════════════
+
+const activeQueues = new Map();  // jid → true (prevents double-run)
+
+addCmd({
+    name: 'playlist',
+    aliases: ['queue', 'plist'],
+    desc: 'Queue multiple songs and receive them one by one as audio',
+    usage: 'playlist <song1>, <song2>, <song3> ...',
+    category: 'music',
+    handler: async (ctx) => {
+        if (!ctx.text)
+            return ctx.reply(
+                `❌ *No songs provided.*\n\n` +
+                `📋 *Usage:*\n` +
+                `\`${config.BOT_PREFIX}playlist Shape of You, Blinding Lights, Levitating\`\n\n` +
+                `_Separate songs with a comma. Max 10 songs per playlist._`
+            );
+
+        const songs = ctx.text
+            .split(',')
+            .map(s => s.trim())
+            .filter(Boolean)
+            .slice(0, 10);
+
+        if (!songs.length)
+            return ctx.reply(`❌ Could not parse any song names. Separate them with commas.`);
+
+        const jid = ctx.from;
+
+        if (activeQueues.get(jid))
+            return ctx.reply(`⏳ A playlist is already running in this chat. Wait for it to finish or it will auto-stop.`);
+
+        await ctx.react('🎶');
+        await ctx.sock.sendMessage(jid, {
+            text:
+                `🎶 *Playlist Starting!*\n` +
+                `✦ ───────────── ✦\n` +
+                `📋 *${songs.length} song${songs.length > 1 ? 's' : ''} queued*\n\n` +
+                songs.map((s, i) => `  ${i + 1}. ${s}`).join('\n') +
+                `\n\n⏳ _Downloading and sending one by one…_\n_${config.BOT_NAME}_`,
+            contextInfo: channelCtx(),
+        }, { quoted: ctx.m });
+
+        activeQueues.set(jid, true);
+        let sent = 0;
+        let failed = 0;
+
+        for (let i = 0; i < songs.length; i++) {
+            if (!activeQueues.get(jid)) break;  // allow external stop
+
+            const query = songs[i];
+            try {
+                await ctx.sock.sendMessage(jid, {
+                    text: `⏳ *[${i + 1}/${songs.length}]* Fetching: _${query}_`,
+                    contextInfo: channelCtx(),
+                }, {});
+
+                const result = await ytSearch(query);
+                if (!result) {
+                    failed++;
+                    await ctx.sock.sendMessage(jid, {
+                        text: `❌ *[${i + 1}/${songs.length}]* Not found: _${query}_`,
+                        contextInfo: channelCtx(),
+                    }, {});
+                    continue;
+                }
+
+                const audioUrl = await ytAudio(result.url);
+                if (!audioUrl) {
+                    failed++;
+                    await ctx.sock.sendMessage(jid, {
+                        text: `⚠️ *[${i + 1}/${songs.length}]* Download unavailable: _${result.title}_`,
+                        contextInfo: channelCtx(),
+                    }, {});
+                    continue;
+                }
+
+                await ctx.sock.sendMessage(jid, {
+                    audio:    { url: audioUrl },
+                    mimetype: 'audio/mpeg',
+                    fileName: `${result.title.slice(0, 60)}.mp3`,
+                    ptt:      false,
+                    contextInfo: channelCtx(),
+                }, {});
+
+                sent++;
+                // small pause between tracks so WA doesn't rate-limit
+                if (i < songs.length - 1) await new Promise(r => setTimeout(r, 2500));
+
+            } catch (err) {
+                failed++;
+                console.error(`[PLAYLIST] Error on "${query}":`, err.message);
+                await ctx.sock.sendMessage(jid, {
+                    text: `❌ *[${i + 1}/${songs.length}]* Error: _${query}_`,
+                    contextInfo: channelCtx(),
+                }, {});
+            }
+        }
+
+        activeQueues.delete(jid);
+
+        await ctx.sock.sendMessage(jid, {
+            text:
+                `✅ *Playlist Complete!*\n` +
+                `✦ ───────────── ✦\n` +
+                `🎵 Sent   : ${sent} track${sent !== 1 ? 's' : ''}\n` +
+                (failed ? `❌ Failed  : ${failed} track${failed !== 1 ? 's' : ''}\n` : '') +
+                `\n_${config.BOT_NAME}_`,
+            contextInfo: channelCtx(),
+        }, { quoted: ctx.m });
+
+        await ctx.react(sent > 0 ? '✅' : '❌');
+    },
+});

@@ -330,36 +330,31 @@ addCmd({
     desc: 'Show the bot GitHub repository link',
     category: 'owner',
     handler: async (ctx) => {
+        const sep = `✦ ───────────── ✦`;
         const card =
-            `╔══════════════════════════════╗\n` +
-            `║  🐾  *${config.BOT_NAME}*  🐾  ║\n` +
-            `╚══════════════════════════════╝\n\n` +
-            `🚀 *Open-Source WhatsApp Bot*\n` +
-            `_Powered by GuruTech • Built with ❤️_\n\n` +
-            `${'━'.repeat(32)}\n\n` +
-            `📦 *REPOSITORY*\n` +
-            `┌─────────────────────────────\n` +
-            `│ 🔗 github.com/koyoteh/BLACK-PANTHER\n` +
-            `│ 🌿 Branch  : main\n` +
-            `│ ⚡ Stack   : Node.js • Baileys v7\n` +
-            `│ 🗄️ Database: SQLite (local)\n` +
-            `└─────────────────────────────\n\n` +
-            `${'━'.repeat(32)}\n\n` +
-            `✨ *WHAT'S INSIDE?*\n` +
-            `  🤖  200+ Commands & growing\n` +
-            `  🛡️  Full group protection suite\n` +
-            `  🎵  Music · Downloads · AI Chat\n` +
-            `  🔄  Auto-Bio · Auto-Status · React\n` +
-            `  👑  Owner-only admin controls\n\n` +
-            `${'━'.repeat(32)}\n\n` +
-            `👨‍💻 *DEVELOPER*\n` +
-            `  🏷️  ${config.OWNER_NAME}\n` +
-            `  📞  +${config.OWNER_NUMBER}\n` +
-            `  💬  wa.me/${config.OWNER_NUMBER}\n\n` +
-            `${'━'.repeat(32)}\n\n` +
-            `⭐ _Star the repo if it helps you!_\n` +
-            `🍴 _Fork it & build your own bot!_\n\n` +
-            `◈ *${config.CHANNEL_NAME}*`;
+            `🐾 *${config.BOT_NAME}* 🐾\n` +
+            `✦ *Open-Source WhatsApp Bot* ✦\n` +
+            `_GuruTech  ·  Built with ❤️_\n\n` +
+            `${sep}\n\n` +
+            `🌿 *Branch*   ·  main\n` +
+            `⚡ *Engine*   ·  Node.js + Baileys v7\n` +
+            `🗄️ *Storage*  ·  SQLite\n` +
+            `🔒 *License*  ·  Open-Source\n\n` +
+            `${sep}\n\n` +
+            `✨ *FEATURES*\n\n` +
+            `🤖  200+ Commands & growing\n` +
+            `🛡️  Full group protection suite\n` +
+            `🎵  Music · Downloads · AI Chat\n` +
+            `🔄  Auto-Bio · Auto-Status · React\n` +
+            `👑  Owner-only admin controls\n` +
+            `🎭  Sticker maker & media tools\n\n` +
+            `${sep}\n\n` +
+            `👨‍💻 *DEVELOPER*\n\n` +
+            `🏷️  *${config.OWNER_NAME}*\n` +
+            `📞  +${config.OWNER_NUMBER}\n\n` +
+            `${sep}\n\n` +
+            `⭐ *Star it · Fork it · Build yours!*\n` +
+            `_Tap a button below to get started_`;
 
         await sendButtons(ctx.sock, ctx.from, {
             title:  `🐾 ${config.BOT_NAME} — Source Code`,
