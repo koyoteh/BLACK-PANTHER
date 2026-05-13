@@ -766,7 +766,7 @@ addCmd({
                     renderLargerThumbnail: false,
                     showAdAttribution: true,
                     sourceUrl: result.url,
-                    thumbnailUrl: 'https://tmpfiles.org/dl/36257265/panther_1777780194457.jpg',
+                    thumbnailUrl: 'https://i.ibb.co/PZjVDnBM/upload-1778637749645-4b17ed31-jpg.jpg',
                 },
             },
         }, { quoted: ctx.m });
