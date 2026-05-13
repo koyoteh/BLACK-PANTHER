@@ -9,6 +9,7 @@ const axios      = require('axios');
 const yts        = require('yt-search');
 const config     = require('../../guru/config/settings');
 const { channelCtx } = require('../../guru/utils/gmdFunctions2');
+const { sendButtons } = require('gifted-btns');
 
 // ── HTTP helper ────────────────────────────────────────────────
 async function getJson(url, opts = {}) {
@@ -237,15 +238,28 @@ addCmd({
                 );
             }
 
-            // Send thumbnail + info first if we have one
+            // Send thumbnail + info with buttons
             if (thumb) {
-                await ctx.send({
-                    image:   { url: thumb },
-                    caption: `🎵 *${title}*\n` +
-                             (channel ? `👤 *Channel:* ${channel}\n` : '') +
-                             `⏱️ *Duration:* ${duration}\n` +
-                             `🔗 ${videoUrl}\n\n_${config.BOT_NAME}_`,
-                }).catch(() => {});
+                await sendButtons(ctx.sock, ctx.from, {
+                    title:  `🎵 ${title.slice(0, 60)}`,
+                    text:   (channel ? `👤 *Channel:* ${channel}\n` : '') +
+                            `⏱️ *Duration:* ${duration}`,
+                    footer: config.BOT_NAME,
+                    image:  { url: thumb },
+                    buttons: [
+                        { name: 'cta_url', buttonParamsJson: JSON.stringify({ display_text: '▶️ Watch on YouTube', url: videoUrl }) },
+                        { name: 'quick_reply', buttonParamsJson: JSON.stringify({ display_text: '🎵 Download MP3', id: `${config.BOT_PREFIX}ytmp3 ${videoUrl}` }) },
+                        { name: 'quick_reply', buttonParamsJson: JSON.stringify({ display_text: '🎬 Download MP4', id: `${config.BOT_PREFIX}ytmp4 ${videoUrl}` }) },
+                    ],
+                }, { quoted: ctx.m }).catch(() =>
+                    ctx.send({
+                        image:   { url: thumb },
+                        caption: `🎵 *${title}*\n` +
+                                 (channel ? `👤 *Channel:* ${channel}\n` : '') +
+                                 `⏱️ *Duration:* ${duration}\n` +
+                                 `🔗 ${videoUrl}\n\n_${config.BOT_NAME}_`,
+                    }).catch(() => {})
+                );
             }
 
             await ctx.send({
@@ -313,18 +327,26 @@ addCmd({
             if (!items.length)
                 return ctx.sock.sendMessage(ctx.from, { text: '❌ No results found. Try a different search term.', contextInfo: channelCtx() }, { quoted: ctx.m });
 
-            let text = `🔍 *YouTube Results for:* _${ctx.text}_\n${'─'.repeat(30)}\n\n`;
-
+            const top3 = items.slice(0, 3);
+            const rest = items.slice(3);
+            let infoText = `🔍 *YouTube Results for:* _${ctx.text}_\n${'─'.repeat(30)}\n\n`;
             items.forEach((item, i) => {
-                text += `*${i + 1}.* ${item.title}\n`;
-                text += `   ⏱️ ${item.duration}  👁️ ${item.views}\n`;
-                if (item.channel) text += `   👤 ${item.channel}\n`;
-                text += `   🔗 ${item.url}\n\n`;
+                infoText += `*${i + 1}.* ${item.title}\n`;
+                infoText += `   ⏱️ ${item.duration}  👁️ ${item.views}\n`;
+                if (item.channel) infoText += `   👤 ${item.channel}\n`;
+                infoText += `   🔗 ${item.url}\n\n`;
             });
+            infoText += `💡 _Use ${config.BOT_PREFIX}play <title> to download_\n_${config.BOT_NAME}_`;
 
-            text += `💡 _Use ${config.BOT_PREFIX}play <title> to download any song_\n_${config.BOT_NAME}_`;
-
-            await ctx.reply(text);
+            await sendButtons(ctx.sock, ctx.from, {
+                title:  `🔍 YouTube: ${ctx.text.slice(0, 40)}`,
+                text:   infoText,
+                footer: config.BOT_NAME,
+                buttons: top3.map(item => ({
+                    name: 'cta_url',
+                    buttonParamsJson: JSON.stringify({ display_text: item.title.slice(0, 20), url: item.url }),
+                })),
+            }, { quoted: ctx.m }).catch(() => ctx.reply(infoText));
             await ctx.react('✅');
         } catch (err) {
             await ctx.react('❌');
@@ -420,13 +442,24 @@ addCmd({
                 tracks.slice(1).forEach((r, i) => { reply += `  ${i + 2}. ${r.title} — ${r.artist?.name}\n`; });
                 reply += '\n';
             }
-            reply += `🔗 ${t.link}\n\n_Use ${config.BOT_PREFIX}play ${t.title} to download_\n_${config.BOT_NAME}_`;
+            reply += `_Use ${config.BOT_PREFIX}play ${t.title} to download_`;
 
-            if (t.album?.cover_medium) {
-                await ctx.send({ image: { url: t.album.cover_medium }, caption: reply });
-            } else {
-                await ctx.reply(reply);
-            }
+            await sendButtons(ctx.sock, ctx.from, {
+                title:  `🎵 ${t.title.slice(0, 50)}`,
+                text:   reply,
+                footer: config.BOT_NAME,
+                ...(t.album?.cover_medium ? { image: { url: t.album.cover_medium } } : {}),
+                buttons: [
+                    { name: 'cta_url', buttonParamsJson: JSON.stringify({ display_text: '🎵 Listen on Deezer', url: t.link }) },
+                    { name: 'quick_reply', buttonParamsJson: JSON.stringify({ display_text: '⬇️ Download Song', id: `${config.BOT_PREFIX}play ${t.title}` }) },
+                ],
+            }, { quoted: ctx.m }).catch(async () => {
+                if (t.album?.cover_medium) {
+                    await ctx.send({ image: { url: t.album.cover_medium }, caption: reply + `\n🔗 ${t.link}\n\n_${config.BOT_NAME}_` });
+                } else {
+                    await ctx.reply(reply + `\n🔗 ${t.link}\n\n_${config.BOT_NAME}_`);
+                }
+            });
             await ctx.react('✅');
         } catch (err) {
             await ctx.react('❌');

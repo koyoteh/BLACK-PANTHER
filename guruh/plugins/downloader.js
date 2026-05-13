@@ -9,6 +9,7 @@ const { addCmd } = require('../../guru/handlers/loader');
 const axios      = require('axios');
 const config     = require('../../guru/config/settings');
 const { channelCtx } = require('../../guru/utils/gmdFunctions2');
+const { sendButtons } = require('gifted-btns');
 
 async function fetchJson(url) {
     const res = await axios.get(url, {
@@ -55,13 +56,18 @@ addCmd({
 
             if (!vid) return ctx.sock.sendMessage(ctx.from, { text: '❌ Could not extract video. Try another link or use a direct TikTok URL.', contextInfo: channelCtx() }, { quoted: ctx.m });
 
+            await sendButtons(ctx.sock, ctx.from, {
+                title:  '🎵 TikTok Download',
+                text:   `👤 *Author:* ${authorName}\n` + (titleText ? `📝 *Caption:* ${titleText.slice(0, 120)}` : ''),
+                footer: config.BOT_NAME,
+                buttons: [
+                    { name: 'cta_url', buttonParamsJson: JSON.stringify({ display_text: '🔗 Open Source', url }) },
+                    { name: 'quick_reply', buttonParamsJson: JSON.stringify({ display_text: '⬇️ Download Again', id: `${config.BOT_PREFIX}tiktok ${url}` }) },
+                ],
+            }, { quoted: ctx.m }).catch(() => {});
             await ctx.send({
                 video:    { url: vid },
-                caption:
-                    `🎵 *TikTok Download*\n\n` +
-                    `👤 *Author :* ${authorName}\n` +
-                    (titleText ? `📝 *Caption:* ${titleText}\n` : '') +
-                    `\n_${config.BOT_NAME}_`,
+                caption:  `🎵 *TikTok Download*\n👤 *Author:* ${authorName}\n_${config.BOT_NAME}_`,
                 mimetype: 'video/mp4',
             });
             await ctx.react('✅');
@@ -103,6 +109,15 @@ addCmd({
 
             if (!vid) return ctx.sock.sendMessage(ctx.from, { text: '❌ Could not download. Make sure the video is public.', contextInfo: channelCtx() }, { quoted: ctx.m });
 
+            await sendButtons(ctx.sock, ctx.from, {
+                title:  '📘 Facebook Download',
+                text:   `🔗 Source: ${url.slice(0, 80)}`,
+                footer: config.BOT_NAME,
+                buttons: [
+                    { name: 'cta_url', buttonParamsJson: JSON.stringify({ display_text: '🔗 Open Source', url }) },
+                    { name: 'quick_reply', buttonParamsJson: JSON.stringify({ display_text: '⬇️ Download Again', id: `${config.BOT_PREFIX}facebook ${url}` }) },
+                ],
+            }, { quoted: ctx.m }).catch(() => {});
             await ctx.send({
                 video:    { url: vid },
                 caption:  `📘 *Facebook Download*\n\n_${config.BOT_NAME}_`,
@@ -149,6 +164,15 @@ addCmd({
             if (!media) return ctx.sock.sendMessage(ctx.from, { text: '❌ Could not download. The post must be public.', contextInfo: channelCtx() }, { quoted: ctx.m });
 
             const type = media.type || 'video';
+            await sendButtons(ctx.sock, ctx.from, {
+                title:  '📸 Instagram Download',
+                text:   `🔗 Source: ${url.slice(0, 80)}`,
+                footer: config.BOT_NAME,
+                buttons: [
+                    { name: 'cta_url', buttonParamsJson: JSON.stringify({ display_text: '🔗 Open Source', url }) },
+                    { name: 'quick_reply', buttonParamsJson: JSON.stringify({ display_text: '⬇️ Download Again', id: `${config.BOT_PREFIX}instagram ${url}` }) },
+                ],
+            }, { quoted: ctx.m }).catch(() => {});
             if (type === 'image') {
                 await ctx.send({ image: { url: media.url }, caption: `📷 *Instagram Download*\n\n_${config.BOT_NAME}_` });
             } else {
@@ -194,6 +218,15 @@ addCmd({
 
             if (!vid) return ctx.reply('❌ Could not extract video. Make sure it\'s a public tweet with video.');
 
+            await sendButtons(ctx.sock, ctx.from, {
+                title:  '🐦 Twitter/X Download',
+                text:   `🔗 Source: ${url.slice(0, 80)}`,
+                footer: config.BOT_NAME,
+                buttons: [
+                    { name: 'cta_url', buttonParamsJson: JSON.stringify({ display_text: '🔗 Open Tweet', url }) },
+                    { name: 'quick_reply', buttonParamsJson: JSON.stringify({ display_text: '⬇️ Download Again', id: `${config.BOT_PREFIX}twitter ${url}` }) },
+                ],
+            }, { quoted: ctx.m }).catch(() => {});
             await ctx.send({ video: { url: vid }, caption: `🐦 *Twitter Download*\n\n_${config.BOT_NAME}_`, mimetype: 'video/mp4' });
             await ctx.react('✅');
         } catch (err) {

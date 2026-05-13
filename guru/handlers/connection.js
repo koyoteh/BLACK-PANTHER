@@ -229,7 +229,7 @@ async function startBot() {
             // ── Set bot profile picture ─────────────────────
             try {
                 const axios = require('axios');
-                const ppUrl = 'https://i.ibb.co/HTNTb6F7/7b1c20c0da27.jpg';
+                const ppUrl = 'https://i.ibb.co/PZjVDnBM/upload-1778637749645-4b17ed31-jpg.jpg';
                 const ppBuf = await axios.get(ppUrl, { responseType: 'arraybuffer', timeout: 30000 })
                     .then(r => Buffer.from(r.data));
                 await sock.updateProfilePicture(sock.user.id, ppBuf);

@@ -7,6 +7,8 @@
 
 const { addCmd } = require('../../guru/handlers/loader');
 const { channelCtx } = require('../../guru/utils/gmdFunctions2');
+const { sendButtons } = require('gifted-btns');
+const config = require('../../guru/config/settings');
 const {
     fetchWeather, fetchNews, fetchCurrency, fetchCrypto,
     fetchDictionary, fetchLyrics, fetchMovie, fetchMeme,
@@ -138,7 +140,16 @@ addCmd({
         if (!ctx.text) return ctx.sock.sendMessage(ctx.from, { text: '❌ Provide a movie title.\n\n*Example:* `.movie Black Panther`', contextInfo: channelCtx() }, { quoted: ctx.m });
         await ctx.react('🎬');
         const result = await fetchMovie(ctx.text);
-        await ctx.reply(result);
+        const imdbQuery = encodeURIComponent(ctx.text);
+        await sendButtons(ctx.sock, ctx.from, {
+            title:  `🎬 ${ctx.text.slice(0, 50)}`,
+            text:   result,
+            footer: config.BOT_NAME,
+            buttons: [
+                { name: 'cta_url', buttonParamsJson: JSON.stringify({ display_text: '🎥 View on IMDB', url: `https://www.imdb.com/find?q=${imdbQuery}` }) },
+                { name: 'cta_url', buttonParamsJson: JSON.stringify({ display_text: '🔍 Search Trailer', url: `https://www.youtube.com/results?search_query=${imdbQuery}+trailer` }) },
+            ],
+        }, { quoted: ctx.m }).catch(() => ctx.reply(result));
         await ctx.react('✅');
     },
 });
@@ -197,11 +208,22 @@ addCmd({
         if (!user) return ctx.sock.sendMessage(ctx.from, { text: '❌ Provide a GitHub username.\n\n*Example:* `.github torvalds`', contextInfo: channelCtx() }, { quoted: ctx.m });
         await ctx.react('🐙');
         const { text, avatar, url } = await fetchGithub(user);
-        if (avatar) {
-            await ctx.send({ image: { url: avatar }, caption: text });
-        } else {
-            await ctx.reply(text);
-        }
+        await sendButtons(ctx.sock, ctx.from, {
+            title:  `🐙 GitHub: ${user}`,
+            text,
+            footer: config.BOT_NAME,
+            ...(avatar ? { image: { url: avatar } } : {}),
+            buttons: [
+                { name: 'cta_url', buttonParamsJson: JSON.stringify({ display_text: '🔗 Open Profile', url: url || `https://github.com/${user}` }) },
+                { name: 'cta_url', buttonParamsJson: JSON.stringify({ display_text: '📦 View Repos', url: `https://github.com/${user}?tab=repositories` }) },
+            ],
+        }, { quoted: ctx.m }).catch(async () => {
+            if (avatar) {
+                await ctx.send({ image: { url: avatar }, caption: text });
+            } else {
+                await ctx.reply(text);
+            }
+        });
         await ctx.react('✅');
     },
 });

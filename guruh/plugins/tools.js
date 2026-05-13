@@ -3,6 +3,8 @@ const { addCmd }    = require('../../guru/handlers/loader');
 const axios         = require('axios');
 const config        = require('../../guru/config/settings');
 const { getTime, getDate } = require('../../guru/utils/helpers');
+const { channelCtx } = require('../../guru/utils/gmdFunctions2');
+const { sendButtons } = require('gifted-btns');
 
 // ── Sticker ───────────────────────────────────────────────────
 addCmd({
@@ -61,7 +63,6 @@ addCmd({
 
         try {
             const { translate } = require('@vitalets/google-translate-api');
-const { channelCtx } = require('../../guru/utils/gmdFunctions2');
             const res = await translate(text, { to: lang });
             await ctx.sock.sendMessage(ctx.from, { text: `🌐 *Translation* (→ ${lang})\n\n${res.text}`, contextInfo: channelCtx() }, { quoted: ctx.m });
         } catch {
@@ -84,11 +85,21 @@ addCmd({
             const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(ctx.text)}`;
             const res = await axios.get(url);
             const d   = res.data;
+            const wikiUrl = d.content_urls?.desktop?.page || `https://en.wikipedia.org/wiki/${encodeURIComponent(d.title)}`;
             const text =
                 `📖 *${d.title}*\n\n` +
                 `${d.extract?.slice(0, 900)}...\n\n` +
-                `🔗 ${d.content_urls?.desktop?.page || ''}`;
-            await ctx.reply(text);
+                `🔗 ${wikiUrl}`;
+            await sendButtons(ctx.sock, ctx.from, {
+                title:  `📖 ${d.title.slice(0, 60)}`,
+                text,
+                footer: config.BOT_NAME,
+                ...(d.thumbnail?.source ? { image: { url: d.thumbnail.source } } : {}),
+                buttons: [
+                    { name: 'cta_url', buttonParamsJson: JSON.stringify({ display_text: '📖 Read Full Article', url: wikiUrl }) },
+                    { name: 'cta_url', buttonParamsJson: JSON.stringify({ display_text: '🔍 Search More', url: `https://en.wikipedia.org/wiki/Special:Search?search=${encodeURIComponent(ctx.text)}` }) },
+                ],
+            }, { quoted: ctx.m }).catch(() => ctx.reply(text));
             await ctx.react('✅');
         } catch {
             await ctx.react('❌');
@@ -205,12 +216,20 @@ addCmd({
             const url = String(data).trim();
             if (!/^https?:\/\//.test(url)) throw new Error(`Upload failed: ${url}`);
 
-            await ctx.reply(
+            const replyText =
                 `*📤 Upload Complete*\n\n` +
                 `🔗 ${url}\n` +
                 `📦 Size: ${(buf.length / 1024 / 1024).toFixed(2)} MB\n` +
-                `🗂️  Type: ${ft?.mime || 'unknown'}`
-            );
+                `🗂️  Type: ${ft?.mime || 'unknown'}`;
+            await sendButtons(ctx.sock, ctx.from, {
+                title:  '📤 Upload Complete',
+                text:   replyText,
+                footer: config.BOT_NAME,
+                buttons: [
+                    { name: 'cta_url', buttonParamsJson: JSON.stringify({ display_text: '🔗 Open File URL', url }) },
+                    { name: 'cta_copy', buttonParamsJson: JSON.stringify({ display_text: '📋 Copy URL', copy_code: url }) },
+                ],
+            }, { quoted: ctx.m }).catch(() => ctx.reply(replyText));
             await ctx.react('✅');
         } catch (err) {
             await ctx.react('❌');

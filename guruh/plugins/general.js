@@ -3,6 +3,7 @@ const { addCmd } = require('../../guru/handlers/loader');
 const axios      = require('axios');
 const config     = require('../../guru/config/settings');
 const { channelCtx } = require('../../guru/utils/gmdFunctions2');
+const { sendButtons } = require('gifted-btns');
 
 // ── Profile picture ───────────────────────────────────────────
 addCmd({
@@ -66,7 +67,20 @@ addCmd({
             `🤖 *Owner  :* ${ctx.isOwner ? 'Yes' : 'No'}\n` +
             `🖼️ *PP     :* ${ppUrl !== 'None' ? '✅ Has picture' : '❌ No picture'}\n\n` +
             `_${config.BOT_NAME}_`;
-        await ctx.reply(text);
+
+        const btns = [
+            { name: 'cta_copy', buttonParamsJson: JSON.stringify({ display_text: '📋 Copy JID', copy_code: target }) },
+            { name: 'cta_copy', buttonParamsJson: JSON.stringify({ display_text: '📋 Copy Number', copy_code: `+${number}` }) },
+        ];
+        if (ppUrl !== 'None') {
+            btns.push({ name: 'cta_url', buttonParamsJson: JSON.stringify({ display_text: '🖼️ View Profile Pic', url: ppUrl }) });
+        }
+        await sendButtons(ctx.sock, ctx.from, {
+            title:  '👤 User Info',
+            text,
+            footer: config.BOT_NAME,
+            buttons: btns,
+        }, { quoted: ctx.m }).catch(() => ctx.reply(text));
     },
 });
 
