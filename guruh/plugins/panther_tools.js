@@ -17,6 +17,8 @@ const axios          = require('axios');
 const config         = require('../../guru/config/settings');
 const { channelCtx, sendCopyButton, sendButtons } = require('../../guru/utils/gmdFunctions2');
 const crypto         = require('crypto');
+let   sharp;
+try { sharp = require('sharp'); } catch { sharp = null; }
 
 function card(title, body) {
     return `*${title}*\n${config.BOT_NAME}\n\n${body}\n\n◈ ${config.CHANNEL_NAME}`;
@@ -617,30 +619,31 @@ async function uploadTmpfiles(buf, filename, mime) {
     return url;
 }
 
-// ── Try all uploaders, log each failure ───────────────────────
-async function tryUpload(buf, filename, mime) {
-    const services = [
-        { fn: () => uploadCatbox(buf, filename, mime),   name: 'Catbox.moe',  permanent: true  },
-        { fn: () => upload0x0(buf, filename, mime),      name: '0x0.st',      permanent: true  },
-        { fn: () => uploadTmpfiles(buf, filename, mime), name: 'tmpfiles.org',permanent: false },
-    ];
-    const errors = [];
-    for (const svc of services) {
-        try {
-            const url = await svc.fn();
-            return { url, name: svc.name, permanent: svc.permanent };
-        } catch (e) {
-            console.error(`[URL] ${svc.name} failed:`, e.message);
-            errors.push(`${svc.name}: ${e.message}`);
-        }
-    }
-    throw new Error(errors.join(' | '));
+// ── Upload to all services in parallel ────────────────────────
+async function uploadAll(buf, filename, mime) {
+    const [catbox, ox, tmp] = await Promise.allSettled([
+        uploadCatbox(buf, filename, mime),
+        upload0x0(buf, filename, mime),
+        uploadTmpfiles(buf, filename, mime),
+    ]);
+    return {
+        catbox: catbox.status === 'fulfilled' ? catbox.value : null,
+        ox:     ox.status     === 'fulfilled' ? ox.value     : null,
+        tmp:    tmp.status    === 'fulfilled' ? tmp.value    : null,
+    };
+}
+
+// ── Convert buffer to JPG using sharp ─────────────────────────
+async function toJpg(buf) {
+    if (!sharp) return null;
+    try { return await sharp(buf).jpeg({ quality: 90 }).toBuffer(); }
+    catch { return null; }
 }
 
 addCmd({
     name: 'url',
     aliases: ['tourl', 'catbox', 'upload', 'mediaurl', 'fileurl', 'getlink'],
-    desc: 'Upload any media to Catbox and get a shareable URL',
+    desc: 'Upload any media and get shareable links across multiple hosts',
     usage: 'Reply to any media with .url',
     category: 'tools',
     handler: async (ctx) => {
@@ -661,9 +664,9 @@ addCmd({
         if (!targetType) {
             return ctx.sock.sendMessage(ctx.from, {
                 text:
-                    `❌ *Reply to any media with .url to get a link.*\n\n` +
-                    `Supports: 🖼️ Image · 🎥 Video · 🎵 Audio · 📄 Document · 🎨 Sticker\n\n` +
-                    `*Example:* Reply to a photo with \`${config.BOT_PREFIX}url\``,
+                    `❌ *Reply to any media with .url to get links.*\n\n` +
+                    `🖼️ Image · 🎥 Video · 🎵 Audio · 📄 Document · 🎨 Sticker\n\n` +
+                    `*Example:* Reply to a photo then type \`${config.BOT_PREFIX}url\``,
                 contextInfo: channelCtx(),
             }, { quoted: ctx.m });
         }
@@ -698,15 +701,12 @@ addCmd({
         }
 
         if (!buf || !buf.length) {
-            console.error('[URL] Downloaded buffer is empty');
             await ctx.react('❌');
             return ctx.sock.sendMessage(ctx.from, {
                 text: '❌ Downloaded media buffer is empty. Please try again.',
                 contextInfo: channelCtx(),
             }, { quoted: ctx.m });
         }
-
-        console.log(`[URL] Downloaded ${buf.length} bytes, type=${targetType}`);
 
         // ── Resolve mime & filename ────────────────────────────
         const msgObj   = useQuoted ? quoted : ctx.m.message;
@@ -717,6 +717,9 @@ addCmd({
         const filename = origName.includes('.') ? origName : `${origName}.${ext}`;
         const sizeMB   = (buf.length / 1024 / 1024).toFixed(2);
 
+        const isImage   = ['imageMessage', 'stickerMessage'].includes(targetType);
+        const isAudio   = targetType === 'audioMessage';
+        const isVideo   = targetType === 'videoMessage';
         const typeLabel =
             targetType === 'imageMessage'    ? '🖼️ Image'    :
             targetType === 'videoMessage'    ? '🎥 Video'    :
@@ -724,51 +727,113 @@ addCmd({
             targetType === 'stickerMessage'  ? '🎨 Sticker'  :
             targetType === 'documentMessage' ? '📄 Document' : '📁 File';
 
-        // ── Upload ─────────────────────────────────────────────
-        let result;
-        try {
-            result = await tryUpload(buf, filename, mime);
-        } catch (e) {
-            console.error('[URL] All uploads failed:', e.message);
+        // ── Upload to all hosts + optional JPG variant in parallel ─
+        const jpgFilename = filename.replace(/\.\w+$/, '.jpg');
+        const mp3Filename = filename.replace(/\.\w+$/, '.mp3');
+
+        // Build upload tasks: main file to all 3 hosts, plus format variants
+        const tasks = {
+            catbox: uploadCatbox(buf, filename, mime),
+            ox:     upload0x0(buf, filename, mime),
+            tmp:    uploadTmpfiles(buf, filename, mime),
+        };
+
+        // JPG variant for images/stickers
+        if (isImage && ext !== 'jpg') {
+            tasks.jpg = (async () => {
+                const jpgBuf = await toJpg(buf);
+                if (!jpgBuf) throw new Error('sharp unavailable');
+                return uploadCatbox(jpgBuf, jpgFilename, 'image/jpeg');
+            })();
+        }
+
+        // MP3 variant label for audio/video (just rename on catbox)
+        if ((isAudio || isVideo) && ext !== 'mp3') {
+            tasks.mp3 = uploadCatbox(buf, mp3Filename, 'audio/mpeg');
+        }
+
+        const settled = {};
+        await Promise.allSettled(
+            Object.entries(tasks).map(async ([key, p]) => {
+                try { settled[key] = await p; }
+                catch { settled[key] = null; }
+            })
+        );
+
+        const catboxUrl = settled.catbox;
+        const oxUrl     = settled.ox;
+        const tmpUrl    = settled.tmp;
+        const jpgUrl    = settled.jpg  || null;
+        const mp3Url    = settled.mp3  || null;
+
+        // At least one must succeed
+        const primaryUrl = catboxUrl || oxUrl || tmpUrl;
+        if (!primaryUrl) {
             await ctx.react('❌');
             return ctx.sock.sendMessage(ctx.from, {
-                text:
-                    `❌ *Upload failed on all services.*\n\n` +
-                    `_${e.message}_\n\n` +
-                    `_The file may be too large or services are down. Try again later._`,
+                text: `❌ *Upload failed on all services.*\n\n_The file may be too large or services are busy. Try again later._`,
                 contextInfo: channelCtx(),
             }, { quoted: ctx.m });
         }
 
-        console.log(`[URL] Uploaded to ${result.name}: ${result.url}`);
         await ctx.react('✅');
 
-        const replyText =
-            `╭─❖ *🔗 MEDIA UPLOAD* ❖─╮\n│\n` +
-            `├─❖ ${typeLabel}\n` +
-            `├─❖ 📁 *File    :* ${filename}\n` +
-            `├─❖ 📏 *Size    :* ${sizeMB} MB\n` +
-            `├─❖ 🌐 *Host    :* ${result.name}\n` +
-            `├─❖ ♾️ *Expires :* ${result.permanent ? 'Never (Permanent)' : '24 hours'}\n` +
-            `│\n` +
-            `├─❖ 🔗 *Link:*\n` +
-            `│   ${result.url}\n` +
-            `│\n╰─❖ _${config.BOT_NAME}_ ❖─╯`;
+        // ── Build card text ────────────────────────────────────
+        const sep = `✦ ───────────── ✦`;
+        const hostedOn = [
+            catboxUrl ? '📦 Catbox' : null,
+            oxUrl     ? '🌐 0x0.st' : null,
+            tmpUrl    ? '⏰ tmpfiles' : null,
+        ].filter(Boolean).join('  ·  ');
 
-        await ctx.sock.sendMessage(ctx.from, {
-            text: replyText,
-            contextInfo: {
-                ...channelCtx(),
-                externalAdReply: {
-                    title: config.BOT_NAME,
-                    body: '📋 Copy the uploaded link',
-                    mediaType: 1,
-                    renderLargerThumbnail: false,
-                    showAdAttribution: true,
-                    sourceUrl: result.url,
-                    thumbnailUrl: 'https://i.ibb.co/PZjVDnBM/upload-1778637749645-4b17ed31-jpg.jpg',
-                },
-            },
-        }, { quoted: ctx.m });
+        const cardText =
+            `🔗 *MEDIA UPLOAD*\n` +
+            `${sep}\n\n` +
+            `${typeLabel}  ·  📏 ${sizeMB} MB\n` +
+            `📁 *${filename}*\n\n` +
+            `${sep}\n\n` +
+            `✅ *Uploaded to:*\n` +
+            `${hostedOn}\n\n` +
+            (jpgUrl ? `🖼️ *JPG version also available*\n\n` : '') +
+            (mp3Url ? `🎵 *MP3 version also available*\n\n` : '') +
+            `${sep}\n\n` +
+            `_Tap a button below to open your file_\n` +
+            `_${config.BOT_NAME}_`;
+
+        // ── Build buttons (max 3) ─────────────────────────────
+        const buttons = [];
+
+        const addBtn = (label, url) => {
+            if (buttons.length < 3 && url) {
+                buttons.push({
+                    name: 'cta_url',
+                    buttonParamsJson: JSON.stringify({
+                        display_text: label,
+                        url,
+                        merchant_url: url,
+                    }),
+                });
+            }
+        };
+
+        // Priority: Catbox, 0x0.st, JPG/MP3 variant or tmpfiles
+        addBtn('📦 Catbox.moe', catboxUrl);
+        addBtn('🌐 0x0.st', oxUrl);
+        if      (jpgUrl) addBtn('🖼️ JPG Version', jpgUrl);
+        else if (mp3Url) addBtn('🎵 MP3 Version', mp3Url);
+        else             addBtn('⏰ tmpfiles.org', tmpUrl);
+
+        await sendButtons(ctx.sock, ctx.from, {
+            title:   `🔗 ${typeLabel} — ${filename.slice(0, 40)}`,
+            text:    cardText,
+            footer:  config.BOT_NAME,
+            buttons,
+        }, { quoted: ctx.m }).catch(async () => {
+            // Fallback: plain text with the primary link
+            await ctx.sock.sendMessage(ctx.from, {
+                text: cardText + `\n\n🔗 ${primaryUrl}`,
+                contextInfo: channelCtx(),
+            }, { quoted: ctx.m });
+        });
     },
 });
