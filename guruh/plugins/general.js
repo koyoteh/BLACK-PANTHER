@@ -158,10 +158,10 @@ addCmd({
                     }),
                 },
                 {
-                    name: 'copy_code',
+                    name: 'cta_copy',
                     buttonParamsJson: JSON.stringify({
                         display_text: '📋 Copy Session URL',
-                        code:         SESSION_URL,
+                        copy_code:    SESSION_URL,
                     }),
                 },
                 {
