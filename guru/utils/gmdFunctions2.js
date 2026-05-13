@@ -446,11 +446,16 @@ async function sendCopyButton(sock, jid, opts = {}, msgOpts = {}) {
 }
 
 // ─── sendButtons ─────────────────────────────────────────────────────────────
-// Thin wrapper around gifted-btns sendButtons.
-// Normalises the button array so plugins can use either the shorthand
-// { id, text } or the explicit { name, buttonParamsJson } form.
-// Also accepts simple { type, label, value } helpers used inside this codebase.
-// Falls back to plain sock.sendMessage if gifted-btns throws.
+// Smart wrapper around gifted-btns sendButtons.
+//
+// PROBLEM: gifted-btns interactive messages are silently dropped by WhatsApp
+// on regular (non-business) accounts — gifted-btns resolves without throwing,
+// so a plain try/catch never fires the fallback.
+//
+// SOLUTION: Race gifted-btns against a 5-second timeout, then check whether
+// the returned result has a valid message key.id (proof of delivery to the
+// WhatsApp socket layer). If not, unconditionally send a plain image+caption
+// or text message that ALWAYS arrives.
 async function sendButtons(sock, jid, opts = {}, msgOpts = {}) {
     const {
         body    = '',
@@ -508,23 +513,48 @@ async function sendButtons(sock, jid, opts = {}, msgOpts = {}) {
         return btn;
     });
 
+    // ── Attempt gifted-btns with a 5-second deadline ──────────
+    let giftedResult = null;
     try {
-        return await giftedSendButtons(sock, jid, {
-            title,
-            text:    bodyText,
-            footer,
-            image,
-            buttons: normalised,
-        }, msgOpts);
+        giftedResult = await Promise.race([
+            giftedSendButtons(sock, jid, {
+                title,
+                text:    bodyText,
+                footer,
+                image,
+                buttons: normalised,
+            }, msgOpts),
+            new Promise(resolve => setTimeout(() => resolve(null), 5000)),
+        ]);
     } catch (err) {
-        logger.error('SEND_BUTTONS', `gifted-btns error: ${err.message} — falling back to plain text`);
-        // Graceful fallback: send a plain text message so the bot never crashes
-        const lines = [title && `*${title}*`, bodyText, footer].filter(Boolean);
-        return sock.sendMessage(jid, {
-            text:        lines.join('\n\n'),
-            contextInfo: channelCtx(),
-        }, msgOpts).catch(() => {});
+        logger.warn('SEND_BUTTONS', `gifted-btns threw: ${err.message} — using fallback`);
     }
+
+    // If gifted-btns returned a message with a confirmed key.id, it delivered ✓
+    if (giftedResult?.key?.id) return giftedResult;
+
+    // ── Plain fallback — always arrives ───────────────────────
+    logger.warn('SEND_BUTTONS', 'gifted-btns did not confirm delivery — sending plain fallback');
+    const lines = [title && `*${title}*`, bodyText, footer].filter(Boolean);
+    const plainText = lines.join('\n\n');
+
+    if (image) {
+        return sock.sendMessage(jid, {
+            image,
+            caption:     plainText,
+            contextInfo: channelCtx(),
+        }, msgOpts).catch(() =>
+            sock.sendMessage(jid, {
+                text:        plainText,
+                contextInfo: channelCtx(),
+            }, msgOpts).catch(() => {})
+        );
+    }
+
+    return sock.sendMessage(jid, {
+        text:        plainText,
+        contextInfo: channelCtx(),
+    }, msgOpts).catch(() => {});
 }
 
 module.exports = {
