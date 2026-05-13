@@ -62,7 +62,7 @@ addCmd({
                 footer: config.BOT_NAME,
                 buttons: [
                     { name: 'cta_url', buttonParamsJson: JSON.stringify({ display_text: '🔗 Open Source', url }) },
-                    { name: 'quick_reply', buttonParamsJson: JSON.stringify({ display_text: '⬇️ Download Again', id: `${config.BOT_PREFIX}tiktok ${url}` }) },
+                    { id: `${config.BOT_PREFIX}tiktok ${url}`, text: '⬇️ Download Again' },
                 ],
             }, { quoted: ctx.m }).catch(() => {});
             await ctx.send({
@@ -115,7 +115,7 @@ addCmd({
                 footer: config.BOT_NAME,
                 buttons: [
                     { name: 'cta_url', buttonParamsJson: JSON.stringify({ display_text: '🔗 Open Source', url }) },
-                    { name: 'quick_reply', buttonParamsJson: JSON.stringify({ display_text: '⬇️ Download Again', id: `${config.BOT_PREFIX}facebook ${url}` }) },
+                    { id: `${config.BOT_PREFIX}facebook ${url}`, text: '⬇️ Download Again' },
                 ],
             }, { quoted: ctx.m }).catch(() => {});
             await ctx.send({
@@ -170,7 +170,7 @@ addCmd({
                 footer: config.BOT_NAME,
                 buttons: [
                     { name: 'cta_url', buttonParamsJson: JSON.stringify({ display_text: '🔗 Open Source', url }) },
-                    { name: 'quick_reply', buttonParamsJson: JSON.stringify({ display_text: '⬇️ Download Again', id: `${config.BOT_PREFIX}instagram ${url}` }) },
+                    { id: `${config.BOT_PREFIX}instagram ${url}`, text: '⬇️ Download Again' },
                 ],
             }, { quoted: ctx.m }).catch(() => {});
             if (type === 'image') {
@@ -224,7 +224,7 @@ addCmd({
                 footer: config.BOT_NAME,
                 buttons: [
                     { name: 'cta_url', buttonParamsJson: JSON.stringify({ display_text: '🔗 Open Tweet', url }) },
-                    { name: 'quick_reply', buttonParamsJson: JSON.stringify({ display_text: '⬇️ Download Again', id: `${config.BOT_PREFIX}twitter ${url}` }) },
+                    { id: `${config.BOT_PREFIX}twitter ${url}`, text: '⬇️ Download Again' },
                 ],
             }, { quoted: ctx.m }).catch(() => {});
             await ctx.send({ video: { url: vid }, caption: `🐦 *Twitter Download*\n\n_${config.BOT_NAME}_`, mimetype: 'video/mp4' });

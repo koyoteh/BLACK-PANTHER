@@ -248,8 +248,8 @@ addCmd({
                     image:  { url: thumb },
                     buttons: [
                         { name: 'cta_url', buttonParamsJson: JSON.stringify({ display_text: '▶️ Watch on YouTube', url: videoUrl }) },
-                        { name: 'quick_reply', buttonParamsJson: JSON.stringify({ display_text: '🎵 Download MP3', id: `${config.BOT_PREFIX}ytmp3 ${videoUrl}` }) },
-                        { name: 'quick_reply', buttonParamsJson: JSON.stringify({ display_text: '🎬 Download MP4', id: `${config.BOT_PREFIX}ytmp4 ${videoUrl}` }) },
+                        { id: `${config.BOT_PREFIX}ytmp3 ${videoUrl}`, text: '🎵 Download MP3' },
+                        { id: `${config.BOT_PREFIX}ytmp4 ${videoUrl}`, text: '🎬 Download MP4' },
                     ],
                 }, { quoted: ctx.m }).catch(() =>
                     ctx.send({
@@ -451,7 +451,7 @@ addCmd({
                 ...(t.album?.cover_medium ? { image: { url: t.album.cover_medium } } : {}),
                 buttons: [
                     { name: 'cta_url', buttonParamsJson: JSON.stringify({ display_text: '🎵 Listen on Deezer', url: t.link }) },
-                    { name: 'quick_reply', buttonParamsJson: JSON.stringify({ display_text: '⬇️ Download Song', id: `${config.BOT_PREFIX}play ${t.title}` }) },
+                    { id: `${config.BOT_PREFIX}play ${t.title}`, text: '⬇️ Download Song' },
                 ],
             }, { quoted: ctx.m }).catch(async () => {
                 if (t.album?.cover_medium) {

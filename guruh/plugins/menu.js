@@ -195,14 +195,8 @@ addCmd({
                         sections: [{ title: '📋 All Categories', rows: catRows }],
                     }),
                 },
-                {
-                    name: 'quick_reply',
-                    buttonParamsJson: JSON.stringify({ display_text: '📋 Full Commands List', id: `${p}fullcmds` }),
-                },
-                {
-                    name: 'quick_reply',
-                    buttonParamsJson: JSON.stringify({ display_text: 'ℹ️ Bot Info', id: `${p}info` }),
-                },
+                { id: `${p}fullcmds`, text: '📋 Full Commands List' },
+                { id: `${p}info`,     text: 'ℹ️ Bot Info' },
             ],
         }, { quoted: ctx.m }).catch(async () => {
             try {
@@ -502,14 +496,8 @@ async function sendCategoryDetail(ctx, cat, allCmds) {
         footer: config.BOT_NAME,
         image:  { url: MENU_IMAGE },
         buttons: [
-            {
-                name: 'quick_reply',
-                buttonParamsJson: JSON.stringify({ display_text: '🏠 Back to Menu', id: `${p}menu` }),
-            },
-            {
-                name: 'quick_reply',
-                buttonParamsJson: JSON.stringify({ display_text: '📋 Full Commands List', id: `${p}fullcmds` }),
-            },
+            { id: `${p}menu`,     text: '🏠 Back to Menu' },
+            { id: `${p}fullcmds`, text: '📋 Full Commands List' },
         ],
     }, { quoted: ctx.m }).catch(async () => {
         try {
@@ -573,10 +561,7 @@ addCmd({
             footer: config.BOT_NAME,
             image:  { url: MENU_IMAGE },
             buttons: [
-                {
-                    name: 'quick_reply',
-                    buttonParamsJson: JSON.stringify({ display_text: '🏠 Back to Menu', id: `${p}menu` }),
-                },
+                { id: `${p}menu`, text: '🏠 Back to Menu' },
                 {
                     name: 'single_select',
                     buttonParamsJson: JSON.stringify({

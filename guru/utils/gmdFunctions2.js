@@ -449,10 +449,21 @@ async function sendButtons(sock, jid, opts = {}, msgOpts = {}) {
     const bodyText = text || body;
 
     // Build native-flow buttons — supports pre-built objects (with name+buttonParamsJson)
-    // as well as simple { type, label, value } shorthand objects
+    // gifted-btns / ULTRA-GURU style: { id, text }  and  simple { type, label, value }
     const builtButtons = buttons.map((btn) => {
         // Already a pre-built native-flow button
         if (btn.name && btn.buttonParamsJson !== undefined) return btn;
+
+        // gifted-btns / ULTRA-GURU style: { id, text } → quick_reply
+        if (!btn.name && !btn.type && (btn.id !== undefined || btn.text !== undefined)) {
+            return {
+                name:             'quick_reply',
+                buttonParamsJson: JSON.stringify({
+                    display_text: btn.text  || btn.label || '',
+                    id:           btn.id    || btn.text  || '',
+                }),
+            };
+        }
 
         if (btn.type === 'copy') {
             return {
