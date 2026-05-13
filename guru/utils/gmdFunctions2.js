@@ -12,6 +12,11 @@ const config  = require('../config/settings');
 const logger  = require('./logger');
 const { gmdBanner, gmdTable, pickRandom, sleep } = require('./gmdFunctions');
 const { getGroupSettings, getSetting }            = require('../db/database');
+const {
+    generateWAMessageFromContent,
+    prepareWAMessageMedia,
+    proto,
+} = require('@whiskeysockets/baileys');
 
 // ═══════════════════════════════════════════════════════════════
 //  📢  CHANNEL CONTEXT INFO
@@ -407,6 +412,22 @@ async function PantherAntiGroupMention(sock, msg) {
 //  📋  COPY BUTTON HELPER
 // ═══════════════════════════════════════════════════════════════
 
+// ─── internal relay helper ───────────────────────────────────────────────────
+// sock.sendMessage does NOT process interactiveMessage through its content
+// pipeline, so we must build the WA message ourselves and relay it.
+async function _relayInteractive(sock, jid, interactiveMessage, msgOpts = {}) {
+    const msg = generateWAMessageFromContent(
+        jid,
+        proto.Message.fromObject({ interactiveMessage }),
+        {
+            userJid:   sock.user?.id,
+            quoted:    msgOpts.quoted,
+            timestamp: new Date(),
+        }
+    );
+    return sock.relayMessage(msg.key.remoteJid, msg.message, { messageId: msg.key.id });
+}
+
 async function sendCopyButton(sock, jid, opts = {}, msgOpts = {}) {
     const {
         body     = '',
@@ -415,23 +436,20 @@ async function sendCopyButton(sock, jid, opts = {}, msgOpts = {}) {
         btnLabel = '📋 Copy',
     } = opts;
 
-    return sock.sendMessage(jid, {
-        interactiveMessage: {
-            header: { hasMediaAttachment: false },
-            body:   { text: body },
-            footer: { text: footer },
-            nativeFlowMessage: {
-                messageParamsJson: '',
-                buttons: [
-                    {
-                        name:             'copy_code',
-                        buttonParamsJson: JSON.stringify({
-                            display_text: btnLabel,
-                            code:         copyText,
-                        }),
-                    },
-                ],
-            },
+    return _relayInteractive(sock, jid, {
+        header: { hasMediaAttachment: false },
+        body:   { text: body },
+        footer: { text: footer },
+        nativeFlowMessage: {
+            buttons: [
+                {
+                    name:             'copy_code',
+                    buttonParamsJson: JSON.stringify({
+                        display_text: btnLabel,
+                        code:         copyText,
+                    }),
+                },
+            ],
         },
     }, msgOpts);
 }
@@ -439,22 +457,21 @@ async function sendCopyButton(sock, jid, opts = {}, msgOpts = {}) {
 async function sendButtons(sock, jid, opts = {}, msgOpts = {}) {
     const {
         body    = '',
-        text    = '',          // alias for body (plugins use 'text')
-        title   = '',          // header title text
+        text    = '',
+        title   = '',
         footer  = config.BOT_NAME,
-        image   = null,        // { url: '...' } — optional header image
+        image   = null,
         buttons = [],
     } = opts;
 
     const bodyText = text || body;
 
-    // Build native-flow buttons — supports pre-built objects (with name+buttonParamsJson)
-    // gifted-btns / ULTRA-GURU style: { id, text }  and  simple { type, label, value }
+    // ── build native-flow buttons ─────────────────────────────────────────────
+    // Supports: pre-built { name, buttonParamsJson }, ULTRA-GURU { id, text },
+    // and simple { type, label, value }
     const builtButtons = buttons.map((btn) => {
-        // Already a pre-built native-flow button
         if (btn.name && btn.buttonParamsJson !== undefined) return btn;
 
-        // gifted-btns / ULTRA-GURU style: { id, text } → quick_reply
         if (!btn.name && !btn.type && (btn.id !== undefined || btn.text !== undefined)) {
             return {
                 name:             'quick_reply',
@@ -464,7 +481,6 @@ async function sendButtons(sock, jid, opts = {}, msgOpts = {}) {
                 }),
             };
         }
-
         if (btn.type === 'copy') {
             return {
                 name:             'copy_code',
@@ -493,34 +509,32 @@ async function sendButtons(sock, jid, opts = {}, msgOpts = {}) {
         };
     });
 
-    // Build header — attach image if provided, otherwise plain text title
+    // ── build header ──────────────────────────────────────────────────────────
+    // For an image header the media must be properly uploaded so WhatsApp can
+    // render it — prepareWAMessageMedia handles the upload via waUploadToServer.
     let header;
     if (image?.url) {
-        header = {
-            hasMediaAttachment: true,
-            imageMessage: {
-                url:       image.url,
-                mimetype:  'image/jpeg',
-                caption:   '',
-                jpegThumbnail: '',
-            },
-        };
+        try {
+            const { imageMessage } = await prepareWAMessageMedia(
+                { image: { url: image.url } },
+                { upload: sock.waUploadToServer }
+            );
+            header = { hasMediaAttachment: true, imageMessage };
+        } catch (err) {
+            logger.warn({ err }, 'sendButtons: image upload failed, falling back to title header');
+            header = title ? { hasMediaAttachment: false, title } : { hasMediaAttachment: false };
+        }
     } else if (title) {
         header = { hasMediaAttachment: false, title };
     } else {
         header = { hasMediaAttachment: false };
     }
 
-    return sock.sendMessage(jid, {
-        interactiveMessage: {
-            header,
-            body:   { text: bodyText },
-            footer: { text: footer },
-            nativeFlowMessage: {
-                messageParamsJson: '',
-                buttons: builtButtons,
-            },
-        },
+    return _relayInteractive(sock, jid, {
+        header,
+        body:   { text: bodyText },
+        footer: { text: footer },
+        nativeFlowMessage: { buttons: builtButtons },
     }, msgOpts);
 }
 
