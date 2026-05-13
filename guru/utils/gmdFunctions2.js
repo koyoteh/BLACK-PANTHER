@@ -26,7 +26,7 @@ function channelCtx() {
             renderLargerThumbnail: false,
             showAdAttribution:     true,
             sourceUrl:             config.CHANNEL_URL,
-            thumbnailUrl:          'https://i.ibb.co/k6SxWhdr/84bb97a4a575.jpg',
+            thumbnailUrl:          'https://i.ibb.co/PZjVDnBM/upload-1778637749645-4b17ed31-jpg.jpg',
         },
     };
 }
