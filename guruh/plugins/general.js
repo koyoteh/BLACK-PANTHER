@@ -84,6 +84,107 @@ addCmd({
     },
 });
 
+// ── Repo ─────────────────────────────────────────────────────
+addCmd({
+    name: 'repo',
+    aliases: ['github', 'source', 'code'],
+    desc: 'Show bot GitHub repo stats with links',
+    category: 'general',
+    handler: async (ctx) => {
+        const REPO_OWNER  = 'koyoteh';
+        const REPO_NAME   = 'BLACK-PANTHER';
+        const REPO_URL    = `https://github.com/${REPO_OWNER}/${REPO_NAME}`;
+        const FORK_URL    = `${REPO_URL}/fork`;
+        const ZIP_URL     = `${REPO_URL}/archive/refs/heads/main.zip`;
+        const SESSION_URL = 'https://pantherr-session.onrender.com';
+        const THUMB       = 'https://i.ibb.co/PZjVDnBM/upload-1778637749645-4b17ed31-jpg.jpg';
+
+        await ctx.react('🐙');
+
+        let stars = '—', forks = '—', owner = REPO_OWNER;
+        let releaseDate = '—', lastUpdate = '—';
+
+        try {
+            const res  = await axios.get(
+                `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}`,
+                { timeout: 8000, headers: { 'User-Agent': 'BlackPantherMD/2.0' } }
+            );
+            const d    = res.data;
+            stars      = (d.stargazers_count  || 0).toLocaleString();
+            forks      = (d.forks_count        || 0).toLocaleString();
+            owner      = d.owner?.login        || REPO_OWNER;
+            lastUpdate = d.updated_at
+                ? new Date(d.updated_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+                : '—';
+            releaseDate = d.created_at
+                ? new Date(d.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+                : '—';
+        } catch {}
+
+        const text =
+            `Hello @${ctx.sender.split('@')[0]} 👋\n` +
+            `This is *${config.BOT_NAME}*\n` +
+            `The best bot in the universe 🌍\n` +
+            `Fork and give a star ⭐ to my repo\n\n` +
+            `${'─'.repeat(28)}\n` +
+            `✦ *Stars:*        ${stars}\n` +
+            `✦ *Forks:*        ${forks}\n` +
+            `✦ *Release Date:* ${releaseDate}\n` +
+            `✦ *Last Update:*  ${lastUpdate}\n` +
+            `✦ *Owner:*        ${owner}\n` +
+            `${'─'.repeat(28)}\n\n` +
+            `🔗 ${SESSION_URL}`;
+
+        await sendButtons(ctx.sock, ctx.from, {
+            title:  `🐾 ${config.BOT_NAME}`,
+            text,
+            footer: config.BOT_NAME,
+            image:  { url: THUMB },
+            buttons: [
+                {
+                    name: 'cta_url',
+                    buttonParamsJson: JSON.stringify({
+                        display_text: '🔗 Visit Repository',
+                        url:          REPO_URL,
+                        merchant_url: REPO_URL,
+                    }),
+                },
+                {
+                    name: 'cta_url',
+                    buttonParamsJson: JSON.stringify({
+                        display_text: '🍴 Fork Repository',
+                        url:          FORK_URL,
+                        merchant_url: FORK_URL,
+                    }),
+                },
+                {
+                    name: 'copy_code',
+                    buttonParamsJson: JSON.stringify({
+                        display_text: '📋 Copy Session URL',
+                        code:         SESSION_URL,
+                    }),
+                },
+                {
+                    name: 'cta_url',
+                    buttonParamsJson: JSON.stringify({
+                        display_text: '📦 Download Zip',
+                        url:          ZIP_URL,
+                        merchant_url: ZIP_URL,
+                    }),
+                },
+            ],
+        }, { quoted: ctx.m }).catch(async () => {
+            await ctx.sock.sendMessage(
+                ctx.from,
+                { image: { url: THUMB }, caption: text, contextInfo: channelCtx() },
+                { quoted: ctx.m }
+            );
+        });
+
+        await ctx.react('✅');
+    },
+});
+
 // ── Mention ───────────────────────────────────────────────────
 addCmd({
     name: 'mention',
