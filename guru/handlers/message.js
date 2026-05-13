@@ -9,7 +9,7 @@
 
 const { serialize }                   = require('../utils/serialize');
 const { findCmd, triggers }           = require('./loader');
-const { isSudo }                      = require('../db/database');
+const { isSudo, trackCmd }            = require('../db/database');
 const config                          = require('../config/settings');
 const logger                          = require('../utils/logger');
 const { cleanJid, pickRandom }        = require('../utils/helpers');
@@ -179,6 +179,9 @@ async function processOne(raw, sock) {
 
         // Only log commands (not every message)
         logger.info('CMD', `${m.sender.split('@')[0]} → ${config.BOT_PREFIX}${m.command}`);
+
+        // Track command usage — fire-and-forget, never blocks
+        trackCmd(cmd.name);
 
         // Run command — fire-and-forget so other messages aren't blocked
         cmd.handler(ctx).catch(e => logger.error('CMD_ERR', `${m.command}: ${e.message}`));
