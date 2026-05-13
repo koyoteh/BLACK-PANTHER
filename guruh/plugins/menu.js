@@ -144,7 +144,7 @@ addCmd({
             `│ Uptime : ${uptime}\n` +
             `│ Mode   : ${config.MODE}\n` +
             `│ Owner  : ${config.OWNER_NAME}\n` +
-            `╰──────────────╮`;
+            `╰──────────────╯`;
 
         const expiryStatusLine = expiry.urgent
             ? `🔒 ${expiry.line} | wa.me/254105521300`

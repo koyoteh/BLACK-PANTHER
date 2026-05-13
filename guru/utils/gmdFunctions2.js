@@ -225,7 +225,7 @@ async function PantherAntiEdit(sock, update) {
         if (!edited || !from) return;
 
         const settings = getGroupSettings(from);
-        if (!settings?.antidelete) return;
+        if (!settings?.antiedit) return;
 
         // proto.key points to the original message that was edited
         const original = msgStore.get(proto?.key?.id);

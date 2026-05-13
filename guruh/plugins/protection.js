@@ -310,9 +310,9 @@ addCmd({
     handler: async (ctx) => {
         const { getGroupSettings, setGroupSetting } = require('../../guru/db/database');
         const { channelCtx } = require('../../guru/utils/gmdFunctions2');
-        const current = getGroupSettings(ctx.from).antidelete; // shared flag
+        const current = getGroupSettings(ctx.from).antiedit;
         const newVal  = !current;
-        setGroupSetting(ctx.from, 'antidelete', newVal);
+        setGroupSetting(ctx.from, 'antiedit', newVal);
 
         await ctx.sock.sendMessage(
             ctx.from,

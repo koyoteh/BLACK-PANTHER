@@ -73,7 +73,7 @@ db.exec(`
     CREATE INDEX IF NOT EXISTS idx_notes_group        ON notes(group_jid, name);
 `);
 
-const newCols = ['antimention', 'antiviewonce', 'antiforeign', 'antisticker', 'antiflood', 'welcomeMsg TEXT DEFAULT \'\''];
+const newCols = ['antimention', 'antiviewonce', 'antiforeign', 'antisticker', 'antiflood', 'antiedit', 'welcomeMsg TEXT DEFAULT \'\''];
 for (const col of newCols) {
     try { db.exec(`ALTER TABLE group_settings ADD COLUMN ${col}`); } catch {}
 }

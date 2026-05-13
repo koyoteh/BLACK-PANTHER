@@ -184,7 +184,7 @@ addCmd({
     handler: async (ctx) => {
         await ctx.react('🔄');
 
-        const run = (cmd) => execSync(cmd, { cwd: process.cwd(), encoding: 'utf8', timeout: 60000 }).trim();
+        const run = (cmd) => execSync(cmd, { cwd: process.cwd(), encoding: 'utf8', timeout: 60000, env: { ...process.env, GIT_DISCOVERY_ACROSS_FILESYSTEM: '1' } }).trim();
 
         // ── Step 1: Fetch latest from origin ──────────────────
         try {
