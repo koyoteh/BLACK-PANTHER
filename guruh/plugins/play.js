@@ -238,35 +238,44 @@ addCmd({
                 );
             }
 
-            // Send thumbnail + info with buttons
-            if (thumb) {
-                await sendButtons(ctx.sock, ctx.from, {
-                    title:  `🎵 ${title.slice(0, 60)}`,
-                    text:   (channel ? `👤 *Channel:* ${channel}\n` : '') +
-                            `⏱️ *Duration:* ${duration}`,
-                    footer: config.BOT_NAME,
-                    image:  { url: thumb },
-                    buttons: [
-                        { name: 'cta_url', buttonParamsJson: JSON.stringify({ display_text: '▶️ Watch on YouTube', url: videoUrl }) },
-                        { id: `${config.BOT_PREFIX}ytmp3 ${videoUrl}`, text: '🎵 Download MP3' },
-                        { id: `${config.BOT_PREFIX}ytmp4 ${videoUrl}`, text: '🎬 Download MP4' },
-                    ],
-                }, { quoted: ctx.m }).catch(() =>
-                    ctx.send({
-                        image:   { url: thumb },
-                        caption: `🎵 *${title}*\n` +
-                                 (channel ? `👤 *Channel:* ${channel}\n` : '') +
-                                 `⏱️ *Duration:* ${duration}\n` +
-                                 `🔗 ${videoUrl}\n\n_${config.BOT_NAME}_`,
-                    }).catch(() => {})
-                );
-            }
+            // ── Send result card with format-choice buttons ────────
+            const cardText =
+                `🎵 *${title}*\n` +
+                `${'─'.repeat(32)}\n` +
+                (channel  ? `👤 *Channel  :* ${channel}\n`  : '') +
+                `⏱️ *Duration :* ${duration}\n\n` +
+                `⬇️ *Tap a button below to receive your media:*\n` +
+                `  🎵 Audio  — MP3 voice track\n` +
+                `  🎬 Video  — MP4 with visuals\n` +
+                `  📁 File   — MP3 as a document\n\n` +
+                `_${config.BOT_NAME}_`;
 
-            await ctx.send({
-                audio:    { url: audioUrl },
-                mimetype: 'audio/mpeg',
-                fileName: `${title.slice(0, 60)}.mp3`,
-                ptt:      false,
+            const cardButtons = [
+                { id: `${config.BOT_PREFIX}ytmp3 ${videoUrl}`,  text: '🎵 Audio (MP3)' },
+                { id: `${config.BOT_PREFIX}ytmp4 ${videoUrl}`,  text: '🎬 Video (MP4)' },
+                { id: `${config.BOT_PREFIX}ytfile ${videoUrl}`, text: '📁 File (Document)' },
+            ];
+
+            await sendButtons(ctx.sock, ctx.from, {
+                title:   `🎵 ${title.slice(0, 60)}`,
+                text:    cardText,
+                footer:  config.BOT_NAME,
+                ...(thumb ? { image: { url: thumb } } : {}),
+                buttons: cardButtons,
+            }, { quoted: ctx.m }).catch(async () => {
+                const caption =
+                    `🎵 *${title}*\n` +
+                    (channel  ? `👤 *Channel:* ${channel}\n`  : '') +
+                    `⏱️ *Duration:* ${duration}\n\n` +
+                    `⬇️ Choose format:\n` +
+                    `  • ${config.BOT_PREFIX}ytmp3 ${videoUrl}\n` +
+                    `  • ${config.BOT_PREFIX}ytmp4 ${videoUrl}\n` +
+                    `  • ${config.BOT_PREFIX}ytfile ${videoUrl}\n\n` +
+                    `_${config.BOT_NAME}_`;
+                await ctx.send(thumb
+                    ? { image: { url: thumb }, caption }
+                    : { text: caption }
+                ).catch(() => {});
             });
 
             await ctx.react('✅');
@@ -379,6 +388,44 @@ addCmd({
         } catch (err) {
             await ctx.react('❌');
             await ctx.sock.sendMessage(ctx.from, { text: '❌ Download failed. Try a direct YouTube URL.', contextInfo: channelCtx() }, { quoted: ctx.m });
+        }
+    },
+});
+
+// ═══════════════════════════════════════════════════════════════
+//  📁  YTFILE  — send audio as a downloadable document
+// ═══════════════════════════════════════════════════════════════
+addCmd({
+    name: 'ytfile',
+    aliases: ['ytdoc', 'ytdocument'],
+    desc: 'Download YouTube audio and send as a document file',
+    usage: 'ytfile <YouTube URL>',
+    category: 'music',
+    handler: async (ctx) => {
+        if (!ctx.text)
+            return ctx.reply(`❌ Provide a YouTube URL.\n\nExample: \`${config.BOT_PREFIX}ytfile https://youtu.be/xxxxx\``);
+        if (!/youtu/i.test(ctx.text))
+            return ctx.sock.sendMessage(ctx.from, { text: '❌ Please provide a valid YouTube URL.', contextInfo: channelCtx() }, { quoted: ctx.m });
+
+        await ctx.react('⏳');
+        try {
+            const audioUrl = await ytAudio(ctx.text);
+            if (!audioUrl)
+                return ctx.sock.sendMessage(ctx.from, {
+                    text: `📁 *YouTube File Download*\n\n🔗 ${ctx.text}\n\n⚠️ _Download unavailable right now. Try ${config.BOT_PREFIX}ytmp3 instead._`,
+                    contextInfo: channelCtx(),
+                }, { quoted: ctx.m });
+
+            await ctx.send({
+                document: { url: audioUrl },
+                mimetype: 'audio/mpeg',
+                fileName: 'audio.mp3',
+                caption:  `📁 *Audio File*\n_${config.BOT_NAME}_`,
+            });
+            await ctx.react('✅');
+        } catch (err) {
+            await ctx.react('❌');
+            await ctx.sock.sendMessage(ctx.from, { text: '❌ File download failed. Try again or use a direct YouTube URL.', contextInfo: channelCtx() }, { quoted: ctx.m });
         }
     },
 });

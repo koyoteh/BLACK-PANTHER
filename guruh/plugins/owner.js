@@ -4,8 +4,10 @@ const { getStatusReport }                 = require('../../guru/utils/statusEngi
 const { addSudo, removeSudo, getSudoList, isSudo, setSetting, getSetting } = require('../../guru/db/database');
 const { numberToJid, cleanJid }           = require('../../guru/utils/helpers');
 const config                              = require('../../guru/config/settings');
-const { channelCtx }                      = require('../../guru/utils/gmdFunctions2');
+const { channelCtx, sendButtons }         = require('../../guru/utils/gmdFunctions2');
 const { execSync }                        = require('child_process');
+
+const REPO_IMAGE = 'https://i.ibb.co/PZjVDnBM/upload-1778637749645-4b17ed31-jpg.jpg';
 
 // ── Sudo management ────────────────────────────────────────────
 addCmd({
@@ -328,19 +330,77 @@ addCmd({
     desc: 'Show the bot GitHub repository link',
     category: 'owner',
     handler: async (ctx) => {
-        await ctx.sock.sendMessage(ctx.from, {
-            text:
-                `╭═❖ *${config.BOT_NAME}* ❖═╮\n` +
-                `│ 🐾 *GitHub Repository*\n` +
-                `├──────────────────────────\n` +
-                `│ 🔗 https://github.com/koyoteh/BLACK-PANTHER\n` +
-                `│\n` +
-                `│ ⭐ Star the repo if you love it!\n` +
-                `│ 🍴 Fork it to customise your own bot\n` +
-                `│ 📞 Owner: wa.me/${config.OWNER_NUMBER}\n` +
-                `╰═❖ _${config.BOT_NAME}_ ❖═╯`,
-            contextInfo: channelCtx(),
-        }, { quoted: ctx.m });
+        const card =
+            `╔══════════════════════════════╗\n` +
+            `║  🐾  *${config.BOT_NAME}*  🐾  ║\n` +
+            `╚══════════════════════════════╝\n\n` +
+            `🚀 *Open-Source WhatsApp Bot*\n` +
+            `_Powered by GuruTech • Built with ❤️_\n\n` +
+            `${'━'.repeat(32)}\n\n` +
+            `📦 *REPOSITORY*\n` +
+            `┌─────────────────────────────\n` +
+            `│ 🔗 github.com/koyoteh/BLACK-PANTHER\n` +
+            `│ 🌿 Branch  : main\n` +
+            `│ ⚡ Stack   : Node.js • Baileys v7\n` +
+            `│ 🗄️ Database: SQLite (local)\n` +
+            `└─────────────────────────────\n\n` +
+            `${'━'.repeat(32)}\n\n` +
+            `✨ *WHAT'S INSIDE?*\n` +
+            `  🤖  200+ Commands & growing\n` +
+            `  🛡️  Full group protection suite\n` +
+            `  🎵  Music · Downloads · AI Chat\n` +
+            `  🔄  Auto-Bio · Auto-Status · React\n` +
+            `  👑  Owner-only admin controls\n\n` +
+            `${'━'.repeat(32)}\n\n` +
+            `👨‍💻 *DEVELOPER*\n` +
+            `  🏷️  ${config.OWNER_NAME}\n` +
+            `  📞  +${config.OWNER_NUMBER}\n` +
+            `  💬  wa.me/${config.OWNER_NUMBER}\n\n` +
+            `${'━'.repeat(32)}\n\n` +
+            `⭐ _Star the repo if it helps you!_\n` +
+            `🍴 _Fork it & build your own bot!_\n\n` +
+            `◈ *${config.CHANNEL_NAME}*`;
+
+        await sendButtons(ctx.sock, ctx.from, {
+            title:  `🐾 ${config.BOT_NAME} — Source Code`,
+            text:   card,
+            footer: `© GuruTech • ${config.BOT_NAME}`,
+            image:  { url: REPO_IMAGE },
+            buttons: [
+                {
+                    name: 'cta_url',
+                    buttonParamsJson: JSON.stringify({
+                        display_text: '🌐 View on GitHub',
+                        url: 'https://github.com/koyoteh/BLACK-PANTHER',
+                        merchant_url: 'https://github.com/koyoteh/BLACK-PANTHER',
+                    }),
+                },
+                {
+                    name: 'cta_url',
+                    buttonParamsJson: JSON.stringify({
+                        display_text: '💬 Chat with Owner',
+                        url: `https://wa.me/${config.OWNER_NUMBER}`,
+                        merchant_url: `https://wa.me/${config.OWNER_NUMBER}`,
+                    }),
+                },
+                {
+                    name: 'cta_url',
+                    buttonParamsJson: JSON.stringify({
+                        display_text: '📡 Join Channel',
+                        url: config.CHANNEL_URL,
+                        merchant_url: config.CHANNEL_URL,
+                    }),
+                },
+            ],
+        }, { quoted: ctx.m }).catch(async () => {
+            await ctx.sock.sendMessage(ctx.from, {
+                image:       { url: REPO_IMAGE },
+                caption:     card,
+                contextInfo: channelCtx(),
+            }, { quoted: ctx.m }).catch(async () => {
+                await ctx.sock.sendMessage(ctx.from, { text: card, contextInfo: channelCtx() }, { quoted: ctx.m });
+            });
+        });
         await ctx.react('🐾');
     },
 });
