@@ -60,6 +60,12 @@ db.exec(`
         name      TEXT NOT NULL,
         content   TEXT NOT NULL
     );
+
+    CREATE TABLE IF NOT EXISTS cmd_stats (
+        command    TEXT PRIMARY KEY,
+        uses       INTEGER DEFAULT 0,
+        last_used  TEXT DEFAULT (datetime('now'))
+    );
 `);
 
 db.exec(`
@@ -90,6 +96,17 @@ const stmts = {
     getNote:           db.prepare('SELECT * FROM notes WHERE group_jid = ? AND name = ?'),
     getAllNotes:        db.prepare('SELECT * FROM notes WHERE group_jid = ?'),
     deleteNote:        db.prepare('DELETE FROM notes WHERE group_jid = ? AND name = ?'),
+    trackCmd:          db.prepare(`
+        INSERT INTO cmd_stats (command, uses, last_used)
+        VALUES (?, 1, datetime('now'))
+        ON CONFLICT(command) DO UPDATE SET
+            uses      = uses + 1,
+            last_used = datetime('now')
+    `),
+    getTopCmds:        db.prepare('SELECT command, uses, last_used FROM cmd_stats ORDER BY uses DESC LIMIT ?'),
+    getCmdStat:        db.prepare('SELECT uses, last_used FROM cmd_stats WHERE command = ?'),
+    getTotalUses:      db.prepare('SELECT SUM(uses) as total FROM cmd_stats'),
+    resetCmdStats:     db.prepare('DELETE FROM cmd_stats'),
 };
 
 const groupSettingStmtCache = new Map();
@@ -158,6 +175,12 @@ function deleteNote(groupJid, name) {
     stmts.deleteNote.run(groupJid, name);
 }
 
+function trackCmd(command)          { try { stmts.trackCmd.run(command); } catch {} }
+function getTopCmds(limit = 10)    { return stmts.getTopCmds.all(limit); }
+function getCmdStat(command)       { return stmts.getCmdStat.get(command); }
+function getTotalUses()            { return stmts.getTotalUses.get()?.total || 0; }
+function resetCmdStats()           { stmts.resetCmdStats.run(); }
+
 function getConfigSync(key, defaultValue = {}) {
     const row = stmts.getSetting.get(key);
     if (!row) return { ...defaultValue };
@@ -183,4 +206,5 @@ module.exports = {
     getGroupSettings, setGroupSetting,
     addWarning, getWarnings, getAllWarnings, clearWarnings,
     saveNote, getNote, getAllNotes, deleteNote,
+    trackCmd, getTopCmds, getCmdStat, getTotalUses, resetCmdStats,
 };
