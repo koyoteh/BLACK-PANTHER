@@ -13,10 +13,9 @@ const logger  = require('./logger');
 const { gmdBanner, gmdTable, pickRandom, sleep } = require('./gmdFunctions');
 const { getGroupSettings, getSetting }            = require('../db/database');
 const {
-    generateWAMessageFromContent,
-    prepareWAMessageMedia,
-    proto,
-} = require('@whiskeysockets/baileys');
+    sendButtons:           giftedSendButtons,
+    sendInteractiveMessage: giftedSendInteractive,
+} = require('gifted-btns');
 
 // ═══════════════════════════════════════════════════════════════
 //  📢  CHANNEL CONTEXT INFO
@@ -412,22 +411,8 @@ async function PantherAntiGroupMention(sock, msg) {
 //  📋  COPY BUTTON HELPER
 // ═══════════════════════════════════════════════════════════════
 
-// ─── internal relay helper ───────────────────────────────────────────────────
-// sock.sendMessage does NOT process interactiveMessage through its content
-// pipeline, so we must build the WA message ourselves and relay it.
-async function _relayInteractive(sock, jid, interactiveMessage, msgOpts = {}) {
-    const msg = generateWAMessageFromContent(
-        jid,
-        proto.Message.fromObject({ interactiveMessage }),
-        {
-            userJid:   sock.user?.id,
-            quoted:    msgOpts.quoted,
-            timestamp: new Date(),
-        }
-    );
-    return sock.relayMessage(msg.key.remoteJid, msg.message, { messageId: msg.key.id });
-}
-
+// ─── sendCopyButton ──────────────────────────────────────────────────────────
+// Sends a single cta_copy (clipboard) button via gifted-btns.
 async function sendCopyButton(sock, jid, opts = {}, msgOpts = {}) {
     const {
         body     = '',
@@ -436,24 +421,26 @@ async function sendCopyButton(sock, jid, opts = {}, msgOpts = {}) {
         btnLabel = '📋 Copy',
     } = opts;
 
-    return _relayInteractive(sock, jid, {
-        header: { hasMediaAttachment: false },
-        body:   { text: body },
-        footer: { text: footer },
-        nativeFlowMessage: {
-            buttons: [
-                {
-                    name:             'copy_code',
-                    buttonParamsJson: JSON.stringify({
-                        display_text: btnLabel,
-                        code:         copyText,
-                    }),
-                },
-            ],
-        },
+    return giftedSendButtons(sock, jid, {
+        text:    body,
+        footer,
+        buttons: [
+            {
+                name:             'cta_copy',
+                buttonParamsJson: JSON.stringify({
+                    display_text: btnLabel,
+                    copy_code:    copyText,
+                }),
+            },
+        ],
     }, msgOpts);
 }
 
+// ─── sendButtons ─────────────────────────────────────────────────────────────
+// Thin wrapper around gifted-btns sendButtons.
+// Normalises the button array so plugins can use either the ULTRA-GURU
+// shorthand { id, text } or the explicit { name, buttonParamsJson } form.
+// Also accepts simple { type, label, value } helpers used inside this codebase.
 async function sendButtons(sock, jid, opts = {}, msgOpts = {}) {
     const {
         body    = '',
@@ -466,12 +453,12 @@ async function sendButtons(sock, jid, opts = {}, msgOpts = {}) {
 
     const bodyText = text || body;
 
-    // ── build native-flow buttons ─────────────────────────────────────────────
-    // Supports: pre-built { name, buttonParamsJson }, ULTRA-GURU { id, text },
-    // and simple { type, label, value }
-    const builtButtons = buttons.map((btn) => {
+    // Normalise button shapes → { name, buttonParamsJson }
+    const normalised = buttons.map((btn) => {
+        // Already a proper native-flow button
         if (btn.name && btn.buttonParamsJson !== undefined) return btn;
 
+        // ULTRA-GURU / gifted-btns shorthand: { id, text }
         if (!btn.name && !btn.type && (btn.id !== undefined || btn.text !== undefined)) {
             return {
                 name:             'quick_reply',
@@ -481,12 +468,14 @@ async function sendButtons(sock, jid, opts = {}, msgOpts = {}) {
                 }),
             };
         }
+
+        // Simple helpers used in this codebase
         if (btn.type === 'copy') {
             return {
-                name:             'copy_code',
+                name:             'cta_copy',
                 buttonParamsJson: JSON.stringify({
                     display_text: btn.label || '📋 Copy',
-                    code:         btn.value || '',
+                    copy_code:    btn.value || '',
                 }),
             };
         }
@@ -500,6 +489,7 @@ async function sendButtons(sock, jid, opts = {}, msgOpts = {}) {
                 }),
             };
         }
+
         return {
             name:             'quick_reply',
             buttonParamsJson: JSON.stringify({
@@ -509,32 +499,12 @@ async function sendButtons(sock, jid, opts = {}, msgOpts = {}) {
         };
     });
 
-    // ── build header ──────────────────────────────────────────────────────────
-    // For an image header the media must be properly uploaded so WhatsApp can
-    // render it — prepareWAMessageMedia handles the upload via waUploadToServer.
-    let header;
-    if (image?.url) {
-        try {
-            const { imageMessage } = await prepareWAMessageMedia(
-                { image: { url: image.url } },
-                { upload: sock.waUploadToServer }
-            );
-            header = { hasMediaAttachment: true, imageMessage };
-        } catch (err) {
-            logger.warn({ err }, 'sendButtons: image upload failed, falling back to title header');
-            header = title ? { hasMediaAttachment: false, title } : { hasMediaAttachment: false };
-        }
-    } else if (title) {
-        header = { hasMediaAttachment: false, title };
-    } else {
-        header = { hasMediaAttachment: false };
-    }
-
-    return _relayInteractive(sock, jid, {
-        header,
-        body:   { text: bodyText },
-        footer: { text: footer },
-        nativeFlowMessage: { buttons: builtButtons },
+    return giftedSendButtons(sock, jid, {
+        title,
+        text:    bodyText,
+        footer,
+        image,
+        buttons: normalised,
     }, msgOpts);
 }
 
