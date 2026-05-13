@@ -6,6 +6,51 @@ const { numberToJid, cleanJid }           = require('../../guru/utils/helpers');
 const config                              = require('../../guru/config/settings');
 const { channelCtx, sendButtons }         = require('../../guru/utils/gmdFunctions2');
 const { execSync }                        = require('child_process');
+const fs                                  = require('fs');
+const path                                = require('path');
+const https                               = require('https');
+
+// ── GitHub API helper (no git CLI needed) ──────────────────────
+const GH_REPO   = 'koyoteh/BLACK-PANTHER';
+const GH_BRANCH = 'main';
+const SHA_FILE  = path.join(process.cwd(), '.local', 'last_sha.txt');
+
+function ghRequest(method, apiPath, body = null) {
+    return new Promise((resolve, reject) => {
+        const token = process.env.GITHUB_PERSONAL_ACCESS_TOKEN || '';
+        const opts = {
+            hostname: 'api.github.com',
+            path:     apiPath,
+            method,
+            headers:  {
+                'Authorization': token ? `token ${token}` : '',
+                'Accept':        'application/vnd.github.v3+json',
+                'User-Agent':    'BlackPantherMD-Bot',
+                'Content-Type':  'application/json',
+            },
+        };
+        const req = https.request(opts, (res) => {
+            let data = '';
+            res.on('data', c => data += c);
+            res.on('end', () => {
+                try { resolve(JSON.parse(data)); }
+                catch { resolve(data); }
+            });
+        });
+        req.on('error', reject);
+        if (body) req.write(JSON.stringify(body));
+        req.end();
+    });
+}
+
+function readStoredSha() {
+    try { return fs.readFileSync(SHA_FILE, 'utf8').trim(); }
+    catch { return null; }
+}
+function storesha(sha) {
+    fs.mkdirSync(path.dirname(SHA_FILE), { recursive: true });
+    fs.writeFileSync(SHA_FILE, sha, 'utf8');
+}
 
 const REPO_IMAGE = 'https://i.ibb.co/PZjVDnBM/upload-1778637749645-4b17ed31-jpg.jpg';
 
@@ -176,145 +221,156 @@ addCmd({
     },
 });
 
-// ── Auto Update ────────────────────────────────────────────────
+// ── Auto Update (GitHub API — no git CLI required) ─────────────
 addCmd({
     name: 'update',
     aliases: ['upgrade', 'checkupdate'],
-    desc: 'Check for and apply updates from the GitHub repo',
+    desc: 'Check for and apply updates from GitHub via API',
     category: 'owner',
     ownerOnly: true,
     handler: async (ctx) => {
         await ctx.react('🔄');
 
-        const run = (cmd) => execSync(cmd, { cwd: process.cwd(), encoding: 'utf8', timeout: 60000, env: { ...process.env, GIT_DISCOVERY_ACROSS_FILESYSTEM: '1' } }).trim();
+        const sep = `✦ ───────────── ✦`;
 
-        // ── Step 1: Fetch latest from origin ──────────────────
+        // ── Step 1: Fetch latest commit from GitHub API ────────
+        await ctx.sock.sendMessage(ctx.from, {
+            text: `🔍 *Checking for updates...*\n\n⏳ _Contacting GitHub API…_`,
+            contextInfo: channelCtx(),
+        }, { quoted: ctx.m });
+
+        let latestCommit;
         try {
-            await ctx.sock.sendMessage(ctx.from, {
-                text: `🔍 *Checking for updates...*\n\n⏳ Fetching from GitHub...`,
-                contextInfo: channelCtx(),
-            }, { quoted: ctx.m });
-
-            run('git fetch origin');
+            const refData = await ghRequest('GET', `/repos/${GH_REPO}/git/ref/heads/${GH_BRANCH}`);
+            if (!refData?.object?.sha) throw new Error(JSON.stringify(refData).slice(0, 200));
+            const commitData = await ghRequest('GET', `/repos/${GH_REPO}/git/commits/${refData.object.sha}`);
+            latestCommit = {
+                sha:     refData.object.sha,
+                shortSha: refData.object.sha.slice(0, 7),
+                message: commitData?.message?.split('\n')[0] || '—',
+                author:  commitData?.author?.name || 'unknown',
+                date:    commitData?.author?.date
+                    ? new Date(commitData.author.date).toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' })
+                    : '—',
+            };
         } catch (err) {
+            await ctx.react('❌');
             return ctx.sock.sendMessage(ctx.from, {
-                text: `❌ *Failed to reach GitHub*\n\nError: ${err.message.slice(0, 200)}\n\n_Check your internet connection._`,
+                text:
+                    `❌ *Could not reach GitHub*\n\n` +
+                    `${sep}\n\n` +
+                    `_${err.message.slice(0, 200)}_\n\n` +
+                    `_Check your internet connection or try again._`,
                 contextInfo: channelCtx(),
             }, { quoted: ctx.m });
         }
 
-        // ── Step 2: Compare local vs remote ───────────────────
-        let localHash, remoteHash, remoteBranch;
-        try {
-            localHash = run('git rev-parse HEAD');
-        } catch (err) {
-            return ctx.sock.sendMessage(ctx.from, {
-                text: `❌ Could not read local git state.\n${err.message.slice(0, 200)}`,
-                contextInfo: channelCtx(),
-            }, { quoted: ctx.m });
-        }
+        // ── Step 2: Compare with stored SHA ───────────────────
+        const storedSha = readStoredSha();
 
-        // Auto-detect remote branch (main or master)
-        for (const branch of ['main', 'master']) {
-            try {
-                remoteHash = run(`git rev-parse origin/${branch}`);
-                remoteBranch = branch;
-                break;
-            } catch { /* try next */ }
-        }
-
-        if (!remoteHash) {
-            return ctx.sock.sendMessage(ctx.from, {
-                text: `❌ Could not read remote branch (tried main & master).\n_Ensure remote is properly configured._`,
-                contextInfo: channelCtx(),
-            }, { quoted: ctx.m });
-        }
-
-        if (localHash === remoteHash) {
+        if (storedSha === latestCommit.sha) {
             await ctx.react('✅');
             return ctx.sock.sendMessage(ctx.from, {
                 text:
                     `✅ *${config.BOT_NAME} is up to date!*\n\n` +
-                    `📌 *Version :* \`${localHash.slice(0, 7)}\`\n` +
-                    `🏠 *Branch  :* ${remoteBranch}\n\n` +
+                    `${sep}\n\n` +
+                    `📌 *Version :* \`${latestCommit.shortSha}\`\n` +
+                    `🌿 *Branch  :* ${GH_BRANCH}\n` +
+                    `👤 *Author  :* ${latestCommit.author}\n` +
+                    `📅 *Date    :* ${latestCommit.date}\n\n` +
                     `_No new updates available._`,
                 contextInfo: channelCtx(),
             }, { quoted: ctx.m });
         }
 
-        // ── Step 3: Show what's new ────────────────────────────
-        let changelog = '';
+        // ── Step 3: Fetch list of changed files ────────────────
+        let changedFiles = [];
+        let commitLog = [];
         try {
-            changelog = run(`git log HEAD..origin/${remoteBranch} --oneline --no-merges`);
-        } catch {
-            changelog = '_(could not read changelog)_';
-        }
+            if (storedSha) {
+                const compare = await ghRequest('GET',
+                    `/repos/${GH_REPO}/compare/${storedSha}...${latestCommit.sha}`);
+                changedFiles = (compare?.files || []).map(f => ({
+                    path:   f.filename,
+                    status: f.status,   // added / modified / removed
+                }));
+                commitLog = (compare?.commits || [])
+                    .slice(-10)
+                    .reverse()
+                    .map(c => `  • ${c.commit?.message?.split('\n')[0]?.slice(0, 60) || '—'}`)
+                    .join('\n');
+            }
+        } catch { /* non-critical */ }
 
-        const changeLines = changelog
-            .split('\n')
-            .filter(Boolean)
-            .slice(0, 10)
-            .map(l => `  • ${l.slice(8)}`)
-            .join('\n');
-
-        const totalNew = changelog.split('\n').filter(Boolean).length;
+        const totalFiles   = changedFiles.length;
+        const pkgChanged   = changedFiles.some(f => f.path === 'package.json');
+        const toUpdate     = changedFiles.filter(f => f.status !== 'removed');
+        const toRemove     = changedFiles.filter(f => f.status === 'removed');
 
         await ctx.sock.sendMessage(ctx.from, {
             text:
                 `🆕 *Update Available!*\n\n` +
-                `📦 *${totalNew} new commit${totalNew !== 1 ? 's' : ''}:*\n` +
-                `${changeLines || '  • (no details)'}\n\n` +
-                `⏳ Applying update now...`,
+                `${sep}\n\n` +
+                `📦 *Latest:* \`${latestCommit.shortSha}\`\n` +
+                `📅 *Date  :* ${latestCommit.date}\n` +
+                `👤 *By    :* ${latestCommit.author}\n\n` +
+                (commitLog ? `📝 *Recent changes:*\n${commitLog}\n\n` : '') +
+                `${sep}\n\n` +
+                `📁 *${totalFiles} file${totalFiles !== 1 ? 's' : ''} changed* — downloading…`,
             contextInfo: channelCtx(),
         }, { quoted: ctx.m });
 
-        // ── Step 4: Check if package.json will change ─────────
-        let pkgChanged = false;
-        try {
-            const diffFiles = run(`git diff HEAD origin/${remoteBranch} --name-only`);
-            pkgChanged = diffFiles.split('\n').some(f => f.trim() === 'package.json');
-        } catch {}
-
-        // ── Step 5: Pull updates ──────────────────────────────
-        try {
-            run(`git pull origin ${remoteBranch} --rebase`);
-        } catch (err) {
-            await ctx.react('❌');
-            return ctx.sock.sendMessage(ctx.from, {
-                text:
-                    `❌ *Git pull failed!*\n\n` +
-                    `Error: ${err.message.slice(0, 300)}\n\n` +
-                    `_You may need to run \`git pull\` manually._`,
-                contextInfo: channelCtx(),
-            }, { quoted: ctx.m });
+        // ── Step 4: Download & write changed files ─────────────
+        let written = 0, failed = 0;
+        for (const file of toUpdate) {
+            try {
+                const raw = await ghRequest('GET',
+                    `/repos/${GH_REPO}/contents/${file.path}?ref=${latestCommit.sha}`);
+                if (!raw?.content) continue;
+                const content = Buffer.from(raw.content, 'base64');
+                const dest    = path.join(process.cwd(), file.path);
+                fs.mkdirSync(path.dirname(dest), { recursive: true });
+                fs.writeFileSync(dest, content);
+                written++;
+            } catch { failed++; }
         }
 
-        // ── Step 6: Reinstall deps if package.json changed ────
+        for (const file of toRemove) {
+            try {
+                const dest = path.join(process.cwd(), file.path);
+                if (fs.existsSync(dest)) fs.unlinkSync(dest);
+            } catch { /* best-effort */ }
+        }
+
+        // ── Step 5: Reinstall deps if package.json changed ────
         if (pkgChanged) {
             await ctx.sock.sendMessage(ctx.from, {
-                text: `📦 *package.json changed — installing new dependencies...*`,
+                text: `📦 *package.json changed — reinstalling dependencies…*`,
                 contextInfo: channelCtx(),
             }, { quoted: ctx.m });
             try {
-                run('npm install --legacy-peer-deps');
+                execSync('npm install --legacy-peer-deps', {
+                    cwd: process.cwd(), encoding: 'utf8', timeout: 120000,
+                });
             } catch (err) {
                 await ctx.sock.sendMessage(ctx.from, {
-                    text: `⚠️ Dependency install had issues:\n${err.message.slice(0, 200)}\n\nContinuing restart...`,
+                    text: `⚠️ Dependency install had issues — continuing:\n_${err.message.slice(0, 200)}_`,
                     contextInfo: channelCtx(),
                 }, { quoted: ctx.m });
             }
         }
 
-        // ── Step 7: Confirm and restart ───────────────────────
-        const newHash = run('git rev-parse HEAD').slice(0, 7);
+        // ── Step 6: Save new SHA and restart ──────────────────
+        storesha(latestCommit.sha);
 
         await ctx.sock.sendMessage(ctx.from, {
             text:
-                `✅ *Update Applied Successfully!*\n\n` +
-                `📌 *New version :* \`${newHash}\`\n` +
-                `📦 *Commits     :* ${totalNew}\n` +
-                `🔁 *Deps update :* ${pkgChanged ? 'Yes ✅' : 'No (unchanged)'}\n\n` +
-                `♻️ *Restarting ${config.BOT_NAME}...*`,
+                `✅ *Update Applied!*\n\n` +
+                `${sep}\n\n` +
+                `📌 *New version :* \`${latestCommit.shortSha}\`\n` +
+                `📁 *Files written:* ${written}${failed ? `  ⚠️ ${failed} failed` : ''}\n` +
+                `🔁 *Deps updated :* ${pkgChanged ? 'Yes ✅' : 'No'}\n\n` +
+                `♻️ *Restarting ${config.BOT_NAME}…*`,
             contextInfo: channelCtx(),
         }, { quoted: ctx.m });
 
