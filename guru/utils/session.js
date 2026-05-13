@@ -141,16 +141,28 @@ async function resolveSession() {
         process.env.DYNO ||
         process.env.RAILWAY_ENVIRONMENT ||
         process.env.RENDER ||
-        process.env.KOYEB_SERVICE_NAME
+        process.env.KOYEB_SERVICE_NAME ||
+        process.env.REPL_ID ||
+        process.env.REPLIT_DB_URL ||
+        process.env.K_SERVICE ||
+        process.env.WEBSITE_SITE_NAME
     );
 
     if (isCloud) {
         if (!envId) {
+            const platform = process.env.DYNO              ? 'Heroku'
+                           : process.env.RAILWAY_ENVIRONMENT ? 'Railway'
+                           : process.env.RENDER              ? 'Render'
+                           : process.env.KOYEB_SERVICE_NAME  ? 'Koyeb'
+                           : process.env.REPL_ID             ? 'Replit'
+                           : 'cloud';
             logger.error('SESSION', [
                 'SESSION_ID is not set!',
-                `  ➤ Go to your ${process.env.DYNO ? 'Heroku' : 'cloud'} dashboard`,
-                '  ➤ Add Config Var:  SESSION_ID = GURU~<your-session>',
-                '  ➤ Generate one at: https://wa.me/254105521300',
+                `  ➤ You are running on ${platform}.`,
+                '  ➤ Add a Secret named:  SESSION_ID',
+                '  ➤ Value must be:       GURU~<your-base64-session>',
+                '  ➤ Get one at:          https://pantherr-session.onrender.com',
+                '  ➤ Then restart the bot.',
             ].join('\n'));
             process.exit(1);
         }
