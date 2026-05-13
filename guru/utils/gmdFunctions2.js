@@ -413,6 +413,7 @@ async function PantherAntiGroupMention(sock, msg) {
 
 // ─── sendCopyButton ──────────────────────────────────────────────────────────
 // Sends a single cta_copy (clipboard) button via gifted-btns.
+// Falls back to plain sock.sendMessage if gifted-btns throws.
 async function sendCopyButton(sock, jid, opts = {}, msgOpts = {}) {
     const {
         body     = '',
@@ -421,26 +422,35 @@ async function sendCopyButton(sock, jid, opts = {}, msgOpts = {}) {
         btnLabel = '📋 Copy',
     } = opts;
 
-    return giftedSendButtons(sock, jid, {
-        text:    body,
-        footer,
-        buttons: [
-            {
-                name:             'cta_copy',
-                buttonParamsJson: JSON.stringify({
-                    display_text: btnLabel,
-                    copy_code:    copyText,
-                }),
-            },
-        ],
-    }, msgOpts);
+    try {
+        return await giftedSendButtons(sock, jid, {
+            text:    body,
+            footer,
+            buttons: [
+                {
+                    name:             'cta_copy',
+                    buttonParamsJson: JSON.stringify({
+                        display_text: btnLabel,
+                        copy_code:    copyText,
+                    }),
+                },
+            ],
+        }, msgOpts);
+    } catch (err) {
+        logger.error('SEND_COPY_BTN', `gifted-btns error: ${err.message} — falling back to plain text`);
+        return sock.sendMessage(jid, {
+            text:        [body, footer].filter(Boolean).join('\n\n'),
+            contextInfo: channelCtx(),
+        }, msgOpts).catch(() => {});
+    }
 }
 
 // ─── sendButtons ─────────────────────────────────────────────────────────────
 // Thin wrapper around gifted-btns sendButtons.
-// Normalises the button array so plugins can use either the ULTRA-GURU
-// shorthand { id, text } or the explicit { name, buttonParamsJson } form.
+// Normalises the button array so plugins can use either the shorthand
+// { id, text } or the explicit { name, buttonParamsJson } form.
 // Also accepts simple { type, label, value } helpers used inside this codebase.
+// Falls back to plain sock.sendMessage if gifted-btns throws.
 async function sendButtons(sock, jid, opts = {}, msgOpts = {}) {
     const {
         body    = '',
@@ -454,31 +464,13 @@ async function sendButtons(sock, jid, opts = {}, msgOpts = {}) {
     const bodyText = text || body;
 
     // Normalise button shapes → { name, buttonParamsJson }
+    // NOTE: gifted-btns only supports: cta_url, cta_call, cta_copy, and a few
+    // interactive types. 'quick_reply' is NOT supported and will throw.
     const normalised = buttons.map((btn) => {
         // Already a proper native-flow button
         if (btn.name && btn.buttonParamsJson !== undefined) return btn;
 
-        // ULTRA-GURU / gifted-btns shorthand: { id, text }
-        if (!btn.name && !btn.type && (btn.id !== undefined || btn.text !== undefined)) {
-            return {
-                name:             'quick_reply',
-                buttonParamsJson: JSON.stringify({
-                    display_text: btn.text  || btn.label || '',
-                    id:           btn.id    || btn.text  || '',
-                }),
-            };
-        }
-
-        // Simple helpers used in this codebase
-        if (btn.type === 'copy') {
-            return {
-                name:             'cta_copy',
-                buttonParamsJson: JSON.stringify({
-                    display_text: btn.label || '📋 Copy',
-                    copy_code:    btn.value || '',
-                }),
-            };
-        }
+        // Simple helpers: { type, label, value }
         if (btn.type === 'url') {
             return {
                 name:             'cta_url',
@@ -489,23 +481,45 @@ async function sendButtons(sock, jid, opts = {}, msgOpts = {}) {
                 }),
             };
         }
+        if (btn.type === 'call') {
+            return {
+                name:             'cta_call',
+                buttonParamsJson: JSON.stringify({
+                    display_text: btn.label || '📞 Call',
+                    phone_number: btn.value || '',
+                }),
+            };
+        }
 
+        // Shorthand { id, text } and any other shape → cta_copy (always valid)
+        const label = btn.text || btn.label || btn.display_text || '';
+        const code  = btn.id   || btn.value  || btn.copy_code   || label;
         return {
-            name:             'quick_reply',
+            name:             'cta_copy',
             buttonParamsJson: JSON.stringify({
-                display_text: btn.label || btn.value || '',
-                id:           btn.value || btn.label || '',
+                display_text: label,
+                copy_code:    String(code),
             }),
         };
     });
 
-    return giftedSendButtons(sock, jid, {
-        title,
-        text:    bodyText,
-        footer,
-        image,
-        buttons: normalised,
-    }, msgOpts);
+    try {
+        return await giftedSendButtons(sock, jid, {
+            title,
+            text:    bodyText,
+            footer,
+            image,
+            buttons: normalised,
+        }, msgOpts);
+    } catch (err) {
+        logger.error('SEND_BUTTONS', `gifted-btns error: ${err.message} — falling back to plain text`);
+        // Graceful fallback: send a plain text message so the bot never crashes
+        const lines = [title && `*${title}*`, bodyText, footer].filter(Boolean);
+        return sock.sendMessage(jid, {
+            text:        lines.join('\n\n'),
+            contextInfo: channelCtx(),
+        }, msgOpts).catch(() => {});
+    }
 }
 
 module.exports = {
