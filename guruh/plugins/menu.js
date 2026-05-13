@@ -11,6 +11,7 @@ const { daysUntil, fmtDate, parseExpiryDate, fmtCountdown, expiryBar, expiryLine
 const { channelCtx } = require('../../guru/utils/gmdFunctions2');
 const config = require('../../guru/config/settings');
 const moment = require('moment-timezone');
+const { sendButtons } = require('gifted-btns');
 
 const MENU_IMAGE = 'https://i.ibb.co/k6SxWhdr/84bb97a4a575.jpg';
 
@@ -172,30 +173,52 @@ addCmd({
         // Save numbered list as pending so user can reply with the number
         setPending(ctx.from, numbered);
 
-        menu += `╭═❖ _Use categories above_ ❖═╮`;
+        menu += `╭═❖ _Tap a button or reply 1–${numbered.length}_ ❖═╮`;
 
-        try {
-            await ctx.sock.sendMessage(
-                ctx.from,
+        // Build single_select rows — one per category
+        const catRows = numbered.map(cat => ({
+            id:          `${p}menu ${cat.key}`,
+            title:       `${cat.icon} ${cat.label}`,
+            description: `${cat.cmds.length} command${cat.cmds.length !== 1 ? 's' : ''}`,
+        }));
+
+        await sendButtons(ctx.sock, ctx.from, {
+            title:  `🐾 ${config.BOT_NAME}`,
+            text:   menu,
+            footer: config.BOT_NAME,
+            image:  { url: MENU_IMAGE },
+            buttons: [
                 {
-                    image:    { url: MENU_IMAGE },
-                    caption:  menu,
-                    mentions: [ctx.sender],
-                    contextInfo: channelCtx(),
+                    name: 'single_select',
+                    buttonParamsJson: JSON.stringify({
+                        title: '📂 Pick a Category',
+                        sections: [{ title: '📋 All Categories', rows: catRows }],
+                    }),
                 },
-                { quoted: ctx.m }
-            );
-        } catch {
-            await ctx.sock.sendMessage(
-                ctx.from,
                 {
-                    text:     menu,
-                    mentions: [ctx.sender],
-                    contextInfo: channelCtx(),
+                    name: 'quick_reply',
+                    buttonParamsJson: JSON.stringify({ display_text: '📋 Full Commands List', id: `${p}fullcmds` }),
                 },
-                { quoted: ctx.m }
-            );
-        }
+                {
+                    name: 'quick_reply',
+                    buttonParamsJson: JSON.stringify({ display_text: 'ℹ️ Bot Info', id: `${p}info` }),
+                },
+            ],
+        }, { quoted: ctx.m }).catch(async () => {
+            try {
+                await ctx.sock.sendMessage(
+                    ctx.from,
+                    { image: { url: MENU_IMAGE }, caption: menu, mentions: [ctx.sender], contextInfo: channelCtx() },
+                    { quoted: ctx.m }
+                );
+            } catch {
+                await ctx.sock.sendMessage(
+                    ctx.from,
+                    { text: menu, mentions: [ctx.sender], contextInfo: channelCtx() },
+                    { quoted: ctx.m }
+                );
+            }
+        });
     },
 });
 
@@ -471,23 +494,123 @@ async function sendCategoryDetail(ctx, cat, allCmds) {
         out += `\n`;
     });
     out += `${DIV}\n`;
-    out += `↩  Type *${p}menu* to go back\n`;
     out += `◈ ${config.CHANNEL_NAME}`;
 
-    try {
-        return await ctx.sock.sendMessage(
-            ctx.from,
-            { image: { url: MENU_IMAGE }, caption: out, contextInfo: channelCtx() },
-            { quoted: ctx.m }
-        );
-    } catch {
-        return ctx.sock.sendMessage(
-            ctx.from,
-            { text: out, contextInfo: channelCtx() },
-            { quoted: ctx.m }
-        );
-    }
+    return sendButtons(ctx.sock, ctx.from, {
+        title:  `${cat.icon} ${cat.label}`,
+        text:   out,
+        footer: config.BOT_NAME,
+        image:  { url: MENU_IMAGE },
+        buttons: [
+            {
+                name: 'quick_reply',
+                buttonParamsJson: JSON.stringify({ display_text: '🏠 Back to Menu', id: `${p}menu` }),
+            },
+            {
+                name: 'quick_reply',
+                buttonParamsJson: JSON.stringify({ display_text: '📋 Full Commands List', id: `${p}fullcmds` }),
+            },
+        ],
+    }, { quoted: ctx.m }).catch(async () => {
+        try {
+            return await ctx.sock.sendMessage(
+                ctx.from,
+                { image: { url: MENU_IMAGE }, caption: out, contextInfo: channelCtx() },
+                { quoted: ctx.m }
+            );
+        } catch {
+            return ctx.sock.sendMessage(
+                ctx.from,
+                { text: out, contextInfo: channelCtx() },
+                { quoted: ctx.m }
+            );
+        }
+    });
 }
+
+// ═══════════════════════════════════════════════════════════════
+//  FULL COMMANDS LIST
+// ═══════════════════════════════════════════════════════════════
+addCmd({
+    name: 'fullcmds',
+    aliases: ['allcmds', 'cmdlist', 'commands'],
+    desc: 'Show every command grouped by category',
+    usage: 'fullcmds',
+    category: 'general',
+    handler: async (ctx) => {
+        const allCmds = getAllCmds();
+        const p       = config.BOT_PREFIX;
+        const grouped = {};
+        for (const cmd of allCmds) {
+            const cat = cmd.category || 'misc';
+            if (!grouped[cat]) grouped[cat] = [];
+            grouped[cat].push(cmd);
+        }
+
+        let out = `📋 *FULL COMMANDS LIST*\n_${config.BOT_NAME}_\n${'═'.repeat(30)}\n\n`;
+        let total = 0;
+        for (const cat of CATS) {
+            const cmds = grouped[cat.key];
+            if (!cmds?.length) continue;
+            out += `${cat.icon} *${cat.label}*\n`;
+            cmds.forEach(c => {
+                out += `  • *${p}${c.name}*`;
+                if (c.aliases?.length) out += ` _(${c.aliases.slice(0,2).join(', ')})_`;
+                if (c.desc) out += `\n    _${c.desc}_`;
+                out += '\n';
+                total++;
+            });
+            out += '\n';
+        }
+        out += `${'─'.repeat(30)}\n`;
+        out += `📦 *Total:* ${total} commands\n`;
+        out += `💡 _Use ${p}menu <category> for details_\n`;
+        out += `◈ ${config.CHANNEL_NAME}`;
+
+        await sendButtons(ctx.sock, ctx.from, {
+            title:  `📋 All ${total} Commands`,
+            text:   out,
+            footer: config.BOT_NAME,
+            image:  { url: MENU_IMAGE },
+            buttons: [
+                {
+                    name: 'quick_reply',
+                    buttonParamsJson: JSON.stringify({ display_text: '🏠 Back to Menu', id: `${p}menu` }),
+                },
+                {
+                    name: 'single_select',
+                    buttonParamsJson: JSON.stringify({
+                        title: '📂 Jump to Category',
+                        sections: [{
+                            title: '📋 Categories',
+                            rows: CATS
+                                .filter(c => grouped[c.key]?.length)
+                                .map(c => ({
+                                    id:          `${p}menu ${c.key}`,
+                                    title:       `${c.icon} ${c.label}`,
+                                    description: `${grouped[c.key].length} commands`,
+                                })),
+                        }],
+                    }),
+                },
+            ],
+        }, { quoted: ctx.m }).catch(async () => {
+            try {
+                await ctx.sock.sendMessage(
+                    ctx.from,
+                    { image: { url: MENU_IMAGE }, caption: out, contextInfo: channelCtx() },
+                    { quoted: ctx.m }
+                );
+            } catch {
+                await ctx.sock.sendMessage(
+                    ctx.from,
+                    { text: out, contextInfo: channelCtx() },
+                    { quoted: ctx.m }
+                );
+            }
+        });
+    },
+});
 
 // Trigger: pure-number reply within 3 min of receiving the menu
 addTrigger({
