@@ -333,7 +333,7 @@ addCmd({
                 `╭═❖ *${config.BOT_NAME}* ❖═╮\n` +
                 `│ 🐾 *GitHub Repository*\n` +
                 `├──────────────────────────\n` +
-                `│ 🔗 https://github.com/GuruhTech/ULTRA-GURU\n` +
+                `│ 🔗 https://github.com/koyoteh/BLACK-PANTHER\n` +
                 `│\n` +
                 `│ ⭐ Star the repo if you love it!\n` +
                 `│ 🍴 Fork it to customise your own bot\n` +
@@ -368,7 +368,7 @@ addCmd({
             `│ 💬 *Chat:*    wa.me/${config.OWNER_NUMBER}\n` +
             `│ 📡 *Channel:* ${config.CHANNEL_URL}\n` +
             `├──────────────────────────\n` +
-            `│ 🔗 *GitHub:*  https://github.com/GuruhTech\n` +
+            `│ 🔗 *GitHub:*  https://github.com/koyoteh/BLACK-PANTHER\n` +
             `│ ⭐ Star us if you love the bot!\n` +
             `╰═❖ _${config.BOT_NAME}_ ❖═╯`;
 

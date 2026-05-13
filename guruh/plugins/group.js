@@ -38,7 +38,7 @@ addCmd({
     groupOnly: true,
     adminOnly: true,
     handler: async (ctx) => {
-        if (!ctx.isBotAdmin) return safeSend(ctx, '❌ I need to be an *admin* to kick members.');
+        if (!ctx.isBotAdmin && !ctx.isOwner) return safeSend(ctx, '❌ I need to be a group *admin* to kick members.\n\n👉 Please promote me to group admin first.');
         const target = resolveTarget(ctx);
         if (!target) return safeSend(ctx, '❌ Tag a user or reply to their message.\n\nUsage: `.kick @user` or reply to a message');
         const targetNum = target.split('@')[0];
@@ -65,7 +65,7 @@ addCmd({
     groupOnly: true,
     adminOnly: true,
     handler: async (ctx) => {
-        if (!ctx.isBotAdmin) return safeSend(ctx, '❌ I need to be an *admin* to add members.');
+        if (!ctx.isBotAdmin && !ctx.isOwner) return safeSend(ctx, '❌ I need to be a group *admin* to add members.\n\n👉 Please promote me to group admin first.');
         const number = ctx.args[0];
         if (!number) return safeSend(ctx, '❌ Provide a number.\n\nExample: `.add 254712345678`');
         const jid = numberToJid(number);
@@ -91,7 +91,7 @@ addCmd({
     groupOnly: true,
     adminOnly: true,
     handler: async (ctx) => {
-        if (!ctx.isBotAdmin) return safeSend(ctx, '❌ I need to be an *admin* to promote members.');
+        if (!ctx.isBotAdmin && !ctx.isOwner) return safeSend(ctx, '❌ I need to be a group *admin* to promote members.\n\n👉 Please promote me to group admin first.');
         const target = resolveTarget(ctx);
         if (!target) return safeSend(ctx, '❌ Tag a user or reply to their message.');
         await ctx.react('⏳');
@@ -113,7 +113,7 @@ addCmd({
     groupOnly: true,
     adminOnly: true,
     handler: async (ctx) => {
-        if (!ctx.isBotAdmin) return safeSend(ctx, '❌ I need to be an *admin* to demote members.');
+        if (!ctx.isBotAdmin && !ctx.isOwner) return safeSend(ctx, '❌ I need to be a group *admin* to demote members.\n\n👉 Please promote me to group admin first.');
         const target = resolveTarget(ctx);
         if (!target) return safeSend(ctx, '❌ Tag a user or reply to their message.');
         await ctx.react('⏳');
@@ -138,7 +138,7 @@ addCmd({
     groupOnly: true,
     adminOnly: true,
     handler: async (ctx) => {
-        if (!ctx.isBotAdmin) return safeSend(ctx, '❌ I need to be an *admin* to mute the group.');
+        if (!ctx.isBotAdmin && !ctx.isOwner) return safeSend(ctx, '❌ I need to be a group *admin* to mute the group.\n\n👉 Please promote me to group admin first.');
         await ctx.react('⏳');
         try {
             await ctx.sock.groupSettingUpdate(ctx.from, 'announcement');
@@ -159,7 +159,7 @@ addCmd({
     groupOnly: true,
     adminOnly: true,
     handler: async (ctx) => {
-        if (!ctx.isBotAdmin) return safeSend(ctx, '❌ I need to be an *admin* to unmute the group.');
+        if (!ctx.isBotAdmin && !ctx.isOwner) return safeSend(ctx, '❌ I need to be a group *admin* to unmute the group.\n\n👉 Please promote me to group admin first.');
         await ctx.react('⏳');
         try {
             await ctx.sock.groupSettingUpdate(ctx.from, 'not_announcement');
@@ -184,7 +184,7 @@ addCmd({
     groupOnly: true,
     adminOnly: true,
     handler: async (ctx) => {
-        if (!ctx.isBotAdmin) return safeSend(ctx, '❌ I need to be an *admin* to lock the group.');
+        if (!ctx.isBotAdmin && !ctx.isOwner) return safeSend(ctx, '❌ I need to be a group *admin* to lock the group.\n\n👉 Please promote me to group admin first.');
         await ctx.react('⏳');
         try {
             await ctx.sock.groupSettingUpdate(ctx.from, 'locked');
@@ -205,7 +205,7 @@ addCmd({
     groupOnly: true,
     adminOnly: true,
     handler: async (ctx) => {
-        if (!ctx.isBotAdmin) return safeSend(ctx, '❌ I need to be an *admin* to unlock the group.');
+        if (!ctx.isBotAdmin && !ctx.isOwner) return safeSend(ctx, '❌ I need to be a group *admin* to unlock the group.\n\n👉 Please promote me to group admin first.');
         await ctx.react('⏳');
         try {
             await ctx.sock.groupSettingUpdate(ctx.from, 'unlocked');
@@ -354,7 +354,7 @@ addCmd({
     groupOnly: true,
     adminOnly: true,
     handler: async (ctx) => {
-        if (!ctx.isBotAdmin) return safeSend(ctx, '❌ I need to be an *admin* to get the invite link.');
+        if (!ctx.isBotAdmin && !ctx.isOwner) return safeSend(ctx, '❌ I need to be a group *admin* to get the invite link.\n\n👉 Please promote me to group admin first.');
         await ctx.react('⏳');
         try {
             const code = await ctx.sock.groupInviteCode(ctx.from);
@@ -380,7 +380,7 @@ addCmd({
     groupOnly: true,
     adminOnly: true,
     handler: async (ctx) => {
-        if (!ctx.isBotAdmin) return safeSend(ctx, '❌ I need to be an *admin* to revoke the link.');
+        if (!ctx.isBotAdmin && !ctx.isOwner) return safeSend(ctx, '❌ I need to be a group *admin* to revoke the link.\n\n👉 Please promote me to group admin first.');
         await ctx.react('⏳');
         try {
             const newCode = await ctx.sock.groupRevokeInvite(ctx.from);
@@ -622,7 +622,7 @@ addCmd({
     groupOnly: true,
     adminOnly: true,
     handler: async (ctx) => {
-        if (!ctx.isBotAdmin) return safeSend(ctx, '❌ I need to be an *admin* to approve join requests.');
+        if (!ctx.isBotAdmin && !ctx.isOwner) return safeSend(ctx, '❌ I need to be a group *admin* to approve join requests.\n\n👉 Please promote me to group admin first.');
         await ctx.react('⏳');
         try {
             const meta    = await ctx.sock.groupMetadata(ctx.from);
