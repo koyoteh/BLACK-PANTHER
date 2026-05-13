@@ -5,6 +5,10 @@
 //      animated-style status bar, and per-category deep dives.
 // ╚══════════════════════════════════════════════════════════════╝
 
+// WhatsApp "read more" expander — collapses long messages safely
+const _more     = String.fromCharCode(8206);
+const _readmore = _more.repeat(4001);
+
 const { addCmd, addTrigger, getAllCmds } = require('../../guru/handlers/loader');
 const { gmdProgress, runtime, fmtBytes } = require('../../guru/utils/gmdFunctions');
 const { daysUntil, fmtDate, parseExpiryDate, fmtCountdown, expiryBar, expiryLine } = require('../../guru/utils/expiry');
@@ -522,12 +526,65 @@ async function sendCategoryDetail(ctx, cat, allCmds) {
 addCmd({
     name: 'fullcmds',
     aliases: ['allcmds', 'cmdlist', 'commands'],
-    desc: 'Show every command grouped by category',
-    usage: 'fullcmds',
+    desc: 'Show every command with description and usage, grouped by category',
+    usage: 'fullcmds  |  fullcmds <category>',
     category: 'general',
     handler: async (ctx) => {
         const allCmds = getAllCmds();
         const p       = config.BOT_PREFIX;
+        const arg     = ctx.args[0]?.toLowerCase();
+
+        // ── Single-category mode ─────────────────────────────
+        if (arg) {
+            const cat = CATS.find(c => c.key === arg || c.label.toLowerCase() === arg);
+            if (!cat) return ctx.reply(`❌ Unknown category: *${arg}*\n\nValid: ${CATS.map(c => c.key).join(', ')}`);
+            const cmds = allCmds.filter(c => (c.category || 'misc') === cat.key);
+            if (!cmds.length) return ctx.reply(`No commands found in *${cat.label}*.`);
+
+            let out = '';
+            out += `${cat.icon} *${cat.label} COMMANDS*\n`;
+            out += `_${config.BOT_NAME}_\n`;
+            out += `${'─'.repeat(30)}\n`;
+            out += `_${cmds.length} command${cmds.length !== 1 ? 's' : ''} in this category_\n`;
+            out += _readmore + '\n\n';
+
+            cmds.forEach((c, i) => {
+                out += `*${i + 1}.* \`${p}${c.name}\``;
+                if (c.aliases?.length) out += `  _(also: ${c.aliases.slice(0, 3).join(', ')})_`;
+                out += '\n';
+                if (c.desc)  out += `   ↳ ${c.desc}\n`;
+                if (c.usage) out += `   📌 \`${p}${c.usage}\`\n`;
+                out += '\n';
+            });
+
+            out += `${'─'.repeat(30)}\n`;
+            out += `💡 _${p}fullcmds for all categories_\n`;
+            out += `◈ ${config.CHANNEL_NAME}`;
+
+            await sendButtons(ctx.sock, ctx.from, {
+                title:  `${cat.icon} ${cat.label} — ${cmds.length} cmds`,
+                text:   out,
+                footer: config.BOT_NAME,
+                image:  { url: MENU_IMAGE },
+                buttons: [
+                    { id: `${p}menu`,     text: '🏠 Main Menu' },
+                    { id: `${p}fullcmds`, text: '📋 All Categories' },
+                ],
+            }, { quoted: ctx.m }).catch(async () => {
+                try {
+                    await ctx.sock.sendMessage(ctx.from,
+                        { image: { url: MENU_IMAGE }, caption: out, contextInfo: channelCtx() },
+                        { quoted: ctx.m });
+                } catch {
+                    await ctx.sock.sendMessage(ctx.from,
+                        { text: out, contextInfo: channelCtx() },
+                        { quoted: ctx.m });
+                }
+            });
+            return;
+        }
+
+        // ── All-categories mode ──────────────────────────────
         const grouped = {};
         for (const cmd of allCmds) {
             const cat = cmd.category || 'misc';
@@ -535,28 +592,46 @@ addCmd({
             grouped[cat].push(cmd);
         }
 
-        let out = `📋 *FULL COMMANDS LIST*\n_${config.BOT_NAME}_\n${'═'.repeat(30)}\n\n`;
+        const uptime = runtime(process.uptime() * 1000);
         let total = 0;
+
+        // Header (always visible before "read more")
+        let header = '';
+        header += `꧁ *${config.BOT_NAME}* ꧂\n`;
+        header += `📋 *FULL COMMANDS LIST*\n`;
+        header += `${'═'.repeat(30)}\n`;
+        header += `⏱️ Uptime: ${uptime}  •  Prefix: ${p}\n`;
+        header += `${'─'.repeat(30)}`;
+
+        // Body (collapsed behind "read more")
+        let body = '\n\n';
         for (const cat of CATS) {
             const cmds = grouped[cat.key];
             if (!cmds?.length) continue;
-            out += `${cat.icon} *${cat.label}*\n`;
-            cmds.forEach(c => {
-                out += `  • *${p}${c.name}*`;
-                if (c.aliases?.length) out += ` _(${c.aliases.slice(0,2).join(', ')})_`;
-                if (c.desc) out += `\n    _${c.desc}_`;
-                out += '\n';
+            body += `┌─ ${cat.icon} *${cat.label}* (${cmds.length})\n`;
+            cmds.forEach((c, i) => {
+                const isLast = i === cmds.length - 1;
+                const prefix = isLast ? '└' : '├';
+                body += `${prefix}◈ \`${p}${c.name}\``;
+                if (c.aliases?.length) body += ` _(${c.aliases.slice(0, 2).join('/')})_`;
+                body += '\n';
+                if (c.desc)  body += `${isLast ? '   ' : '│  '} ↳ _${c.desc}_\n`;
+                if (c.usage) body += `${isLast ? '   ' : '│  '} 📌 \`${p}${c.usage}\`\n`;
                 total++;
             });
-            out += '\n';
+            body += '\n';
         }
-        out += `${'─'.repeat(30)}\n`;
-        out += `📦 *Total:* ${total} commands\n`;
-        out += `💡 _Use ${p}menu <category> for details_\n`;
-        out += `◈ ${config.CHANNEL_NAME}`;
+
+        body += `${'─'.repeat(30)}\n`;
+        body += `📦 *Total:* ${total} commands loaded\n`;
+        body += `💡 _Use \`${p}fullcmds <category>\` for details_\n`;
+        body += `💡 _Use \`${p}menu <category>\` for commands-only view_\n`;
+        body += `◈ ${config.CHANNEL_NAME}`;
+
+        const out = header + _readmore + body;
 
         await sendButtons(ctx.sock, ctx.from, {
-            title:  `📋 All ${total} Commands`,
+            title:  `📋 ${config.BOT_NAME} — ${total} Commands`,
             text:   out,
             footer: config.BOT_NAME,
             image:  { url: MENU_IMAGE },
@@ -571,9 +646,9 @@ addCmd({
                             rows: CATS
                                 .filter(c => grouped[c.key]?.length)
                                 .map(c => ({
-                                    id:          `${p}menu ${c.key}`,
+                                    id:          `${p}fullcmds ${c.key}`,
                                     title:       `${c.icon} ${c.label}`,
-                                    description: `${grouped[c.key].length} commands`,
+                                    description: `${grouped[c.key].length} command${grouped[c.key].length !== 1 ? 's' : ''}`,
                                 })),
                         }],
                     }),
@@ -581,17 +656,13 @@ addCmd({
             ],
         }, { quoted: ctx.m }).catch(async () => {
             try {
-                await ctx.sock.sendMessage(
-                    ctx.from,
+                await ctx.sock.sendMessage(ctx.from,
                     { image: { url: MENU_IMAGE }, caption: out, contextInfo: channelCtx() },
-                    { quoted: ctx.m }
-                );
+                    { quoted: ctx.m });
             } catch {
-                await ctx.sock.sendMessage(
-                    ctx.from,
+                await ctx.sock.sendMessage(ctx.from,
                     { text: out, contextInfo: channelCtx() },
-                    { quoted: ctx.m }
-                );
+                    { quoted: ctx.m });
             }
         });
     },
