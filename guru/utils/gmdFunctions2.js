@@ -439,11 +439,21 @@ async function sendCopyButton(sock, jid, opts = {}, msgOpts = {}) {
 async function sendButtons(sock, jid, opts = {}, msgOpts = {}) {
     const {
         body    = '',
+        text    = '',          // alias for body (plugins use 'text')
+        title   = '',          // header title text
         footer  = config.BOT_NAME,
+        image   = null,        // { url: '...' } — optional header image
         buttons = [],
     } = opts;
 
+    const bodyText = text || body;
+
+    // Build native-flow buttons — supports pre-built objects (with name+buttonParamsJson)
+    // as well as simple { type, label, value } shorthand objects
     const builtButtons = buttons.map((btn) => {
+        // Already a pre-built native-flow button
+        if (btn.name && btn.buttonParamsJson !== undefined) return btn;
+
         if (btn.type === 'copy') {
             return {
                 name:             'copy_code',
@@ -472,10 +482,28 @@ async function sendButtons(sock, jid, opts = {}, msgOpts = {}) {
         };
     });
 
+    // Build header — attach image if provided, otherwise plain text title
+    let header;
+    if (image?.url) {
+        header = {
+            hasMediaAttachment: true,
+            imageMessage: {
+                url:       image.url,
+                mimetype:  'image/jpeg',
+                caption:   '',
+                jpegThumbnail: '',
+            },
+        };
+    } else if (title) {
+        header = { hasMediaAttachment: false, title };
+    } else {
+        header = { hasMediaAttachment: false };
+    }
+
     return sock.sendMessage(jid, {
         interactiveMessage: {
-            header: { hasMediaAttachment: false },
-            body:   { text: body },
+            header,
+            body:   { text: bodyText },
             footer: { text: footer },
             nativeFlowMessage: {
                 messageParamsJson: '',

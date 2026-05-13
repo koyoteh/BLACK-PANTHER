@@ -11,7 +11,7 @@ const { daysUntil, fmtDate, parseExpiryDate, fmtCountdown, expiryBar, expiryLine
 const { channelCtx } = require('../../guru/utils/gmdFunctions2');
 const config = require('../../guru/config/settings');
 const moment = require('moment-timezone');
-const { sendButtons } = require('gifted-btns');
+const { sendButtons } = require('../../guru/utils/gmdFunctions2');
 
 const MENU_IMAGE = 'https://i.ibb.co/PZjVDnBM/upload-1778637749645-4b17ed31-jpg.jpg';
 

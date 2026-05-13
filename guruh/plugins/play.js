@@ -9,7 +9,7 @@ const axios      = require('axios');
 const yts        = require('yt-search');
 const config     = require('../../guru/config/settings');
 const { channelCtx } = require('../../guru/utils/gmdFunctions2');
-const { sendButtons } = require('gifted-btns');
+const { sendButtons } = require('../../guru/utils/gmdFunctions2');
 
 // ── HTTP helper ────────────────────────────────────────────────
 async function getJson(url, opts = {}) {

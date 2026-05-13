@@ -4,7 +4,7 @@ const axios         = require('axios');
 const config        = require('../../guru/config/settings');
 const { getTime, getDate } = require('../../guru/utils/helpers');
 const { channelCtx } = require('../../guru/utils/gmdFunctions2');
-const { sendButtons } = require('gifted-btns');
+const { sendButtons } = require('../../guru/utils/gmdFunctions2');
 
 // ── Sticker ───────────────────────────────────────────────────
 addCmd({
