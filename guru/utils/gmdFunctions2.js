@@ -173,15 +173,22 @@ function getStoredMessage(msgId) {
     return msgStore.get(msgId)?.msg?.message || undefined;
 }
 
-async function PantherAntiDelete(sock, update) {
+// key = individual MessageKey: { remoteJid, id, fromMe, participant? }
+async function PantherAntiDelete(sock, key) {
     try {
-        const key  = update?.key;
         const from = key?.remoteJid;
         if (!from) return;
+
+        // Only act in groups that have antidelete ON
+        // For DMs we skip (getGroupSettings falls back gracefully)
         const settings = getGroupSettings(from);
         if (!settings?.antidelete) return;
+
         const stored = msgStore.get(key?.id);
         if (!stored?.msg?.message) return;
+
+        // Skip bot's own messages
+        if (key?.fromMe) return;
 
         const { getContentType } = require('@whiskeysockets/baileys');
         const type   = getContentType(stored.msg.message);
@@ -189,7 +196,7 @@ async function PantherAntiDelete(sock, update) {
 
         const header = gmdBanner('🗑️ Deleted Message Recovered', [
             `👤 Sender : @${sender}`,
-            `📂 Type   : ${type?.replace('Message','') || 'text'}`,
+            `📂 Type   : ${type?.replace('Message', '') || 'text'}`,
             `🔄 Restored by ${config.BOT_NAME}`,
         ], config.BOT_NAME);
 
@@ -204,24 +211,31 @@ async function PantherAntiDelete(sock, update) {
 //  ✏️  ANTI EDIT
 // ═══════════════════════════════════════════════════════════════
 
+// update = { key: MessageKey, update: Partial<WAMessage> }
+// The edited content lives in update.update.message.protocolMessage
 async function PantherAntiEdit(sock, update) {
     try {
-        const edited = update?.message?.protocolMessage?.editedMessage;
+        const proto  = update?.update?.message?.protocolMessage;
+        const edited = proto?.editedMessage;
         const from   = update?.key?.remoteJid;
         if (!edited || !from) return;
+
         const settings = getGroupSettings(from);
         if (!settings?.antidelete) return;
-        const original = msgStore.get(update?.message?.protocolMessage?.key?.id);
+
+        // proto.key points to the original message that was edited
+        const original = msgStore.get(proto?.key?.id);
         if (!original) return;
+
         const sender  = (update?.key?.participant || from).split('@')[0];
         const oldText = original.msg?.message?.conversation ||
                         original.msg?.message?.extendedTextMessage?.text || '(media)';
         const newText = edited?.conversation || edited?.extendedTextMessage?.text || '(media)';
 
         const text = gmdTable('✏️ Message Edited', [
-            ['👤 User',    `@${sender}`],
-            ['📝 Before',  oldText.slice(0, 28)],
-            ['✏️  After',   newText.slice(0, 28)],
+            ['👤 User',   `@${sender}`],
+            ['📝 Before', oldText.slice(0, 300)],
+            ['✏️  After',  newText.slice(0, 300)],
         ], config.BOT_NAME);
 
         await sendWithChannel(sock, from, {
