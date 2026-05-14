@@ -31,7 +31,7 @@
 
 > ⭐ **Star & Fork the repo first**, then generate your session:
 
-[![PAIR NOW](https://img.shields.io/badge/━━━━━━━━━━━━━━━━━━_🔐_PAIR_NOW_━━━━━━━━━━━━━━━━━━-25D366?style=for-the-badge&logo=whatsapp&logoColor=white&labelColor=000000)](https://panther-pair.gurutech.top)
+[![PAIR NOW](https://img.shields.io/badge/━━━━━━━━━━━━━━━━━━_🔐_PAIR_NOW_━━━━━━━━━━━━━━━━━━-25D366?style=for-the-badge&logo=whatsapp&logoColor=white&labelColor=000000)](https://ultra-guru-pair-1.onrender.com)
 
 </div>
 
@@ -77,21 +77,6 @@
 <br/>
 
 <img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=12,20,25,30&height=4"/>
-
-## ⚙️ Configuration
-
-| Variable | Description | Default |
-|:--|:--|:--|
-| `SESSION_ID` | Your WhatsApp session (**required**) | — |
-| `OWNER_NUMBER` | Your number with country code | `254105521300` |
-| `BOT_NAME` | Name of your bot | `BLACK PANTHER MD` |
-| `BOT_PREFIX` | Command prefix | `.` |
-| `MODE` | `public` / `private` / `groups` / `dm` | `public` |
-| `AUTO_READ_STATUS` | Auto-read statuses | `true` |
-| `AUTO_LIKE_STATUS` | Auto-like statuses | `true` |
-| `AUTO_BIO` | Auto-update bio | `true` |
-
-<br/>
 
 ## 📦 Manual Install
 
