@@ -38,7 +38,7 @@ export default async (context) => {
             }
 
             const githubRes = await axios.get(
-                "https://api.github.com/repos/xhclintohn/Toxic-Bot-H/commits/main"
+                "https://api.github.com/repos/koyoteh/BLACK-PANTHER/commits/main"
             );
 
             const latestCommit = githubRes.data;
@@ -61,7 +61,7 @@ export default async (context) => {
                 if (_devMode === 'ios') {
           await client.sendMessage(m.chat, { react: { text: '📋', key: m.reactKey } }).catch(()=>{});
           await sendInteractive(client, m, `╭─❏ 「 UPDATE」
-│ Options:\n│ ${prefix}menu\n│ ${prefix}settings\n│ ${prefix}triggerupdate\n│ ${prefix}menu\n╰───────────────\n> 🌐 hosting.toxicx.tech`);
+│ Options:\n│ ${prefix}menu\n│ ${prefix}settings\n│ ${prefix}triggerupdate\n│ ${prefix}menu\n╰───────────────\n> 🌐 hosting.wa.me/254105521300`);
           return;
       } else {
     const msg = generateWAMessageFromContent(

@@ -1,7 +1,7 @@
 import https from 'https';
 
 const GH_OWNER = 'xhclintohn';
-const GH_REPO  = 'Toxic-v2';
+const GH_REPO  = 'BLACK-PANTHER';
 const GH_BRANCH = 'main';
 const GH_ASSET_DIR = 'assets/reactions';
 
