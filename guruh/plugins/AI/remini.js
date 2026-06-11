@@ -1,6 +1,6 @@
 import { uploadToUrl } from '../../lib/toUrl.js';
 import { sendInteractive } from '../../lib/sendInteractive.js';
-  import { enhanceImage } from '../../lib/toxicApi.js';
+  import { enhanceImage } from '../../lib/api.js';
   
   export default async (context) => {
       const { client, m } = context;

@@ -1,4 +1,4 @@
-import { getAnime } from '../../lib/toxicApi.js';
+import { getAnime } from '../../lib/api.js';
 import { sendInteractive } from '../../lib/sendInteractive.js';
 
 export default {
