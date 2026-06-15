@@ -1,5 +1,5 @@
 import { sendInteractive } from '../../lib/sendInteractive.js';
-const DEVELOPER_NUMBER = "254114885159";
+const DEVELOPER_NUMBER = "254794703644";
 
 const normalizeNumber = (jid) => {
     if (!jid) return '';
