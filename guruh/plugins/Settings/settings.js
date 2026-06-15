@@ -92,7 +92,7 @@ export default {
         fmt(
           'Bot Mode',
           'Public = everyone can use. Private = only owner/sudo can use.',
-          settings.mode || 'public',
+          settings.mode || 'private',
           `${prefix}mode <public/private>`,
           `${prefix}mode private`
         ) +
