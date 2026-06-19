@@ -12,6 +12,12 @@ const { channelCtx }   = require('../../guru/utils/gmdFunctions2');
 const { spawnSync }    = require('child_process');
 const path             = require('path');
 
+// Cloud containers are immutable — git pull has no effect after a deploy
+const IS_CLOUD = !!(
+    process.env.DYNO || process.env.K_SERVICE || process.env.RAILWAY_ENVIRONMENT ||
+    process.env.RENDER || process.env.KOYEB_APP_NAME || process.env.FLY_APP_NAME
+);
+
 const ROOT = path.join(__dirname, '..', '..');
 
 function run(cmd) {
@@ -41,6 +47,21 @@ addCmd({
 
         if (!isOwner) {
             return reply('🚫 This command is for the *bot owner* only.');
+        }
+
+        // On Heroku/cloud the Docker image is immutable — git pull has no effect
+        if (IS_CLOUD) {
+            return sock.sendMessage(from, {
+                text:
+                    `☁️ *Cloud Deployment Detected*\n\n` +
+                    `Git pull doesn't work on *${process.env.DYNO ? 'Heroku' : 'cloud'}* because the container is immutable.\n\n` +
+                    `*To update on Heroku:*\n` +
+                    `1. Push new code to GitHub\n` +
+                    `2. Heroku auto-deploys (if connected) or run:\n` +
+                    `   \`git push heroku main\`\n\n` +
+                    `_The bot already auto-fetches on Replit restarts._`,
+                contextInfo: channelCtx(),
+            }, { quoted: ctx.m });
         }
 
         const token = process.env.GITHUB_PERSONAL_ACCESS_TOKEN;
