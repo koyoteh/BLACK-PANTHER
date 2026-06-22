@@ -13,7 +13,6 @@ const { downloadMediaMessage, getContentType } = require('@whiskeysockets/bailey
 const { channelCtx }               = require('../../guru/utils/gmdFunctions2');
 const { db }                       = require('../../guru/db/database');
 const config                       = require('../../guru/config/settings');
-const { cleanJid }                 = require('../../guru/utils/helpers');
 
 // ── Ensure custom_commands table exists ──────────────────────────
 db.exec(`
@@ -181,63 +180,6 @@ addTrigger({
     },
 });
 
-// ════════════════════════════════════════════════════════════════════
-//  TRIGGER — REPLY-BASED VIEW-ONCE SAVE
-//
-//  When the LINKER replies to any message (with any text or emoji),
-//  the bot checks if the quoted message is a stored view-once.
-//  If yes → silently downloads it and saves to the linker's own DM.
-//  The original sender is NEVER notified (no @mention, no read receipt).
-// ════════════════════════════════════════════════════════════════════
-addTrigger({
-    pattern: /[\s\S]*/,
-    handler: async (ctx) => {
-        try {
-            // Only the linker's own messages trigger this save
-            // fromMe = message sent by the bot account itself (most reliable)
-            const ownerJid = config.OWNER_NUMBER + '@s.whatsapp.net';
-            const isLinker =
-                ctx.m.fromMe === true ||
-                cleanJid(ctx.sender) === cleanJid(ownerJid);
-            if (!isLinker) return;
-
-            // Must be a reply (has a quoted/context message ID)
-            // Check all common message types that can carry a reply context
-            const ci =
-                ctx.m.message?.extendedTextMessage?.contextInfo ||
-                ctx.m.message?.imageMessage?.contextInfo        ||
-                ctx.m.message?.videoMessage?.contextInfo        ||
-                ctx.m.message?.audioMessage?.contextInfo        ||
-                ctx.m.message?.stickerMessage?.contextInfo      ||
-                null;
-
-            const quotedMsgId = ci?.stanzaId;
-            if (!quotedMsgId) return;
-
-            // Is the quoted message one of our stored view-onces?
-            const stored = voStore.get(quotedMsgId);
-            if (!stored) return;
-
-            // Download it
-            const result = await downloadViewOnceFromStored(stored);
-            if (!result?.buf) return;
-
-            const { buf, voMessage } = result;
-            const botSelfJid = getBotSelfJid(ctx.sock);
-
-            // Save to linker's DM (saved messages) — completely silent
-            const sent = await deliverToInbox(ctx.sock, botSelfJid, buf, voMessage, stored).catch(() => false);
-            if (!sent) return;
-
-            // Confirm with ✅ reaction on the linker's own reply message
-            await ctx.react('✅').catch(() => {});
-
-            // Remove from store — already saved, no need to keep
-            voStore.delete(quotedMsgId);
-
-        } catch {}
-    },
-});
 
 // ════════════════════════════════════════════════════════════════════
 //  👁️  .vv — REVEAL VIEW-ONCE (manual command)
@@ -360,84 +302,103 @@ addCmd({
 });
 
 // ════════════════════════════════════════════════════════════════════
-//  📥  REACTION-BASED VIEW-ONCE SAVE
+//  📥  EMOJI-REPLY VIEW-ONCE SAVE  (🥹 😍 ❤️)
 //
-//  When ANYONE reacts with any emoji to a stored view-once message,
-//  the media is silently saved to the bot's own DM inbox.
+//  When ANYONE replies to a view-once message with one of the trigger
+//  emojis (🥹 😍 ❤️) the bot downloads the quoted media and sends
+//  it silently to the owner's saved-messages inbox.
 //  The original sender is NEVER notified.
-//
-//  Exported so connection.js can call it for reactionMessage events.
 // ════════════════════════════════════════════════════════════════════
 
-async function handleViewOnceReaction(sock, reactMsg) {
-    try {
-        const reactionContent = reactMsg.message?.reactionMessage;
-        if (!reactionContent) return;
+const SAVE_TRIGGERS = ['🥹', '😍', '❤️'];
 
-        // Look up the reacted-to message in our view-once store
-        // Works for ANY reactor — not just the linker/owner
-        const targetMsgId = reactionContent.key?.id;
-        if (!targetMsgId) return;
-
-        const stored = voStore.get(targetMsgId);
-        if (!stored) return;
-
-        const botSelfJid = getBotSelfJid(sock);
-
-        // Download the view-once media
-        const result = await downloadViewOnceFromStored(stored);
-        if (!result?.buf) return;
-
-        const { buf, voMessage } = result;
-
-        // Save to bot's own DM inbox — completely silent
-        const sent = await deliverToInbox(sock, botSelfJid, buf, voMessage, stored).catch(() => false);
-        if (!sent) return;
-
-        // Acknowledge with ✅ reaction on the original view-once message
-        await sock.sendMessage(reactMsg.key.remoteJid, {
-            react: { text: '✅', key: reactionContent.key },
-        }).catch(() => {});
-
-        // Keep in store — multiple people may react
-    } catch {}
-}
-
-// ════════════════════════════════════════════════════════════════════
-//  🙏  "THANKS" KEYWORD TRIGGER
-//
-//  When ANY user sends a message containing "thanks" (case-insensitive)
-//  in a chat where a view-once was recently received, the bot silently
-//  saves that view-once to its own DM inbox.
-// ════════════════════════════════════════════════════════════════════
 addTrigger({
-    pattern: /\bthanks\b/i,
+    pattern: /[\s\S]*/,
     handler: async (ctx) => {
         try {
             if (ctx.m.isStatus) return;
-            if (ctx.m.fromMe)   return;  // ignore bot's own messages
 
-            // Is there a recent view-once in this chat?
-            const lastId = lastVoPerChat.get(ctx.from);
-            if (!lastId) return;
+            // Check if message text contains a trigger emoji
+            const text =
+                ctx.m.message?.conversation ||
+                ctx.m.message?.extendedTextMessage?.text || '';
+            if (!text) return;
 
-            const stored = voStore.get(lastId);
-            if (!stored) return;
+            const matched = SAVE_TRIGGERS.some(t => text.includes(t));
+            if (!matched) return;
 
-            const botSelfJid = getBotSelfJid(ctx.sock);
+            // Must be a reply — pull contextInfo from message
+            const ci =
+                ctx.m.message?.extendedTextMessage?.contextInfo ||
+                ctx.m.message?.imageMessage?.contextInfo        ||
+                null;
 
-            // Download and save silently
-            const result = await downloadViewOnceFromStored(stored).catch(() => null);
-            if (!result?.buf) return;
+            const quotedMsg = ci?.quotedMessage;
+            if (!quotedMsg) return;
 
-            const { buf, voMessage } = result;
-            await deliverToInbox(ctx.sock, botSelfJid, buf, voMessage, stored).catch(() => {});
+            // Unwrap view-once wrappers (all three variants + ephemeral)
+            const voMessage =
+                quotedMsg.viewOnceMessageV2?.message ||
+                quotedMsg.viewOnceMessageV2Extension?.message ||
+                quotedMsg.viewOnceMessage?.message ||
+                quotedMsg.ephemeralMessage?.message  ||
+                null;
 
-            // Silent ✅ reaction so the user knows it was received
+            if (!voMessage) return; // quoted message is not a view-once
+
+            const fakeMsg = {
+                key: {
+                    id:          ci.stanzaId,
+                    remoteJid:   ctx.from,
+                    participant: ci.participant,
+                },
+                message: voMessage,
+            };
+
+            const buf = await downloadMediaMessage(fakeMsg, 'buffer', {}).catch(() => null);
+            if (!buf?.length) return;
+
+            const ownerJid  = getBotSelfJid(ctx.sock);
+            const senderNum = (ci.participant || ci.remoteJid || ctx.from)
+                .split('@')[0].split(':')[0];
+            const caption =
+                `👁️ *View-Once Saved*\n\n` +
+                `👤 *From :* ${senderNum}\n` +
+                `💬 *Chat :* ${ctx.groupName || 'DM'}\n` +
+                `⏰ *Time :* ${new Date().toLocaleString('en-KE', { timeZone: config.TIME_ZONE })}\n\n` +
+                `_Saved by ${config.BOT_NAME}_`;
+
+            const type = getContentType(voMessage);
+
+            if (type === 'imageMessage') {
+                await ctx.sock.sendMessage(ownerJid, { image: buf, caption });
+            } else if (type === 'videoMessage') {
+                await ctx.sock.sendMessage(ownerJid, { video: buf, caption, mimetype: 'video/mp4' });
+            } else if (type === 'audioMessage') {
+                const mime  = voMessage.audioMessage?.mimetype || 'audio/ogg; codecs=opus';
+                const isPtt = mime.includes('ogg') || mime.includes('opus');
+                await ctx.sock.sendMessage(ownerJid, { audio: buf, mimetype: mime, ptt: isPtt });
+                await ctx.sock.sendMessage(ownerJid, { text: caption });
+            } else if (type === 'documentMessage') {
+                await ctx.sock.sendMessage(ownerJid, {
+                    document: buf,
+                    fileName: voMessage.documentMessage?.fileName || 'document',
+                    mimetype: voMessage.documentMessage?.mimetype || 'application/octet-stream',
+                    caption,
+                });
+            } else if (type === 'stickerMessage') {
+                await ctx.sock.sendMessage(ownerJid, { sticker: buf });
+            } else {
+                return;
+            }
+
+            // Confirm with ✅ reaction on the user's trigger message
             await ctx.react('✅').catch(() => {});
+
         } catch {}
     },
 });
+
 
 // ════════════════════════════════════════════════════════════════════
 //  🛠️  .cmd — CREATE / DELETE / LIST CUSTOM COMMANDS
@@ -541,5 +502,4 @@ addTrigger({
     },
 });
 
-// Export for use in connection.js (reaction path)
-module.exports = { handleViewOnceReaction };
+module.exports = {};
