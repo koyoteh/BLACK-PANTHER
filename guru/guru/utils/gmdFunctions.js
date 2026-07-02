@@ -1,0 +1,309 @@
+'use strict';
+// ╭━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╮
+//  🐾  BLACK PANTHER MD  —  gmdFunctions.js  (Core Utilities)
+//  👑  Owner : GuruTech  |  📞 +254105521300
+//  🔧  Rich formatting · Media tools · Upload helpers
+// ╰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╯
+
+const fs        = require('fs');
+const path      = require('path');
+const axios     = require('axios');
+const FormData  = require('form-data');
+const { downloadContentFromMessage } = require('@whiskeysockets/baileys');
+const config    = require('../config/settings');
+
+const TEMP_DIR = path.join(__dirname, '../../temp');
+if (!fs.existsSync(TEMP_DIR)) fs.mkdirSync(TEMP_DIR, { recursive: true });
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  🎨  RICH TEXT FORMATTERS
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+function gmdBanner(title, lines = [], footer = '') {
+    const top = `╭━━━⬣ *${title}* ⬣━━━╮`;
+    const bot = `╰━━━━━━━━⬣`;
+
+    let out = `${top}\n`;
+    out    += `┃\n`;
+    for (const line of lines) out += `┃ ${line}\n`;
+    out    += `┃\n`;
+    out    += `${bot}`;
+    if (footer) out += `\n\n✔️ *${footer}*`;
+    return out;
+}
+
+function stripEmoji(str) {
+    return str.replace(/[\u{1F300}-\u{1FAFF}]|[\u{2600}-\u{27FF}]|\*|_/gu, '').trim();
+}
+
+function gmdTable(title, rows = [], footer = '') {
+    const TOP  = `╭━━━⬣ *${title}* ⬣━━━╮`;
+    const BOT  = `╰━━━━━━━━⬣`;
+    const row  = (l, v) => {
+        const label = String(l).padEnd(14);
+        const value = String(v).slice(0, 20);
+        return `┃ ${label}: ${value}`;
+    };
+
+    let out = `${TOP}\n`;
+    for (const [l, v] of rows) out += row(l, v) + '\n';
+    out += BOT;
+    if (footer) out += `\n\n✔️ *${footer}*`;
+    return out;
+}
+
+function gmdList(title, items = [], bullet = '👉', footer = '') {
+    let out = `╭━━━⬣ *${title}* ⬣━━━╮\n`;
+    items.forEach((item) => {
+        out += `┃ ${bullet} ${item}\n`;
+    });
+    out += `╰━━━━━━━━⬣`;
+    if (footer) out += `\n\n✔️ *${footer}*`;
+    return out;
+}
+
+function gmdProgress(filled, total = 10, label = '') {
+    const f = Math.round((filled / total) * 10);
+    const bar = '▰'.repeat(f) + '▱'.repeat(10 - f);
+    return `${bar} ${Math.round((filled / total) * 100)}%${label ? '  ' + label : ''}`;
+}
+
+function fmtDuration(seconds) {
+    const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+    const s = Math.floor(seconds % 60).toString().padStart(2, '0');
+    return `${m}:${s}`;
+}
+
+function fmtBytes(bytes) {
+    if (!bytes) return '0 B';
+    const k = 1024, sizes = ['B', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${sizes[i]}`;
+}
+
+const FONTS = {
+    bold:    (s) => s.replace(/[a-zA-Z]/g, c => String.fromCodePoint(
+        c >= 'a' && c <= 'z' ? 0x1D41A + c.charCodeAt(0) - 97 :
+        0x1D400 + c.charCodeAt(0) - 65)),
+    italic:  (s) => s.replace(/[a-zA-Z]/g, c => String.fromCodePoint(
+        c >= 'a' && c <= 'z' ? 0x1D44E + c.charCodeAt(0) - 97 :
+        0x1D434 + c.charCodeAt(0) - 65)),
+    mono:    (s) => s.replace(/[a-zA-Z0-9]/g, c => String.fromCodePoint(
+        c >= 'a' && c <= 'z' ? 0x1D670 + c.charCodeAt(0) - 97 :
+        c >= 'A' && c <= 'Z' ? 0x1D670 + c.charCodeAt(0) - 65 - 32 :
+        0x1D7F6 + c.charCodeAt(0) - 48)),
+};
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  📥  MEDIA DOWNLOAD HELPERS
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+async function gmdBuffer(msg, type = 'buffer') {
+    const message = msg?.message;
+    if (!message) return null;
+
+    const contentTypes = [
+        'imageMessage', 'videoMessage', 'audioMessage',
+        'stickerMessage', 'documentMessage', 'voiceMessage',
+    ];
+
+    let mediaMsg, mediaType;
+    for (const t of contentTypes) {
+        if (message[t]) { mediaMsg = message[t]; mediaType = t.replace('Message', ''); break; }
+        const ctx = message?.extendedTextMessage?.contextInfo?.quotedMessage;
+        if (ctx?.[t]) { mediaMsg = ctx[t]; mediaType = t.replace('Message', ''); break; }
+    }
+    if (!mediaMsg) return null;
+
+    const stream = await downloadContentFromMessage(mediaMsg, mediaType);
+    const chunks = [];
+    for await (const chunk of stream) chunks.push(chunk);
+    return Buffer.concat(chunks);
+}
+
+async function gmdSave(msg, ext = '') {
+    const buf = await gmdBuffer(msg);
+    if (!buf) return null;
+    const outPath = path.join(TEMP_DIR, `panther_${Date.now()}${ext ? '.' + ext : ''}`);
+    fs.writeFileSync(outPath, buf);
+    return outPath;
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  🔊  AUDIO / VIDEO CONVERTERS  (ffmpeg optional)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+function runFfmpeg(inputPath, outputPath, options = []) {
+    return new Promise((resolve, reject) => {
+        try {
+            const ffmpeg     = require('fluent-ffmpeg');
+            const ffmpegPath = require('ffmpeg-static');
+            ffmpeg.setFfmpegPath(ffmpegPath);
+            let cmd = ffmpeg(inputPath);
+            options.forEach(o => cmd = cmd.outputOptions(o));
+            cmd.on('end', resolve).on('error', reject).save(outputPath);
+        } catch (e) {
+            reject(new Error('ffmpeg not available: ' + e.message));
+        }
+    });
+}
+
+async function toAudio(buffer, ext = 'mp3') {
+    const inp = path.join(TEMP_DIR, `in_${Date.now()}`);
+    const out = path.join(TEMP_DIR, `out_${Date.now()}.${ext}`);
+    fs.writeFileSync(inp, buffer);
+    await runFfmpeg(inp, out, ['-q:a 0', '-map a', '-vn']);
+    const result = fs.readFileSync(out);
+    try { fs.unlinkSync(inp); } catch {}
+    try { fs.unlinkSync(out); } catch {}
+    return result;
+}
+
+async function toVideo(buffer) {
+    const inp = path.join(TEMP_DIR, `in_${Date.now()}`);
+    const out = path.join(TEMP_DIR, `out_${Date.now()}.mp4`);
+    fs.writeFileSync(inp, buffer);
+    await runFfmpeg(inp, out, ['-c:v libx264', '-c:a aac', '-strict experimental']);
+    const result = fs.readFileSync(out);
+    try { fs.unlinkSync(inp); } catch {}
+    try { fs.unlinkSync(out); } catch {}
+    return result;
+}
+
+async function toPtt(buffer) {
+    const inp = path.join(TEMP_DIR, `in_${Date.now()}`);
+    const out = path.join(TEMP_DIR, `out_${Date.now()}.ogg`);
+    fs.writeFileSync(inp, buffer);
+    await runFfmpeg(inp, out, ['-c:a libopus', '-b:a 64k', '-vbr on', '-vn']);
+    const result = fs.readFileSync(out);
+    try { fs.unlinkSync(inp); } catch {}
+    try { fs.unlinkSync(out); } catch {}
+    return result;
+}
+
+async function getVideoDuration(buffer) {
+    const inp = path.join(TEMP_DIR, `dur_${Date.now()}`);
+    fs.writeFileSync(inp, buffer);
+    return new Promise((resolve, reject) => {
+        try {
+            const ffmpeg = require('fluent-ffmpeg');
+            ffmpeg.ffprobe(inp, (err, meta) => {
+                try { fs.unlinkSync(inp); } catch {}
+                if (err) return reject(err);
+                resolve(meta?.format?.duration || 0);
+            });
+        } catch (e) {
+            try { fs.unlinkSync(inp); } catch {}
+            resolve(0);
+        }
+    });
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  🖼️  IMAGE UTILITIES
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+async function gmdSticker(buffer, packname = config.PACK_NAME, author = config.PACK_AUTHOR) {
+    try {
+        const { StickerTypes, Sticker } = require('wa-sticker-formatter');
+        const sticker = new Sticker(buffer, {
+            pack:   packname,
+            author: author,
+            type:   StickerTypes.DEFAULT,
+            quality: 50,
+        });
+        return sticker.toMessage();
+    } catch {
+        return { sticker: buffer, mimetype: 'image/webp' };
+    }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  ☁️  CDN / UPLOAD HELPERS
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+async function uploadToCatbox(buffer, ext = 'jpg') {
+    const form = new FormData();
+    form.append('reqtype', 'fileupload');
+    form.append('fileToUpload', buffer, { filename: `file.${ext}`, contentType: 'application/octet-stream' });
+    const res = await axios.post('https://catbox.moe/user.php', form, {
+        headers: form.getHeaders(), timeout: 30000,
+    });
+    return res.data?.trim();
+}
+
+async function uploadToImgBB(buffer) {
+    const base64 = buffer.toString('base64');
+    const res    = await axios.post('https://api.imgbb.com/1/upload', null, {
+        params:  { key: 'free', image: base64 },
+        timeout: 30000,
+    });
+    return res.data?.data?.url || null;
+}
+
+async function uploadToTmpFiles(buffer, ext = 'jpg') {
+    const form = new FormData();
+    form.append('file', buffer, { filename: `upload.${ext}` });
+    const res = await axios.post('https://tmpfiles.org/api/v1/upload', form, {
+        headers: form.getHeaders(), timeout: 30000,
+    });
+    return res.data?.data?.url?.replace('tmpfiles.org/', 'tmpfiles.org/dl/') || null;
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  🛠️  MISC UTILITIES
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+function isUrl(str) {
+    try { return /^https?:\/\//.test(str) && Boolean(new URL(str)); }
+    catch { return false; }
+}
+
+function isNumber(val) { return !isNaN(parseFloat(val)) && isFinite(val); }
+
+function pickRandom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+function shuffleArray(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
+
+function cleanNumber(str = '') {
+    return str.replace(/\D/g, '').replace(/^0/, '254');
+}
+
+function formatPhoneNumber(num = '') {
+    const clean = cleanNumber(num);
+    return clean ? `+${clean}` : num;
+}
+
+function truncate(str, len = 100) {
+    return str?.length > len ? str.slice(0, len) + '…' : str;
+}
+
+function runtime(ms) {
+    const s = Math.floor(ms / 1000);
+    const m = Math.floor(s / 60);
+    const h = Math.floor(m / 60);
+    const d = Math.floor(h / 24);
+    return `${d}d ${h % 24}h ${m % 60}m ${s % 60}s`;
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  📦  EXPORTS
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+module.exports = {
+    gmdBanner, gmdTable, gmdList, gmdProgress,
+    fmtDuration, fmtBytes, FONTS, stripEmoji,
+    gmdBuffer, gmdSave, gmdSticker,
+    toAudio, toVideo, toPtt, getVideoDuration, runFfmpeg,
+    uploadToCatbox, uploadToImgBB, uploadToTmpFiles,
+    sleep, isUrl, isNumber, pickRandom, shuffleArray,
+    cleanNumber, formatPhoneNumber, truncate, runtime,
+};
