@@ -27,11 +27,6 @@ const config = {
     CHANNEL_JID:        process.env.CHANNEL_JID  || '120363427012090993@newsletter',
     CHANNEL_NEWSLETTER_NAME: process.env.CHANNEL_NEWSLETTER_NAME || '🐾『 BLACK PANTHER MD 』🐾',
 
-    // ── MADRIN-API ────────────────────────────────────
-    MADRIN_API_BASE:    'https://api-madrin.zone.id',
-    MADRIN_API_BANNER:  'https://i.ibb.co/SDsnPDfM/madrin-1779214962455.jpg',
-    MADRIN_API_PROFILE: 'https://i.ibb.co/d43x1VYx/madrin-1779214971884.jpg',
-
     // ── Connection ────────────────────────────────────
     SESSION_ID:     process.env.SESSION_ID   || '',
 
