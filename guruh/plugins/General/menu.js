@@ -7,14 +7,13 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const require = createRequire(import.meta.url);
 const { setMenuState } = require('../../lib/menuState.cjs');
-import { sendInteractive } from '../../lib/sendInteractive.js';
 
 export default {
     name: 'menu',
     aliases: ['commands', 'list', 'cmds', 'm', 'cmd', 'commandlist', 'allcmds'],
     description: 'Displays the BLACK-PANTHER-MD command menu',
     run: async (context) => {
-        const { client, m, mode, pict, botname, prefix, config: cfg } = context;
+        const { client, m, mode, botname, prefix, config: cfg } = context;
 
         await client.sendMessage(m.chat, { react: { text: '🤖', key: m.reactKey } });
 
@@ -56,45 +55,10 @@ export default {
 
 > *Reply with a number to view that category*`;
 
-        let sentMsg;
-        if (pict && Buffer.isBuffer(pict)) {
-            sentMsg = await client.sendMessage(m.chat, {
-                image: pict,
-                caption: menuText,
-                mentions: [m.sender],
-                contextInfo: {
-                    externalAdReply: {
-                        title: `${botname || 'BLACK PANTHER MD'}`,
-                        body: `Yo, ${m.pushName}! Pick a category.`,
-                        mediaType: 1,
-                        thumbnail: pict,
-                        mediaUrl: '',
-                        sourceUrl: 'https://github.com/koyoteh/BLACK-PANTHER',
-                        showAdAttribution: false,
-                        renderLargerThumbnail: true
-                    }
-                }
-            }).catch(() => null);
-        }
-
-        if (!sentMsg) {
-            sentMsg = await client.sendMessage(m.chat, {
-                text: menuText,
-                mentions: [m.sender],
-                contextInfo: {
-                    externalAdReply: {
-                        title: `${botname || 'BLACK PANTHER MD'}`,
-                        body: `Yo, ${m.pushName}! Pick a category.`,
-                        mediaType: 1,
-                        thumbnail: null,
-                        mediaUrl: '',
-                        sourceUrl: 'https://github.com/koyoteh/BLACK-PANTHER',
-                        showAdAttribution: false,
-                        renderLargerThumbnail: false
-                    }
-                }
-            }).catch(() => sendInteractive(client, m, menuText));
-        }
+        const sentMsg = await client.sendMessage(m.chat, {
+            text: menuText,
+            mentions: [m.sender],
+        }).catch(() => null);
 
         // Store the menu message so the trigger can identify replies to it
         const menuMsgId = sentMsg?.key?.id;
