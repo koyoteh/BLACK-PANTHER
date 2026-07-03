@@ -27,17 +27,21 @@ export default {
         .join('');
     };
 
-    let menuText = `✦ ──『 GENERAL MENU 』── ⚝
-▢ Prefix: ${effectivePrefix || 'None'}\n▢ \n`;
+    let menuText = `╔══════════════════════════════════╗
+║  ✦ ──『 GENERAL MENU 』── ⚝
+╠══════════════════════════════════╣
+║  📌 Prefix : ${effectivePrefix || 'None'}
+╠══════════════════════════════════╣
+`;
 
     let commandFiles = fs.readdirSync('./plugins/General').filter(file => file.endsWith('.js'));
     for (const file of commandFiles) {
       const commandName = file.replace('.js', '');
       const fancyCommandName = toFancyFont(commandName);
-      menuText += `▢ *${fancyCommandName}*\n`;
+      menuText += `║  ▸ *${fancyCommandName}*\n`;
     }
 
-    menuText += `└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──\n`;
+    menuText += `╚══════════════════════════════════╝\n> ✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪\n`;
 
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
         await client.sendMessage(m.chat, { text: menuText });

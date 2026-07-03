@@ -27,12 +27,16 @@ export default {
         .join('');
     };
 
-    let menuText = `✦ ──『 PRIVACY MENU 』── ⚝
-▢ Prefix: ${effectivePrefix || 'None'}\n▢ \n`;
+    let menuText = `╔══════════════════════════════════╗
+║  ✦ ──『 PRIVACY MENU 』── ⚝
+╠══════════════════════════════════╣
+║  📌 Prefix : ${effectivePrefix || 'None'}
+╠══════════════════════════════════╣
+`;
 
-    let commandFiles = fs.readdirSync('./plugins/Privacy').filter(file => file.endsWith('/js'));
+    let commandFiles = fs.readdirSync('./plugins/Privacy').filter(file => file.endsWith('.js'));
     for (const file of commandFiles) {
-      const commandName = file.replace('/js', '');
+      const commandName = file.replace('.js', '');
       const fancyCommandName = toFancyFont(commandName);
       menuText += `▢ *${fancyCommandName}*\n`;
     }

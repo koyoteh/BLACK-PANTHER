@@ -59,8 +59,7 @@ export default {
         .join('');
     };
 
-    let menuText = `✦ ──『 Fᴜʟʟ Mᴇɴᴜ 』── ⚝
-▢ Greetings, @${m.sender.split('@')[0].split(':')[0]}\n▢ \n▢ Bot: ${botname}\n▢ Total Commands: ${totalCommands}\n▢ Time: ${getCurrentTimeInNairobi()}\n▢ Prefix: ${effectivePrefix || 'None'}\n▢ Mode: ${mode}\n▢ Library: Baileys\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──\n\n`;
+    let menuText = `╔══════════════════════════════════╗\n║  ✦ ──『 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ᴹᴰ 』── ⚝\n╠══════════════════════════════════╣\n║  👤 @${m.sender.split('@')[0].split(':')[0]}\n║  🤖 Bot    : ${botname}\n║  📊 Cmds   : ${totalCommands}\n║  🕐 Time   : ${getCurrentTimeInNairobi()}\n║  📌 Prefix : ${effectivePrefix || 'None'}\n║  🌐 Mode   : ${mode}\n║  📚 Lib    : Baileys\n╚══════════════════════════════════╝\n\n`;
 
     for (const category of categories) {
       let commandFiles;
@@ -70,13 +69,12 @@ export default {
 
       if (commandFiles.length === 0 && category.name !== 'NSFW') continue;
 
-      menuText += `✦ ──『 ${category.display} 』── ⚝
-`;
+      menuText += `╔══════════════════════════════════╗\n║  ✦ ──『 ${category.display} 』── ⚝\n╠══════════════════════════════════╣\n`;
 
       if (category.name === 'NSFW') {
         const plus18Commands = ['xvideo'];
         for (const cmd of plus18Commands) {
-          menuText += `▢ *${toFancyFont(cmd)}*\n`;
+          menuText += `║  ▸ *${toFancyFont(cmd)}*\n`;
         }
       }
 
@@ -89,7 +87,7 @@ export default {
           const mod = modRaw.default !== undefined ? modRaw.default : modRaw;
           if (Array.isArray(mod)) {
             for (const cmd of mod) {
-              if (cmd && cmd.name) menuText += `▢ *${toFancyFont(cmd.name)}*\n`;
+              if (cmd && cmd.name) menuText += `║  ▸ *${toFancyFont(cmd.name)}*\n`;
             }
             continue;
           }
@@ -97,10 +95,10 @@ export default {
             displayName = mod.name;
           }
         } catch (e) {}
-        menuText += `▢ *${toFancyFont(displayName)}*\n`;
+        menuText += `║  ▸ *${toFancyFont(displayName)}*\n`;
       }
 
-      menuText += `└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──\n\n`;
+      menuText += `╚══════════════════════════════════╝\n\n`;
     }
 
     menuText += ``;

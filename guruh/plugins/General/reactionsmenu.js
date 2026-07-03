@@ -22,15 +22,19 @@ export default {
       return text.toLowerCase().split('').map(c => fonts[c] || c).join('');
     };
 
-    let menuText = `✦ ──『 REACTIONS MENU 』── ⚝
-▢ Prefix: ${effectivePrefix || 'None'}\n▢ \n`;
+    let menuText = `╔══════════════════════════════════╗
+║  ✦ ──『 REACTIONS MENU 』── ⚝
+╠══════════════════════════════════╣
+║  📌 Prefix : ${effectivePrefix || 'None'}
+╠══════════════════════════════════╣
+`;
 
     const commandFiles = fs.readdirSync('./plugins/Reactions').filter(f => f.endsWith('.js') && f !== 'links.js');
     for (const file of commandFiles) {
       menuText += `▢ *${toFancyFont(file.replace('.js', ''))}*\n`;
     }
 
-    menuText += `└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──\n`;
+    menuText += `╚══════════════════════════════════╝\n> ✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪\n`;
 
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
         await client.sendMessage(m.chat, { text: menuText });

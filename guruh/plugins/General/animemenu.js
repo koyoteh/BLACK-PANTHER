@@ -26,12 +26,11 @@ export default {
         let commandFiles = [];
         try { commandFiles = fs.readdirSync(animeDir).filter(f => f.endsWith('.js')); } catch {}
 
-        let menuText = `✦ ──『 ANIMEMENU 』── ⚝
-`;
+        let menuText = `╔══════════════════════════════════╗\n║  ✦ ──『 ANIME MENU 』── ⚝\n╠══════════════════════════════════╣\n`;
         for (const file of commandFiles) {
-            menuText += `▢ *${toFancyFont(file.replace('.js', ''))}*\n`;
+            menuText += `║  ▸ *${toFancyFont(file.replace('.js', ''))}*\n`;
         }
-        menuText += `└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`;
+        menuText += `╚══════════════════════════════════╝\n> ✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪`;
 
                 await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
                 await client.sendMessage(m.chat, { text: menuText });

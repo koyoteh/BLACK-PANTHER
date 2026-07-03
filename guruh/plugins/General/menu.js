@@ -28,19 +28,17 @@ export default {
         }
 
         const menuText =
-            `` +
-            `✦ ──『 Mᴇɴᴜ 』── ⚝
-` +
-            `▢ \n` +
-            `Hoi  @${m.sender.split('@')[0].split(':')[0]}\n` +
-            `▢ \n` +
-            `▢ Bot: BLACK-PANTHER-MD\n` +
-            `▢ Prefix: ${prefix}\n` +
-            `▢ Mode: ${mode}\n` +
-            `▢ \n` +
-            `▢ Select a category below.\n` +
-            `└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──\n` +
-            ``;
+`╔══════════════════════════════════╗
+║  ✦ ──『 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ᴹᴰ 』── ⚝
+╠══════════════════════════════════╣
+║  👤 User   : @${m.sender.split('@')[0].split(':')[0]}
+║  🤖 Bot    : BLACK-PANTHER-MD
+║  📌 Prefix : ${prefix}
+║  🌐 Mode   : ${mode}
+╠══════════════════════════════════╣
+║  📂 Select a category below
+╚══════════════════════════════════╝
+> ✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪`;
 
         const sections = [
             {
@@ -81,41 +79,33 @@ export default {
 
         if (device === 'ios') {
             const iosMenuText =
-                `` +
-                `✦ ──『 Mᴇɴᴜ 』── ⚝
-` +
-                `▢ \n` +
-                `Hoi  @${m.sender.split('@')[0].split(':')[0]}\n` +
-                `▢ \n` +
-                `▢ Bot: BLACK-PANTHER-MD\n` +
-                `▢ Prefix: ${prefix}\n` +
-                `▢ Mode: ${mode}\n` +
-                `▢ \n` +
-                `▢ ⌜ 𝘾𝙤𝙧𝙚 𝘾𝙤𝙢𝙢𝙖𝙣𝙙𝙨 ⌟\n` +
-                `▢ ${prefix}fullmenu — Display all commands\n` +
-                `▢ ${prefix}dev — Send developer contact\n` +
-                `▢ ${prefix}report — Report a bug to dev\n` +
-                `▢ \n` +
-                `▢ 𝙄𝙣𝙛𝙤 𝘽𝙤𝙩\n` +
-                `▢ ${prefix}ping — Check bot speed\n` +
-                `▢ ${prefix}settings — Show bot settings\n` +
-                `▢ ${prefix}mode — Toggle bot mode\n` +
-                `▢ ${prefix}uptime — Check bot uptime\n` +
-                `▢ \n` +
-                `▢ 𝘾𝙖𝙩𝙚𝙜𝙤𝙧𝙮 𝙈𝙚𝙣𝙪𝙨\n` +
-                `▢ ${prefix}generalmenu — General commands\n` +
-                `▢ ${prefix}settingsmenu — Bot settings commands\n` +
-                `▢ ${prefix}ownermenu — Owner only commands\n` +
-                `▢ ${prefix}groupmenu — Group management\n` +
-                `▢ ${prefix}aimenu — AI & chat commands\n` +
-                `▢ ${prefix}downloadmenu — Media downloaders\n` +
-                `▢ ${prefix}editingmenu — Media editing tools\n` +
-                `▢ ${prefix}effectsmenu — Text effect commands\n` +
-                `▢ ${prefix}utilsmenu — Utility commands\n` +
-                `▢ ${prefix}privacymenu — Privacy commands\n` +
-                `└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──\n` +
-                `> 🌐 Hosted by GuruTech Hosting\n` +
-                `> 🔗 hosting.wa.me/254105521300`;
+`╔══════════════════════════════════╗
+║  ✦ ──『 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ᴹᴰ 』── ⚝
+╠══════════════════════════════════╣
+║  👤 User   : @${m.sender.split('@')[0].split(':')[0]}
+║  🤖 Bot    : BLACK-PANTHER-MD
+║  📌 Prefix : ${prefix}
+║  🌐 Mode   : ${mode}
+╠══════════════════════════════════╣
+║  ⚙️ Core Commands
+║  ▸ ${prefix}fullmenu — Display all commands
+║  ▸ ${prefix}ping     — Check bot speed
+║  ▸ ${prefix}settings — Bot settings
+║  ▸ ${prefix}uptime   — Bot uptime
+╠══════════════════════════════════╣
+║  📂 Category Menus
+║  ▸ ${prefix}generalmenu  — General
+║  ▸ ${prefix}settingsmenu — Settings
+║  ▸ ${prefix}ownermenu    — Owner only
+║  ▸ ${prefix}groupmenu    — Group mgmt
+║  ▸ ${prefix}aimenu       — AI & chat
+║  ▸ ${prefix}downloadmenu — Downloads
+║  ▸ ${prefix}editingmenu  — Editing
+║  ▸ ${prefix}effectsmenu  — Effects
+║  ▸ ${prefix}utilsmenu    — Utilities
+║  ▸ ${prefix}privacymenu  — Privacy
+╚══════════════════════════════════╝
+> ✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪`;
             await client.sendMessage(m.chat, {
                 text: iosMenuText, mentions: [m.sender]
             });

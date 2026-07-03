@@ -32,14 +32,13 @@ export default {
         } catch (e) {}
 
         const dt = DateTime.now();
-        let menuText = `✦ ──『 EFFECTS & LOGO MENU 』── ⚝
-▢ Prefix: ${effectivePrefix || 'None'}\n▢ Total: ${effectCommands.length} effects\n▢ Time: ${dt.toFormat('HH:mm')}\n▢ \n`;
+        let menuText = `╔══════════════════════════════════╗\n║  ✦ ──『 EFFECTS & LOGO MENU 』── ⚝\n╠══════════════════════════════════╣\n║  📌 Prefix : ${effectivePrefix || 'None'}\n║  🎨 Total  : ${effectCommands.length} effects\n║  🕐 Time   : ${dt.toFormat('HH:mm')}\n╠══════════════════════════════════╣\n`;
 
         for (const name of effectCommands) {
-            menuText += `▢ *${toFancyFont(name)}*\n`;
+            menuText += `║  ▸ *${toFancyFont(name)}*\n`;
         }
 
-        menuText += `└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`;
+        menuText += `╚══════════════════════════════════╝\n> ✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪`;
 
         await client.sendMessage(m.chat, { text: menuText });
     }
