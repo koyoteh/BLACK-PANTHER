@@ -256,8 +256,9 @@ async function startBot() {
             }
 
             if (code === DisconnectReason.connectionReplaced) {
-                logger.warn('CONNECTION', 'Session replaced by another instance — exiting for clean restart.');
-                process.exit(1);
+                logger.warn('CONNECTION', 'Session replaced by another instance — waiting 30s before reconnecting.');
+                setTimeout(startBot, 30000);
+                return;
             }
 
             reconnectCount++;
