@@ -35,7 +35,7 @@ export default {
         }
 
         const menuText =
-`⚡ ──「 𝗠𝗔𝗗𝗥𝗜𝗡-𝗔𝗣𝗜 」──
+`⚡ ──「 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ 」──
 ▢ 👤 𝐔𝐬𝐞𝐫    : @${m.sender.split('@')[0].split(':')[0]}
 ▢ 🤖 𝐁𝐨𝐭     : ${botname || 'BLACK-PANTHER-MD'}
 ▢ 📌 𝐏𝐫𝐞𝐟𝐢𝐱  : ${prefix}
