@@ -35,15 +35,15 @@ export default {
         }
 
         const menuText =
-`✦ ──『 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ᴹᴰ 』── ⚝
+`⚡ ──「 𝗠𝗔𝗗𝗥𝗜𝗡-𝗔𝗣𝗜 」──
 ▢ 👤 𝐔𝐬𝐞𝐫    : @${m.sender.split('@')[0].split(':')[0]}
 ▢ 🤖 𝐁𝐨𝐭     : ${botname || 'BLACK-PANTHER-MD'}
 ▢ 📌 𝐏𝐫𝐞𝐟𝐢𝐱  : ${prefix}
 ▢ 🌐 𝐌𝐨𝐝𝐞    : ${mode}
 ${expiryLine}
-└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──
+└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──
 
-✦ ──『 Sᴇʟᴇᴄᴛ Cᴀᴛᴇɢᴏʀʏ 』── ⚝
+⚡ ──「 Sᴇʟᴇᴄᴛ Cᴀᴛᴇɢᴏʀʏ 」──
 ▢ 1  〢 📜 General
 ▢ 2  〢 🛠️ Settings
 ▢ 3  〢 👑 Owner
@@ -54,7 +54,7 @@ ${expiryLine}
 ▢ 8  〢 🎨 Effects
 ▢ 9  〢 🔧 Utils
 ▢ 10 〢 🔒 Privacy
-└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──
+└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──
 
 > *Reply with a number to view that category*`;
 

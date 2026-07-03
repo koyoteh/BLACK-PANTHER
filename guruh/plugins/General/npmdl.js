@@ -13,8 +13,8 @@ export default {
             let query = (text || '').trim();
             if (!query) {
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-                return sendInteractive(client, m, `✦ ──『 Eʀʀᴏʀ 』── ⚝
-▢ Provide a package name,\n▢ you incompetent fool.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+                return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
+▢ Provide a package name,\n▢ you incompetent fool.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
             }
 
             await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
@@ -26,8 +26,8 @@ export default {
                 const list = searchData?.result || searchData?.results || searchData?.data || [];
                 if (!Array.isArray(list) || list.length === 0) {
                     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-                    return sendInteractive(client, m, `✦ ──『 Eʀʀᴏʀ 』── ⚝
-▢ No packages found in scope *${query}*\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+                    return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
+▢ No packages found in scope *${query}*\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
                 }
                 
                 query = list[0]?.name || list[0]?.package?.name || query;
@@ -53,15 +53,15 @@ export default {
                 document: Buffer.from(fileBuffer),
                 fileName: fileName,
                 mimetype: 'application/gzip',
-                caption: `✦ ──『 NPM 』── ⚝
-▢ ${query} v${latest}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`
+                caption: `⚡ ──「 NPM 」──
+▢ ${query} v${latest}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
             });
 
         } catch (error) {
             console.error('NPM download error:', error);
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-            await sendInteractive(client, m, `✦ ──『 Eʀʀᴏʀ 』── ⚝
-▢ Download failed.\n▢ Error: ${error.message}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            await sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
+▢ Download failed.\n▢ Error: ${error.message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
     }
 };

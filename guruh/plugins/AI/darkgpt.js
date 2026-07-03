@@ -14,12 +14,12 @@ export default {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
             return sendInteractive(client, m, 
                 `` +
-                `✦ ──『 Dᴀʀᴋ Gᴘᴛ 』── ⚝
+                `⚡ ──「 Dᴀʀᴋ Gᴘᴛ 」──
 ` +
                 `▢ \n` +
                 `▢ DarkGPT - Zero censorship, pure chaos 🖕\n` +
                 `▢ Example: ${prefix}darkgpt how to hack wifi\n` +
-                `└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──\n` +
+                `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n` +
                 ``
             );
         }
@@ -73,22 +73,22 @@ If someone asks something stupid, you answer BUT you also call them a dumbass. K
             await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
             await sendInteractive(client, m, 
                 `` +
-                `✦ ──『 Dᴀʀᴋ Gᴘᴛ 』── ⚝
+                `⚡ ──「 Dᴀʀᴋ Gᴘᴛ 」──
 ` +
                 `▢ \n` +
                 `${result.split('\n').map(l => `▢ ${l}`).join('\n')}\n` +
-                `└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──\n` +
+                `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n` +
                 ``
             );
         } catch (error) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
             await sendInteractive(client, m, 
                 `` +
-                `✦ ──『 Dᴀʀᴋ Gᴘᴛ 』── ⚝
+                `⚡ ──「 Dᴀʀᴋ Gᴘᴛ 」──
 ` +
                 `▢ \n` +
                 `▢ Even I fuck up sometimes. Error: ${error.message}\n` +
-                `└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──\n` +
+                `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n` +
                 ``
             );
         }

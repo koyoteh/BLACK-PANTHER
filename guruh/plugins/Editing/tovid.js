@@ -11,20 +11,20 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
             await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
             if (!m.quoted) {
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-                return sendInteractive(client, m, `✦ ──『 TO VIDEO 』── ⚝
-▢ The command requires a STICKER.\n▢ Your empty reply suggests you\n▢ cannot read.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+                return sendInteractive(client, m, `⚡ ──「 TO VIDEO 」──
+▢ The command requires a STICKER.\n▢ Your empty reply suggests you\n▢ cannot read.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
             }
             const quotedMime = m.quoted.mimetype || '';
-            if (!/webp/.test(quotedMime)) return sendInteractive(client, m, `✦ ──『 TO VIDEO 』── ⚝
-▢ That is a file, not a sticker.\n▢ The .webp extension is a clue\n▢ you seem to have missed.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
-            const statusMsg = await sendInteractive(client, m, `✦ ──『 TO VIDEO 』── ⚝
-▢ Forcing your static sticker into\n▢ a video. A pointless endeavor.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            if (!/webp/.test(quotedMime)) return sendInteractive(client, m, `⚡ ──「 TO VIDEO 」──
+▢ That is a file, not a sticker.\n▢ The .webp extension is a clue\n▢ you seem to have missed.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+            const statusMsg = await sendInteractive(client, m, `⚡ ──「 TO VIDEO 」──
+▢ Forcing your static sticker into\n▢ a video. A pointless endeavor.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
             const stickerBuffer = await m.quoted.download();
             if (!stickerBuffer) {
                 await client.sendMessage(m.chat, { delete: statusMsg.key });
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-                return sendInteractive(client, m, `✦ ──『 FAILED 』── ⚝
-▢ Failed to download. Your sticker is\n▢ as inaccessible as common sense.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+                return sendInteractive(client, m, `⚡ ──「 FAILED 」──
+▢ Failed to download. Your sticker is\n▢ as inaccessible as common sense.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
             }
             const stickerUrl = await uploadTempUrl(stickerBuffer, 'webp');
             const encodedUrl = encodeURIComponent(stickerUrl);
@@ -36,10 +36,10 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
             const videoBuffer = Buffer.from(videoResponse.data);
             await client.sendMessage(m.chat, { delete: statusMsg.key });
             await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
-            await client.sendMessage(m.chat, { video: videoBuffer, caption: `✦ ──『 TO VIDEO 』── ⚝
-▢ Behold, your motionless "video".\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──` });
-            await client.sendMessage(m.chat, { document: videoBuffer, mimetype: 'video/mp4', fileName: `sticker_${Date.now()}.mp4`, caption: `✦ ──『 MP4 FILE 』── ⚝
-▢ Document version. Marginally\n▢ more useful.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──` });
+            await client.sendMessage(m.chat, { video: videoBuffer, caption: `⚡ ──「 TO VIDEO 」──
+▢ Behold, your motionless "video".\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──` });
+            await client.sendMessage(m.chat, { document: videoBuffer, mimetype: 'video/mp4', fileName: `sticker_${Date.now()}.mp4`, caption: `⚡ ──「 MP4 FILE 」──
+▢ Document version. Marginally\n▢ more useful.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──` });
         } catch (err) {
             console.error('ToMP4 error:', err);
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
@@ -48,8 +48,8 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
             if (err.message.includes('Network Error')) userMessage = 'A network error. Are you connected to the void?';
             if (err.message.includes('upload') || err.message.includes('Upload')) userMessage = "Upload failed on all services. Try again later.";
             if (err.message.includes('converter deemed')) userMessage = 'The conversion API refused to process this. Try a simpler sticker.';
-            await sendInteractive(client, m, `✦ ──『 FAILED 』── ⚝
-▢ ${userMessage}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            await sendInteractive(client, m, `⚡ ──「 FAILED 」──
+▢ ${userMessage}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
     }
 };

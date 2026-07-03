@@ -20,8 +20,8 @@ export default {
       const vcard = `BEGIN:VCARD\nVERSION:3.0\nFN:${devContact.fullName}\nORG:${devContact.org};\nTEL;type=CELL;type=VOICE;waid=${devContact.phoneNumber}:+${devContact.phoneNumber}\nEND:VCARD`;
 
       await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
-      await sendInteractive(client, m, `✦ ──『 Cᴏɴᴛᴀᴄᴛ Cᴀʀᴅ 』── ⚝
-▢ Developer: ${devContact.fullName}\n▢ Don't spam the dev or you'll\n▢ regret your existence.\n▢ Contact card sent below.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+      await sendInteractive(client, m, `⚡ ──「 Cᴏɴᴛᴀᴄᴛ Cᴀʀᴅ 」──
+▢ Developer: ${devContact.fullName}\n▢ Don't spam the dev or you'll\n▢ regret your existence.\n▢ Contact card sent below.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
 
       await client.sendMessage(m.chat, {
         contacts: {
@@ -32,8 +32,8 @@ export default {
 
     } catch (error) {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-      await sendInteractive(client, m, `✦ ──『 Fᴀɪʟᴇᴅ 』── ⚝
-▢ Couldn't send contact card.\n▢ Error: ${error.message}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+      await sendInteractive(client, m, `⚡ ──「 Fᴀɪʟᴇᴅ 」──
+▢ Couldn't send contact card.\n▢ Error: ${error.message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
     }
   }
 };

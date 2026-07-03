@@ -10,7 +10,7 @@ export default async (context) => {
 
         if (m.chat.endsWith('@broadcast') || m.chat.endsWith('@newsletter')) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            return sendInteractive(client, m, `▢ \n▢ Cannot archive this type of chat.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            return sendInteractive(client, m, `▢ \n▢ Cannot archive this type of chat.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
 
         let lastMessages;
@@ -27,13 +27,13 @@ export default async (context) => {
                 m.chat
             );
 
-            await sendInteractive(client, m, `✦ ──『 ARCHIVED 』── ⚝
-▢ Chat archived.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            await sendInteractive(client, m, `⚡ ──「 ARCHIVED 」──
+▢ Chat archived.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         } catch (err) {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
             console.error('Archive chat failed:', err);
-            await sendInteractive(client, m, `✦ ──『 ERROR 』── ⚝
-▢ Failed to archive chat.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            await sendInteractive(client, m, `⚡ ──「 ERROR 」──
+▢ Failed to archive chat.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
     });
 };

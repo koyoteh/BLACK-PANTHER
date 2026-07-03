@@ -1,6 +1,6 @@
 'use strict';
 // ╔══════════════════════════════════════════════════════════════╗
-//  🐾  BLACK PANTHER MD  —  gmdFunctions.js  (Core Utilities)
+//  ⚡  BLACK PANTHER MD  —  gmdFunctions.js  (Core Utilities)
 //  👑  Owner : GuruTech  |  📞 +254105521300
 //  🔧  Rich formatting · Media tools · Upload helpers
 // ╚══════════════════════════════════════════════════════════════╝
@@ -26,7 +26,7 @@ function gmdBanner(title, lines = [], footer = '') {
     const pad    = (s) => `║  ${s}${' '.repeat(Math.max(0, 36 - stripEmoji(s).length))}║`;
 
     let out = `${top}\n`;
-    out    += pad(`🐾  *${title}*`) + '\n';
+    out    += pad(`⚡  *${title}*`) + '\n';
     if (lines.length) {
         out += `${mid}\n`;
         for (const line of lines) out += pad(line) + '\n';
@@ -54,7 +54,7 @@ function gmdTable(title, rows = [], footer = '') {
     };
 
     let out = `${TOP}\n`;
-    out    += `┃  🐾  *${title}*\n`;
+    out    += `┃  ⚡  *${title}*\n`;
     out    += `${DIV}\n`;
     for (const [l, v] of rows) out += row(l, v) + '\n';
     if (footer) {

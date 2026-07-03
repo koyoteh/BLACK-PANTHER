@@ -11,7 +11,7 @@ export default async (context) => {
       "" +
       "▢ 🚫 Please provide a search term!\n" +
       "▢ Example: .google What is treason\n" +
-      "└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──"
+      "└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──"
     );
     return;
   }
@@ -27,7 +27,7 @@ export default async (context) => {
         "▢ ERROR\n" +
         "" +
         "▢ ❌ Unable to find any results\n" +
-        "└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──"
+        "└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──"
       );
       return;
     }
@@ -54,7 +54,7 @@ export default async (context) => {
       "▢ ERROR\n" +
       "" +
       "▢ ❌ An error occurred: " + e.message + "\n" +
-      "└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──"
+      "└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──"
     );
   }
 };

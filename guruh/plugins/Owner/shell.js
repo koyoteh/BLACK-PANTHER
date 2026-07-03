@@ -14,17 +14,17 @@ export default async (context) => {
 
         if (!cmd) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-            return sendInteractive(client, m, `✦ ──『 EXEC  』── ⚝\n▢ No command provided. Provide a\n▢ valid shell command, fool.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            return sendInteractive(client, m, `⚡ ──「 EXEC  」──\n▢ No command provided. Provide a\n▢ valid shell command, fool.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
 
         try {
             const { stdout, stderr } = await execAsync(cmd, { timeout: 30000 });
             const output = stdout || stderr || '(no output)';
             await client.sendMessage(m.chat, { react: { text: stderr && !stdout ? '❌' : '✅', key: m.reactKey } });
-            await sendInteractive(client, m, `✦ ──『 SHELL OUTPUT 』── ⚝\n${output.split('\n').map(l => `▢ ${l}`).join('\n')}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            await sendInteractive(client, m, `⚡ ──「 SHELL OUTPUT 」──\n${output.split('\n').map(l => `▢ ${l}`).join('\n')}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         } catch (error) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-            await sendInteractive(client, m, `✦ ──『 SHELL ERROR 』── ⚝\n▢ ${error.message}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            await sendInteractive(client, m, `⚡ ──「 SHELL ERROR 」──\n▢ ${error.message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
     });
 };

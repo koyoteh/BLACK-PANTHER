@@ -20,8 +20,8 @@ export default {
 
         if (!text) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-            return sendInteractive(client, m, `✦ ──『 BRAT VID 』── ⚝
-▢ What am i, a mind reader?\n▢ @` + m.sender.split('@')[0] + '! you forgot the text, genius.\n▢ Example: ' + prefix + 'bratvid i\'m a dumbass\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──', { mentions: [m.sender] });
+            return sendInteractive(client, m, `⚡ ──「 BRAT VID 」──
+▢ What am i, a mind reader?\n▢ @` + m.sender.split('@')[0] + '! you forgot the text, genius.\n▢ Example: ' + prefix + 'bratvid i\'m a dumbass\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──', { mentions: [m.sender] });
         }
 
         try {
@@ -77,8 +77,8 @@ export default {
                 errorMessage = 'Failed to process. Try again later.';
             }
 
-            await sendInteractive(client, m, `✦ ──『 FAILED 』── ⚝
-▢ Brat video generation failed.\n▢ ${errorMessage}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            await sendInteractive(client, m, `⚡ ──「 FAILED 」──
+▢ Brat video generation failed.\n▢ ${errorMessage}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
     }
 };

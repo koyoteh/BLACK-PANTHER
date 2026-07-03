@@ -8,11 +8,11 @@ export default async (context) => {
 
     if (!text) {
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-        return sendInteractive(client, m, `✦ ──『 XVIDEOS 』── ⚝\n▢ You dumb fuck, type something.\n▢ I'm not psychic.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+        return sendInteractive(client, m, `⚡ ──「 XVIDEOS 」──\n▢ You dumb fuck, type something.\n▢ I'm not psychic.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
     }
     if (text.length > 150) {
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-        return sendInteractive(client, m, `✦ ──『 XVIDEOS 』── ⚝\n▢ Your search is longer than your dick.\n▢ Keep it under 150 chars, idiot.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+        return sendInteractive(client, m, `⚡ ──「 XVIDEOS 」──\n▢ Your search is longer than your dick.\n▢ Keep it under 150 chars, idiot.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
     }
 
     const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36';
@@ -33,7 +33,7 @@ export default async (context) => {
 
         if (!firstHref) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-            return sendInteractive(client, m, `▢ \n▢ Couldn't find shit for "${text}".\n▢ Try better keywords, retard.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            return sendInteractive(client, m, `▢ \n▢ Couldn't find shit for "${text}".\n▢ Try better keywords, retard.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
 
         const videoUrl = `https://www.xvideos.com${firstHref}`;
@@ -51,7 +51,7 @@ export default async (context) => {
         const mp4Url = highUrl || lowUrl;
         if (!mp4Url) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-            return sendInteractive(client, m, `▢ \n▢ Found it but no MP4 link.\n▢ Try a different search, genius.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            return sendInteractive(client, m, `▢ \n▢ Found it but no MP4 link.\n▢ Try a different search, genius.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
 
         const cleanTitle = `${videoTitle.replace(/[^a-zA-Z0-9]/g, '_').slice(0, 60)}`;
@@ -62,8 +62,8 @@ export default async (context) => {
             video: { url: mp4Url },
             mimetype: 'video/mp4',
             fileName: `${cleanTitle}.mp4`,
-            caption: `✦ ──『 XVIDEOS 』── ⚝
-▢ *${videoTitle.slice(0, 80)}*\n▢ \n▢ Go jerk off somewhere else.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`,
+            caption: `⚡ ──「 XVIDEOS 」──
+▢ *${videoTitle.slice(0, 80)}*\n▢ \n▢ Go jerk off somewhere else.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`,
             contextInfo: {
                 externalAdReply: {
                     title: videoTitle.length > 80 ? videoTitle.substring(0, 77) + '...' : videoTitle,
@@ -75,7 +75,7 @@ export default async (context) => {
 
     } catch (error) {
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-        sendInteractive(client, m, `✦ ──『 ERROR 』── ⚝
-▢ Everything broke because\n▢ you're cursed. Fix your life.\n▢ ${error.message?.slice(0, 60)}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+        sendInteractive(client, m, `⚡ ──「 ERROR 」──
+▢ Everything broke because\n▢ you're cursed. Fix your life.\n▢ ${error.message?.slice(0, 60)}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
     }
 };

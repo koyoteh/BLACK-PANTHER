@@ -18,20 +18,20 @@ export default {
 
             if (!m.quoted) {
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-                return sendInteractive(client, m, `✦ ──『 TO MP3 』── ⚝\n▢ Reply to a video with .tomp3\n▢ No video was quoted.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+                return sendInteractive(client, m, `⚡ ──「 TO MP3 」──\n▢ Reply to a video with .tomp3\n▢ No video was quoted.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
             }
 
             const quotedMime = m.quoted.mimetype || '';
 
             if (!/video/.test(quotedMime)) {
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-                return sendInteractive(client, m, `✦ ──『 TO MP3 』── ⚝\n▢ That is not a video.\n▢ Quote a video message and try again.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+                return sendInteractive(client, m, `⚡ ──「 TO MP3 」──\n▢ That is not a video.\n▢ Quote a video message and try again.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
             }
 
             const videoBuffer = await m.quoted.download();
             if (!videoBuffer || !videoBuffer.length) {
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-                return sendInteractive(client, m, `✦ ──『 FAILED 』── ⚝\n▢ Could not download the video.\n▢ Try again or resend the video.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+                return sendInteractive(client, m, `⚡ ──「 FAILED 」──\n▢ Could not download the video.\n▢ Try again or resend the video.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
             }
 
             const ts = Date.now();
@@ -77,7 +77,7 @@ export default {
                 userMessage = 'Failed to download the video. Try sending it again.';
             }
 
-            await sendInteractive(client, m, `✦ ──『 FAILED 』── ⚝\n▢ ${userMessage}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            await sendInteractive(client, m, `⚡ ──「 FAILED 」──\n▢ ${userMessage}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
 
         } finally {
             try { if (tempInput) fs.unlinkSync(tempInput); } catch (_) {}

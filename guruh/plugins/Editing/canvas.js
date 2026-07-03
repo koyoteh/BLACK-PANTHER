@@ -25,8 +25,8 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
           const args = (m.text || '').replace(/^S+s*/, '').trim();
 
           const typesList = CANVAS_TYPES.map(t => `▢ • ${t}`).join('\n');
-          const usageMsg = `✦ ──『 Cᴀɴᴠᴀs Cᴀʀᴅ 』── ⚝
-▢ Reply to an image to use this.\n▢ \n▢ *Usage:*\n▢ ${prefix}canvas Title | type | text | watermark\n▢ \n▢ *Example:*\n▢ ${prefix}canvas Blinding Lights | spotify | The Weeknd | BLACK-PANTHER-MD\n▢ ${prefix}canvas My Video | youtube | Subscribe Now | BOT\n▢ \n▢ *Available Types (${CANVAS_TYPES.length}):*\n${typesList}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──\n> ©𝐏𝐨𝐰𝐞᠊ʀᴇᴅ 𝐁𝐲 𝐱𝐡_𝐜𝐥𝐢𝐧𝐭𝐨𝐧`;
+          const usageMsg = `⚡ ──「 Cᴀɴᴠᴀs Cᴀʀᴅ 」──
+▢ Reply to an image to use this.\n▢ \n▢ *Usage:*\n▢ ${prefix}canvas Title | type | text | watermark\n▢ \n▢ *Example:*\n▢ ${prefix}canvas Blinding Lights | spotify | The Weeknd | BLACK-PANTHER-MD\n▢ ${prefix}canvas My Video | youtube | Subscribe Now | BOT\n▢ \n▢ *Available Types (${CANVAS_TYPES.length}):*\n${typesList}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n> ©𝐏𝐨𝐰𝐞᠊ʀᴇᴅ 𝐁𝐲 𝐱𝐡_𝐜𝐥𝐢𝐧𝐭𝐨𝐧`;
 
           if (!quoted || !/image/.test(mime)) {
               await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
@@ -41,8 +41,8 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
           const watermark = parts[3] || 'BLACK-PANTHER-MD';
 
           if (parts[1] && !CANVAS_TYPES.includes(rawType)) {
-              return sendInteractive(client, m, `✦ ──『 Eʀʀᴏʀ 』── ⚝
-▢ Invalid type: *${parts[1]}*\n▢ \n▢ Valid types:\n${typesList}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──\n> ©𝐏𝐨𝐰𝐞᠊ʀᴇᴅ 𝐁𝐲 𝐱𝐡_𝐜𝐥𝐢𝐧𝐭𝐨𝐧`);
+              return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
+▢ Invalid type: *${parts[1]}*\n▢ \n▢ Valid types:\n${typesList}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n> ©𝐏𝐨𝐰𝐞᠊ʀᴇᴅ 𝐁𝐲 𝐱𝐡_𝐜𝐥𝐢𝐧𝐭𝐨𝐧`);
           }
 
           await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
@@ -55,13 +55,13 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
               await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
               await client.sendMessage(m.chat, {
                   image: cardBuf,
-                  caption: `✦ ──『 Cᴀɴᴠᴀs Cᴀʀᴅ 』── ⚝
-▢ *Type:* ${type}\n▢ *Title:* ${title}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──\n> ©𝐏𝐨𝐰𝐞᠊ʀᴇᴅ 𝐁𝐲 𝐱𝐡_𝐜𝐥𝐢𝐧𝐭𝐨𝐧`
+                  caption: `⚡ ──「 Cᴀɴᴠᴀs Cᴀʀᴅ 」──
+▢ *Type:* ${type}\n▢ *Title:* ${title}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n> ©𝐏𝐨𝐰𝐞᠊ʀᴇᴅ 𝐁𝐲 𝐱𝐡_𝐜𝐥𝐢𝐧𝐭𝐨𝐧`
               });
           } catch {
               await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-              await sendInteractive(client, m, `✦ ──『 Eʀʀᴏʀ 』── ⚝
-▢ Canvas generation failed. Try again later.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──\n> ©𝐏𝐨𝐰𝐞᠊ʀᴇᴅ 𝐁𝐲 𝐱𝐡_𝐜𝐥𝐢𝐧𝐭𝐨𝐧`);
+              await sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
+▢ Canvas generation failed. Try again later.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n> ©𝐏𝐨𝐰𝐞᠊ʀᴇᴅ 𝐁𝐲 𝐱𝐡_𝐜𝐥𝐢𝐧𝐭𝐨𝐧`);
           }
       }
   };

@@ -13,7 +13,7 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
       if (!text) {
           await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-          return sendInteractive(client, m, `✦ ──『 YT 』── ⚝\n▢ Example: ${prefix}yt https://youtu.be/xxxx [mp3/mp4]\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+          return sendInteractive(client, m, `⚡ ──「 YT 」──\n▢ Example: ${prefix}yt https://youtu.be/xxxx [mp3/mp4]\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
       }
       const parts = text.trim().split(/\s+/);
       const ytUrl = parts[0];
@@ -21,7 +21,7 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
       const id = extractYtId(ytUrl);
       if (!id) {
           await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-          return sendInteractive(client, m, '✦ ──『 YT 』── ⚝\n▢ Invalid YouTube link.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──');
+          return sendInteractive(client, m, '⚡ ──「 YT 」──\n▢ Invalid YouTube link.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──');
       }
       await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
       try {
@@ -33,7 +33,7 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
               if (!d.status || !d.result?.url) throw new Error('Video API failed');
               await client.sendMessage(m.chat, {
                   video: { url: d.result.url }, mimetype: 'video/mp4',
-                  caption: `▢ 🎬 ${d.result.title || 'YouTube Video'}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`
+                  caption: `▢ 🎬 ${d.result.title || 'YouTube Video'}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
               });
           } else {
               const r = await fetch(NEXRAY_MP3 + encodeURIComponent(fullUrl), { headers: { 'User-Agent': 'Mozilla/5.0' }, timeout: 30000 });
@@ -50,7 +50,7 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
           await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
       } catch (e) {
           await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-          sendInteractive(client, m, `▢ Failed: ${e.message}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+          sendInteractive(client, m, `▢ Failed: ${e.message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
       }
   };
   

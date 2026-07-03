@@ -8,9 +8,9 @@ export default {
         const { client, m } = context;
         const result = Math.random() < 0.5 ? '🪙 Heads' : '🪙 Tails';
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
-        return sendInteractive(client, m, `✦ ──『 Cᴏɪɴ Fʟɪᴘ 』── ⚝
+        return sendInteractive(client, m, `⚡ ──「 Cᴏɪɴ Fʟɪᴘ 」──
 │
 ▢ ${result}\n│
-▢ There. Decision made.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+▢ There. Decision made.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
     }
 };

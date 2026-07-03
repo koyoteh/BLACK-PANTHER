@@ -17,9 +17,9 @@ export default {
 
             const fmt = (title, lines) => {
                 const body = (Array.isArray(lines) ? lines : [lines]).map(l => `▢ ${l}`).join('\n');
-                return `✦ ──『 ${title} 』── ⚝
+                return `⚡ ──「 ${title} 」──
 │
-${body}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`;
+${body}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
             };
 
             try {

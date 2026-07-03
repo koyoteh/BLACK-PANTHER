@@ -5,7 +5,7 @@ export default async (context) => {
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
 
   const formatStylishReply = (message) => {
-    return `▢ ${message}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──\nPσɯҽɾԃ Ⴆყ Tσxιƈ-ɱԃȥ`;
+    return `▢ ${message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\nPσɯҽɾԃ Ⴆყ Tσxιƈ-ɱԃȥ`;
   };
 
   if (!text) {
@@ -44,7 +44,7 @@ export default async (context) => {
       replyText += `\n`;
     }
 
-    replyText += `└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──\nPσɯҽɾԃ Ⴆყ Tσxιƈ-ɱԃȥ`;
+    replyText += `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\nPσɯҽɾԃ Ⴆყ Tσxιƈ-ɱԃȥ`;
 
     await client.sendMessage(
       m.chat,

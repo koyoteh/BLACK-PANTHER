@@ -16,8 +16,8 @@ export default {
         const effectivePrefix = prefix || '.';
 
         const fmt = (title, body) =>
-            `✦ ──『 ${title} 』── ⚝
-${body}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`;
+            `⚡ ──「 ${title} 」──
+${body}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
 
         if (!args || args.length === 0) {
             const pluginsDir = path.join(__dirname, '..');

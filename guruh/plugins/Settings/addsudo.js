@@ -19,19 +19,19 @@ export default async (context) => {
         }
 
         if (!numberToAdd || !/^\d+$/.test(numberToAdd)) {
-            return sendInteractive(client, m, `✦ ──『 ADD SUDO 』── ⚝
-▢ Give me a valid number or quote a user, fool!\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            return sendInteractive(client, m, `⚡ ──「 ADD SUDO 」──
+▢ Give me a valid number or quote a user, fool!\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
 
         const sudoUsers = await getSudoUsers();
         if (sudoUsers.includes(numberToAdd)) {
-            return sendInteractive(client, m, `✦ ──『 ADD SUDO 』── ⚝
-▢ Already a sudo user, you clueless twit!\n▢ ${numberToAdd} is already in the elite ranks.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            return sendInteractive(client, m, `⚡ ──「 ADD SUDO 」──
+▢ Already a sudo user, you clueless twit!\n▢ ${numberToAdd} is already in the elite ranks.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
 
         await addSudoUser(numberToAdd);
         await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
-        return sendInteractive(client, m, `✦ ──『 ADD SUDO 』── ⚝
-▢ Bow down!\n▢ ${numberToAdd} is now a Sudo King!\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+        return sendInteractive(client, m, `⚡ ──「 ADD SUDO 」──
+▢ Bow down!\n▢ ${numberToAdd} is now a Sudo King!\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
     });
 };

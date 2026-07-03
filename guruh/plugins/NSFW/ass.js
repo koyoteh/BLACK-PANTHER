@@ -17,14 +17,14 @@ export default async (context) => {
 
         await client.sendMessage(m.chat, {
             image: { url: data.message },
-            caption: `✦ ──『 NSFW 』── ⚝
-▢ Type: ass\n▢ Here you go, you degenerate.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`
+            caption: `⚡ ──「 NSFW 」──
+▢ Type: ass\n▢ Here you go, you degenerate.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
         });
 
     } catch (error) {
         console.error('NSFW error:', error);
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-        await sendInteractive(client, m, `✦ ──『 ERROR 』── ⚝
-▢ Failed to fetch NSFW content.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+        await sendInteractive(client, m, `⚡ ──「 ERROR 」──
+▢ Failed to fetch NSFW content.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
     }
 };

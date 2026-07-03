@@ -17,7 +17,7 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
       if (!text) {
           await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-          return sendInteractive(client, m, `✦ ──『 YTMP4 』── ⚝\n▢ Example: ${prefix}ytmp4 https://youtu.be/xxxx [720/1080]\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐱𝐡_𝐜𝐥𝐢𝐧𝐭𝐨𝐯`);
+          return sendInteractive(client, m, `⚡ ──「 YTMP4 」──\n▢ Example: ${prefix}ytmp4 https://youtu.be/xxxx [720/1080]\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐱𝐡_𝐜𝐥𝐢𝐧𝐭𝐨𝐯`);
       }
       const parts = text.trim().split(/\s+/);
       const urlPart = parts[0];
@@ -25,10 +25,10 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
       const id = extractYtId(urlPart);
       if (!id) {
           await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-          return sendInteractive(client, m, '✦ ──『 YTMP4 』── ⚝\n▢ Invalid YouTube link.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──');
+          return sendInteractive(client, m, '⚡ ──「 YTMP4 」──\n▢ Invalid YouTube link.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──');
       }
       await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
-      await sendInteractive(client, m, `✦ ──『 YTMP4 』── ⚝\n▢ Processing ${quality}p... This may take up to 60s.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+      await sendInteractive(client, m, `⚡ ──「 YTMP4 」──\n▢ Processing ${quality}p... This may take up to 60s.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
       try {
           const fullUrl = `https://youtube.com/watch?v=${id}`;
           const apiUrl = NEXRAY_MP4 + encodeURIComponent(fullUrl) + `&resolusi=${quality}`;
@@ -39,13 +39,13 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
           await client.sendMessage(m.chat, {
               video: { url: videoUrl },
               mimetype: 'video/mp4',
-              caption: `✦ ──『 YouTube MP4 』── ⚝
-▢ 🎬 ${title || 'Unknown'}\n▢ ⏱ ${fmtDuration(duration)}\n▢ 📺 Quality: ${quality}p\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`
+              caption: `⚡ ──「 YouTube MP4 」──
+▢ 🎬 ${title || 'Unknown'}\n▢ ⏱ ${fmtDuration(duration)}\n▢ 📺 Quality: ${quality}p\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
           });
           await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
       } catch (e) {
           await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-          sendInteractive(client, m, `✦ ──『 YTMP4 』── ⚝\n▢ YouTube MP4 download failed.\n▢ Video might be age-restricted,\n▢ unavailable, or too large.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+          sendInteractive(client, m, `⚡ ──「 YTMP4 」──\n▢ YouTube MP4 download failed.\n▢ Video might be age-restricted,\n▢ unavailable, or too large.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
       }
   };
   

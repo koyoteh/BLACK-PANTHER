@@ -8,8 +8,8 @@ export default async (context) => {
 
   if (!text) {
       await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-      return sendInteractive(client, m, `✦ ──『 TTS 』── ⚝
-▢ Where is the text for conversion?\n▢ Can't you read instructions?\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+      return sendInteractive(client, m, `⚡ ──「 TTS 」──
+▢ Where is the text for conversion?\n▢ Can't you read instructions?\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
   }
 
   await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
@@ -24,8 +24,8 @@ export default async (context) => {
     await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
   } catch (e) {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-    sendInteractive(client, m, `✦ ──『 TTS ERROR 』── ⚝
-▢ TTS failed. Try again.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+    sendInteractive(client, m, `⚡ ──「 TTS ERROR 」──
+▢ TTS failed. Try again.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
   }
 
   }

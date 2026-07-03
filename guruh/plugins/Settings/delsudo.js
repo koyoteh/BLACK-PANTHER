@@ -20,25 +20,25 @@ export default async (context) => {
 
         if (!numberToRemove || !/^\d+$/.test(numberToRemove)) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            return await sendInteractive(client, m, `✦ ──『 DELSUDO 』── ⚝\n▢ Provide a valid number or quote a user, genius.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            return await sendInteractive(client, m, `⚡ ──「 DELSUDO 」──\n▢ Provide a valid number or quote a user, genius.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
 
         const settings = await getSettings();
         if (!settings) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            return await sendInteractive(client, m, `✦ ──『 DELSUDO 』── ⚝\n▢ Settings not found. Something's seriously broken.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            return await sendInteractive(client, m, `⚡ ──「 DELSUDO 」──\n▢ Settings not found. Something's seriously broken.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
 
         const sudoUsers = await getSudoUsers();
 
         if (!sudoUsers.includes(numberToRemove)) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            return await sendInteractive(client, m, `✦ ──『 DELSUDO 』── ⚝\n▢ This number isn't even a sudo user, idiot.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            return await sendInteractive(client, m, `⚡ ──「 DELSUDO 」──\n▢ This number isn't even a sudo user, idiot.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
 
         await removeSudoUser(numberToRemove);
         await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
 
-        await sendInteractive(client, m, `✦ ──『 DELSUDO 』── ⚝\n▢ ${numberToRemove} removed from Sudo Users.\n▢ Power revoked. Sucks to be them.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+        await sendInteractive(client, m, `⚡ ──「 DELSUDO 」──\n▢ ${numberToRemove} removed from Sudo Users.\n▢ Power revoked. Sucks to be them.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
     });
 };

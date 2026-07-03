@@ -6,7 +6,7 @@ export default async (context) => {
     const { client, m, args, isAdmin, isBotAdmin, prefix } = context;
     await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
 
-    const fmt = (msg) => `✦ ──『 ANTILINK 』── ⚝\n▢ ${msg}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`;
+    const fmt = (msg) => `⚡ ──「 ANTILINK 」──\n▢ ${msg}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
 
     if (!m.isGroup) {
         await client.sendMessage(m.chat, { react: { text: '', key: m.reactKey } }).catch(() => {});

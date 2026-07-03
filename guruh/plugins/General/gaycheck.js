@@ -34,24 +34,24 @@ export default {
         console.error(`Invalid target user: ${JSON.stringify(targetUser)}`);
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-        return sendInteractive(client, m, `✦ ──『 Eʀʀᴏʀ 』── ⚝
-▢ Who the fuck am I torching?\n▢ Tag someone or I'll roast your\n▢ sorry ass to ashes!\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+        return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
+▢ Who the fuck am I torching?\n▢ Tag someone or I'll roast your\n▢ sorry ass to ashes!\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
       }
 
       targetNumber = targetUser.split('@')[0];
       if (!targetNumber) {
         console.error(`Failed to extract target number from JID: ${targetUser}`);
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-        return sendInteractive(client, m, `✦ ──『 Eʀʀᴏʀ 』── ⚝
-▢ This user's ID is fucked beyond\n▢ repair. Try again, you brainless twit!\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+        return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
+▢ This user's ID is fucked beyond\n▢ repair. Try again, you brainless twit!\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
       }
 
     
       const checkingMsg = await client.sendMessage(
         m.chat,
         {
-          text: `✦ ──『 Sᴄᴀɴɴɪɴɢ 』── ⚝
-▢ Cracking open @${targetNumber}'s soul\n▢ for gay vibes...\n▢ This is gonna hurt like hell,\n▢ you weakling!\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`,
+          text: `⚡ ──「 Sᴄᴀɴɴɪɴɢ 」──
+▢ Cracking open @${targetNumber}'s soul\n▢ for gay vibes...\n▢ This is gonna hurt like hell,\n▢ you weakling!\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`,
           mentions: [targetUser] }
       );
 
@@ -251,7 +251,7 @@ export default {
         insult = insults[Math.floor(Math.random() * insults.length)];
       }
 
-      const resultMsg = `✦ ──『 GAY METER 』── ⚝
+      const resultMsg = `⚡ ──「 GAY METER 」──
 ▢ *TARGET:* @${targetNumber}
 ▢ *GAY PERCENTAGE:* ${percentage}% ${emoji}
 ▢ 
@@ -260,7 +260,7 @@ export default {
 ▢ *DISCLAIMER:* This is 100% accurate
 ▢ and scientific, you sensitive
 ▢ snowflake! Cry about it!
-└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`;
+└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
 
       await client.sendMessage(
         m.chat,
@@ -281,7 +281,7 @@ export default {
     } catch (error) {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
       console.error(`Gaycheck command detonated: ${error.stack}`);
-      await sendInteractive(client, m, `✦ ──『 Cʀᴀsʜᴇᴅ 』── ⚝
-▢ This shit blew up harder than your\n▢ ego! Can't check gay levels now,\n▢ you doomed idiot!\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+      await sendInteractive(client, m, `⚡ ──「 Cʀᴀsʜᴇᴅ 」──
+▢ This shit blew up harder than your\n▢ ego! Can't check gay levels now,\n▢ you doomed idiot!\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
     }
   } };

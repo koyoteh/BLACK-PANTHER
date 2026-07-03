@@ -13,15 +13,15 @@ export default {
             const q = res.data?.[0];
             if (!q) throw new Error('empty');
             await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
-            return sendInteractive(client, m, `✦ ──『 Qᴜᴏᴛᴇ 』── ⚝
+            return sendInteractive(client, m, `⚡ ──「 Qᴜᴏᴛᴇ 」──
 │
 ▢ ❝ ${q.q} ❞\n│
-▢ — ${q.a}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+▢ — ${q.a}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         } catch {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            return sendInteractive(client, m, `✦ ──『 Qᴜᴏᴛᴇ 』── ⚝
+            return sendInteractive(client, m, `⚡ ──「 Qᴜᴏᴛᴇ 」──
 │
-▢ No quotes today. Universe is offline.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+▢ No quotes today. Universe is offline.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
     }
 };

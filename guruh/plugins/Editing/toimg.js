@@ -18,19 +18,19 @@ export default {
             
             if (!m.quoted) {
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-                return sendInteractive(client, m, `✦ ──『 TO IMAGE 』── ⚝
-▢ Are you illiterate? QUOTE A STICKER.\n▢ The command is not a suggestion.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+                return sendInteractive(client, m, `⚡ ──「 TO IMAGE 」──
+▢ Are you illiterate? QUOTE A STICKER.\n▢ The command is not a suggestion.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
             }
             
             const quotedMime = m.quoted.mimetype || '';
-            if (!/webp/.test(quotedMime)) return sendInteractive(client, m, `✦ ──『 TO IMAGE 』── ⚝
-▢ That is not a sticker. Do you need\n▢ glasses? That is clearly not a .webp file.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            if (!/webp/.test(quotedMime)) return sendInteractive(client, m, `⚡ ──「 TO IMAGE 」──
+▢ That is not a sticker. Do you need\n▢ glasses? That is clearly not a .webp file.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
             
             mediaPath = await m.quoted.download();
             if (!mediaPath) {
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-                return sendInteractive(client, m, `✦ ──『 FAILED 』── ⚝
-▢ Failed to download the sticker.\n▢ Your phone is probably as useless\n▢ as you are.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+                return sendInteractive(client, m, `⚡ ──「 FAILED 」──
+▢ Failed to download the sticker.\n▢ Your phone is probably as useless\n▢ as you are.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
             }
             
             const tempFile = path.join(tmpdir(), `sticker_${Date.now()}.webp`);
@@ -51,16 +51,16 @@ export default {
             
             await client.sendMessage(m.chat, { 
                 image: imageBuffer, 
-                caption: `✦ ──『 TO IMAGE 』── ⚝
-▢ Your sticker is now an image.\n▢ A miraculous achievement.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──` 
+                caption: `⚡ ──「 TO IMAGE 」──
+▢ Your sticker is now an image.\n▢ A miraculous achievement.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──` 
             });
             
             await client.sendMessage(m.chat, { 
                 document: imageBuffer, 
                 mimetype: 'image/png', 
                 fileName: `sticker_${Date.now()}.png`, 
-                caption: `✦ ──『 PNG FILE 』── ⚝
-▢ PNG version. Slightly less terrible.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──` 
+                caption: `⚡ ──「 PNG FILE 」──
+▢ PNG version. Slightly less terrible.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──` 
             });
             
             try {
@@ -76,8 +76,8 @@ export default {
             if (err.message.includes('timeout')) userMessage = 'Took too long. Your sticker is probably as bloated as your ego.';
             if (err.message.includes('Network Error')) userMessage = 'Network error. Is your router powered by hopes and dreams?';
             
-            await sendInteractive(client, m, `✦ ──『 FAILED 』── ⚝
-▢ ${userMessage}\n▢ Error: ${err.message}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            await sendInteractive(client, m, `⚡ ──「 FAILED 」──
+▢ ${userMessage}\n▢ Error: ${err.message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
             
             try {
                 if (mediaPath) fs.unlinkSync(mediaPath);

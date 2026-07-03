@@ -29,8 +29,8 @@ export default {
                 m.chat,
                 {
                     interactiveMessage: {
-                        header: `✦ ──『 Tᴇᴍᴘ Mᴀɪʟ 』── ⚝
-▢ TEMPORARY EMAIL CREATED!\n▢ \n▢ YOUR EMAIL:\n▢ ${email}\n▢ \n▢ SESSION ID:\n▢ ${sessionId}\n▢ \n▢ EXPIRES: ${expires}\n▢ \n▢ HOW TO CHECK INBOX:\n▢ ${prefix}tempinbox ${sessionId}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`,
+                        header: `⚡ ──「 Tᴇᴍᴘ Mᴀɪʟ 」──
+▢ TEMPORARY EMAIL CREATED!\n▢ \n▢ YOUR EMAIL:\n▢ ${email}\n▢ \n▢ SESSION ID:\n▢ ${sessionId}\n▢ \n▢ EXPIRES: ${expires}\n▢ \n▢ HOW TO CHECK INBOX:\n▢ ${prefix}tempinbox ${sessionId}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`,
                         buttons: [
                             {
                                 name: "cta_copy",
@@ -68,7 +68,7 @@ export default {
                 errorMessage += `Error: ${error.message}`;
             }
 
-            await sendInteractive(client, m, `✦ ──『 Eʀʀᴏʀ 』── ⚝
-▢ ${errorMessage}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            await sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
+▢ ${errorMessage}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
     } };

@@ -15,8 +15,8 @@ export default {
 
             if (!link) {
                 await client.sendMessage(m.chat, { react: { text: '', key: m.reactKey } }).catch(() => {});
-                return sendInteractive(client, m, `✦ ──『 Eʀʀᴏʀ 』── ⚝
-▢ Where\`s the link?\n▢ Example: ` + prefix + "checkid https://chat.whatsapp.com/xxxxx\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──");
+                return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
+▢ Where\`s the link?\n▢ Example: ` + prefix + "checkid https://chat.whatsapp.com/xxxxx\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──");
             }
 
             await client.sendMessage(m.chat, { react: { text: `⌛`, key: m.reactKey } });
@@ -26,8 +26,8 @@ export default {
                 url = new URL(link);
             } catch {
                 await client.sendMessage(m.chat, { react: { text: ``, key: m.reactKey } });
-                return sendInteractive(client, m, `✦ ──『 Eʀʀᴏʀ 』── ⚝
-▢ That\`s not a valid URL.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+                return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
+▢ That\`s not a valid URL.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
             }
 
             let id = '';
@@ -45,14 +45,14 @@ export default {
                 type = 'Channel';
             } else {
                 await client.sendMessage(m.chat, { react: { text: '', key: m.reactKey } });
-                return sendInteractive(client, m, `✦ ──『 Eʀʀᴏʀ 』── ⚝
-▢ That\`s not a WhatsApp group or channel link.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──\n> ©𝐏𝐨𝐰𝐞𝐫𝐞᠊ᴅ 𝐁𝐲 𝐱𝐡_𝐜𝐥𝐢𝐧𝐭𝐨𝐧`);
+                return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
+▢ That\`s not a WhatsApp group or channel link.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n> ©𝐏𝐨𝐰𝐞𝐫𝐞᠊ᴅ 𝐁𝐲 𝐱𝐡_𝐜𝐥𝐢𝐧𝐭𝐨𝐧`);
             }
 
             await client.sendMessage(m.chat, { react: { text: ``, key: m.reactKey } });
 
-            const bodyText = "✦ ──『 " + type + ` JID 』── ⚝
-▢ *Link:* ` + link + "\n▢ *" + type + " ID:* \`" + id + "\`\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──";
+            const bodyText = "⚡ ──「 " + type + ` JID 」──
+▢ *Link:* ` + link + "\n▢ *" + type + " ID:* \`" + id + "\`\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──";
             try {
                 const msg = generateWAMessageFromContent(
                     m.chat,
@@ -85,8 +85,8 @@ export default {
         } catch (error) {
             console.error(`CheckID error:`, error);
             await client.sendMessage(m.chat, { react: { text: ``, key: m.reactKey } });
-            await sendInteractive(client, m, `✦ ──『 Cʀᴀsʜᴇᴅ 』── ⚝
-▢ Error: ` + error.message + "\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──");
+            await sendInteractive(client, m, `⚡ ──「 Cʀᴀsʜᴇᴅ 」──
+▢ Error: ` + error.message + "\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──");
         }
     }
 };

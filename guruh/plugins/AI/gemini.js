@@ -8,16 +8,16 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
 
       if (!text) {
           await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-          return sendInteractive(client, m, `✦ ──『 Eʀʀᴏʀ 』── ⚝
-▢ Give me something to work with.\n▢ Example: ${prefix}gemini What is AI?\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+          return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
+▢ Give me something to work with.\n▢ Example: ${prefix}gemini What is AI?\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
       }
       let _km = {};
       try { _km = await import('../../keys.js'); } catch {}
       const _groqKeys = _km.GROQ_API_KEYS?.length ? _km.GROQ_API_KEYS : [_km.GROQ_API_KEY || process.env.GROQ_KEY_1 || process.env.GROQ_API_KEY || ''].filter(Boolean);
       if (!_groqKeys.length) {
           await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-          return sendInteractive(client, m, `✦ ──『 Eʀʀᴏʀ 』── ⚝
-▢ No GROQ key set. Add GROQ_KEY_1 to env vars.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+          return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
+▢ No GROQ key set. Add GROQ_KEY_1 to env vars.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
       }
       const _callGroq = async (payload) => {
           const tried = new Set();
@@ -55,13 +55,13 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
           const reply = data.choices?.[0]?.message?.content?.trim();
           if (!reply) throw new Error('Empty AI response.');
           await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
-          await sendInteractive(client, m, `✦ ──『 Gᴇᴍɪɴɪ Rᴇsᴘᴏɴsᴇ 』── ⚝
-▢ ${reply}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+          await sendInteractive(client, m, `⚡ ──「 Gᴇᴍɪɴɪ Rᴇsᴘᴏɴsᴇ 」──
+▢ ${reply}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
       } catch (error) {
           console.error('Gemini command error:', error);
           await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-          return sendInteractive(client, m, `✦ ──『 Eʀʀᴏʀ 』── ⚝
-▢ Gemini crashed. ${error.message}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+          return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
+▢ Gemini crashed. ${error.message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
       }
   };
   

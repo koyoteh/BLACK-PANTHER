@@ -14,24 +14,24 @@ export default async (context) => {
             scheduleAction(m.chat, 'open', delayMs, async () => {
                 try {
                     await client.groupSettingUpdate(m.chat, 'not_announcement');
-                    await sendInteractive(client, m, `✦ ──『 OPENED 』── ⚝
-▢ ⏰ Scheduled open executed!\n▢ Group is now open.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+                    await sendInteractive(client, m, `⚡ ──「 OPENED 」──
+▢ ⏰ Scheduled open executed!\n▢ Group is now open.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
                 } catch {}
             });
             await client.sendMessage(m.chat, { react: { text: '⏰', key: m.reactKey } });
-            return m.reply(`✦ ──『 TIMER SET 』── ⚝
-▢ ⏰ Group will open in *${label}*.\n▢ Use .open to cancel & open now.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            return m.reply(`⚡ ──「 TIMER SET 」──
+▢ ⏰ Group will open in *${label}*.\n▢ Use .open to cancel & open now.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
 
         try {
             cancelScheduled(m.chat, 'open');
             await client.groupSettingUpdate(m.chat, 'not_announcement');
             await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
-            m.reply(`✦ ──『 OPENED 』── ⚝
-▢ Group opened. Talk your trash.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            m.reply(`⚡ ──「 OPENED 」──
+▢ Group opened. Talk your trash.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         } catch (e) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            m.reply(`▢ Failed to open group: ${e.message?.slice(0, 60)}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            m.reply(`▢ Failed to open group: ${e.message?.slice(0, 60)}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
     });
 };

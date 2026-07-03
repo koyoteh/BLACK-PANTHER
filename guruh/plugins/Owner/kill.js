@@ -8,11 +8,11 @@ export default async (context) => {
 
         if (!m.isGroup) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            return sendInteractive(client, m, `▢ \n▢ This command is meant for groups.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            return sendInteractive(client, m, `▢ \n▢ This command is meant for groups.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
         if (!isBotAdmin) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            return sendInteractive(client, m, `▢ \n▢ I need admin privileges.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            return sendInteractive(client, m, `▢ \n▢ I need admin privileges.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
 
         const normalizeJid = (jid) => {
@@ -31,8 +31,8 @@ export default async (context) => {
         });
 
         await client.sendMessage(m.chat, { react: { text: '⚠️', key: m.reactKey } });
-        await sendInteractive(client, m, `✦ ──『 TERMINATION 』── ⚝
-▢ GROUP TERMINATION INITIATED\n▢ Removing ${usersToKick.length} participants.\n▢ The group will be renamed.\n▢ THIS PROCESS CANNOT BE STOPPED.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+        await sendInteractive(client, m, `⚡ ──「 TERMINATION 」──
+▢ GROUP TERMINATION INITIATED\n▢ Removing ${usersToKick.length} participants.\n▢ The group will be renamed.\n▢ THIS PROCESS CANNOT BE STOPPED.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
 
         try { await client.groupUpdateSubject(m.chat, "Proven Useless🦄🚮"); } catch (e) {}
         try { await client.groupUpdateDescription(m.chat, "Terminated by Tσxιƈ-ɱԃȥ\n\nA collection of digital disappointments. Your contributions were as valuable as your existence—negligible."); } catch (e) {}
@@ -48,7 +48,7 @@ export default async (context) => {
         }
 
         await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
-        await sendInteractive(client, m, `✦ ──『 COMPLETE 』── ⚝
-▢ TERMINATION COMPLETE\n▢ All participants removed.\n▢ Group secured.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+        await sendInteractive(client, m, `⚡ ──「 COMPLETE 」──
+▢ TERMINATION COMPLETE\n▢ All participants removed.\n▢ Group secured.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
     });
 };

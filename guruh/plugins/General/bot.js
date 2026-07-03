@@ -49,8 +49,8 @@ export default {
         const effectivePrefix = settings.prefix || '.';
         const device = await getDeviceMode();
 
-        const bodyText = `✦ ──『 Sᴛᴀʀᴛ 』── ⚝
-▢ Yo @${m.sender.split('@')[0].split(':')[0]}! You actually bothered\n▢ to check if I'm alive?\n▢ ${botname} is active 24/7, unlike\n▢ your brain cells.\n▢ Stop wasting my time and pick\n▢ something useful below.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`;
+        const bodyText = `⚡ ──「 Sᴛᴀʀᴛ 」──
+▢ Yo @${m.sender.split('@')[0].split(':')[0]}! You actually bothered\n▢ to check if I'm alive?\n▢ ${botname} is active 24/7, unlike\n▢ your brain cells.\n▢ Stop wasting my time and pick\n▢ something useful below.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
 
         if (device === 'ios') {
             await client.sendMessage(m.chat, { text: bodyText }, { mentions: [m.sender] });

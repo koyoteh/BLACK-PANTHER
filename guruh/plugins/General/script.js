@@ -19,7 +19,7 @@ export default {
 
       const replyText =
 `╔══════════════════════════════════╗
-║  ✦ ──『 Repository 』── ⚝
+║  ⚡ ──「 Repository 」──
 ╠══════════════════════════════════╣
 ║  🔗 GitHub :
 ║  https://github.com/koyoteh/BLACK-PANTHER
@@ -33,7 +33,7 @@ export default {
 ║  🌐 Hosting :
 ║  https://wa.me/254105521300
 ╚══════════════════════════════════╝
-> ✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪`;
+> 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ`;
 
       await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
       await sendInteractive(client, m, replyText);
@@ -41,10 +41,10 @@ export default {
     } catch (error) {
       await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
       await sendInteractive(client, m,
-`✦ ──『 Eʀʀᴏʀ 』── ⚝
+`⚡ ──「 Eʀʀᴏʀ 」──
 ▢ Couldn't fetch repo data
 ▢ ${error.message}
-└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
     }
   }
 };

@@ -11,11 +11,11 @@ const middleware = async (context, next) => {
 
     if (!m.isGroup) {
         return m.reply(`✦ ──『 Gʀᴏᴜᴘ Oɴʟʏ 』── ⚝
-▢ This command isn't for lone wolves.\n▢ Try again in a group, you loner.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+▢ This command isn't for lone wolves.\n▢ Try again in a group, you loner.\n└──𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ──`);
     }
     if (!isDev && !context.isAdmin) {
         return m.reply(`✦ ──『 Nᴏᴛ Aᴅᴍɪɴ 』── ⚝
-▢ You think you're worthy?\n▢ Admin privileges are required—\n▢ go beg for them, peasant.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+▢ You think you're worthy?\n▢ Admin privileges are required—\n▢ go beg for them, peasant.\n└──𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ──`);
     }
 
     let resolvedIsBotAdmin = isBotAdmin;
@@ -40,7 +40,7 @@ const middleware = async (context, next) => {
 
     if (!resolvedIsBotAdmin) {
         return m.reply(`✦ ──『 Bᴏᴛ Nᴏᴛ Aᴅᴍɪɴ 』── ⚝
-▢ I need admin rights to obey,\n▢ unlike you who blindly follows.\n▢ Make me admin first, idiot.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+▢ I need admin rights to obey,\n▢ unlike you who blindly follows.\n▢ Make me admin first, idiot.\n└──𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ──`);
     }
 
     await next();

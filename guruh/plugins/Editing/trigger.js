@@ -5,8 +5,8 @@ export default async (context) => {
         const { client, m, Tag, botname } = context;
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
 
-let cap = `✦ ──『 TRIGGER 』── ⚝
-▢ Converted By ${botname}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`;
+let cap = `⚡ ──「 TRIGGER 」──
+▢ Converted By ${botname}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
 
 try {
 
@@ -43,8 +43,8 @@ try {
 } catch (e) {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
 
-sendInteractive(client, m, `✦ ──『 ERROR 』── ⚝
-▢ Something wrong occured.\n▢ Try again, loser.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`)
+sendInteractive(client, m, `⚡ ──「 ERROR 」──
+▢ Something wrong occured.\n▢ Try again, loser.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`)
 
 }
     }

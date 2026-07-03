@@ -7,9 +7,9 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
       if (!text) {
           await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-          return sendInteractive(client, m, '✦ ──『 IGDL 』── ⚝\n▢ Give me an Instagram link.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──');
+          return sendInteractive(client, m, '⚡ ──「 IGDL 」──\n▢ Give me an Instagram link.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──');
       }
-      if (!text.includes('instagram.com')) return sendInteractive(client, m, '✦ ──『 IGDL 』── ⚝\n▢ That\'s not an Instagram link.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──');
+      if (!text.includes('instagram.com')) return sendInteractive(client, m, '⚡ ──「 IGDL 」──\n▢ That\'s not an Instagram link.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──');
       await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
       try {
           const r = await fetch(NEXRAY + encodeURIComponent(text.trim()), { headers: { 'User-Agent': 'Mozilla/5.0' }, timeout: 20000 });
@@ -23,8 +23,8 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
                   const dlRes = await fetch(item.url, { headers: { 'User-Agent': 'Mozilla/5.0', 'Referer': 'https://www.instagram.com/' }, timeout: 35000 });
                   if (!dlRes.ok) continue;
                   const buf = Buffer.from(await dlRes.arrayBuffer());
-                  const cap = `✦ ──『 Instagram DL 』── ⚝
-▢ ${title || 'Instagram Post'}\n▢ 👤 @${username || 'unknown'}\n▢ ❤️ ${likes ? likes.toLocaleString() : 'N/A'} likes | 💬 ${comment ? comment.toLocaleString() : 'N/A'} comments\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`;
+                  const cap = `⚡ ──「 Instagram DL 」──
+▢ ${title || 'Instagram Post'}\n▢ 👤 @${username || 'unknown'}\n▢ ❤️ ${likes ? likes.toLocaleString() : 'N/A'} likes | 💬 ${comment ? comment.toLocaleString() : 'N/A'} comments\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
                   if (item.type === 'mp4') {
                       await client.sendMessage(m.chat, { video: buf, caption: cap, mimetype: 'video/mp4' });
                   } else {
@@ -34,7 +34,7 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
           }
       } catch (e) {
           await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-          sendInteractive(client, m, `▢ Failed: ${e.message}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+          sendInteractive(client, m, `▢ Failed: ${e.message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
       }
   };
   

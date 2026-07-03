@@ -10,8 +10,8 @@ export default async (client, m) => {
         afkMap.delete(senderNum);
         try {
             await client.sendMessage(m.chat, {
-                text: `✦ ──『 BACK ONLINE 』── ⚝
-▢ @${senderNum} finally crawled back.\n▢ Was AFK for ${mins} min${mins !== 1 ? 's' : ''}.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`,
+                text: `⚡ ──「 BACK ONLINE 」──
+▢ @${senderNum} finally crawled back.\n▢ Was AFK for ${mins} min${mins !== 1 ? 's' : ''}.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`,
                 mentions: [m.sender]
             });
         } catch {}
@@ -28,8 +28,8 @@ export default async (client, m) => {
             const mins = Math.floor((Date.now() - time) / 60000);
             try {
                 await client.sendMessage(m.chat, {
-                    text: `✦ ──『 AFK ALERT 』── ⚝
-▢ @${num} is currently ghosting everyone.\n▢ Reason: ${reason || 'none given 💀'}\n▢ Since: ${mins} min${mins !== 1 ? 's' : ''} ago\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`,
+                    text: `⚡ ──「 AFK ALERT 」──
+▢ @${num} is currently ghosting everyone.\n▢ Reason: ${reason || 'none given 💀'}\n▢ Since: ${mins} min${mins !== 1 ? 's' : ''} ago\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`,
                     mentions: [jid, m.sender]
                 });
             } catch {}

@@ -8,12 +8,12 @@ export default async (context) => {
 
     if (!text) {
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-        return sendInteractive(client, m, "▢ Provide a valid web link to inspect, dimwit.\n▢ Bot will crawl HTML, CSS, JS, and media.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──");
+        return sendInteractive(client, m, "▢ Provide a valid web link to inspect, dimwit.\n▢ Bot will crawl HTML, CSS, JS, and media.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──");
     }
 
     if (!/^https?:\/\//i.test(text)) {
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-        return sendInteractive(client, m, "▢ URL must start with http:// or https://, genius.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──");
+        return sendInteractive(client, m, "▢ URL must start with http:// or https://, genius.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──");
     }
 
     try {
@@ -46,41 +46,41 @@ export default async (context) => {
             }
         });
 
-        await sendInteractive(client, m, `✦ ──『 HTML CONTENT 』── ⚝
-${html}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+        await sendInteractive(client, m, `⚡ ──「 HTML CONTENT 」──
+${html}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
 
         if (cssFiles.length > 0) {
             for (const cssFile of cssFiles) {
                 const cssResponse = await fetch(new URL(cssFile, text));
                 const cssContent = await cssResponse.text();
-                await sendInteractive(client, m, `✦ ──『 CSS FILE 』── ⚝
-${cssContent}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+                await sendInteractive(client, m, `⚡ ──「 CSS FILE 」──
+${cssContent}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
             }
         } else {
-            await sendInteractive(client, m, "▢ No external CSS files found.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──");
+            await sendInteractive(client, m, "▢ No external CSS files found.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──");
         }
 
         if (jsFiles.length > 0) {
             for (const jsFile of jsFiles) {
                 const jsResponse = await fetch(new URL(jsFile, text));
                 const jsContent = await jsResponse.text();
-                await sendInteractive(client, m, `✦ ──『 JS FILE 』── ⚝
-${jsContent}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+                await sendInteractive(client, m, `⚡ ──「 JS FILE 」──
+${jsContent}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
             }
         } else {
-            await sendInteractive(client, m, "▢ No external JavaScript files found.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──");
+            await sendInteractive(client, m, "▢ No external JavaScript files found.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──");
         }
 
         if (mediaFiles.length > 0) {
-            await sendInteractive(client, m, `✦ ──『 MEDIA FILES 』── ⚝
-${mediaFiles.map(f => `▢ ${f}`).join('\n')}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            await sendInteractive(client, m, `⚡ ──「 MEDIA FILES 」──
+${mediaFiles.map(f => `▢ ${f}`).join('\n')}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         } else {
-            await sendInteractive(client, m, "▢ No media files found. Empty site, empty soul.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──");
+            await sendInteractive(client, m, "▢ No media files found. Empty site, empty soul.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──");
         }
 
     } catch (error) {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
         console.error(error);
-        return sendInteractive(client, m, "▢ Error fetching website content. Site's probably trash.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──");
+        return sendInteractive(client, m, "▢ Error fetching website content. Site's probably trash.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──");
     }
 };

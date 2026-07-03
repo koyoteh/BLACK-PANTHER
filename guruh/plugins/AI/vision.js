@@ -10,8 +10,8 @@ export default async (context) => {
 
         if (!m.quoted) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            return sendInteractive(client, m, `✦ ──『 Eʀʀᴏʀ 』── ⚝
-▢ Quote an image first, genius.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
+▢ Quote an image first, genius.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
 
         const q = m.quoted || m;
@@ -19,8 +19,8 @@ export default async (context) => {
 
         if (!mime.startsWith('image/')) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            return sendInteractive(client, m, `✦ ──『 Eʀʀᴏʀ 』── ⚝
-▢ That's not an image, you donkey.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
+▢ That's not an image, you donkey.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
 
         let _km = {};
@@ -82,14 +82,14 @@ export default async (context) => {
         await client.sendMessage(
             m.chat,
             {
-                text: `✦ ──『 Iᴍᴀɢᴇ Aɴᴀʟʏsɪs 』── ⚝
-${result.split('\n').map(l => `▢ ${l}`).join('\n')}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──` }
+                text: `⚡ ──「 Iᴍᴀɢᴇ Aɴᴀʟʏsɪs 」──
+${result.split('\n').map(l => `▢ ${l}`).join('\n')}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──` }
         );
 
     } catch (err) {
         console.error('vision error:', err);
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-        await sendInteractive(client, m, `✦ ──『 Fᴀɪʟᴇᴅ 』── ⚝
-▢ Vision analysis failed.\n▢ ${err.message}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+        await sendInteractive(client, m, `⚡ ──「 Fᴀɪʟᴇᴅ 」──
+▢ Vision analysis failed.\n▢ ${err.message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
     }
 };

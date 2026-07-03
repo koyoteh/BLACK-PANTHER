@@ -23,7 +23,7 @@ export default {
     };
 
     let menuText = `╔══════════════════════════════════╗
-║  ✦ ──『 REACTIONS MENU 』── ⚝
+║  ⚡ ──「 REACTIONS MENU 」──
 ╠══════════════════════════════════╣
 ║  📌 Prefix : ${effectivePrefix || 'None'}
 ╠══════════════════════════════════╣
@@ -34,7 +34,7 @@ export default {
       menuText += `▢ *${toFancyFont(file.replace('.js', ''))}*\n`;
     }
 
-    menuText += `╚══════════════════════════════════╝\n> ✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪\n`;
+    menuText += `╚══════════════════════════════════╝\n> 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ\n`;
 
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
         await client.sendMessage(m.chat, { text: menuText });

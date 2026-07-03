@@ -10,9 +10,9 @@ export default {
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
         const city = (text || '').trim();
         if (!city) {
-            return sendInteractive(client, m, `✦ ──『 Wᴇᴀᴛʜᴇʀ 』── ⚝
+            return sendInteractive(client, m, `⚡ ──「 Wᴇᴀᴛʜᴇʀ 」──
 │
-▢ Give me a city name, genius.\n▢ Usage: .weather Nairobi\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+▢ Give me a city name, genius.\n▢ Usage: .weather Nairobi\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
         try {
             await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
@@ -29,14 +29,14 @@ export default {
             const wind = w.windspeedKmph || '?';
             const visibility = w.visibility || '?';
             await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
-            return sendInteractive(client, m, `✦ ──『 Wᴇᴀᴛʜᴇʀ 』── ⚝
+            return sendInteractive(client, m, `⚡ ──「 Wᴇᴀᴛʜᴇʀ 」──
 │
-▢ 📍 ${areaName}, ${country}\n▢ ☁️ ${desc}\n▢ 🌡️ Temp: ${tempC}°C (Feels ${feelsC}°C)\n▢ 💧 Humidity: ${humidity}%\n▢ 💨 Wind: ${wind} km/h\n▢ 👁️ Visibility: ${visibility} km\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+▢ 📍 ${areaName}, ${country}\n▢ ☁️ ${desc}\n▢ 🌡️ Temp: ${tempC}°C (Feels ${feelsC}°C)\n▢ 💧 Humidity: ${humidity}%\n▢ 💨 Wind: ${wind} km/h\n▢ 👁️ Visibility: ${visibility} km\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         } catch (e) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-            return sendInteractive(client, m, `✦ ──『 Wᴇᴀᴛʜᴇʀ 』── ⚝
+            return sendInteractive(client, m, `⚡ ──「 Wᴇᴀᴛʜᴇʀ 」──
 │
-▢ Weather API is throwing a tantrum. Try again.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+▢ Weather API is throwing a tantrum. Try again.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
     }
 };

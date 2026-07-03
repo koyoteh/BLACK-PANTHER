@@ -35,8 +35,8 @@ function buildChunks(num, prefix) {
     // but filter to this category only.
     const cmds = getAllCmds().filter(c => c.category === category);
 
-    const header = `✦ ──『 ${emoji} ${label} Menu 』── ⚝\n▢ Total: ${cmds.length} commands\n`;
-    const footer = `└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`;
+    const header = `⚡ ──「 ${emoji} ${label} Menu 」──\n▢ Total: ${cmds.length} commands\n`;
+    const footer = `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
 
     if (!cmds.length) {
         return [`${header}▢ No commands found in this category yet.\n${footer}`];
@@ -61,7 +61,7 @@ function buildChunks(num, prefix) {
         if (!isFirst && candidate.length + footer.length > CHUNK_SIZE) {
             // Close current chunk and start a new one
             chunks.push(current + footer);
-            current = `✦ ──『 ${emoji} ${label} (cont.) 』── ⚝\n`;
+            current = `⚡ ──「 ${emoji} ${label} (cont.) 」──\n`;
         }
         current += line + '\n';
         isFirst = false;

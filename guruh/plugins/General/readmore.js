@@ -11,8 +11,8 @@ export default {
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
         if (!text) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            return sendInteractive(client, m, `✦ ──『 READ MORE 』── ⚝
-▢ Usage: ${prefix}readmore visible text|hidden text\n▢ The text after | will be hidden.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            return sendInteractive(client, m, `⚡ ──「 READ MORE 」──
+▢ Usage: ${prefix}readmore visible text|hidden text\n▢ The text after | will be hidden.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
         const parts = text.split('|');
         const visible = parts[0] || '';

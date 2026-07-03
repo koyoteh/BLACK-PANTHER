@@ -28,7 +28,7 @@ export default {
     };
 
     let menuText = `╔══════════════════════════════════╗
-║  ✦ ──『 HEROKU MENU 』── ⚝
+║  ⚡ ──「 HEROKU MENU 」──
 ╠══════════════════════════════════╣
 ║  📌 Prefix : ${effectivePrefix || 'None'}
 ╠══════════════════════════════════╣
@@ -41,7 +41,7 @@ export default {
       menuText += `▢ *${fancyCommandName}*\n`;
     }
 
-    menuText += `╚══════════════════════════════════╝\n> ✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪\n`;
+    menuText += `╚══════════════════════════════════╝\n> 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ\n`;
     menuText += ``;
 
     await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
@@ -51,7 +51,7 @@ export default {
         externalAdReply: {
           showAdAttribution: false,
           title: `BLACK-PANTHER-MD WA bot`,
-          body: `✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪`,
+          body: `𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ`,
           thumbnail: pict,
           sourceUrl: `https://github.com/koyoteh/BLACK-PANTHER`,
           mediaType: 1,

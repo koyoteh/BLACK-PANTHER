@@ -11,7 +11,7 @@ const response = await client.groupRequestParticipantsList(m.chat);
 
 if (response.length === 0) {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-    return m.reply(`✦ ──『 REQUESTS 』── ⚝\n▢ There are no pending join requests.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+    return m.reply(`⚡ ──「 REQUESTS 」──\n▢ There are no pending join requests.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
 }
 
 let jids = ''; 
@@ -23,8 +23,8 @@ response.forEach((participant, index) => {
     }
 });
 
- sendInteractive(client, m, `✦ ──『 PENDING REQUESTS 』── ⚝
-▢ ${jids}\n▢ \n▢ Use .approve-all or .reject-all\n▢ to handle these join requests.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`); 
+ sendInteractive(client, m, `⚡ ──「 PENDING REQUESTS 」──
+▢ ${jids}\n▢ \n▢ Use .approve-all or .reject-all\n▢ to handle these join requests.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`); 
 
 
 })

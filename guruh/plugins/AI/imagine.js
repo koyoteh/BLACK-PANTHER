@@ -13,8 +13,8 @@ export default {
 
         if (!prompt) {
             return client.sendMessage(m.chat, {
-                text: `✦ ──『 Eʀʀᴏʀ 』── ⚝
-▢ Forgot the prompt? Typical.\n▢ Example: ${prefix}imagine a cat playing football\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`,
+                text: `⚡ ──「 Eʀʀᴏʀ 」──
+▢ Forgot the prompt? Typical.\n▢ Example: ${prefix}imagine a cat playing football\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`,
                 mentions: [m.sender]
             });
         }
@@ -35,16 +35,16 @@ export default {
                 m.chat,
                 {
                     image: buffer,
-                    caption: `✦ ──『 Aɪ Iᴍᴀɢᴇ 』── ⚝
-▢ Prompt: ${prompt}\n▢ Powered by ${botname}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`
+                    caption: `⚡ ──「 Aɪ Iᴍᴀɢᴇ 」──
+▢ Prompt: ${prompt}\n▢ Powered by ${botname}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
                 }
             );
 
         } catch (error) {
             console.error('Imagine command error:', error);
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-            await sendInteractive(client, m, `✦ ──『 Fᴀɪʟᴇᴅ 』── ⚝
-▢ Image generation failed.\n▢ ${error.message}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            await sendInteractive(client, m, `⚡ ──「 Fᴀɪʟᴇᴅ 」──
+▢ Image generation failed.\n▢ ${error.message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
     }
 };

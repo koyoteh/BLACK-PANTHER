@@ -11,7 +11,7 @@ async function resolveSession() {
     const sid = (process.env.SESSION_ID || '').trim();
 
     if (!sid) {
-        console.log('\n🐾 BLACK PANTHER MD — Session Setup\n');
+        console.log('\n⚡ BLACK PANTHER MD — Session Setup\n');
         console.log('No SESSION_ID found in environment.');
         console.log('Get one from: https://pantherr-session.onrender.com\n');
         return;

@@ -17,18 +17,18 @@ export default async (context) => {
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
         const quoted = m.quoted ? m.quoted : m;
         const quotedMime = quoted.mimetype || '';
-        if (!/image/.test(quotedMime)) return sendInteractive(client, m, `✦ ──『 TO FIGURE 』── ⚝
-▢ That is not an image. Are your eyes\n▢ broken? Quote a real image, you imbecile.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+        if (!/image/.test(quotedMime)) return sendInteractive(client, m, `⚡ ──「 TO FIGURE 」──
+▢ That is not an image. Are your eyes\n▢ broken? Quote a real image, you imbecile.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         const media = await quoted.download();
         if (!media) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            return sendInteractive(client, m, `✦ ──『 FAILED 』── ⚝
-▢ Failed to download your worthless image.\n▢ Try sending something that actually exists.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            return sendInteractive(client, m, `⚡ ──「 FAILED 」──
+▢ Failed to download your worthless image.\n▢ Try sending something that actually exists.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
         if (media.length > 10 * 1024 * 1024) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            return sendInteractive(client, m, `✦ ──『 FAILED 』── ⚝
-▢ Your image is too large. 10MB MAX,\n▢ you digital hoarder.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            return sendInteractive(client, m, `⚡ ──「 FAILED 」──
+▢ Your image is too large. 10MB MAX,\n▢ you digital hoarder.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
         const imageUrl = await uploadToCatbox(media);
         const apiURL = `https://api.fikmydomainsz.xyz/imagecreator/tofigur?url=${encodeURIComponent(imageUrl)}`;
@@ -37,8 +37,8 @@ export default async (context) => {
         const resultUrl = response.data.result;
         const figureBuffer = (await axios.get(resultUrl, { responseType: 'arraybuffer' })).data;
         await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
-        await client.sendMessage(m.chat, { image: Buffer.from(figureBuffer), caption: `✦ ──『 TO FIGURE 』── ⚝
-▢ Here. It is now a "figure".\n▢ You are welcome.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──` });
+        await client.sendMessage(m.chat, { image: Buffer.from(figureBuffer), caption: `⚡ ──「 TO FIGURE 」──
+▢ Here. It is now a "figure".\n▢ You are welcome.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──` });
     } catch (err) {
         console.error('tofigur error:', err);
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
@@ -47,7 +47,7 @@ export default async (context) => {
         if (err.message.includes('Network Error')) userMessage = 'Network error. Are you on dial-up?';
         if (err.message.includes('Upload Refused')) userMessage = "Couldn't even upload your image. Pathetic.";
         if (err.message.includes('API vomited')) userMessage = 'The art service rejected your image. It has standards.';
-        await sendInteractive(client, m, `✦ ──『 FAILED 』── ⚝
-▢ ${userMessage}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+        await sendInteractive(client, m, `⚡ ──「 FAILED 」──
+▢ ${userMessage}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
     }
 };

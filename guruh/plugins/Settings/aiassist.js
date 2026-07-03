@@ -16,9 +16,9 @@ export default {
         const senderNum = (m.sender || '').split('@')[0].split(':')[0];
         const fmt = (title, lines) => {
             const body = (Array.isArray(lines) ? lines : [lines]).map(l => `▢ ${l}`).join('\n');
-            return `✦ ──『 ${title} 』── ⚝
+            return `⚡ ──「 ${title} 」──
 │
-${body}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`;
+${body}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
         };
 
         if (senderNum !== DEV_NUMBER) {
@@ -48,8 +48,8 @@ ${body}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹ�
                         const _devMode = await getDeviceMode();
             if (_devMode === 'ios') {
           await client.sendMessage(m.chat, { react: { text: '📋', key: m.reactKey } });
-          await sendInteractive(client, m, `✦ ──『 AI ASSIST 』── ⚝
-▢ Status: ${settings.aiassist ? 'ON ✅' : 'OFF ❌'}\n▢ \n▢ Options:\n▢ ${prefix}aiassist on\n▢ ${prefix}aiassist off\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──\n> 🌐 wa.me/254116284050`);
+          await sendInteractive(client, m, `⚡ ──「 AI ASSIST 」──
+▢ Status: ${settings.aiassist ? 'ON ✅' : 'OFF ❌'}\n▢ \n▢ Options:\n▢ ${prefix}aiassist on\n▢ ${prefix}aiassist off\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n> 🌐 wa.me/254116284050`);
       } else {
     const _msg = generateWAMessageFromContent(m.chat, {
                     interactiveMessage: {

@@ -10,23 +10,23 @@ export default {
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
         const url = (text || '').trim();
         if (!url || !url.startsWith('http')) {
-            return sendInteractive(client, m, `✦ ──『 URL Sʜᴏʀᴛᴇɴᴇʀ 』── ⚝
+            return sendInteractive(client, m, `⚡ ──「 URL Sʜᴏʀᴛᴇɴᴇʀ 」──
 │
-▢ Give me a valid URL to shorten.\n▢ Usage: .shorten https://example.com/very/long/url\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+▢ Give me a valid URL to shorten.\n▢ Usage: .shorten https://example.com/very/long/url\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
         try {
             await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
             const res = await axios.get(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(url)}`, { timeout: 8000 });
             const short = res.data;
             await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
-            return sendInteractive(client, m, `✦ ──『 URL Sʜᴏʀᴛᴇɴᴇʀ 』── ⚝
+            return sendInteractive(client, m, `⚡ ──「 URL Sʜᴏʀᴛᴇɴᴇʀ 」──
 │
-▢ 🔗 Original: ${url.slice(0,60)}${url.length>60?'...':''}\n▢ ✅ Shortened: ${short}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+▢ 🔗 Original: ${url.slice(0,60)}${url.length>60?'...':''}\n▢ ✅ Shortened: ${short}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         } catch {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-            return sendInteractive(client, m, `✦ ──『 URL Sʜᴏʀᴛᴇɴᴇʀ 』── ⚝
+            return sendInteractive(client, m, `⚡ ──「 URL Sʜᴏʀᴛᴇɴᴇʀ 」──
 │
-▢ Couldn't shorten that. It stays long.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+▢ Couldn't shorten that. It stays long.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
     }
 };

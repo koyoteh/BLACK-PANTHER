@@ -15,7 +15,7 @@ const _pNum = (p) => {
 
 const isDevJid = (jid) => _num(jid) === DEV_NUMBER;
 
-const fmt = (msg) => `✦ ──『 ANTILINK  』── ⚝\n▢ ${msg}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`;
+const fmt = (msg) => `⚡ ──「 ANTILINK  」──\n▢ ${msg}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
 
 export default async (client, m) => {
     try {

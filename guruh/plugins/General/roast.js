@@ -39,8 +39,8 @@ export default {
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
         await client.sendMessage(m.chat, { react: { text: '🔥', key: m.reactKey } });
         await client.sendMessage(m.chat, {
-            text: `✦ ──『 Rᴏᴀsᴛ 』── ⚝
-▢ 🎯 Target: ${target}\n▢ \n▢ ${roast}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`,
+            text: `⚡ ──「 Rᴏᴀsᴛ 」──
+▢ 🎯 Target: ${target}\n▢ \n▢ ${roast}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`,
             mentions: [mentioned]
         });
     }

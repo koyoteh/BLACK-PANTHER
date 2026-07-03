@@ -9,10 +9,10 @@ export default async (context) => {
         const fact = data?.fact;
         if (!fact) throw new Error('no fact');
         await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
-        await sendInteractive(client, m, `✦ ──『 CAT FACT 』── ⚝
-▢ ${fact}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+        await sendInteractive(client, m, `⚡ ──「 CAT FACT 」──
+▢ ${fact}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
     } catch {
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-        sendInteractive(client, m, `▢ API down. Even the cats went offline.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+        sendInteractive(client, m, `▢ API down. Even the cats went offline.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
     }
 };

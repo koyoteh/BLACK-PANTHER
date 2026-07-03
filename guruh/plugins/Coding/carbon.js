@@ -5,8 +5,8 @@ export default async (context) => {
   await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
 
 
-  let cap = `✦ ──『 CARBON 』── ⚝
-▢ Converted By ${botname}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`;
+  let cap = `⚡ ──「 CARBON 」──
+▢ Converted By ${botname}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
 
   if (m.quoted && m.quoted.text) {
     const forq = m.quoted.text;
@@ -22,8 +22,8 @@ export default async (context) => {
 
       if (!response.ok) {
           await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-          return sendInteractive(client, m, `✦ ──『 ERROR 』── ⚝
-▢ API failed to fetch a valid response.\n▢ Try again later, genius.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`)
+          return sendInteractive(client, m, `⚡ ──「 ERROR 」──
+▢ API failed to fetch a valid response.\n▢ Try again later, genius.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`)
       }
 
       let per = await response.buffer();
@@ -31,11 +31,11 @@ export default async (context) => {
       await client.sendMessage(m.chat, { image: per, caption: cap });
     } catch (error) {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-      sendInteractive(client, m, `✦ ──『 ERROR 』── ⚝
-▢ An error occured, you broke it.\n▢ ${error}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`)
+      sendInteractive(client, m, `⚡ ──「 ERROR 」──
+▢ An error occured, you broke it.\n▢ ${error}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`)
     }
   } else {
-    sendInteractive(client, m, `✦ ──『 CARBON 』── ⚝
-▢ Quote a code message, idiot.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+    sendInteractive(client, m, `⚡ ──「 CARBON 」──
+▢ Quote a code message, idiot.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
   }
 }

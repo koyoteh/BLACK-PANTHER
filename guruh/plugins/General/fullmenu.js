@@ -59,7 +59,7 @@ export default {
         .join('');
     };
 
-    let menuText = `╔══════════════════════════════════╗\n║  ✦ ──『 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ᴹᴰ 』── ⚝\n╠══════════════════════════════════╣\n║  👤 @${m.sender.split('@')[0].split(':')[0]}\n║  🤖 Bot    : ${botname}\n║  📊 Cmds   : ${totalCommands}\n║  🕐 Time   : ${getCurrentTimeInNairobi()}\n║  📌 Prefix : ${effectivePrefix || 'None'}\n║  🌐 Mode   : ${mode}\n║  📚 Lib    : Baileys\n╚══════════════════════════════════╝\n\n`;
+    let menuText = `╔══════════════════════════════════╗\n║  ⚡ ──「 𝗠𝗔𝗗𝗥𝗜𝗡-𝗔𝗣𝗜 」──\n╠══════════════════════════════════╣\n║  👤 @${m.sender.split('@')[0].split(':')[0]}\n║  🤖 Bot    : ${botname}\n║  📊 Cmds   : ${totalCommands}\n║  🕐 Time   : ${getCurrentTimeInNairobi()}\n║  📌 Prefix : ${effectivePrefix || 'None'}\n║  🌐 Mode   : ${mode}\n║  📚 Lib    : Baileys\n╚══════════════════════════════════╝\n\n`;
 
     for (const category of categories) {
       let commandFiles;
@@ -69,7 +69,7 @@ export default {
 
       if (commandFiles.length === 0 && category.name !== 'NSFW') continue;
 
-      menuText += `╔══════════════════════════════════╗\n║  ✦ ──『 ${category.display} 』── ⚝\n╠══════════════════════════════════╣\n`;
+      menuText += `╔══════════════════════════════════╗\n║  ⚡ ──「 ${category.display} 」──\n╠══════════════════════════════════╣\n`;
 
       if (category.name === 'NSFW') {
         const plus18Commands = ['xvideo'];
@@ -125,8 +125,8 @@ export default {
         `▢ ${s.rows[0]?.id || ''} — ${s.rows[0]?.description || s.title}`
       ).join('\n');
       await client.sendMessage(m.chat, {
-        text: `✦ ──『 Categories 』── ⚝
-${iosCategoryText}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──\n> 🌐 Hosted by GuruTech\n> 🔗 wa.me/254116284050`,
+        text: `⚡ ──「 Categories 」──
+${iosCategoryText}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n> 🌐 Hosted by GuruTech\n> 🔗 wa.me/254116284050`,
         contextInfo: { mentionedJid: [m.sender] }
       });
       await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
@@ -137,7 +137,7 @@ ${iosCategoryText}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄�
       const interactiveMsg = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
         interactiveMessage: {
           body: { text: 'Browse Categories' },
-          footer: { text: '✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪' },
+          footer: { text: '𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ' },
           header: { hasMediaAttachment: false },
           nativeFlowMessage: {
             messageVersion: 1,

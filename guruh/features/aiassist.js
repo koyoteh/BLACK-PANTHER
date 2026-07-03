@@ -66,9 +66,9 @@ function boxWrap(text, title) {
         }
     }
     const body = processed.join('\n');
-    return `✦ ──『 ${title} 』── ⚝
+    return `⚡ ──「 ${title} 」──
 │
-${body}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`;
+${body}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
 }
 
 function isClearIntent(text) {
@@ -545,9 +545,9 @@ export default async (context) => {
         await client.sendMessage(m.chat, { text: boxWrap(finalReply, 'AI ASSIST') });
         if (imageUploadedUrl) {
             await client.sendMessage(m.chat, {
-                text: `✦ ──『 IMAGE UPLOADED 』── ⚝
+                text: `⚡ ──「 IMAGE UPLOADED 」──
 │
-▢ 🔗 ${imageUploadedUrl}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`
+▢ 🔗 ${imageUploadedUrl}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
             });
         }
         try { await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } }); } catch {}

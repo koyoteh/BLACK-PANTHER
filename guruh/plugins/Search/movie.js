@@ -33,7 +33,7 @@ export default async (context) => {
     imdbt += "▢ 🏭 Production  : " + fids.data.Production + "\n";
     imdbt += "▢ 🌟 imdbRating  : " + fids.data.imdbRating + "\n";
     imdbt += "▢ 🗳️ imdbVotes   : " + fids.data.imdbVotes + "\n";
-    imdbt += "└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──";
+    imdbt += "└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──";
 
     await client.sendMessage(
       m.chat,

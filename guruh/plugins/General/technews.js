@@ -17,14 +17,14 @@ export default {
             ).join(`\n│
 `);
             await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
-            return sendInteractive(client, m, `✦ ──『 Tᴇᴄʜ Nᴇᴡs 』── ⚝
+            return sendInteractive(client, m, `⚡ ──「 Tᴇᴄʜ Nᴇᴡs 」──
 │
-${headlines}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+${headlines}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         } catch {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-            return sendInteractive(client, m, `✦ ──『 Tᴇᴄʜ Nᴇᴡs 』── ⚝
+            return sendInteractive(client, m, `⚡ ──「 Tᴇᴄʜ Nᴇᴡs 」──
 │
-▢ Tech world went offline. How ironic.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+▢ Tech world went offline. How ironic.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
     }
 };

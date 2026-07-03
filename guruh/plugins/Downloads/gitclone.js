@@ -6,9 +6,9 @@ export default async (context) => {
 
   if (!text) {
       await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-      return sendInteractive(client, m, `▢ Where's the link, you forgetful moron?\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`)
+      return sendInteractive(client, m, `▢ Where's the link, you forgetful moron?\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`)
   }
-  if (!text.includes('github.com')) return sendInteractive(client, m, `▢ Is that even a GitHub repo link?! Think again.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`)
+  if (!text.includes('github.com')) return sendInteractive(client, m, `▢ Is that even a GitHub repo link?! Think again.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`)
 
   await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
 
@@ -22,7 +22,7 @@ export default async (context) => {
       await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
   } catch (err) {
       await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-      sendInteractive(client, m, "▢ Git clone failed. Skill issue.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──")
+      sendInteractive(client, m, "▢ Git clone failed. Skill issue.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──")
   }
 
   }

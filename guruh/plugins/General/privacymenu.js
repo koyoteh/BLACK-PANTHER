@@ -28,7 +28,7 @@ export default {
     };
 
     let menuText = `╔══════════════════════════════════╗
-║  ✦ ──『 PRIVACY MENU 』── ⚝
+║  ⚡ ──「 PRIVACY MENU 」──
 ╠══════════════════════════════════╣
 ║  📌 Prefix : ${effectivePrefix || 'None'}
 ╠══════════════════════════════════╣
@@ -41,7 +41,7 @@ export default {
       menuText += `▢ *${fancyCommandName}*\n`;
     }
 
-    menuText += `└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`;
+    menuText += `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
 
     await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
     await client.sendMessage(m.chat, {
@@ -50,7 +50,7 @@ export default {
         externalAdReply: {
           showAdAttribution: false,
           title: `BLACK-PANTHER-MD WA bot`,
-          body: `✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪`,
+          body: `𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ`,
           thumbnail: pict,
           sourceUrl: `https://github.com/koyoteh/BLACK-PANTHER`,
           mediaType: 1,

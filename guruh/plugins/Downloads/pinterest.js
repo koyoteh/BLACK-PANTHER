@@ -13,7 +13,7 @@ export default {
       const query = (text || '').trim();
       if (!query) {
           await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-          return sendInteractive(client, m, "✦ ──『 PINTEREST 』── ⚝\n▢ Give me a search term, you visually impaired fool.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──");
+          return sendInteractive(client, m, "⚡ ──「 PINTEREST 」──\n▢ Give me a search term, you visually impaired fool.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──");
       }
 
       await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
@@ -24,14 +24,14 @@ export default {
 
       if (!data.status || !data.result || data.result.length === 0) {
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-        return sendInteractive(client, m, `▢ No Pinterest images for "${query}".\n▢ Your search is as pointless as you are.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+        return sendInteractive(client, m, `▢ No Pinterest images for "${query}".\n▢ Your search is as pointless as you are.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
       }
 
       const images = data.result.filter(img => img !== null).slice(0, 5);
       
       if (images.length === 0) {
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-        return sendInteractive(client, m, `▢ No valid images found.\n▢ Even Pinterest rejected your taste.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+        return sendInteractive(client, m, `▢ No valid images found.\n▢ Even Pinterest rejected your taste.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
       }
 
       await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
@@ -43,8 +43,8 @@ export default {
           const buffer = Buffer.from(arrayBuffer);
 
           const caption = i === 0 
-            ? `✦ ──『 PINTEREST 』── ⚝
-▢ Query: ${query}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`
+            ? `⚡ ──「 PINTEREST 」──
+▢ Query: ${query}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
             : `▢ Image ${i+1} of ${images.length}`;
 
           await client.sendMessage(m.chat, {
@@ -62,8 +62,8 @@ export default {
     } catch (error) {
       console.error('Pinterest error:', error);
       await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-      await sendInteractive(client, m, `✦ ──『 PINTEREST ERROR 』── ⚝
-▢ Search failed. Your taste is probably trash anyway.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+      await sendInteractive(client, m, `⚡ ──「 PINTEREST ERROR 」──
+▢ Search failed. Your taste is probably trash anyway.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
     }
   }
 };

@@ -10,8 +10,8 @@ export default async (context) => {
         const jid = m.chat;
 
         const fmt = (msg) =>
-            `✦ ──『 Gᴏᴏᴅʙʏᴇ 』── ⚝
-▢ ${msg}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`;
+            `⚡ ──「 Gᴏᴏᴅʙʏᴇ 」──
+▢ ${msg}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
 
         try {
             if (!jid.endsWith('@g.us')) {

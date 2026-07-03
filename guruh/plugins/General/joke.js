@@ -15,15 +15,15 @@ export default {
             const delivery = j.delivery || '';
             if (!setup) throw new Error('no joke');
             await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
-            return sendInteractive(client, m, `✦ ──『 Jᴏᴋᴇ 』── ⚝
+            return sendInteractive(client, m, `⚡ ──「 Jᴏᴋᴇ 」──
 │
 ▢ 😐 ${setup}\n│
-▢ 😂 ${delivery}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+▢ 😂 ${delivery}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         } catch {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            return sendInteractive(client, m, `✦ ──『 Jᴏᴋᴇ 』── ⚝
+            return sendInteractive(client, m, `⚡ ──「 Jᴏᴋᴇ 」──
 │
-▢ Your life is the joke, I'm too tired to think of another one.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+▢ Your life is the joke, I'm too tired to think of another one.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
     }
 };

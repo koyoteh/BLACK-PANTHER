@@ -3,7 +3,7 @@ import ownerMiddleware from '../../utils/botUtil/Ownermiddleware.js';
 import { sendInteractive } from '../../lib/sendInteractive.js';
 
 const formatStylishReply = (message) => {
-    return `▢ \n▢ ${message}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`;
+    return `▢ \n▢ ${message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
 };
 
 export default async (context) => {

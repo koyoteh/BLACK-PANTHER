@@ -10,16 +10,16 @@ export default {
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
         if (!m.isGroup) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            return m.reply(`▢ Group only command, dumbass.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            return m.reply(`▢ Group only command, dumbass.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
 
         const input = (context.text || context.q || '').trim();
-        if (!input.includes('|')) return m.reply(`▢ Format: .poll Question | Option1 | Option2 | ...\n▢ Example: .poll Best bot? | BLACK-PANTHER-MD | Other bots\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+        if (!input.includes('|')) return m.reply(`▢ Format: .poll Question | Option1 | Option2 | ...\n▢ Example: .poll Best bot? | BLACK-PANTHER-MD | Other bots\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
 
         const parts = input.split('|').map(s => s.trim()).filter(Boolean);
         if (parts.length < 3) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            return m.reply(`▢ Need at least a question + 2 options.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            return m.reply(`▢ Need at least a question + 2 options.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
 
         const question = parts[0];
@@ -36,8 +36,8 @@ export default {
         } catch {
             const nums = ['1️⃣','2️⃣','3️⃣','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣','🔟','⓫','⓬'];
             const optText = options.map((o,i) => `▢ ${nums[i]||'•'} ${o}`).join('\n');
-            await sendInteractive(client, m, `✦ ──『 POLL 』── ⚝
-▢ ❓ ${question}\n${optText}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            await sendInteractive(client, m, `⚡ ──「 POLL 」──
+▢ ❓ ${question}\n${optText}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
     }
 };

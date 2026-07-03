@@ -17,7 +17,7 @@ export default async (context) => {
           `` +
           `▢ Already prefixless, you clueless twit! 😈\n` +
           `▢ Stop wasting my time! 🖕\n` +
-          `└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`
+          `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
         );
       }
       await updateSetting('prefix', '');
@@ -26,7 +26,7 @@ export default async (context) => {
         `` +
         `▢ Prefix obliterated! 🔥\n` +
         `▢ I’m prefixless now, bow down! 😈\n` +
-        `└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`
+        `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
       );
     } else if (newPrefix) {
       if (settings.prefix === newPrefix) {
@@ -35,7 +35,7 @@ export default async (context) => {
           `` +
           `▢ Prefix is already ${newPrefix}, moron! 😈\n` +
           `▢ Try something new, fool! 🥶\n` +
-          `└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`
+          `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
         );
       }
       await updateSetting('prefix', newPrefix);
@@ -44,14 +44,14 @@ export default async (context) => {
         `` +
         `▢ New prefix set to ${newPrefix}! 🔥\n` +
         `▢ Obey the new order, king! 😈\n` +
-        `└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`
+        `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
       );
     } else {
       await sendInteractive(client, m, 
         `` +
         `▢ Current Prefix: ${settings.prefix || 'No prefix, peasant! 🥶'}\n` +
         `▢ Use "${settings.prefix || '.'}prefix null" to go prefixless or "${settings.prefix || '.'}prefix <symbol>" to set one, noob!\n` +
-        `└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`
+        `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
       );
     }
   });

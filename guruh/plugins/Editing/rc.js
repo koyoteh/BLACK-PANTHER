@@ -19,13 +19,13 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
           const prompt = (m.text || '').replace(/^\S+\s*/, '').trim();
 
           if (!quoted || !/image/.test(mime)) {
-              return sendInteractive(client, m, `✦ ──『 Eʀʀᴏʀ 』── ⚝
-▢ Reply to an image with a prompt.\n▢ Example: ${prefix}rc make it look like night\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──\n> ©𝐏𝐨𝐰𝐞᠊ʀᴇᴅ 𝐁𝐲 𝐱𝐡_𝐜𝐥𝐢𝐧𝐭𝐨𝐧`);
+              return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
+▢ Reply to an image with a prompt.\n▢ Example: ${prefix}rc make it look like night\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n> ©𝐏𝐨𝐰𝐞᠊ʀᴇᴅ 𝐁𝐲 𝐱𝐡_𝐜𝐥𝐢𝐧𝐭𝐨𝐧`);
           }
 
           if (!prompt) {
-              return sendInteractive(client, m, `✦ ──『 Eʀʀᴏʀ 』── ⚝
-▢ Tell me what to do with the image.\n▢ Example: ${prefix}rc make it look like night\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──\n> ©𝐏𝐨𝐰𝐞᠊ʀᴇᴅ 𝐁𝐲 𝐱𝐡_𝐜𝐥𝐢𝐧𝐭𝐨𝐧`);
+              return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
+▢ Tell me what to do with the image.\n▢ Example: ${prefix}rc make it look like night\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n> ©𝐏𝐨𝐰𝐞᠊ʀᴇᴅ 𝐁𝐲 𝐱𝐡_𝐜𝐥𝐢𝐧𝐭𝐨𝐧`);
           }
 
           await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
@@ -38,13 +38,13 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
               await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
               await client.sendMessage(m.chat, {
                   image: { url: resultUrl },
-                  caption: `✦ ──『 RC Eᴅɪᴛ 』── ⚝
-▢ Prompt: ${prompt}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──\n> ©𝐏𝐨𝐰𝐞᠊ʀᴇᴅ 𝐁𝐲 𝐱𝐡_𝐜𝐥𝐢𝐧𝐭𝐨𝐧`
+                  caption: `⚡ ──「 RC Eᴅɪᴛ 」──
+▢ Prompt: ${prompt}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n> ©𝐏𝐨𝐰𝐞᠊ʀᴇᴅ 𝐁𝐲 𝐱𝐡_𝐜𝐥𝐢𝐧𝐭𝐨𝐧`
               });
           } catch {
               await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-              await sendInteractive(client, m, `✦ ──『 Eʀʀᴏʀ 』── ⚝
-▢ RC edit failed. Try again.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──\n> ©𝐏𝐨𝐰𝐞᠊ʀᴇᴅ 𝐁𝐲 𝐱𝐡_𝐜𝐥𝐢𝐧𝐭𝐨𝐧`);
+              await sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
+▢ RC edit failed. Try again.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n> ©𝐏𝐨𝐰𝐞᠊ʀᴇᴅ 𝐁𝐲 𝐱𝐡_𝐜𝐥𝐢𝐧𝐭𝐨𝐧`);
           }
       }
   };

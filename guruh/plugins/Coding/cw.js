@@ -7,8 +7,8 @@ export default async (context) => {
 
     if (!text) {
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-        return sendInteractive(client, m, `✦ ──『 Wᴇʙ2Zɪᴩ 』── ⚝
-▢ Downloads entire websites as ZIP files\n▢ Example: ${prefix}web2zip https://example.com\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+        return sendInteractive(client, m, `⚡ ──「 Wᴇʙ2Zɪᴩ 」──
+▢ Downloads entire websites as ZIP files\n▢ Example: ${prefix}web2zip https://example.com\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
     }
 
     try {
@@ -41,9 +41,9 @@ export default async (context) => {
 
         await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
 
-        const caption = `✦ ──『 Wᴇʙsɪᴛᴇ Zɪᴩ 』── ⚝
+        const caption = `⚡ ──「 Wᴇʙsɪᴛᴇ Zɪᴩ 」──
 ▢ *URL:* ${result.url}\n▢ *Files Copied:* ${result.copiedFilesAmount}\n▢ *Download Link:*\n▢ ${result.downloadUrl}\n│
-▢ Click the link above to download the ZIP\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`;
+▢ Click the link above to download the ZIP\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
 
         await client.sendMessage(m.chat, { text: caption });
 
@@ -66,7 +66,7 @@ export default async (context) => {
             errorMessage = "Can't reach the website. Is it even real?";
         }
 
-        await sendInteractive(client, m, `✦ ──『 Fᴀɪʟᴇᴅ 』── ⚝
-▢ ${errorMessage}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+        await sendInteractive(client, m, `⚡ ──「 Fᴀɪʟᴇᴅ 」──
+▢ ${errorMessage}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
     }
 };

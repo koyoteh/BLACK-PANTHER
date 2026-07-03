@@ -8,16 +8,16 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
 
       if (!text) {
           await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-          return m.reply(`✦ ──『 Eʀʀᴏʀ 』── ⚝
-▢ Provide a query, you walnut.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+          return m.reply(`⚡ ──「 Eʀʀᴏʀ 」──
+▢ Provide a query, you walnut.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
       }
       let _km = {};
       try { _km = await import('../../keys.js'); } catch {}
       const _groqKeys = _km.GROQ_API_KEYS?.length ? _km.GROQ_API_KEYS : [_km.GROQ_API_KEY || process.env.GROQ_KEY_1 || process.env.GROQ_API_KEY || ''].filter(Boolean);
       if (!_groqKeys.length) {
           await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-          return m.reply(`✦ ──『 Eʀʀᴏʀ 』── ⚝
-▢ No GROQ key set. Add GROQ_KEY_1 to env vars.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+          return m.reply(`⚡ ──「 Eʀʀᴏʀ 」──
+▢ No GROQ key set. Add GROQ_KEY_1 to env vars.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
       }
       const _callGroq = async (payload) => {
           const tried = new Set();
@@ -54,12 +54,12 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
           const content = data.choices?.[0]?.message?.content?.trim();
           if (!content) throw new Error('No response received.');
           await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
-          await sendInteractive(client, m, `✦ ──『 Gʀᴏǫ Rᴇsᴘᴏɴsᴇ 』── ⚝
-▢ ${content}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+          await sendInteractive(client, m, `⚡ ──「 Gʀᴏǫ Rᴇsᴘᴏɴsᴇ 」──
+▢ ${content}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
       } catch (error) {
           await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-          m.reply(`✦ ──『 Eʀʀᴏʀ 』── ⚝
-▢ ${error.message}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+          m.reply(`⚡ ──「 Eʀʀᴏʀ 」──
+▢ ${error.message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
       }
   };
   

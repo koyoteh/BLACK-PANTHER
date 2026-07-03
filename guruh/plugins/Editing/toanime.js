@@ -42,8 +42,8 @@ export default {
 
         if (!quoted) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            return sendInteractive(client, m, `✦ ──『 TO ANIME 』── ⚝
-▢ Send or reply to an image!\n▢ Example: Send image → .toanime\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            return sendInteractive(client, m, `⚡ ──「 TO ANIME 」──
+▢ Send or reply to an image!\n▢ Example: Send image → .toanime\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
 
         let quotedMime = '';
@@ -57,8 +57,8 @@ export default {
 
         if (!quotedMime || !quotedMime.startsWith('image/')) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            return sendInteractive(client, m, `✦ ──『 TO ANIME 』── ⚝
-▢ The replied message is *not an image*!\n▢ Please send or reply to a *photo*.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            return sendInteractive(client, m, `⚡ ──「 TO ANIME 」──
+▢ The replied message is *not an image*!\n▢ Please send or reply to a *photo*.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
 
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
@@ -69,8 +69,8 @@ export default {
 
             if (media.length > 10 * 1024 * 1024) {
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-                return sendInteractive(client, m, `✦ ──『 TO ANIME 』── ⚝
-▢ Image too large! Max 10MB.\n▢ Compress it, you hoarder.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+                return sendInteractive(client, m, `⚡ ──「 TO ANIME 」──
+▢ Image too large! Max 10MB.\n▢ Compress it, you hoarder.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
             }
 
             const { url: imageUrl } = await uploadImage(media);
@@ -90,8 +90,8 @@ export default {
 
             await client.sendMessage(m.chat, {
                 image: animeBuffer,
-                caption: `✦ ──『 ANIME TRANSFORMATION 』── ⚝
-▢ ANIME TRANSFORMATION COMPLETE!\n▢ Look at this weeb result.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`,
+                caption: `⚡ ──「 ANIME TRANSFORMATION 」──
+▢ ANIME TRANSFORMATION COMPLETE!\n▢ Look at this weeb result.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`,
                 mentions: [m.sender]
             });
 
@@ -103,8 +103,8 @@ export default {
                 ? `API Error: ${err.response.status}`
                 : err.message.includes('timeout') ? 'API timed out.' : 'Failed. Try again later.';
 
-            await sendInteractive(client, m, `✦ ──『 ERROR 』── ⚝
-▢ ${errorMsg}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            await sendInteractive(client, m, `⚡ ──「 ERROR 」──
+▢ ${errorMsg}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
     }
 };

@@ -6,7 +6,7 @@ export default async (context) => {
     try {
         if (!text) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            return sendInteractive(client, m, "✦ ──『 APK 』── ⚝\n▢ Provide an app name, you brainless creature!\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──");
+            return sendInteractive(client, m, "⚡ ──「 APK 」──\n▢ Provide an app name, you brainless creature!\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──");
         }
 
         await client.sendMessage(m.chat, { react: { text: "⌛", key: m.reactKey } });
@@ -16,7 +16,7 @@ export default async (context) => {
         if (!data?.datalist?.list?.length) {
             await client.sendMessage(m.chat, { react: { text: "❌", key: m.reactKey } });
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            return sendInteractive(client, m, "✦ ──『 APK 』── ⚝\n▢ App not found!\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──");
+            return sendInteractive(client, m, "⚡ ──「 APK 」──\n▢ App not found!\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──");
         }
 
         const app = data.datalist.list[0];
@@ -25,7 +25,7 @@ export default async (context) => {
         if (!apkUrl) {
             await client.sendMessage(m.chat, { react: { text: "❌", key: m.reactKey } });
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            return sendInteractive(client, m, "✦ ──『 APK 』── ⚝\n▢ APK download link not available!\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──");
+            return sendInteractive(client, m, "⚡ ──「 APK 」──\n▢ APK download link not available!\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──");
         }
 
         await client.sendMessage(
@@ -41,7 +41,7 @@ export default async (context) => {
 
     } catch (error) {
         await client.sendMessage(m.chat, { react: { text: "❌", key: m.reactKey } });
-        sendInteractive(client, m, `✦ ──『 APK ERROR 』── ⚝
-▢ APK download failed, not my problem.\n▢ ` + error + "\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──");
+        sendInteractive(client, m, `⚡ ──「 APK ERROR 」──
+▢ APK download failed, not my problem.\n▢ ` + error + "\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──");
     }
 };

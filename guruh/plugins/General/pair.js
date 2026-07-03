@@ -37,21 +37,21 @@ export default {
 
         try {
             if (!text) {
-                return await sendInteractive(client, m, `✦ ──『 Pᴀɪʀɪɴɢ 』── ⚝
-▢ Oi genius, give me a number\n▢ to pair with. You think I can\n▢ read your mind?\n▢ \n▢ Usage: *${prefix}pair <number>*\n▢ Example: *${prefix}pair 254712345678*\n▢ Example: *${prefix}pair +1 234 567 8901*\n▢ \n▢ Spaces, dashes, plus signs...\n▢ I'll clean that mess up for you.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+                return await sendInteractive(client, m, `⚡ ──「 Pᴀɪʀɪɴɢ 」──
+▢ Oi genius, give me a number\n▢ to pair with. You think I can\n▢ read your mind?\n▢ \n▢ Usage: *${prefix}pair <number>*\n▢ Example: *${prefix}pair 254712345678*\n▢ Example: *${prefix}pair +1 234 567 8901*\n▢ \n▢ Spaces, dashes, plus signs...\n▢ I'll clean that mess up for you.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
             }
 
             const number = cleanNumber(text);
 
             if (number.length < 6 || number.length > 15) {
-                return await sendInteractive(client, m, `✦ ──『 Iɴᴠᴀʟɪᴅ Nᴜᴍʙᴇʀ 』── ⚝
-▢ That number is garbage.\n▢ Cleaned: ${number}\n▢ Need 6-15 digits with country code.\n▢ Try again with a real number.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+                return await sendInteractive(client, m, `⚡ ──「 Iɴᴠᴀʟɪᴅ Nᴜᴍʙᴇʀ 」──
+▢ That number is garbage.\n▢ Cleaned: ${number}\n▢ Need 6-15 digits with country code.\n▢ Try again with a real number.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
             }
 
             await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
 
-            await sendInteractive(client, m, `✦ ──『 Pᴀɪʀɪɴɢ 』── ⚝
-▢ Generating code for: ${number}\n▢ Hold on, this takes a sec...\n▢ Don't spam the command, idiot.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            await sendInteractive(client, m, `⚡ ──「 Pᴀɪʀɪɴɢ 」──
+▢ Generating code for: ${number}\n▢ Hold on, this takes a sec...\n▢ Don't spam the command, idiot.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
 
             const sessionId = makeid(8);
             let tempPath;
@@ -112,8 +112,8 @@ export default {
                         message: {
                             interactiveMessage: proto.Message.InteractiveMessage.create({
                                 body: proto.Message.InteractiveMessage.Body.create({
-                                    text: `✦ ──『 Pᴀɪʀɪɴɢ Cᴏᴅᴇ 』── ⚝
-▢ Number: ${number}\n▢ Code: *${formattedCode}*\n▢ \n▢ Copy the code and paste it\n▢ in your WhatsApp linked\n▢ devices section.\n▢ \n▢ The code expires quickly so\n▢ move your slow ass.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`
+                                    text: `⚡ ──「 Pᴀɪʀɪɴɢ Cᴏᴅᴇ 」──
+▢ Number: ${number}\n▢ Code: *${formattedCode}*\n▢ \n▢ Copy the code and paste it\n▢ in your WhatsApp linked\n▢ devices section.\n▢ \n▢ The code expires quickly so\n▢ move your slow ass.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
                                 }),
                                 footer: proto.Message.InteractiveMessage.Footer.create({
                                     text: 'BLACK-PANTHER-MD Pairing System'
@@ -142,8 +142,8 @@ export default {
 
             } catch (btnErr) {
     await client.sendMessage(m.chat, { react: { text: '', key: m.reactKey } }).catch(() => {});
-                await sendInteractive(client, m, `✦ ──『 Pᴀɪʀɪɴɢ Cᴏᴅᴇ 』── ⚝
-▢ Number: ${number}\n▢ Code: *${formattedCode}*\n▢ \n▢ Copy the code above and paste\n▢ it in your WhatsApp linked\n▢ devices section. Hurry up,\n▢ it expires quick.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+                await sendInteractive(client, m, `⚡ ──「 Pᴀɪʀɪɴɢ Cᴏᴅᴇ 」──
+▢ Number: ${number}\n▢ Code: *${formattedCode}*\n▢ \n▢ Copy the code above and paste\n▢ it in your WhatsApp linked\n▢ devices section. Hurry up,\n▢ it expires quick.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
             }
 
             setTimeout(async () => {
@@ -158,8 +158,8 @@ export default {
         } catch (error) {
             console.error("Error in pair command:", error);
             await client.sendMessage(m.chat, { react: { text: '', key: m.reactKey } });
-            await sendInteractive(client, m, `✦ ──『 Pᴀɪʀɪɴɢ Fᴀɪʟᴇᴅ 』── ⚝
-▢ Couldn't generate the code.\n▢ ${error.message || 'Unknown error'}\n▢ \n▢ Make sure the number is valid\n▢ and actually on WhatsApp.\n▢ Then try again, if you can\n▢ manage that.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            await sendInteractive(client, m, `⚡ ──「 Pᴀɪʀɪɴɢ Fᴀɪʟᴇᴅ 」──
+▢ Couldn't generate the code.\n▢ ${error.message || 'Unknown error'}\n▢ \n▢ Make sure the number is valid\n▢ and actually on WhatsApp.\n▢ Then try again, if you can\n▢ manage that.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
     }
 };

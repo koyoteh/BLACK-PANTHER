@@ -39,8 +39,8 @@ export default async (context) => {
 
     if (!text) {
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-        return sendInteractive(client, m, `✦ ──『 GitHub Search 』── ⚝
-▢ Usage:\n▢ ${prefix}github user <username>\n▢ ${prefix}github repos <query>\n▢ ${prefix}github trending\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+        return sendInteractive(client, m, `⚡ ──「 GitHub Search 」──
+▢ Usage:\n▢ ${prefix}github user <username>\n▢ ${prefix}github repos <query>\n▢ ${prefix}github trending\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
     }
 
     const subCommand = args[0]?.toLowerCase();
@@ -60,8 +60,8 @@ export default async (context) => {
             const createdDate = new Date(userData.created_at).toLocaleDateString();
             await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
             await sendInteractive(client, m, 
-                `✦ ──『 GitHub User 』── ⚝
-▢ Name: ${userData.name || userData.login}\n▢ Username: @${userData.login}\n▢ Bio: ${bio}\n▢ Location: ${location}\n▢ Repos: ${userData.public_repos}\n▢ Followers: ${userData.followers}\n▢ Following: ${userData.following}\n▢ Joined: ${createdDate}\n▢ URL: ${userData.html_url}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`
+                `⚡ ──「 GitHub User 」──
+▢ Name: ${userData.name || userData.login}\n▢ Username: @${userData.login}\n▢ Bio: ${bio}\n▢ Location: ${location}\n▢ Repos: ${userData.public_repos}\n▢ Followers: ${userData.followers}\n▢ Following: ${userData.following}\n▢ Joined: ${createdDate}\n▢ URL: ${userData.html_url}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
             );
         } else if (subCommand === 'repos' || subCommand === 'search') {
             if (!searchQuery) {
@@ -78,8 +78,8 @@ export default async (context) => {
                 `▢ ${i + 1}. ${repo.full_name}\n▢  ⭐ ${repo.stargazers_count} | ${repo.language || 'Unknown'}\n▢  ${repo.description ? repo.description.substring(0, 60) : 'No description'}`
             ).join('\n');
             await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
-            await sendInteractive(client, m, `✦ ──『 GitHub Repos 』── ⚝
-${repoList}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            await sendInteractive(client, m, `⚡ ──「 GitHub Repos 」──
+${repoList}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         } else if (subCommand === 'trending') {
             const trendData = await githubTrending();
             if (!trendData.items || trendData.items.length === 0) {
@@ -91,15 +91,15 @@ ${repoList}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ 
                 `▢ ${i + 1}. ${repo.full_name}\n▢  ⭐ ${repo.stargazers_count} | ${repo.language || 'Unknown'}\n▢  ${repo.description ? repo.description.substring(0, 60) : 'No description'}`
             ).join('\n');
             await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
-            await sendInteractive(client, m, `✦ ──『 GitHub Trending 』── ⚝
-${trendList}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            await sendInteractive(client, m, `⚡ ──「 GitHub Trending 」──
+${trendList}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         } else {
             const userData = await githubUserStalk(text.trim());
             const bio = userData.bio || 'No bio';
             await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
             await sendInteractive(client, m, 
-                `✦ ──『 GitHub User 』── ⚝
-▢ Name: ${userData.name || userData.login}\n▢ Username: @${userData.login}\n▢ Bio: ${bio}\n▢ Repos: ${userData.public_repos}\n▢ Followers: ${userData.followers}\n▢ URL: ${userData.html_url}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`
+                `⚡ ──「 GitHub User 」──
+▢ Name: ${userData.name || userData.login}\n▢ Username: @${userData.login}\n▢ Bio: ${bio}\n▢ Repos: ${userData.public_repos}\n▢ Followers: ${userData.followers}\n▢ URL: ${userData.html_url}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
             );
         }
     } catch (error) {
@@ -107,6 +107,6 @@ ${trendList}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
         if (error.message.includes('404')) return sendInteractive(client, m, 'User/repo not found. Double-check the name.');
         if (error.message.includes('403')) return sendInteractive(client, m, 'GitHub rate limit hit. Try again in a minute.');
-        await sendInteractive(client, m, `▢ GitHub search failed.\n▢ Something went wrong. Try again.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+        await sendInteractive(client, m, `▢ GitHub search failed.\n▢ Something went wrong. Try again.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
     }
 };

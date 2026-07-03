@@ -9,8 +9,8 @@ export default async (context) => {
 
         if (!text) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            return sendInteractive(client, m, `✦ ──『 ERROR 』── ⚝
-▢ Provide number to be added.\n▢ Format: add 254116284050\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            return sendInteractive(client, m, `⚡ ──「 ERROR 」──
+▢ Provide number to be added.\n▢ Format: add 254116284050\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
 
         const _participants = participants.map((user) => user.id.split(':')[0] + '@s.whatsapp.net');
@@ -30,8 +30,8 @@ export default async (context) => {
 
         if (!users.length) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-            return sendInteractive(client, m, `✦ ──『 ADD 』── ⚝
-▢ None of those numbers exist on WhatsApp\n▢ or they're already in the group. 🙄\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            return sendInteractive(client, m, `⚡ ──「 ADD 」──
+▢ None of those numbers exist on WhatsApp\n▢ or they're already in the group. 🙄\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
 
         const response = await client.query({
@@ -58,17 +58,17 @@ export default async (context) => {
 
             let teza;
             if (user.attrs.error === 401) {
-                teza = `▢ @${jid.split('@')[0].split(':')[0]} has blocked the bot.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`;
+                teza = `▢ @${jid.split('@')[0].split(':')[0]} has blocked the bot.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
             } else if (user.attrs.error === 403) {
-                teza = `▢ @${jid.split('@')[0].split(':')[0]} has set privacy settings for group adding.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`;
+                teza = `▢ @${jid.split('@')[0].split(':')[0]} has set privacy settings for group adding.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
             } else if (user.attrs.error === 408) {
-                teza = `▢ @${jid.split('@')[0].split(':')[0]} recently left the group.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`;
+                teza = `▢ @${jid.split('@')[0].split(':')[0]} recently left the group.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
             }
 
             await sendInteractive(client, m, teza);
 
-            let links = `✦ ──『 GROUP INVITE 』── ⚝
-▢ ${pushname} is trying to add you to\n▢ ${groupMetadata.subject}\n▢ \n▢ https://chat.whatsapp.com/${respon}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`;
+            let links = `⚡ ──「 GROUP INVITE 」──
+▢ ${pushname} is trying to add you to\n▢ ${groupMetadata.subject}\n▢ \n▢ https://chat.whatsapp.com/${respon}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
 
             await client.sendMessage(jid, { text: links });
         }

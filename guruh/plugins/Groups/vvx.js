@@ -6,7 +6,7 @@ export default async (context) => {
 
     if (!m.quoted) {
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-        return sendInteractive(client, m, `✦ ──『 VIEW ONCE 』── ⚝\n▢ Reply to a view-once image or video.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+        return sendInteractive(client, m, `⚡ ──「 VIEW ONCE 」──\n▢ Reply to a view-once image or video.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
     }
 
     try {
@@ -19,18 +19,18 @@ export default async (context) => {
 
         if (!mediaMessage) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            return sendInteractive(client, m, `✦ ──『 VIEW ONCE 』── ⚝\n▢ This message does not contain\n▢ view-once media.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            return sendInteractive(client, m, `⚡ ──「 VIEW ONCE 」──\n▢ This message does not contain\n▢ view-once media.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
 
         const buffer = await client.downloadMediaMessage(mediaMessage);
         if (!buffer || buffer.length === 0) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            return sendInteractive(client, m, `✦ ──『 VIEW ONCE 』── ⚝\n▢ Failed to download media.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            return sendInteractive(client, m, `⚡ ──「 VIEW ONCE 」──\n▢ Failed to download media.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
 
         const dest = m.chat;
-        const caption = `✦ ──『 VIEW ONCE 』── ⚝
-▢ Here's your media, perv.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`;
+        const caption = `⚡ ──「 VIEW ONCE 」──
+▢ Here's your media, perv.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
 
         if (imageMsg) {
             await client.sendMessage(dest, { image: buffer, caption });
@@ -44,7 +44,7 @@ export default async (context) => {
         await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
     } catch (error) {
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-        sendInteractive(client, m, `✦ ──『 ERROR 』── ⚝
-▢ Failed to retrieve view-once media.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+        sendInteractive(client, m, `⚡ ──「 ERROR 」──
+▢ Failed to retrieve view-once media.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
     }
 };

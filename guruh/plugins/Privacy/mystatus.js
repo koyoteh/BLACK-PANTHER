@@ -8,8 +8,8 @@ export default async (context) => {
         const { client, m, args, prefix } = context;
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
 
-        const fmt = (msg) => `✦ ──『 STATUS PRIVACY 』── ⚝
-▢ ${msg}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`;
+        const fmt = (msg) => `⚡ ──「 STATUS PRIVACY 」──
+▢ ${msg}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
         const options = ['all', 'contacts', 'contact_blacklist', 'none'];
         const value = (args[0] || '').toLowerCase();
 
@@ -28,8 +28,8 @@ export default async (context) => {
                 const _devMode = await getDeviceMode();
         if (_devMode === 'ios') {
           await client.sendMessage(m.chat, { react: { text: '📋', key: m.reactKey } });
-          await sendInteractive(client, m, `✦ ──『 MYSTATUS 』── ⚝
-▢ Status: ${isEnabled !== undefined ? (isEnabled ? 'ON ✅' : 'OFF ❌') : settings.mystatus !== undefined ? (settings.mystatus ? 'ON ✅' : 'OFF ❌') : 'See settings'}\n▢ \n▢ Options:\n▢ ${prefix}mystatus all\n▢ ${prefix}mystatus contacts\n▢ ${prefix}mystatus contact_blacklist\n▢ ${prefix}mystatus none\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──\n> 🌐 wa.me/254116284050`);
+          await sendInteractive(client, m, `⚡ ──「 MYSTATUS 」──
+▢ Status: ${isEnabled !== undefined ? (isEnabled ? 'ON ✅' : 'OFF ❌') : settings.mystatus !== undefined ? (settings.mystatus ? 'ON ✅' : 'OFF ❌') : 'See settings'}\n▢ \n▢ Options:\n▢ ${prefix}mystatus all\n▢ ${prefix}mystatus contacts\n▢ ${prefix}mystatus contact_blacklist\n▢ ${prefix}mystatus none\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n> 🌐 wa.me/254116284050`);
       } else {
     const _msg = generateWAMessageFromContent(m.chat, {
                 interactiveMessage: {

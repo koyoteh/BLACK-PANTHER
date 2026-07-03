@@ -12,8 +12,8 @@ export default {
         const fullText = m.body.replace(new RegExp(`^[^a-zA-Z]*(translate|tr|trans)\\s*`, 'i'), '').trim();
 
         if (!fullText && !m.quoted?.text) {
-            return sendInteractive(client, m, `✦ ──『 Tʀᴀɴsʟᴀᴛᴇ 』── ⚝
-▢ Usage:\n▢ ${prefix}tr ja Hello\n▢ ${prefix}tr es How are you?\n▢ Or reply to msg: ${prefix}tr en\n▢ \n▢ Codes: ja es fr de zh ar hi sw ko ru\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            return sendInteractive(client, m, `⚡ ──「 Tʀᴀɴsʟᴀᴛᴇ 」──
+▢ Usage:\n▢ ${prefix}tr ja Hello\n▢ ${prefix}tr es How are you?\n▢ Or reply to msg: ${prefix}tr en\n▢ \n▢ Codes: ja es fr de zh ar hi sw ko ru\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
 
         let lang, text;
@@ -36,16 +36,16 @@ export default {
             await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
             const result = await translate(text, { to: lang });
             await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
-            await sendInteractive(client, m, `✦ ──『 Tʀᴀɴsʟᴀᴛɪᴏɴ 』── ⚝
-▢ ${result.text}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            await sendInteractive(client, m, `⚡ ──「 Tʀᴀɴsʟᴀᴛɪᴏɴ 」──
+▢ ${result.text}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         } catch (error) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
             let errorMessage = 'Translation failed. Try again.';
             if (error.message && error.message.includes('Invalid target language')) {
                 errorMessage = `Invalid language code "${lang}". Use: ja, es, fr, de, zh, ar, hi, ko, ru, etc.`;
             }
-            return sendInteractive(client, m, `✦ ──『 Eʀʀᴏʀ 』── ⚝
-▢ ${errorMessage}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
+▢ ${errorMessage}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
     }
 };

@@ -5,7 +5,7 @@ export default async (context) => {
 
   if (text) {
     await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
-    return sendInteractive(client, m, `✦ ──『 Eʀʀᴏʀ  』── ⚝\n▢ What's with the extra crap, @${m.sender.split('@')[0].split(':')[0]}?\n▢ Just say uptime, dumbass.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+    return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ  」──\n▢ What's with the extra crap, @${m.sender.split('@')[0].split(':')[0]}?\n▢ Just say uptime, dumbass.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
   }
 
   try {
@@ -22,10 +22,10 @@ export default async (context) => {
     };
 
     const uptimeText = formatUptime(process.uptime());
-    const replyText = `✦ ──『 Uᴘᴛɪᴍᴇ 』── ⚝\n▢ *${botname || 'BLACK-PANTHER-MD'} Uptime, Bitches*\n▢ \n▢ I've been awake for *${uptimeText}*,\n▢ running shit like a boss.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`;
+    const replyText = `⚡ ──「 Uᴘᴛɪᴍᴇ 」──\n▢ *${botname || 'BLACK-PANTHER-MD'} Uptime, Bitches*\n▢ \n▢ I've been awake for *${uptimeText}*,\n▢ running shit like a boss.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
     await sendInteractive(client, m, replyText);
   } catch (error) {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-    await sendInteractive(client, m, `✦ ──『 Eʀʀᴏʀ 』── ⚝\n▢ Something's fucked up with the\n▢ uptime check. Try again later, loser.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+    await sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──\n▢ Something's fucked up with the\n▢ uptime check. Try again later, loser.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
   }
 };

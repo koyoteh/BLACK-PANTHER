@@ -2,9 +2,9 @@ import { generateWAMessageFromContent } from '@whiskeysockets/baileys';
 import middleware from '../../utils/botUtil/middleware.js';
 import { getDeviceMode } from '../../lib/deviceMode.js';
 
-const H = (title) => `✦ ──『 ${title} 』── ⚝
+const H = (title) => `⚡ ──「 ${title} 」──
 ├`;
-const F = `└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`;
+const F = `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
 const box = (title, lines) => `${H(title)}\n${lines.map(l => `▢ ${l}`).join('\n')}\n│
 ${F}`;
 

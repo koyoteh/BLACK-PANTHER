@@ -13,7 +13,7 @@ export default {
 
         if (!sudoUsers || sudoUsers.length === 0) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            return sendInteractive(client, m, "✦ ──『 SUDO USERS 』── ⚝\n▢ No Sudo Users found. You're all alone.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──");
+            return sendInteractive(client, m, "⚡ ──「 SUDO USERS 」──\n▢ No Sudo Users found. You're all alone.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──");
         }
 
         await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });

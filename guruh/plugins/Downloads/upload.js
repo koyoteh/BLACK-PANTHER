@@ -15,14 +15,14 @@ export default {
 
             if (!mime) {
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-                return sendInteractive(client, m, `✦ ──『 Eʀʀᴏʀ 』── ⚝\n▢ Quote or send a media file to upload.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+                return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──\n▢ Quote or send a media file to upload.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
             }
 
             const mediaBuffer = await q.download();
 
             if (mediaBuffer.length > 256 * 1024 * 1024) {
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-                return sendInteractive(client, m, `✦ ──『 Eʀʀᴏʀ 』── ⚝\n▢ File too large! Max 256MB.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+                return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──\n▢ File too large! Max 256MB.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
             }
 
             await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
@@ -33,7 +33,7 @@ export default {
 
             await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
 
-            const resultText = `✦ ──『 Uᴘʟᴏᴀᴅ Dᴏɴᴇ 』── ⚝\n▢ \n▢ 🔗 *Link:* ${link}\n▢ 📁 *Size:* ${fileSizeMB} MB\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`;
+            const resultText = `⚡ ──「 Uᴘʟᴏᴀᴅ Dᴏɴᴇ 」──\n▢ \n▢ 🔗 *Link:* ${link}\n▢ 📁 *Size:* ${fileSizeMB} MB\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
 
             try {
                 const msg = await generateWAMessageFromContent(m.chat, proto.Message.fromObject({
@@ -57,7 +57,7 @@ export default {
 
         } catch (err) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            sendInteractive(client, m, `✦ ──『 Uᴘʟᴏᴀᴅ Eʀʀᴏʀ 』── ⚝\n▢ Upload failed, try again.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            sendInteractive(client, m, `⚡ ──「 Uᴘʟᴏᴀᴅ Eʀʀᴏʀ 」──\n▢ Upload failed, try again.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
     }
 };

@@ -1,6 +1,6 @@
 'use strict';
 // ╔══════════════════════════════════════════════════════════════╗
-//  🐾  BLACK PANTHER MD  —  gmdFunctions2.js  (Auto Features)
+//  ⚡  BLACK PANTHER MD  —  gmdFunctions2.js  (Auto Features)
 //  👑  Owner : GuruTech  |  📞 +254105521300
 //  🛡️  AntiLink · AntiSpam · AntiCall · AutoBio · AutoReact
 //  💬  ChatBot · Presence · AntiDelete · AntiEdit · AntiViewOnce
@@ -282,12 +282,12 @@ async function PantherPresence(sock, from, type = 'composing') {
 // ═══════════════════════════════════════════════════════════════
 
 const BIO_TEMPLATES = [
-    () => `🐾 ${config.BOT_NAME} | Online 24/7 🌍`,
+    () => `⚡ ${config.BOT_NAME} | Online 24/7 🌍`,
     () => `⏰ ${new Date().toLocaleTimeString('en-KE',{ timeZone: config.TIME_ZONE })} | 🤖 ${config.BOT_NAME}`,
-    () => `🌟 Powered by GuruTech | ${new Date().toLocaleDateString('en-KE')}`,
+    () => `🌐 Powered by GuruTech | ${new Date().toLocaleDateString('en-KE')}`,
     () => `🔥 ${config.BOT_NAME} is live! | +${config.OWNER_NUMBER}`,
-    () => `💚 Serving users 24/7 | ${config.BOT_NAME} 🐾`,
-    () => `🐾 BLACK PANTHER MD | GuruTech 🚀`,
+    () => `⚡ Serving users 24/7`,
+    () => `⚡ ${config.BOT_NAME} | GuruTech 🚀`,
 ];
 
 async function PantherAutoBio(sock) {

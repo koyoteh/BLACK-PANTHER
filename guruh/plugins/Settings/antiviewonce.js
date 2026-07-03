@@ -10,7 +10,7 @@ export default async (context) => {
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
 
         const fmt = (title, msg) =>
-            `✦ ──『 ${title} 』── ⚝\n▢ ${msg}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`;
+            `⚡ ──「 ${title} 」──\n▢ ${msg}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
 
         try {
             const settings = await getSettings();
@@ -36,7 +36,7 @@ export default async (context) => {
             const _devMode = await getDeviceMode();
             if (_devMode === 'ios') {
                 await client.sendMessage(m.chat, { react: { text: '📋', key: m.reactKey } });
-                return await sendInteractive(client, m, `✦ ──『 ANTIVIEWONCE 』── ⚝\n▢ Status: ${settings.antiviewonce ? 'ON ✅' : 'OFF ❌'}\n▢ \n▢ To turn ON:  ${prefix}antiviewonce on\n▢ To turn OFF: ${prefix}antiviewonce off\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+                return await sendInteractive(client, m, `⚡ ──「 ANTIVIEWONCE 」──\n▢ Status: ${settings.antiviewonce ? 'ON ✅' : 'OFF ❌'}\n▢ \n▢ To turn ON:  ${prefix}antiviewonce on\n▢ To turn OFF: ${prefix}antiviewonce off\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
             }
 
             const _msg = generateWAMessageFromContent(

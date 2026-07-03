@@ -97,7 +97,7 @@ export default {
 
         if (!raw) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-            return sendInteractive(client, m, `✦ ──『 FETCH 』── ⚝\n▢ You forgot the URL, genius.\n▢ Usage: ${prefix}fetch https://example.com\n▢ Or reply to a message containing a URL.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            return sendInteractive(client, m, `⚡ ──「 FETCH 」──\n▢ You forgot the URL, genius.\n▢ Usage: ${prefix}fetch https://example.com\n▢ Or reply to a message containing a URL.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
 
         const urlMatch = raw.match(/https?:\/\/[^\s]+/i) || raw.match(/[^\s]+\.[a-z]{2,}/i);
@@ -165,13 +165,13 @@ export default {
                     video: buffer,
                     mimetype: mimeInfo.mimetype,
                     fileName,
-                    caption: `✦ ──『 FETCH RESULT 』── ⚝\n▢ URL: ${targetUrl}\n▢ Size: ${(buffer.length / 1024 / 1024).toFixed(2)} MB\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`
+                    caption: `⚡ ──「 FETCH RESULT 」──\n▢ URL: ${targetUrl}\n▢ Size: ${(buffer.length / 1024 / 1024).toFixed(2)} MB\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
                 });
 
             } else if (mimeInfo?.type === 'image') {
                 await client.sendMessage(m.chat, {
                     image: buffer,
-                    caption: `✦ ──『 FETCH RESULT 』── ⚝\n▢ URL: ${targetUrl}\n▢ Type: ${contentType.split(';')[0]}\n▢ Size: ${(buffer.length / 1024).toFixed(2)} KB\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`
+                    caption: `⚡ ──「 FETCH RESULT 」──\n▢ URL: ${targetUrl}\n▢ Type: ${contentType.split(';')[0]}\n▢ Size: ${(buffer.length / 1024).toFixed(2)} KB\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
                 });
 
             } else if (mimeInfo?.type === 'document') {
@@ -179,7 +179,7 @@ export default {
                     document: buffer,
                     mimetype: mimeInfo.mimetype,
                     fileName,
-                    caption: `✦ ──『 FETCH RESULT 』── ⚝\n▢ URL: ${targetUrl}\n▢ Type: ${contentType.split(';')[0]}\n▢ Size: ${(buffer.length / 1024).toFixed(2)} KB\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`
+                    caption: `⚡ ──「 FETCH RESULT 」──\n▢ URL: ${targetUrl}\n▢ Type: ${contentType.split(';')[0]}\n▢ Size: ${(buffer.length / 1024).toFixed(2)} KB\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
                 });
 
             } else if (mimeInfo?.type === 'json') {
@@ -190,10 +190,10 @@ export default {
                         document: Buffer.from(pretty),
                         mimetype: 'application/json',
                         fileName: `fetch_${Date.now()}.json`,
-                        caption: `✦ ──『 FETCH RESULT 』── ⚝\n▢ URL: ${targetUrl}\n▢ Type: JSON (too large for text)\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`
+                        caption: `⚡ ──「 FETCH RESULT 」──\n▢ URL: ${targetUrl}\n▢ Type: JSON (too large for text)\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
                     });
                 } else {
-                    await sendInteractive(client, m, `✦ ──『 FETCH RESULT 』── ⚝\n▢ URL: ${targetUrl}\n▢ Type: JSON\n▢ \n${pretty}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+                    await sendInteractive(client, m, `⚡ ──「 FETCH RESULT 」──\n▢ URL: ${targetUrl}\n▢ Type: JSON\n▢ \n${pretty}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
                 }
 
             } else if (mimeInfo?.type === 'html') {
@@ -201,7 +201,7 @@ export default {
                 const titleMatch = html.match(/<title[^>]*>(.*?)<\/title>/i);
                 const title = titleMatch ? titleMatch[1].replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').trim() : 'No title';
                 const plain = html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().substring(0, 300);
-                await sendInteractive(client, m, `✦ ──『 FETCH RESULT 』── ⚝\n▢ URL: ${targetUrl}\n▢ Status: ${response.status}\n▢ Type: HTML\n▢ Title: ${title}\n▢ Preview: ${plain}...\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+                await sendInteractive(client, m, `⚡ ──「 FETCH RESULT 」──\n▢ URL: ${targetUrl}\n▢ Status: ${response.status}\n▢ Type: HTML\n▢ Title: ${title}\n▢ Preview: ${plain}...\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
 
             } else if (mimeInfo?.type === 'text') {
                 const text = buffer.toString();
@@ -210,10 +210,10 @@ export default {
                         document: Buffer.from(text),
                         mimetype: 'text/plain',
                         fileName: `fetch_${Date.now()}.txt`,
-                        caption: `✦ ──『 FETCH RESULT 』── ⚝\n▢ URL: ${targetUrl}\n▢ Type: Plain text (too large, sent as file)\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`
+                        caption: `⚡ ──「 FETCH RESULT 」──\n▢ URL: ${targetUrl}\n▢ Type: Plain text (too large, sent as file)\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
                     });
                 } else {
-                    await sendInteractive(client, m, `✦ ──『 FETCH RESULT 』── ⚝\n▢ URL: ${targetUrl}\n▢ Type: Plain Text\n▢ \n${text}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+                    await sendInteractive(client, m, `⚡ ──「 FETCH RESULT 」──\n▢ URL: ${targetUrl}\n▢ Type: Plain Text\n▢ \n${text}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
                 }
 
             } else {
@@ -222,7 +222,7 @@ export default {
                     document: buffer,
                     mimetype: contentType.split(';')[0].trim() || 'application/octet-stream',
                     fileName: `fetch_${Date.now()}.${ext}`,
-                    caption: `✦ ──『 FETCH RESULT 』── ⚝\n▢ URL: ${targetUrl}\n▢ Type: ${contentType.split(';')[0]}\n▢ Size: ${(buffer.length / 1024).toFixed(2)} KB\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`
+                    caption: `⚡ ──「 FETCH RESULT 」──\n▢ URL: ${targetUrl}\n▢ Type: ${contentType.split(';')[0]}\n▢ Size: ${(buffer.length / 1024).toFixed(2)} KB\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
                 });
             }
 
@@ -235,7 +235,7 @@ export default {
             if (error.name === 'FetchError' && error.type === 'request-timeout') errorMessage = 'Request timed out after 30 seconds.';
             else if (error.code === 'ENOTFOUND') errorMessage = 'Could not resolve the URL. That domain doesn\'t exist.';
             else if (error.code === 'ECONNREFUSED') errorMessage = 'Connection refused. Server is probably dead.';
-            await sendInteractive(client, m, `✦ ──『 FETCH FAILED 』── ⚝\n▢ ${errorMessage}\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
+            await sendInteractive(client, m, `⚡ ──「 FETCH FAILED 」──\n▢ ${errorMessage}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
     }
 };
