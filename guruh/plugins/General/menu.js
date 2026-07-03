@@ -18,17 +18,19 @@ export default {
         await client.sendMessage(m.chat, { react: { text: '🤖', key: m.reactKey } });
 
         const expiryDate = cfg?.EXPIRY_DATE || '';
-        let expiryLine = '';
-        if (expiryDate) {
+        let expiryLine;
+        if (!expiryDate) {
+            expiryLine = `▢ ⏳ 𝐄𝐱𝐩𝐢𝐫𝐲  : ∞ Never`;
+        } else {
             const exp = new Date(expiryDate);
             const now = new Date();
             const diffDays = Math.ceil((exp - now) / (1000 * 60 * 60 * 24));
             if (diffDays < 0) {
-                expiryLine = `\n▢ ⏳ 𝐄𝐱𝐩𝐢𝐫𝐲   : *EXPIRED* ❌`;
+                expiryLine = `▢ ⏳ 𝐄𝐱𝐩𝐢𝐫𝐲  : *EXPIRED* ❌`;
             } else if (diffDays === 0) {
-                expiryLine = `\n▢ ⏳ 𝐄𝐱𝐩𝐢𝐫𝐲   : *Today* ⚠️`;
+                expiryLine = `▢ ⏳ 𝐄𝐱𝐩𝐢𝐫𝐲  : *Today* ⚠️`;
             } else {
-                expiryLine = `\n▢ ⏳ 𝐄𝐱𝐩𝐢𝐫𝐲   : ${expiryDate} (${diffDays}d left)`;
+                expiryLine = `▢ ⏳ 𝐄𝐱𝐩𝐢𝐫𝐲  : ${expiryDate} _(${diffDays}d left)_`;
             }
         }
 
@@ -37,7 +39,8 @@ export default {
 ▢ 👤 𝐔𝐬𝐞𝐫    : @${m.sender.split('@')[0].split(':')[0]}
 ▢ 🤖 𝐁𝐨𝐭     : ${botname || 'BLACK-PANTHER-MD'}
 ▢ 📌 𝐏𝐫𝐞𝐟𝐢𝐱  : ${prefix}
-▢ 🌐 𝐌𝐨𝐝𝐞    : ${mode}${expiryLine}
+▢ 🌐 𝐌𝐨𝐝𝐞    : ${mode}
+${expiryLine}
 └──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──
 
 ✦ ──『 Sᴇʟᴇᴄᴛ Cᴀᴛᴇɢᴏʀʏ 』── ⚝
