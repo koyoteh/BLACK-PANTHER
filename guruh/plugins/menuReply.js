@@ -6,7 +6,7 @@
 //    • sent it within 90 seconds of the menu being displayed
 //  Then dispatches to the matching category command.
 // ─────────────────────────────────────────────────────────────────
-const { addTrigger, findCmd } = require('../handlers/loader');
+const { addTrigger, findCmd } = require('../../guru/handlers/loader');
 const { getMenuState, clearMenuState } = require('../lib/menuState.cjs');
 
 const CATEGORIES = [
