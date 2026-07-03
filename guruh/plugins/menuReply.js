@@ -7,7 +7,7 @@
 //  Then dispatches to the matching category command.
 // ─────────────────────────────────────────────────────────────────
 const { addTrigger, findCmd } = require('../handlers/loader');
-const { getMenuState, clearMenuState } = require('../lib/menuState');
+const { getMenuState, clearMenuState } = require('../lib/menuState.cjs');
 
 const CATEGORIES = [
     null,            // 0  — unused
