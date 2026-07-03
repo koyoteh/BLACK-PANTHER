@@ -4,8 +4,6 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-import { generateWAMessageFromContent, proto } from '@whiskeysockets/baileys';
-import { getDeviceMode } from '../../lib/deviceMode.js';
 import { sendInteractive } from '../../lib/sendInteractive.js';
 
 export default {
@@ -15,181 +13,79 @@ export default {
     run: async (context) => {
         const { client, m, mode, pict, botname, prefix } = context;
 
-        await client.sendMessage(m.chat, { react: { text: '🤖', key: m.key } });
-
-        const bodyText = m.body || '';
-        const cleanText = bodyText.trimStart().slice(prefix.length).trimStart();
-        const firstWord = cleanText.split(' ')[0].toLowerCase();
-
-        if (cleanText !== '' && !['menu', 'commands', 'list', 'cmds', 'm', 'help', 'cmd', 'commandlist', 'allcmds'].includes(firstWord)) {
-            const commandName = cleanText.split(' ')[0];
-            return sendInteractive(client, m, `✦ ──『 Eʀʀᴏʀ 』── ⚝
-▢ Yo ${m.pushName}, what's with the\n▢ extra bullshit after "${commandName}"?\n▢ Just type *${prefix}menu* properly, moron.\n└──✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪──`);
-        }
+        await client.sendMessage(m.chat, { react: { text: '🤖', key: m.reactKey } });
 
         const menuText =
 `╔══════════════════════════════════╗
 ║  ✦ ──『 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ᴹᴰ 』── ⚝
 ╠══════════════════════════════════╣
 ║  👤 User   : @${m.sender.split('@')[0].split(':')[0]}
-║  🤖 Bot    : BLACK-PANTHER-MD
-║  📌 Prefix : ${prefix}
-║  🌐 Mode   : ${mode}
-╠══════════════════════════════════╣
-║  📂 Select a category below
-╚══════════════════════════════════╝
-> ✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪`;
-
-        const sections = [
-            {
-                title: '⌜ 𝘾𝙤𝙧𝙚 𝘾𝙤𝙢𝙢𝙖𝙣𝙙𝙨 ⌟',
-                highlight_label: '© 丨几匚',
-                rows: [
-                    { title: '𝐅𝐮𝐥𝐥𝐌𝐞𝐧𝐮', description: 'Display all commands', id: `${prefix}fullmenu` },
-                    { title: '𝐃𝐞𝐯', description: 'Send developer contact', id: `${prefix}dev` },
-                    { title: '𝐑𝐞𝐩𝐨𝐫𝐭', description: 'Report a bug to dev', id: `${prefix}report` },
-                ] },
-            {
-                title: '𝙄𝙣𝙛𝙤 𝘽𝙤𝙩',
-                highlight_label: '© 丨几匚',
-                rows: [
-                    { title: '𝐏𝐢𝐧𝐠', description: 'Check bot speed', id: `${prefix}ping` },
-                    { title: '𝐒𝐞𝐭𝐭𝐢𝐧𝐠𝐬', description: 'Show bot settings', id: `${prefix}settings` },
-                    { title: '𝐌𝐨𝐝𝐞', description: 'Toggle bot mode', id: `${prefix}mode` },
-                    { title: '𝐔𝐩𝐭𝐢𝐦𝐞', description: 'Check how long bot has been running', id: `${prefix}uptime` },
-                ] },
-            {
-                title: '𝘾𝙖𝙩𝙚𝙜𝙤𝙧𝙮 𝙈𝙚𝙣𝙪𝙨',
-                highlight_label: '© 丨几匚',
-                rows: [
-                    { title: '𝐆𝐞𝐧𝐞𝐫𝐚𝐥𝐌𝐞𝐧𝐮', description: 'General commands', id: `${prefix}generalmenu` },
-                    { title: '𝐒𝐞𝐭𝐭𝐢𝐧𝐠𝐬𝐌𝐞𝐧𝐮', description: 'Bot settings commands', id: `${prefix}settingsmenu` },
-                    { title: '𝐎𝐰𝐧𝐞𝐫𝐌𝐞𝐧𝐮', description: 'Owner only commands', id: `${prefix}ownermenu` },
-                    { title: '𝐆𝐫𝐨𝐮𝐩𝐌𝐞𝐧𝐮', description: 'Group management', id: `${prefix}groupmenu` },
-                    { title: '𝐀𝐈𝐌𝐞𝐧𝐮', description: 'AI & chat commands', id: `${prefix}aimenu` },
-                    { title: '𝐃𝐨𝐰𝐧𝐥𝐨𝐚𝐝𝐌𝐞𝐧𝐮', description: 'Media downloaders', id: `${prefix}downloadmenu` },
-                    { title: '𝐄𝐝𝐢𝐭𝐢𝐧𝐠𝐌𝐞𝐧𝐮', description: 'Media editing tools', id: `${prefix}editingmenu` },
-                    { title: '𝐄𝐟𝐟𝐞𝐜𝐭𝐬𝐌𝐞𝐧𝐮', description: 'Text effect commands', id: `${prefix}effectsmenu` },
-                    { title: '𝐔𝐭𝐢𝐥𝐬𝐌𝐞𝐧𝐮', description: 'Utility commands', id: `${prefix}utilsmenu` },
-                    { title: '𝐏𝐫𝐢𝐯𝐚𝐜𝐲𝐌𝐞𝐧𝐮', description: 'Privacy commands', id: `${prefix}privacymenu` },
-                ] },
-        ];
-
-        const device = await getDeviceMode();
-
-        if (device === 'ios') {
-            const iosMenuText =
-`╔══════════════════════════════════╗
-║  ✦ ──『 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ᴹᴰ 』── ⚝
-╠══════════════════════════════════╣
-║  👤 User   : @${m.sender.split('@')[0].split(':')[0]}
-║  🤖 Bot    : BLACK-PANTHER-MD
+║  🤖 Bot    : ${botname || 'BLACK-PANTHER-MD'}
 ║  📌 Prefix : ${prefix}
 ║  🌐 Mode   : ${mode}
 ╠══════════════════════════════════╣
 ║  ⚙️ Core Commands
-║  ▸ ${prefix}fullmenu — Display all commands
-║  ▸ ${prefix}ping     — Check bot speed
-║  ▸ ${prefix}settings — Bot settings
-║  ▸ ${prefix}uptime   — Bot uptime
+║  ▸ ${prefix}fullmenu  — All commands list
+║  ▸ ${prefix}ping      — Check bot speed
+║  ▸ ${prefix}settings  — Bot settings
+║  ▸ ${prefix}uptime    — Bot uptime
+║  ▸ ${prefix}dev       — Developer contact
+║  ▸ ${prefix}report    — Report a bug
 ╠══════════════════════════════════╣
 ║  📂 Category Menus
-║  ▸ ${prefix}generalmenu  — General
-║  ▸ ${prefix}settingsmenu — Settings
-║  ▸ ${prefix}ownermenu    — Owner only
-║  ▸ ${prefix}groupmenu    — Group mgmt
-║  ▸ ${prefix}aimenu       — AI & chat
-║  ▸ ${prefix}downloadmenu — Downloads
-║  ▸ ${prefix}editingmenu  — Editing
-║  ▸ ${prefix}effectsmenu  — Effects
-║  ▸ ${prefix}utilsmenu    — Utilities
-║  ▸ ${prefix}privacymenu  — Privacy
+║  ▸ ${prefix}generalmenu   — General
+║  ▸ ${prefix}settingsmenu  — Settings
+║  ▸ ${prefix}ownermenu     — Owner only
+║  ▸ ${prefix}groupmenu     — Group mgmt
+║  ▸ ${prefix}aimenu        — AI & chat
+║  ▸ ${prefix}downloadmenu  — Downloads
+║  ▸ ${prefix}editingmenu   — Editing
+║  ▸ ${prefix}effectsmenu   — Text effects
+║  ▸ ${prefix}utilsmenu     — Utilities
+║  ▸ ${prefix}privacymenu   — Privacy
 ╚══════════════════════════════════╝
 > ✪ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✪`;
-            await client.sendMessage(m.chat, {
-                text: iosMenuText, mentions: [m.sender]
-            });
-            return;
-        }
 
-        try {
-            const msg = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
-                interactiveMessage: {
-                    body: { text: menuText },
-                    footer: { text: '' },
-                    header: { hasMediaAttachment: false },
-                    contextInfo: {
-                        mentionedJid: [m.sender],
-                        externalAdReply: {
-                            title: `${botname}`,
-                            body: `Yo, ${m.pushName}! Ready to fuck shit up?`,
-                            mediaType: 1,
-                            thumbnail: pict,
-                            mediaUrl: '',
-                            sourceUrl: 'https://github.com/koyoteh/BLACK-PANTHER',
-                            showAdAttribution: false,
-                            renderLargerThumbnail: true }
-                    },
-                    nativeFlowMessage: {
-                        messageVersion: 1,
-                        buttons: [
-                            {
-                                name: 'cta_url',
-                                buttonParamsJson: JSON.stringify({
-                                    display_text: 'GitHub Repo',
-                                    url: 'https://github.com/koyoteh/BLACK-PANTHER',
-                                    merchant_url: 'https://github.com/koyoteh/BLACK-PANTHER'
-                                })
-                            },
-                            {
-                                name: 'single_select',
-                                buttonParamsJson: JSON.stringify({
-                                    title: 'Browse Commands',
-                                    sections: sections
-                                })
-                            }
-                        ]
+        if (pict && Buffer.isBuffer(pict)) {
+            await client.sendMessage(m.chat, {
+                image: pict,
+                caption: menuText,
+                mentions: [m.sender],
+                contextInfo: {
+                    externalAdReply: {
+                        title: `${botname || 'BLACK PANTHER MD'}`,
+                        body: `Yo, ${m.pushName}! Ready to fuck shit up?`,
+                        mediaType: 1,
+                        thumbnail: pict,
+                        mediaUrl: '',
+                        sourceUrl: 'https://github.com/koyoteh/BLACK-PANTHER',
+                        showAdAttribution: false,
+                        renderLargerThumbnail: true
                     }
                 }
-            }), { userJid: client.user.id });
-            if (!msg?.key?.id) throw new Error('null key');
-            await client.relayMessage(m.chat, msg.message, { messageId: msg.key.id });
-        } catch {
-            // If pict is available send with image, otherwise plain text
-            if (pict && Buffer.isBuffer(pict)) {
-                await client.sendMessage(m.chat, {
-                    image: pict,
-                    caption: menuText,
-                    mentions: [m.sender],
-                    contextInfo: {
-                        externalAdReply: {
-                            title: `${botname}`,
-                            body: `Yo, ${m.pushName}! Ready to fuck shit up?`,
-                            mediaType: 1,
-                            thumbnail: pict,
-                            mediaUrl: '',
-                            sourceUrl: 'https://github.com/koyoteh/BLACK-PANTHER',
-                            showAdAttribution: false,
-                            renderLargerThumbnail: true }
-                    }
-                }).catch(() => client.sendMessage(m.chat, { text: menuText, mentions: [m.sender] }));
-            } else {
-                await client.sendMessage(m.chat, { text: menuText, mentions: [m.sender] }).catch(() => {});
-            }
+            }).catch(() => sendInteractive(client, m, menuText));
+        } else {
             await client.sendMessage(m.chat, {
-                listMessage: {
-                    title: '𝐕𝐈𝐄𝐖 𝐎𝐏𝐓𝐈𝐎𝐍𝐒',
-                    description: 'Select a category to view its commands.',
-                    buttonText: 'Browse Commands',
-                    listType: 1,
-                    sections: sections.map(s => ({
-                        title: s.title,
-                        rows: s.rows.map(r => ({ title: r.title, description: r.description, rowId: r.id }))
-                    })),
-                    footer: '' }
-            }).catch(() => {});
+                text: menuText,
+                mentions: [m.sender],
+                contextInfo: {
+                    externalAdReply: {
+                        title: `${botname || 'BLACK PANTHER MD'}`,
+                        body: `Yo, ${m.pushName}! Ready to fuck shit up?`,
+                        mediaType: 1,
+                        thumbnail: null,
+                        mediaUrl: '',
+                        sourceUrl: 'https://github.com/koyoteh/BLACK-PANTHER',
+                        showAdAttribution: false,
+                        renderLargerThumbnail: false
+                    }
+                }
+            }).catch(() => sendInteractive(client, m, menuText));
         }
 
+        await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
+
+        // Play a random menu audio if available
         const xhClintonPaths = [
             path.join(__dirname, 'GuruTech'),
             path.join(process.cwd(), 'GuruTech'),
@@ -211,4 +107,5 @@ export default {
         } catch {
             await client.sendMessage(m.chat, { audio: { url: randomFile }, ptt: true, mimetype: 'audio/mpeg', fileName: 'panther-menu.m4a' });
         }
-    } };
+    }
+};
