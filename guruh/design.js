@@ -122,11 +122,11 @@ async function buildMenuData(conText) {
         return `> ${num}  ${icon}  ${label}  _(${count})_`;
     }).join("\n");
 
-    const catLinesGuruTech = sortedCats.map(({ cat }, i) => {
+    const catLinesGuruTech = sortedCats.map(({ cat, cmds }, i) => {
         const icon  = CAT_ICONS[cat] || "🔥";
         const label = (cat[0].toUpperCase() + cat.slice(1)).toUpperCase();
         const num   = String(i + 1).padStart(2, ' ');
-        return `▢ ${num}  〢 ${icon} ${label}`;
+        return `▢ ${num}  〢 ${icon} ${label}  _(${cmds.length})_`;
     }).join("\n");
 
     return {

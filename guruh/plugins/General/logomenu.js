@@ -1,45 +1,38 @@
-import { DateTime } from 'luxon';
-import { getSettings } from '../../lib/fastSettings.js';
-import effectsMod from '../../plugins/Effects/effects.js';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+
+const EMOJI = '🎨';
+const LABEL = 'EFFECTS & LOGO';
 
 export default {
     name: 'logomenu',
-    aliases: ['effectsmenu', 'effectslist', 'logolist'],
+    aliases: ['effectslist', 'logolist'],
     description: 'Displays all available logo & effects commands',
     run: async (context) => {
-        const { client, m } = context;
+        const { client, m, prefix } = context;
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
-
-        const settings = await getSettings();
-        const effectivePrefix = settings.prefix || '';
-
-        const toFancyFont = (text) => {
-            const fonts = {
-                'A': '𝘼', 'B': '𝘽', 'C': '𝘾', 'D': '𝙿', 'E': '𝙀', 'F': '𝙁', 'G': '𝙂', 'H': '𝙃', 'I': '𝙄', 'J': '𝙅', 'K': '𝙆', 'L': '𝙇', 'M': '𝙈',
-                'N': '𝙉', 'O': '𝙊', 'P': '𝙋', 'Q': '𝙌', 'R': '𝙍', 'S': '𝙎', 'T': '𝙏', 'U': '𝙐', 'V': '𝙑', 'W': '𝙒', 'X': '𝙓', 'Y': '𝙔', 'Z': '𝙕',
-                'a': '𝙖', 'b': '𝙗', 'c': '𝙘', 'd': '𝙙', 'e': '𝙚', 'f': '𝙛', 'g': '𝙜', 'h': '𝙝', 'i': '𝙞', 'j': '𝙟', 'k': '𝙠', 'l': '𝙡', 'm': '𝙢',
-                'n': '𝙣', 'o': '𝙤', 'p': '𝙥', 'q': '𝙦', 'r': '𝙧', 's': '𝙨', 't': '𝙩', 'u': '𝙪', 'v': '𝙫', 'w': '𝙬', 'x': '𝙭', 'y': '𝙮', 'z': '𝙯'
-            };
-            return text.toLowerCase().split('').map(c => fonts[c] || c).join('');
-        };
 
         let effectCommands = [];
         try {
-            const list = Array.isArray(effectsMod) ? effectsMod : [];
+            // Dynamically import to avoid top-level import issues with ESM arrays
+            const effectsMod = await import('../../plugins/Effects/effects.js');
+            const list = Array.isArray(effectsMod.default) ? effectsMod.default : [];
             for (const cmd of list) {
                 if (cmd && cmd.name) effectCommands.push(cmd.name);
             }
-        } catch (e) {}
+        } catch {}
 
-        const dt = DateTime.now();
-        let menuText = `╔══════════════════════════════════╗\n║  ⚡ ──「 EFFECTS & LOGO MENU 」──\n╠══════════════════════════════════╣\n║  📌 Prefix : ${effectivePrefix || 'None'}\n║  🎨 Total  : ${effectCommands.length} effects\n║  🕐 Time   : ${dt.toFormat('HH:mm')}\n╠══════════════════════════════════╣\n`;
+        const p      = prefix || '.';
+        const header = `⚡ ──「 ${EMOJI} *${LABEL}* 」──\n▢ ${effectCommands.length} effects available\n\n`;
+        const footer = `\n└──✦ _Powered by GuruTech_ ✦──`;
 
-        for (const name of effectCommands) {
-            menuText += `║  ▸ *${toFancyFont(name)}*\n`;
-        }
-
-        menuText += `╚══════════════════════════════════╝\n> 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ`;
+        let menuText = header;
+        effectCommands.forEach((name, i) => {
+            menuText += `▢ ${String(i + 1).padStart(2, ' ')}. *${p}${name}*\n`;
+        });
+        menuText += footer;
 
         await client.sendMessage(m.chat, { text: menuText });
+        await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
     }
 };

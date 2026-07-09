@@ -3,36 +3,49 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-import { getSettings } from '../../database/config.js';
+const __dirname  = dirname(__filename);
+
+const EMOJI      = '🎌';
+const LABEL      = 'ANIME';
+const CHUNK_SIZE = 3500;
+const PLUGIN_DIR = path.join(__dirname, '..', 'Anime');
 
 export default {
     name: 'animemenu',
     aliases: ['animmenu', 'animelist'],
     description: 'Displays the Anime commands menu',
     run: async (context) => {
-        const { client, m, pict, prefix } = context;
+        const { client, m, prefix } = context;
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
 
-        const toFancyFont = (text) => {
-            const fonts = {
-                'a':'𝙖','b':'𝙗','c':'𝙘','d':'𝙙','e':'𝙚','f':'𝙛','g':'𝙜','h':'𝙝','i':'𝙞','j':'𝙟','k':'𝙠','l':'𝙡','m':'𝙢',
-                'n':'𝙣','o':'𝙤','p':'𝙥','q':'𝙦','r':'𝙧','s':'𝙨','t':'𝙩','u':'𝙪','v':'𝙫','w':'𝙬','x':'𝙭','y':'𝙮','z':'𝙯'
-            };
-            return text.toLowerCase().split('').map(c => fonts[c] || c).join('');
-        };
-
-        const animeDir = path.join(__dirname, '..', 'Anime');
         let commandFiles = [];
-        try { commandFiles = fs.readdirSync(animeDir).filter(f => f.endsWith('.js')); } catch {}
+        try { commandFiles = fs.readdirSync(PLUGIN_DIR).filter(f => f.endsWith('.js')); } catch {}
 
-        let menuText = `╔══════════════════════════════════╗\n║  ⚡ ──「 ANIME MENU 」──\n╠══════════════════════════════════╣\n`;
-        for (const file of commandFiles) {
-            menuText += `║  ▸ *${toFancyFont(file.replace('.js', ''))}*\n`;
+        const p      = prefix || '.';
+        const header = `⚡ ──「 ${EMOJI} *${LABEL}* 」──\n▢ ${commandFiles.length} commands available\n\n`;
+        const footer = `\n└──✦ _Powered by GuruTech_ ✦──`;
+
+        const lines = commandFiles.map((file, i) =>
+            `▢ ${String(i + 1).padStart(2, ' ')}. *${p}${file.replace('.js', '')}*`
+        );
+
+        const chunks = [];
+        let current  = header;
+        let isFirst  = true;
+        for (const line of lines) {
+            const candidate = current + line + '\n';
+            if (!isFirst && candidate.length + footer.length > CHUNK_SIZE) {
+                chunks.push(current + footer);
+                current = `⚡ ──「 ${EMOJI} *${LABEL}* (cont.) 」──\n\n`;
+            }
+            current += line + '\n';
+            isFirst = false;
         }
-        menuText += `╚══════════════════════════════════╝\n> 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ`;
+        chunks.push(current + footer);
 
-                await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
-                await client.sendMessage(m.chat, { text: menuText });
+        for (const chunk of chunks) {
+            await client.sendMessage(m.chat, { text: chunk });
+        }
+        await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
     }
 };

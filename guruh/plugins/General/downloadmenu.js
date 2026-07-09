@@ -1,50 +1,51 @@
-import { DateTime } from 'luxon';
 import fs from 'fs';
-import { getSettings } from '../../database/config.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname  = dirname(__filename);
+
+const EMOJI      = '⬇️';
+const LABEL      = 'DOWNLOADS';
+const CHUNK_SIZE = 3500;
+const PLUGIN_DIR = path.join(__dirname, '..', 'Downloads');
 
 export default {
-  name: 'downloadmenu',
-  aliases: ['dlmenu'],
-  description: 'Displays only the Download/Media menu',
-  run: async (context) => {
-    const { client, m, pict } = context;
+    name: 'downloadmenu',
+    aliases: ['dlmenu', 'dlcmds', 'downloadcmds'],
+    description: 'Displays the Downloads commands menu',
+    run: async (context) => {
+        const { client, m, prefix } = context;
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
-    const botname = '𝐓𝐨𝐱𝐢𝐜-𝐌𝐃';
 
-    const settings = await getSettings();
-    const effectivePrefix = settings.prefix || '';
+        let commandFiles = [];
+        try { commandFiles = fs.readdirSync(PLUGIN_DIR).filter(f => f.endsWith('.js')); } catch {}
 
-    const toFancyFont = (text, isUpperCase = false) => {
-      const fonts = {
-        'A': '𝘼', 'B': '𝘽', 'C': '𝘾', 'D': '𝙿', 'E': '𝙀', 'F': '𝙁', 'G': '𝙂', 'H': '𝙃', 'I': '𝙄', 'J': '𝙅', 'K': '𝙆', 'L': '𝙇', 'M': '𝙈',
-        'N': '𝙉', 'O': '𝙊', 'P': '𝙋', 'Q': '𝙌', 'R': '𝙍', 'S': '𝙎', 'T': '𝙏', 'U': '𝙐', 'V': '𝙑', 'W': '𝙒', 'X': '𝙓', 'Y': '𝙔', 'Z': '𝙕',
-        'a': '𝙖', 'b': '𝙗', 'c': '𝙘', 'd': '𝙙', 'e': '𝙚', 'f': '𝙛', 'g': '𝙜', 'h': '𝙝', 'i': '𝙞', 'j': '𝙟', 'k': '𝙠', 'l': '𝙡', 'm': '𝙢',
-        'n': '𝙣', 'o': '𝙤', 'p': '𝙥', 'q': '𝙦', 'r': '𝙧', 's': '𝙨', 't': '𝙩', 'u': '𝙪', 'v': '𝙫', 'w': '𝙬', 'x': '𝙭', 'y': '𝙮', 'z': '𝙯'
-      };
-      return (isUpperCase ? text.toUpperCase() : text.toLowerCase())
-        .split('')
-        .map(char => fonts[char] || char)
-        .join('');
-    };
+        const p      = prefix || '.';
+        const header = `⚡ ──「 ${EMOJI} *${LABEL}* 」──\n▢ ${commandFiles.length} commands available\n\n`;
+        const footer = `\n└──✦ _Powered by GuruTech_ ✦──`;
 
-    let menuText = `╔══════════════════════════════════╗
-║  ⚡ ──「 DOWNLOAD MENU 」──
-╠══════════════════════════════════╣
-║  📌 Prefix : ${effectivePrefix || 'None'}
-╠══════════════════════════════════╣
-`;
+        const lines = commandFiles.map((file, i) =>
+            `▢ ${String(i + 1).padStart(2, ' ')}. *${p}${file.replace('.js', '')}*`
+        );
 
-    let commandFiles = fs.readdirSync('./plugins/Downloads').filter(file => file.endsWith('.js'));
-    for (const file of commandFiles) {
-      const commandName = file.replace('.js', '');
-      const fancyCommandName = toFancyFont(commandName);
-      menuText += `▢ *${fancyCommandName}*\n`;
+        const chunks = [];
+        let current  = header;
+        let isFirst  = true;
+        for (const line of lines) {
+            const candidate = current + line + '\n';
+            if (!isFirst && candidate.length + footer.length > CHUNK_SIZE) {
+                chunks.push(current + footer);
+                current = `⚡ ──「 ${EMOJI} *${LABEL}* (cont.) 」──\n\n`;
+            }
+            current += line + '\n';
+            isFirst = false;
+        }
+        chunks.push(current + footer);
+
+        for (const chunk of chunks) {
+            await client.sendMessage(m.chat, { text: chunk });
+        }
+        await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
     }
-
-    menuText += `╚══════════════════════════════════╝\n> 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ\n`;
-    menuText += ``;
-
-        await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
-        await client.sendMessage(m.chat, { text: menuText });
-  }
 };

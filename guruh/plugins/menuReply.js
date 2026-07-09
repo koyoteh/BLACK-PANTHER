@@ -1,99 +1,106 @@
 'use strict';
 // ─────────────────────────────────────────────────────────────────
 //  MENU REPLY TRIGGER
-//  Fires when a user sends a digit (1-10) within 90s of .menu
-//  Builds the category listing inline from getAllCmds().
-//  Sends multiple messages if a category has many commands.
+//  Fires when a user sends a digit within 5min of .menu
+//  Uses dynamic categories from getSortedCategories() so it always
+//  matches whatever the main menu displays — no hardcoded lists.
 // ─────────────────────────────────────────────────────────────────
-const { addTrigger, getAllCmds } = require('../../guru/handlers/loader');
-const { getMenuState, clearMenuState } = require('../lib/menuState.cjs');
-
-const CATEGORIES = {
-    1:  { label: 'General',   emoji: '📜', category: 'general'   },
-    2:  { label: 'Settings',  emoji: '🛠️',  category: 'settings'  },
-    3:  { label: 'Owner',     emoji: '👑', category: 'owner'     },
-    4:  { label: 'Group',     emoji: '👥', category: 'groups'    },
-    5:  { label: 'AI',        emoji: '🧠', category: 'ai'        },
-    6:  { label: 'Downloads', emoji: '🎬', category: 'downloads' },
-    7:  { label: 'Editing',   emoji: '✂️',  category: 'editing'   },
-    8:  { label: 'Effects',   emoji: '🎨', category: 'effects'   },
-    9:  { label: 'Utils',     emoji: '🔧', category: 'utils'     },
-    10: { label: 'Privacy',   emoji: '🔒', category: 'privacy'   },
-};
+const { addTrigger }                    = require('../../guru/handlers/loader');
+const { getMenuState, clearMenuState }  = require('../lib/menuState.cjs');
+const { getSortedCategories, CAT_ICONS } = require('../design');
 
 // Max chars per WhatsApp message (stay well under 65 536 hard limit)
 const CHUNK_SIZE = 3500;
 
 /**
- * Build an array of text chunks for a category.
- * Each chunk is a self-contained message that fits within CHUNK_SIZE chars.
+ * Build an array of text chunks for a category selected by 1-based number.
+ * Returns null if the number is out of range.
  */
 function buildChunks(num, prefix) {
-    const { label, emoji, category } = CATEGORIES[num];
+    const sorted = getSortedCategories();
+    const entry  = sorted[num - 1];
+    if (!entry) return null;
 
-    // Deduplicate: getAllCmds() already returns one entry per unique name,
-    // but filter to this category only.
-    const cmds = getAllCmds().filter(c => c.category === category);
+    const { cat, cmds } = entry;
+    const emoji  = CAT_ICONS[cat] || '🔥';
+    const label  = (cat[0].toUpperCase() + cat.slice(1)).toUpperCase();
+    const total  = cmds.length;
 
-    const header = `⚡ ──「 ${emoji} *${label.toUpperCase()}* 」──\n▢ ${cmds.length} commands available\n\n`;
+    const header = `⚡ ──「 ${emoji} *${label}* 」──\n▢ ${total} command${total !== 1 ? 's' : ''} available\n\n`;
     const footer = `\n└──✦ _Powered by GuruTech_ ✦──`;
 
-    if (!cmds.length) {
+    if (!total) {
         return [`${header}▢ No commands found in this category yet.\n${footer}`];
     }
 
-    // Build one line per command
+    // Build lines for each command
     const lines = cmds.map((c, i) => {
-        const num  = String(i + 1).padStart(2, ' ');
-        const desc = (c.desc || c.description || '')
-            .replace(/\. Usage:.*$/i, '').slice(0, 55);
-        return `▢ ${num}. *${prefix}${c.name}*${desc ? ` — _${desc}_` : ''}`;
+        const idx   = String(i + 1).padStart(2, ' ');
+        const desc  = (c.description || c.desc || '')
+            .replace(/\. Usage:.*$/i, '')
+            .replace(/Usage:.*$/i, '')
+            .trim()
+            .slice(0, 60);
+
+        let line = `▢ ${idx}. *${prefix}${c.pattern}*${desc ? ` — _${desc}_` : ''}`;
+
+        // Show aliases if present
+        const aliases = c.aliases;
+        if (Array.isArray(aliases) && aliases.length) {
+            const aliasStr = aliases.map(a => `${prefix}${a}`).join(', ');
+            line += `\n    ↳ _${aliasStr}_`;
+        }
+
+        return line;
     });
 
     // Split lines into chunks that each fit within CHUNK_SIZE chars
     const chunks = [];
-    let current = header;
-    let isFirst = true;
+    let current  = header;
+    let isFirst  = true;
 
     for (const line of lines) {
         const candidate = current + line + '\n';
         if (!isFirst && candidate.length + footer.length > CHUNK_SIZE) {
-            // Close current chunk and start a new one
             chunks.push(current + footer);
-            current = `⚡ ──「 ${emoji} *${label.toUpperCase()}* (cont.) 」──\n\n`;
+            current = `⚡ ──「 ${emoji} *${label}* (cont.) 」──\n\n`;
         }
         current += line + '\n';
         isFirst = false;
     }
 
-    // Push the last chunk
     chunks.push(current + footer);
-
     return chunks;
 }
 
 addTrigger({
-    pattern: /^(10|[1-9])$/,
+    // Match any number 1–99 (getSortedCategories() handles out-of-range)
+    pattern: /^([1-9][0-9]?)$/,
     handler: async (ctx) => {
         try {
             const { m, from, sock, config: cfg } = ctx;
             const body = (m.body || '').trim();
             const num  = parseInt(body, 10);
-            if (!num || num < 1 || num > 10) return;
+            if (!num || num < 1) return;
 
             const state = getMenuState(from);
             if (!state) return;
 
-            const quotedId      = m.quotedKey?.id;
-            const isQuotingMenu = quotedId && state.messageId && quotedId === state.messageId;
-            const isWithinWindow = (Date.now() - state.timestamp) < 90_000;
+            const quotedId       = m.quotedKey?.id;
+            const isQuotingMenu  = quotedId && state.messageId && quotedId === state.messageId;
+            const isWithinWindow = (Date.now() - state.timestamp) < 5 * 60 * 1000;
 
             if (!isQuotingMenu && !isWithinWindow) return;
+
+            // Validate the number is in range
+            const sorted = getSortedCategories();
+            if (num > sorted.length) return;
 
             clearMenuState(from);
 
             const prefix = cfg?.BOT_PREFIX || '.';
             const chunks = buildChunks(num, prefix);
+            if (!chunks) return;
 
             // Send each chunk sequentially so they arrive in order
             for (const text of chunks) {
