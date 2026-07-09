@@ -6,8 +6,6 @@ const moment           = require("moment-timezone");
 const {
     buildThemedMenu,
     sendMenuMsg,
-    getSortedCategories,
-    CAT_ICONS,
 } = require("./design");
 
 // ─── 1. MENU ──────────────────────────────────────────────────────────────────
@@ -56,77 +54,8 @@ gmd(
     }
 );
 
-// ─── 2. CATEGORY BODY HANDLER (reply with a number from the menu) ─────────────
-// Uses getSortedCategories() from design.js — SAME source of truth as the menu.
-
-gmd(
-    {
-        pattern: /^\d+$/,
-        on: "body",
-        dontAddCommandList: true,
-        react: "📂",
-        category: "general",
-        description: "Reply with a category number to browse commands",
-    },
-    async (from, Guru, conText) => {
-        const HARDCODED_PIC = "https://res.cloudinary.com/dqxlb29uz/image/upload/v1780267810/bwm_uploads/media-1780267810008.jpg";
-        const { body, mek, botName, botPrefix, botFooter, newsletterJid, newsletterUrl, sender } = conText;
-
-        const n    = parseInt(body.trim(), 10);
-        const cats = getSortedCategories();
-
-        if (isNaN(n) || n < 1 || n > cats.length) return;
-
-        const { cat, cmds } = cats[n - 1];
-        const icon  = CAT_ICONS[cat] || "⚡";
-        const label = (cat[0].toUpperCase() + cat.slice(1)).toUpperCase();
-
-        const p = ".";
-        const cmdList = cmds.map((c, i) => {
-            const num  = String(i + 1).padStart(2, ' ');
-            const desc = c.description
-                ? c.description.replace(/\. Usage:.*$/i, '').slice(0, 55)
-                : '';
-            return `▢ ${num}. *${p}${c.pattern}*${desc ? ` — _${desc}_` : ''}`;
-        }).join("\n");
-
-        const text =
-`⚡ ──「 ${icon} *${label}* 」──
-▢ ${cmds.length} commands available
-
-${cmdList}
-
-└──✦ _${botFooter || "Powered by GuruTech"}_ ✦──`;
-
-        try {
-            await Guru.sendMessage(from, {
-                text: text.trim(),
-                contextInfo: {
-                    mentionedJid: [sender],
-                    forwardingScore: 5,
-                    isForwarded: true,
-                    forwardedNewsletterMessageInfo: {
-                        newsletterJid: newsletterJid || "120363406649804510@newsletter",
-                        newsletterName: botName || "BLACK PANTHER",
-                        serverMessageId: 0,
-                    },
-                    externalAdReply: {
-                        title: botName || "BLACK PANTHER",
-                        body: botFooter || "Powered by KOYOTEH",
-                        thumbnailUrl: HARDCODED_PIC,
-                        mediaType: 1,
-                        mediaUrl: HARDCODED_PIC,
-                        sourceUrl: newsletterUrl || "https://whatsapp.com/channel/0029Vb7jauLHLHQbkcbcHi0e",
-                        showAdAttribution: true,
-                        renderLargerThumbnail: true,
-                    },
-                },
-            }, { quoted: mek });
-        } catch {
-            await Guru.sendMessage(from, { text: text.trim() }, { quoted: mek });
-        }
-    }
-);
+// ─── Category handler lives in guruh/plugins/menuReply.js ────────────────────
+// (Removed duplicate gmd handler — menuReply.js is the single source of truth)
 
 // ─── 3. PING / ALIVE ─────────────────────────────────────────────────────────
 
