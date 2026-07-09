@@ -68,12 +68,12 @@ const runUpdate = async (repo, Guru, ownerJid, onProgress) => {
     const extractPath = path.join(__dirname, "..", "latest");
 
     await progress(
-        `📥 *Downloading update...*\n\n` +
-        `◈ 📦 Repo    ⤳ \`github.com/${repo}\`\n` +
-        `◈ 👤 Author  ⤳ ${authorName}\n` +
-        `◈ 📅 Date    ⤳ ${commitDate}\n` +
-        `◈ 💬 Changes ⤳ ${commitMessage}\n\n` +
-        `_This may take 30–60 seconds..._`
+        `⚡ ──「 🔄 *UPDATE FOUND* 」──\n` +
+        `▢ 📦 Repo    : github.com/${repo}\n` +
+        `▢ 👤 Author  : ${authorName}\n` +
+        `▢ 📅 Date    : ${commitDate}\n` +
+        `▢ 💬 Changes : ${commitMessage}\n` +
+        `└──✦ _Downloading... This may take 30–60s_ ✦──`
     );
 
     const { data: zipData } = await axios.get(
@@ -136,7 +136,7 @@ const checkAndAutoUpdate = async (Guru) => {
             return;
         }
 
-        const repo = normalizeRepo(await getSetting("BOT_REPO")) || "koyoteh/BLACK-PANTHER-";
+        const repo = normalizeRepo(await getSetting("BOT_REPO")) || "koyoteh/BLACK-PANTHER";
 
         let ownerJid = null;
         try {
