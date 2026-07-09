@@ -31,3 +31,7 @@ Thumbs.db
 .cache/
 tmp/
 temp/
+
+# Lock files / local npm config
+package-lock.json
+.npmrc
