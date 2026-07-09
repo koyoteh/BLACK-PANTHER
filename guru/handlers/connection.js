@@ -363,14 +363,8 @@ async function startBot() {
         handleMessage(upsert, sock);
     });
 
-    // ── Anti-delete ────────────────────────────────────────────
-    sock.ev.on('messages.delete', (item) => {
-        if (item?.keys) {
-            for (const key of item.keys) {
-                PantherAntiDelete(sock, key).catch(() => {});
-            }
-        }
-    });
+    // ── Anti-delete handled by setupAntiDelete (eventHandlers.js) ──
+    // PantherAntiDelete disabled to prevent duplicate antidelete messages.
 
     // ── Anti-edit ──────────────────────────────────────────────
     sock.ev.on('messages.update', async (updates) => {
