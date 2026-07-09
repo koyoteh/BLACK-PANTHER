@@ -1010,13 +1010,13 @@ const GuruAntiDelete = async (Guru, deletedMsg, key, deleter, sender, botOwnerJi
     if (isJidGroup(key.remoteJid)) {
         try {
             const groupMeta = await getGroupMetadata(Guru, key.remoteJid);
-            chatInfo = `💬 Group Chat: ${groupMeta?.subject || 'Unknown'}`;
+            chatInfo = `▢ 💬 Chat     : ${groupMeta?.subject || 'Unknown'}`;
         } catch (error) {
             logger.error('Failed to fetch group metadata:', error);
-            chatInfo = `💬 Group Chat`;
+            chatInfo = `▢ 💬 Chat     : Group`;
         }
     } else {
-        chatInfo = `💬 Dm Chat: ${finalDeleterDisplay}`;
+        chatInfo = `▢ 💬 Chat     : ${finalDeleterDisplay}`;
         if (deleterJid) chatMention = deleterJid;
     }
     
@@ -1032,12 +1032,13 @@ const GuruAntiDelete = async (Guru, deletedMsg, key, deleter, sender, botOwnerJi
         if (antiDelete === 'inchat') {
             promises.push((async () => {
                 try {
-                    const baseAlert = `*𝙰𝙽𝚃𝙸𝙳𝙴𝙻𝙴𝚃𝙴 𝙼𝙴𝚂𝚂𝙰𝙶𝙴 𝚂𝚈𝚂𝚃𝙴𝙼*\n\n` +
-                                    `*👤 Sent By:* ${finalSenderDisplay}\n` +
-                                    `*👤 Deleted By:* ${finalDeleterDisplay}\n` +
-                                    `*🕑 Time:* ${currentTime}\n` + 
-                                    `*📆 Date:* ${currentDate}\n` +
-                                    `${chatInfo}\n\n> *${botFooter}*`;
+                    const baseAlert = `⚡ ──「 🗑️ *ANTIDELETE* 」──\n` +
+                                    `▢ 🕑 Time      : ${currentTime}\n` +
+                                    `▢ 📆 Date      : ${currentDate}\n` +
+                                    `▢ 👤 Sent By   : ${finalSenderDisplay}\n` +
+                                    `▢ 🗑️ Deleted By: ${finalDeleterDisplay}\n` +
+                                    `${chatInfo}\n` +
+                                    `└──✦ _${botFooter}_ ✦──`;
 
                     if (deletedMsg.message?.conversation || deletedMsg.message?.extendedTextMessage?.text) {
                         const text = deletedMsg.message.conversation || 
@@ -1103,14 +1104,20 @@ const GuruAntiDelete = async (Guru, deletedMsg, key, deleter, sender, botOwnerJi
         if (antiDelete === 'indm') {
             promises.push((async () => {
                 try {
-                    const ownerContext = `*👤 Sent By:* ${finalSenderDisplay}\n*👤 Deleted By:* ${finalDeleterDisplay}\n${chatInfo}`;
+                    const ownerContext = `⚡ ──「 🗑️ *ANTIDELETE* 」──\n` +
+                                    `▢ 🕑 Time      : ${currentTime}\n` +
+                                    `▢ 📆 Date      : ${currentDate}\n` +
+                                    `▢ 👤 Sent By   : ${finalSenderDisplay}\n` +
+                                    `▢ 🗑️ Deleted By: ${finalDeleterDisplay}\n` +
+                                    `${chatInfo}\n` +
+                                    `└──✦ _${botFooter}_ ✦──`;
 
                     if (deletedMsg.message?.conversation || deletedMsg.message?.extendedTextMessage?.text) {
                         const text = deletedMsg.message.conversation || 
                                     deletedMsg.message.extendedTextMessage.text;
                         
                         await Guru.sendMessage(botOwnerJid, { 
-                            text: `*𝙰𝙽𝚃𝙸𝙳𝙴𝙻𝙴𝚃𝙴 𝙼𝙴𝚂𝚂𝙰𝙶𝙴 𝚂𝚈𝚂𝚃𝙴𝙼*\n\n*🕑 Time:* ${currentTime}\n*📆 Date:* ${currentDate}\n\n${ownerContext}\n\n*Deleted Msg:*\n${text}\n\n> *${botFooter}*`,
+                            text: `${ownerContext}\n\n*Deleted Msg:*\n${text}`,
                             mentions: allMentions,
                             contextInfo: getContextInfo(allMentions),
                             ...context
@@ -1119,8 +1126,8 @@ const GuruAntiDelete = async (Guru, deletedMsg, key, deleter, sender, botOwnerJi
                         const media = await processMediaMessage(deletedMsg);
                         if (media) {
                             const dmAlert = media.caption ?
-                                `*𝙰𝙽𝚃𝙸𝙳𝙴𝙻𝙴𝚃𝙴 𝙼𝙴𝚂𝚂𝙰𝙶𝙴 𝚂𝚈𝚂𝚃𝙴𝙼*\n\n*🕑 Time:* ${currentTime}\n*📆 Date:* ${currentDate}\n\n${ownerContext}\n\n*Caption:*\n${media.caption}\n\n> *${botFooter}*` :
-                                `*𝙰𝙽𝚃𝙸𝙳𝙴𝙻𝙴𝚃𝙴 𝙼𝙴𝚂𝚂𝙰𝙶𝙴 𝚂𝚈𝚂𝚃𝙴𝙼*\n\n*🕑 Time:* ${currentTime}\n*📆 Date:* ${currentDate}\n\n${ownerContext}\n\n> *${botFooter}*`;
+                                `${ownerContext}\n\n*Caption:*\n${media.caption}` :
+                                ownerContext;
 
                             if (media.type === 'sticker' || media.type === 'audio') {
                                 await Guru.sendMessage(botOwnerJid, {
