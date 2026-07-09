@@ -1,7 +1,7 @@
 # Dependencies
 node_modules/
 
-# Runtime database files — never commit these (may contain session/auth data)
+# Runtime database files — never commit (may contain session/auth data)
 *.db
 *.db-shm
 *.db-wal

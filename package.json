@@ -1,7 +1,7 @@
 {
   "name": "black-panther-md",
   "version": "5.0.0",
-  "description": "BLACK PANTHER 🐾 - Ultimate WhatsApp Bot by Koyoteh",
+  "description": "BLACK PANTHER MD 🐾 - Ultimate WhatsApp Bot by Koyoteh",
   "main": "./index.js",
   "type": "commonjs",
   "engines": {
@@ -16,8 +16,8 @@
   "keywords": [
     "koyoteh",
     "black-panther",
-    "whatsapp-bot",
     "black-panther-md",
+    "whatsapp-bot",
     "whatsapp-md-bot"
   ],
   "author": "KOYOTEH 🐾",

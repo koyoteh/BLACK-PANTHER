@@ -1,16 +1,16 @@
 {
   "name": "BLACK PANTHER MD",
-  "description": "BLACK PANTHER - A Powerful Multi-Device WhatsApp Bot built by Koyoteh to Enhance Your WhatsApp Experience",
+  "description": "BLACK PANTHER MD - A Powerful Multi-Device WhatsApp Bot built by Koyoteh",
   "repository": "https://github.com/koyoteh/BLACK-PANTHER",
   "keywords": ["black-panther", "koyoteh", "whatsapp-bot", "black-panther-md"],
   "env": {
     "SESSION_ID": {
-      "description": "Your WhatsApp SESSION_ID from the pairing page",
+      "description": "Your WhatsApp SESSION_ID (starts with PANTHER~)",
       "required": true
     },
     "MODE": {
       "description": "Bot mode: public or private",
-      "value": "BLACK PANTHER",
+      "value": "public",
       "required": false
     },
     "OWNER_NAME": {
