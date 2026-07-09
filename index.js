@@ -272,16 +272,14 @@ async function sendStartupMessage(socket, s) {
         const expLine        = await expiryLine().catch(() => "✅ Active");
 
         const msg = [
-            `*✅ ${botName} — ONLINE*`,
+            `⚡ ──「 *${botName} ┃ ᴹᴰ* 」──`,
+            `▢ 🟢 Status  : ✅ ONLINE`,
+            `▢ 📊 Plugins : ${totalCommands}`,
+            `▢ 📌 Prefix  : ${s.PREFIX || d.PREFIX}`,
+            `▢ 🌐 Mode    : ${modeLabel}`,
+            `▢ ⏳ Licence : ${expLine}`,
+            `└──✦ _Powered by GuruTech_ ✦──`,
             ``,
-            `┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄`,
-            `📊 *Plugins*  : ${totalCommands}`,
-            `⚡ *Prefix*   : ${s.PREFIX || d.PREFIX}`,
-            `⚙️ *Mode*     : ${modeLabel}`,
-            `🔒 *Licence*  : ${expLine}`,
-            `📲 *Telegram* : t.me/KOYOTEH`,
-            `┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄`,
-            `> ✨ _${s.CAPTION || d.CAPTION}_`,
             `> _Allow a few seconds to sync._`,
         ].join("\n");
 

@@ -182,27 +182,26 @@ ${catLinesGuruTech}
     ultra: {
         name: "🔷 ULTRA",
         description: "Premium blockquote style with clean stats",
-        render({ botName, botPrefix, botVersion, botMode, botFooter,
-                  uptime, totalCmds, catLines, expiryLine, numCats,
-                  pushName, memBar, dateStr, timeStr, timeGreet }) {
+        render({ botName, botPrefix, botMode, botFooter,
+                  uptime, totalCmds, catLinesGuruTech, expiryLine,
+                  pushName, sender, numCats }) {
+            const userNum = sender ? sender.split('@')[0].split(':')[0] : pushName;
             return (
-`> 🔥 *${botName.toUpperCase()}*  ·  _v${botVersion}_
-> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-> 👤 Hey *${pushName}*  —  ${timeGreet}
-> 📅 ${dateStr}  ·  🕐 ${timeStr}
-> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-> 💬 Commands  ›  *${totalCmds}*
-> ⏱️  Uptime    ›  *${uptime}*
-> 🔑  Prefix    ›  *${botPrefix}*
-> 🛠️  Mode      ›  *${botMode.toUpperCase()}*
-> 💾  RAM       ›  ${memBar}
-> 🔒  Licence   ›  ${expiryLine}
-> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-> 📋 *CATEGORIES*  ·  _reply 1–${numCats}_
-> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-${catLines}
-> ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-> ✨ _${botFooter}_`
+`⚡ ──「 *${botName} ┃ ᴹᴰ* 」──
+▢ 👤 𝐔𝐬𝐞𝐫    : @${userNum}
+▢ 🤖 𝐁𝐨𝐭     : ${botName}
+▢ 📌 𝐏𝐫𝐞𝐟𝐢𝐱  : ${botPrefix}
+▢ 🌐 𝐌𝐨𝐝𝐞    : ${botMode.toLowerCase()}
+▢ 📚 𝐂𝐦𝐝𝐬    : ${totalCmds}
+▢ ⏱️ 𝐀𝐥𝐢𝐯𝐞   : ${uptime}
+▢ ⏳ 𝐄𝐱𝐩𝐢𝐫𝐲  : ${expiryLine}
+└──✦ *${botName} ┃ ᴹᴰ* ✦──
+
+⚡ ──「 Sᴇʟᴇᴄᴛ Cᴀᴛᴇɢᴏʀʏ 」──
+${catLinesGuruTech}
+└──✦ _${botFooter}_ ✦──
+
+> *Reply with a number to view that category*`
             );
         },
     },
