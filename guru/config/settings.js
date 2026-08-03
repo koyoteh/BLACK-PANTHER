@@ -12,7 +12,7 @@ const config = {
     // ── Bot Identity ──────────────────────────────────
     BOT_NAME:       process.env.BOT_NAME     || 'Tehseen Tech Automation',
     OWNER_NAME:     process.env.OWNER_NAME   || 'TehseenTech',
-    OWNER_NUMBER:   process.env.OWNER_NUMBER || '254116284050',
+    OWNER_NUMBER:   process.env.OWNER_NUMBER || '',
     BOT_PREFIX:     process.env.BOT_PREFIX   || '.',
     BOT_VERSION:    '1.0.0',
     PACK_NAME:      process.env.BOT_NAME     || 'Tehseen Tech Automation',

@@ -37,11 +37,12 @@ class DatabaseManager {
                 });
             } else {
                 console.log("📦 Using PostgreSQL Database");
+                const rejectUnauthorized = (process.env.PG_SSL_REJECT_UNAUTHORIZED || "false").toLowerCase() === "true";
                 DatabaseManager.instance = new Sequelize(DATABASE_URL, {
                     dialect: "postgres",
                     protocol: "postgres",
                     dialectOptions: {
-                        ssl: { require: true, rejectUnauthorized: false },
+                        ssl: { require: true, rejectUnauthorized },
                     },
                     logging: false,
                     pool: {

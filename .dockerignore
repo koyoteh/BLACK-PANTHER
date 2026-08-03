@@ -1,0 +1,15 @@
+.git
+.github
+.gitignore
+.dockerignore
+.env
+.env.*
+*.md
+node_modules
+sessions
+guru/session
+guru/database/*.db
+Dockerfile
+docker-compose*.yml
+.replit
+replit.md

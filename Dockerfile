@@ -24,11 +24,17 @@ RUN npm install --legacy-peer-deps --no-audit --no-fund \
 # Copy source
 COPY . .
 
+# Create non-root user
+RUN groupadd -r bot && useradd -r -g bot -d /app bot
+
 # Create runtime directories the bot expects
-RUN mkdir -p sessions guru/database
+RUN mkdir -p sessions guru/database guru/session \
+    && chown -R bot:bot /app
 
 # Remove Replit-only files that have no meaning inside the container
 RUN rm -f .replit replit.md 2>/dev/null || true
+
+USER bot
 
 # Environment defaults (all can be overridden via Heroku Config Vars)
 ENV NODE_ENV=production \

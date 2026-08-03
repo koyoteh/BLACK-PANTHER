@@ -65,9 +65,9 @@ function startWebServer() {
     const app = express();
 
     app.use(express.json());
-    app.use(express.static("guru"));
-    app.get("/",       (_req, res) => res.sendFile(path.join(__dirname, "guru", "guru.html")));
-    app.get("/pair",   (_req, res) => res.sendFile(path.join(__dirname, "guru", "pair.html")));
+    app.use(express.static(path.join(__dirname, "guru", "public")));
+    app.get("/",       (_req, res) => res.sendFile(path.join(__dirname, "guru", "public", "guru.html")));
+    app.get("/pair",   (_req, res) => res.sendFile(path.join(__dirname, "guru", "public", "pair.html")));
     app.get("/health", (_req, res) => res.status(200).json({ status: "alive", uptime: process.uptime() }));
 
     // ── Pairing API ───────────────────────────────────────────────────────────
@@ -223,10 +223,6 @@ async function startBot() {
             onOpen: (socket) => onBotConnected(socket),
         });
 
-        // Cleanup on exit
-        process.on("SIGINT",  () => store?.destroy());
-        process.on("SIGTERM", () => store?.destroy());
-
     } catch (err) {
         console.error("❌ Socket init error:", err.message);
         setTimeout(startBot, 5_000);
@@ -299,6 +295,16 @@ async function sendStartupMessage(socket, s) {
 // ════════════════════════════════════════════════════════════════════════════
 //  BOOTSTRAP
 // ════════════════════════════════════════════════════════════════════════════
+
+process.on("uncaughtException", (err) => {
+    console.error("Uncaught Exception:", err.message);
+});
+process.on("unhandledRejection", (reason) => {
+    console.error("Unhandled Rejection:", reason);
+});
+
+process.on("SIGINT",  () => { store?.destroy(); process.exit(0); });
+process.on("SIGTERM", () => { store?.destroy(); process.exit(0); });
 
 (async () => {
     startWebServer();
