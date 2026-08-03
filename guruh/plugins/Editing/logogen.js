@@ -8,7 +8,7 @@ export default async (context) => {
   if (!text) {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
     return sendInteractive(client, m, `⚡ ──「 LOGO GEN 」──
-▢ Enter title, idea, and slogan.\n▢ Format: _logogen Title|Idea|Slogan_\n▢ \n▢ Example: _logogen Koyoteh|AI-Powered\n▢ Services|Innovation Meets Simplicity_\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Enter title, idea, and slogan.\n▢ Format: _logogen Title|Idea|Slogan_\n▢ \n▢ Example: _logogen TehseenTech|AI-Powered\n▢ Services|Innovation Meets Simplicity_\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
   }
 
   const [title, idea, slogan] = text.split("|");

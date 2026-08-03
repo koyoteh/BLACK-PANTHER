@@ -2,7 +2,7 @@
 const axios = require('axios');
 
 const PANTHER_API_URL = 'https://ktrenqecceeooyrquooc.supabase.co/functions/v1/api-proxy';
-const PANTHER_API_KEY = process.env.KOYOTEH_API_KEY || '';
+const PANTHER_API_KEY = process.env.PANTHER_API_KEY || '';
 
 async function guruApi(action, payload = {}) {
     const res = await axios.post(PANTHER_API_URL, {

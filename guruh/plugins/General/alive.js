@@ -42,9 +42,9 @@ export default {
       }
 
       const possibleAudioPaths = [
-        path.join(__dirname, '..', 'Koyoteh', 'test.mp3'),
-        path.join(process.cwd(), 'Koyoteh', 'test.mp3'),
-        path.join(__dirname, 'Koyoteh', 'test.mp3'),
+        path.join(__dirname, '..', 'TehseenTech', 'test.mp3'),
+        path.join(process.cwd(), 'TehseenTech', 'test.mp3'),
+        path.join(__dirname, 'TehseenTech', 'test.mp3'),
       ];
 
       for (const audioPath of possibleAudioPaths) {

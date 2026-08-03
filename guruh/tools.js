@@ -170,7 +170,7 @@ gmd(
       quotedMsg,
       botFooter,
       botName,
-      KoyotehApi,
+      PantherApi,
       GuruApiKey,
       uploadToImgBB,
       botPrefix,
@@ -223,7 +223,7 @@ gmd(
     await react("⏳");
 
     try {
-      const res = await axios.get(`${KoyotehApi}/api/tools/photoeditor`, {
+      const res = await axios.get(`${PantherApi}/api/tools/photoeditor`, {
         params: { apikey: GuruApiKey, url: imageUrl, prompt: prompt },
       });
 
@@ -268,7 +268,7 @@ gmd(
       quotedMsg,
       botFooter,
       botName,
-      KoyotehApi,
+      PantherApi,
       GuruApiKey,
       uploadToImgBB,
       botPrefix,
@@ -322,7 +322,7 @@ gmd(
     await react("⏳");
 
     try {
-      const res = await axios.get(`${KoyotehApi}/api/tools/topdf`, {
+      const res = await axios.get(`${PantherApi}/api/tools/topdf`, {
         params: { apikey: GuruApiKey, query: content },
         responseType: "arraybuffer",
       });
@@ -358,7 +358,7 @@ gmd(
     description: "Check domain WHOIS information",
   },
   async (from, Guru, conText) => {
-    const { reply, react, q, botFooter, botName, botPrefix, KoyotehApi, GuruApiKey } =
+    const { reply, react, q, botFooter, botName, botPrefix, PantherApi, GuruApiKey } =
       conText;
 
     const domain = q?.trim();
@@ -372,7 +372,7 @@ gmd(
     await react("⏳");
 
     try {
-      const res = await axios.get(`${KoyotehApi}/api/tools/whois`, {
+      const res = await axios.get(`${PantherApi}/api/tools/whois`, {
         params: { apikey: GuruApiKey, domain: domain },
       });
 
@@ -422,7 +422,7 @@ gmd(
       quotedMsg,
       botFooter,
       botName,
-      KoyotehApi,
+      PantherApi,
       GuruApiKey,
       uploadToImgBB,
       botPrefix,
@@ -459,7 +459,7 @@ gmd(
     await react("⏳");
 
     try {
-      const res = await axios.get(`${KoyotehApi}/api/tools/remini`, {
+      const res = await axios.get(`${PantherApi}/api/tools/remini`, {
         params: { apikey: GuruApiKey, url: imageUrl },
       });
 
@@ -677,7 +677,7 @@ gmd(
       botFooter,
       botName,
       botPrefix,
-      KoyotehApi,
+      PantherApi,
       GuruApiKey,
     } = conText;
 
@@ -690,7 +690,7 @@ gmd(
     await react("⏳");
 
     try {
-      const res = await axios.get(`${KoyotehApi}/api/tools/ssweb`, {
+      const res = await axios.get(`${PantherApi}/api/tools/ssweb`, {
         params: { apikey: GuruApiKey, url: url },
         responseType: "arraybuffer",
       });
@@ -909,7 +909,7 @@ gmd({
   }, minutes * 60 * 1000);
 });
 // =============================================
-// KOYOTEH MORPH COMMAND - FINAL
+// TEHSEENTECH MORPH COMMAND - FINAL
 // =============================================
 
 gmd(

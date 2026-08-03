@@ -66,7 +66,7 @@ for (const shortener of shorteners) {
                 q,
                 botName,
                 botFooter,
-                KoyotehApi,
+                PantherApi,
                 GuruApiKey,
             } = conText;
 
@@ -91,7 +91,7 @@ for (const shortener of shorteners) {
 
             try {
                 const res = await axios.get(
-                    `${KoyotehApi}/api/tools/${shortener.endpoint}`,
+                    `${PantherApi}/api/tools/${shortener.endpoint}`,
                     {
                         params: {
                             apikey: GuruApiKey,

@@ -48,7 +48,7 @@ gmd(
             newsletterJid,
             gmdBuffer,
             formatAudio,
-            KoyotehApi,
+            PantherApi,
             GuruApiKey,
         } = conText;
 
@@ -68,7 +68,7 @@ gmd(
             const t0 = Date.now();
             let result = await Promise.any(
                 endpoints.map(endpoint => {
-                    const apiUrl = `${KoyotehApi}/api/download/${endpoint}?apikey=${GuruApiKey}&url=${encodeURIComponent(trackUrl)}`;
+                    const apiUrl = `${PantherApi}/api/download/${endpoint}?apikey=${GuruApiKey}&url=${encodeURIComponent(trackUrl)}`;
                     return axios.get(apiUrl, { timeout: 15000 }).then(res => {
                         if (res.data?.success && res.data?.result?.download_url) {
                             return res.data.result;
@@ -141,7 +141,7 @@ gmd(
                 return;
             }
 
-            const searchUrl = `${KoyotehApi}/api/search/spotifysearch?apikey=${GuruApiKey}&query=${encodeURIComponent(q)}`;
+            const searchUrl = `${PantherApi}/api/search/spotifysearch?apikey=${GuruApiKey}&query=${encodeURIComponent(q)}`;
             const searchResponse = await axios.get(searchUrl, {
                 timeout: 30000,
             });
@@ -284,7 +284,7 @@ gmd(
             gmdBuffer,
             formatAudio,
             formatVideo,
-            KoyotehApi,
+            PantherApi,
             GuruApiKey,
         } = conText;
 
@@ -299,7 +299,7 @@ gmd(
         }
 
         try {
-            const apiUrl = `${KoyotehApi}/api/download/gdrivedl?apikey=${GuruApiKey}&url=${encodeURIComponent(q)}`;
+            const apiUrl = `${PantherApi}/api/download/gdrivedl?apikey=${GuruApiKey}&url=${encodeURIComponent(q)}`;
             const response = await axios.get(apiUrl, { timeout: 60000 });
 
             if (!response.data?.success || !response.data?.result) {
@@ -436,7 +436,7 @@ gmd(
             newsletterJid,
             gmdBuffer,
             formatAudio,
-            KoyotehApi,
+            PantherApi,
             GuruApiKey,
         } = conText;
 
@@ -451,7 +451,7 @@ gmd(
         }
 
         try {
-            const apiUrl = `${KoyotehApi}/api/download/mediafire?apikey=${GuruApiKey}&url=${encodeURIComponent(q)}`;
+            const apiUrl = `${PantherApi}/api/download/mediafire?apikey=${GuruApiKey}&url=${encodeURIComponent(q)}`;
             const response = await axios.get(apiUrl, { timeout: 60000 });
 
             if (!response.data?.success || !response.data?.result) {
@@ -560,7 +560,7 @@ gmd(
             botName,
             botFooter,
             newsletterJid,
-            KoyotehApi,
+            PantherApi,
             GuruApiKey,
         } = conText;
 
@@ -574,7 +574,7 @@ gmd(
         try {
          //   await reply(`Searching for *${q}* APK...`);
 
-            const apiUrl = `${KoyotehApi}/api/download/apkdl?apikey=${GuruApiKey}&appName=${encodeURIComponent(q)}`;
+            const apiUrl = `${PantherApi}/api/download/apkdl?apikey=${GuruApiKey}&appName=${encodeURIComponent(q)}`;
             const response = await axios.get(apiUrl, { timeout: 60000 });
 
             if (!response.data?.success || !response.data?.result) {
@@ -641,7 +641,7 @@ gmd(
             react,
             botName,
             botFooter,
-            KoyotehApi,
+            PantherApi,
             GuruApiKey,
         } = conText;
 
@@ -660,7 +660,7 @@ gmd(
         try {
             await reply("Fetching paste content...");
 
-            const apiUrl = `${KoyotehApi}/api/download/pastebin?apikey=${GuruApiKey}&url=${encodeURIComponent(q)}`;
+            const apiUrl = `${PantherApi}/api/download/pastebin?apikey=${GuruApiKey}&url=${encodeURIComponent(q)}`;
             const response = await axios.get(apiUrl, { timeout: 30000 });
 
             if (!response.data?.success || !response.data?.result) {
@@ -741,7 +741,7 @@ gmd(
             gmdJson,
             gmdBuffer,
             formatVideo,
-            KoyotehApi,
+            PantherApi,
             GuruApiKey,
         } = conText;
 
@@ -760,7 +760,7 @@ gmd(
 
         try {
             const searchResponse = await gmdJson(
-                `${KoyotehApi}/search/yts?apikey=${GuruApiKey}&query=${encodeURIComponent(q)}`,
+                `${PantherApi}/search/yts?apikey=${GuruApiKey}&query=${encodeURIComponent(q)}`,
             );
             const videoInfo = searchResponse.results[0];
             const infoMessage = {

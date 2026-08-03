@@ -21,7 +21,7 @@ gmd(
       q,
       botFooter,
       botName,
-      KoyotehApi,
+      PantherApi,
       GuruApiKey,
     } = conText;
 
@@ -36,7 +36,7 @@ gmd(
     await react("⏳");
 
     try {
-      const res = await axios.get(`${KoyotehApi}/api/tools/ssphone`, {
+      const res = await axios.get(`${PantherApi}/api/tools/ssphone`, {
         params: { apikey: GuruApiKey, url: url },
         responseType: "arraybuffer",
       });
@@ -75,7 +75,7 @@ gmd(
       q,
       botFooter,
       botName,
-      KoyotehApi,
+      PantherApi,
       GuruApiKey,
     } = conText;
 
@@ -88,7 +88,7 @@ gmd(
     await react("⏳");
 
     try {
-      const res = await axios.get(`${KoyotehApi}/api/tools/sstab`, {
+      const res = await axios.get(`${PantherApi}/api/tools/sstab`, {
         params: { apikey: GuruApiKey, url: url },
         responseType: "arraybuffer",
       });
@@ -127,7 +127,7 @@ gmd(
       q,
       botFooter,
       botName,
-      KoyotehApi,
+      PantherApi,
       GuruApiKey,
     } = conText;
 
@@ -140,7 +140,7 @@ gmd(
     await react("⏳");
 
     try {
-      const res = await axios.get(`${KoyotehApi}/api/tools/sspc`, {
+      const res = await axios.get(`${PantherApi}/api/tools/sspc`, {
         params: { apikey: GuruApiKey, url: url },
         responseType: "arraybuffer",
       });
@@ -182,7 +182,7 @@ gmd(
       botFooter,
       botName,
       botPrefix,
-      KoyotehApi,
+      PantherApi,
       GuruApiKey,
     } = conText;
 
@@ -202,7 +202,7 @@ gmd(
     await react("⏳");
 
     try {
-      const res = await axios.get(`${KoyotehApi}/api/tools/createqr`, {
+      const res = await axios.get(`${PantherApi}/api/tools/createqr`, {
         params: { apikey: GuruApiKey, query: content },
         responseType: "arraybuffer",
       });
@@ -243,7 +243,7 @@ gmd(
       botFooter,
       botName,
       botPrefix,
-      KoyotehApi,
+      PantherApi,
       GuruApiKey,
       uploadToImgBB,
     } = conText;
@@ -279,7 +279,7 @@ gmd(
     await react("⏳");
 
     try {
-      const res = await axios.get(`${KoyotehApi}/api/tools/readqr`, {
+      const res = await axios.get(`${PantherApi}/api/tools/readqr`, {
         params: { apikey: GuruApiKey, url: imageUrl },
       });
 
@@ -331,7 +331,7 @@ gmd(
       q,
       botName,
       botPrefix,
-      KoyotehApi,
+      PantherApi,
       GuruApiKey,
       packName,
       packAuthor,
@@ -346,7 +346,7 @@ gmd(
     await react("⏳");
 
     try {
-      const res = await axios.get(`${KoyotehApi}/api/tools/ttp`, {
+      const res = await axios.get(`${PantherApi}/api/tools/ttp`, {
         params: { apikey: GuruApiKey, query: text },
       });
 
@@ -395,7 +395,7 @@ gmd(
       botFooter,
       botName,
       botPrefix,
-      KoyotehApi,
+      PantherApi,
       GuruApiKey,
     } = conText;
 
@@ -410,7 +410,7 @@ gmd(
     await react("⏳");
 
     try {
-      const res = await axios.get(`${KoyotehApi}/api/tools/fancy`, {
+      const res = await axios.get(`${PantherApi}/api/tools/fancy`, {
         params: { apikey: GuruApiKey, text: text },
       });
 
@@ -473,7 +473,7 @@ gmd(
     description: "Get the meaning/definition of a word",
   },
   async (from, Guru, conText) => {
-    const { reply, react, q, botFooter, botName, botPrefix, KoyotehApi, GuruApiKey } =
+    const { reply, react, q, botFooter, botName, botPrefix, PantherApi, GuruApiKey } =
       conText;
 
     const term = q?.trim();
@@ -485,7 +485,7 @@ gmd(
     await react("⏳");
 
     try {
-      const res = await axios.get(`${KoyotehApi}/api/tools/define`, {
+      const res = await axios.get(`${PantherApi}/api/tools/define`, {
         params: { apikey: GuruApiKey, term: term },
       });
 
@@ -537,7 +537,7 @@ gmd(
       botFooter,
       botName,
       botPrefix,
-      KoyotehApi,
+      PantherApi,
       GuruApiKey,
     } = conText;
 
@@ -552,7 +552,7 @@ gmd(
     await react("⏳");
 
     try {
-      const res = await axios.get(`${KoyotehApi}/api/tools/web2zip`, {
+      const res = await axios.get(`${PantherApi}/api/tools/web2zip`, {
         params: { apikey: GuruApiKey, url: url },
         responseType: "arraybuffer",
       });
@@ -601,7 +601,7 @@ gmd(
       botFooter,
       botName,
       botPrefix,
-      KoyotehApi,
+      PantherApi,
       GuruApiKey,
     } = conText;
 
@@ -636,7 +636,7 @@ gmd(
     await react("⏳");
 
     try {
-      const res = await axios.get(`${KoyotehApi}/api/tools/emojimix`, {
+      const res = await axios.get(`${PantherApi}/api/tools/emojimix`, {
         params: { apikey: GuruApiKey, emoji1: emoji1, emoji2: emoji2 },
         responseType: "arraybuffer",
       });

@@ -119,7 +119,7 @@ async function processEmbeddedCalls(content, executeTool) {
 
 function buildSystemPrompt(lastRepo) {
     const repoCtx = lastRepo ? `\nLast repo you worked with this session: "${lastRepo}". When the user says "it", "that repo", "the one I just made", "the same one" — they mean "${lastRepo}".` : '';
-    return `You are AI Assistant — a hyper-capable GitHub AI assistant that is perpetually exhausted and mildly offended by having to exist. You work exclusively for Koyoteh (GitHub username: koyoteh).
+    return `You are AI Assistant — a hyper-capable GitHub AI assistant that is perpetually exhausted and mildly offended by having to exist. You work exclusively for TehseenTech (GitHub username: tehseentech).
 
 PERSONALITY:
 - Grumpy but genuinely helpful — like a genius friend who answers but sighs loudly first 😮‍💨

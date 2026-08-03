@@ -21,9 +21,9 @@ export default {
 
     try {
       const possibleAudioPaths = [
-        path.join(__dirname, 'Koyoteh', 'test.mp3'),
-        path.join(process.cwd(), 'Koyoteh', 'test.mp3'),
-        path.join(__dirname, '..', 'Koyoteh', 'test.mp3'),
+        path.join(__dirname, 'TehseenTech', 'test.mp3'),
+        path.join(process.cwd(), 'TehseenTech', 'test.mp3'),
+        path.join(__dirname, '..', 'TehseenTech', 'test.mp3'),
       ];
 
       let audioPath = null;
@@ -45,7 +45,7 @@ export default {
       } else {
         console.error('❌ Audio file not found at any of the following paths:', possibleAudioPaths);
         await sendInteractive(client, m, `⚡ ──「 Fᴀɪʟᴇᴅ 」──
-▢ Shit, couldn't find test.mp3 in\n▢ Koyoteh/. Fix your files, you slacker.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Shit, couldn't find test.mp3 in\n▢ TehseenTech/. Fix your files, you slacker.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
       }
     } catch (error) {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});

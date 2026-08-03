@@ -72,7 +72,7 @@ gmd(
             react,
             botFooter,
             botName,
-            KoyotehApi,
+            PantherApi,
             GuruApiKey,
         } = conText;
 
@@ -121,7 +121,7 @@ Use *.delmail* first to delete it, then generate a new one.
 
         try {
             const res = await axios.get(
-                `${KoyotehApi}/api/tempmail/generate`,
+                `${PantherApi}/api/tempmail/generate`,
                 {
                     params: { apikey: GuruApiKey },
                     timeout: 30000,
@@ -195,7 +195,7 @@ gmd(
             react,
             botFooter,
             botName,
-            KoyotehApi,
+            PantherApi,
             GuruApiKey,
         } = conText;
 
@@ -213,7 +213,7 @@ gmd(
         await react("⏳");
 
         try {
-            const res = await axios.get(`${KoyotehApi}/api/tempmail/inbox`, {
+            const res = await axios.get(`${PantherApi}/api/tempmail/inbox`, {
                 params: { apikey: GuruApiKey, email: email },
                 timeout: 30000,
             });
@@ -376,7 +376,7 @@ gmd(
             q,
             botFooter,
             botName,
-            KoyotehApi,
+            PantherApi,
             GuruApiKey,
         } = conText;
 
@@ -403,7 +403,7 @@ gmd(
 
         try {
             const inboxRes = await axios.get(
-                `${KoyotehApi}/api/tempmail/inbox`,
+                `${PantherApi}/api/tempmail/inbox`,
                 {
                     params: { apikey: GuruApiKey, email: email },
                     timeout: 30000,
@@ -479,7 +479,7 @@ gmd(
                         email,
                     );
                     const msgRes = await axios.get(
-                        `${KoyotehApi}/api/tempmail/message`,
+                        `${PantherApi}/api/tempmail/message`,
                         {
                             params: {
                                 apikey: GuruApiKey,

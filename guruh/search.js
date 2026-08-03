@@ -35,7 +35,7 @@ gmd(
     description: "perform youtube search",
   },
   async (from, Guru, conText) => {
-    const { q, mek, reply, react, sender, botFooter, gmdBuffer, KoyotehApi, GuruApiKey } = conText;
+    const { q, mek, reply, react, sender, botFooter, gmdBuffer, PantherApi, GuruApiKey } = conText;
 
     if (!q) {
       await react("❌");
@@ -43,7 +43,7 @@ gmd(
     }
 
     try {
-      const apiUrl = `${KoyotehApi}/api/search/youtube?apikey=${GuruApiKey}&q=${encodeURIComponent(q)}`;
+      const apiUrl = `${PantherApi}/api/search/youtube?apikey=${GuruApiKey}&q=${encodeURIComponent(q)}`;
       const res = await axios.get(apiUrl, { timeout: 30000 });
       const results = res.data?.videos;
 
@@ -146,7 +146,7 @@ gmd(
       botName,
       botFooter,
       newsletterJid,
-      KoyotehApi,
+      PantherApi,
       GuruApiKey,
       getMediaBuffer,
       uploadToCatbox,
@@ -200,7 +200,7 @@ gmd(
         ({ url: fileUrl } = await uploadToCatbox(buffer, `audio.${ext}`));
       }
 
-      const apiUrl = `${KoyotehApi}/api/search/shazam?apikey=${GuruApiKey}&url=${encodeURIComponent(fileUrl)}`;
+      const apiUrl = `${PantherApi}/api/search/shazam?apikey=${GuruApiKey}&url=${encodeURIComponent(fileUrl)}`;
       const res = await axios.get(apiUrl, { timeout: 60000 });
 
       if (!res.data?.success || !res.data?.result) {
@@ -270,7 +270,7 @@ gmd(
     description: "Search Google and display first 5 results",
   },
   async (from, Guru, conText) => {
-    const { q, mek, reply, react, botFooter, KoyotehApi, GuruApiKey } =
+    const { q, mek, reply, react, botFooter, PantherApi, GuruApiKey } =
       conText;
 
     if (!q) {
@@ -279,7 +279,7 @@ gmd(
     }
 
     try {
-      const apiUrl = `${KoyotehApi}/api/search/google?apikey=${GuruApiKey}&query=${encodeURIComponent(q)}`;
+      const apiUrl = `${PantherApi}/api/search/google?apikey=${GuruApiKey}&query=${encodeURIComponent(q)}`;
       const res = await axios.get(apiUrl, { timeout: 60000 });
 
       if (
@@ -384,7 +384,7 @@ gmd(
       react,
       botName,
       botFooter,
-      KoyotehApi,
+      PantherApi,
       GuruApiKey,
     } = conText;
 
@@ -394,7 +394,7 @@ gmd(
     }
 
     try {
-      const apiUrl = `${KoyotehApi}/api/search/lyricsv2?apikey=${GuruApiKey}&query=${encodeURIComponent(q)}`;
+      const apiUrl = `${PantherApi}/api/search/lyricsv2?apikey=${GuruApiKey}&query=${encodeURIComponent(q)}`;
       const res = await axios.get(apiUrl, { timeout: 60000 });
 
       if (!res.data?.success || !res.data?.result) {
@@ -442,7 +442,7 @@ gmd(
     description: "Search HappyMod for modded APKs",
   },
   async (from, Guru, conText) => {
-    const { q, mek, reply, react, botFooter, KoyotehApi, GuruApiKey } =
+    const { q, mek, reply, react, botFooter, PantherApi, GuruApiKey } =
       conText;
 
     if (!q) {
@@ -451,7 +451,7 @@ gmd(
     }
 
     try {
-      const apiUrl = `${KoyotehApi}/api/search/happymod?apikey=${GuruApiKey}&query=${encodeURIComponent(q)}`;
+      const apiUrl = `${PantherApi}/api/search/happymod?apikey=${GuruApiKey}&query=${encodeURIComponent(q)}`;
       const res = await axios.get(apiUrl, { timeout: 60000 });
 
       if (!res.data?.success || !res.data?.results?.data) {
@@ -536,7 +536,7 @@ gmd(
     description: "Search APK Mirror for apps",
   },
   async (from, Guru, conText) => {
-    const { q, mek, reply, react, botFooter, KoyotehApi, GuruApiKey } =
+    const { q, mek, reply, react, botFooter, PantherApi, GuruApiKey } =
       conText;
 
     if (!q) {
@@ -545,7 +545,7 @@ gmd(
     }
 
     try {
-      const apiUrl = `${KoyotehApi}/api/search/apkmirror?apikey=${GuruApiKey}&query=${encodeURIComponent(q)}`;
+      const apiUrl = `${PantherApi}/api/search/apkmirror?apikey=${GuruApiKey}&query=${encodeURIComponent(q)}`;
       const res = await axios.get(apiUrl, { timeout: 60000 });
 
       if (!res.data?.success || !res.data?.results?.data) {
@@ -637,7 +637,7 @@ gmd(
       react,
       packName,
       packAuthor,
-      KoyotehApi,
+      PantherApi,
       GuruApiKey,
     } = conText;
 
@@ -647,7 +647,7 @@ gmd(
     }
 
     try {
-      const apiUrl = `${KoyotehApi}/api/search/stickersearch?apikey=${GuruApiKey}&query=${encodeURIComponent(q)}`;
+      const apiUrl = `${PantherApi}/api/search/stickersearch?apikey=${GuruApiKey}&query=${encodeURIComponent(q)}`;
       const res = await axios.get(apiUrl, { timeout: 60000 });
 
       if (

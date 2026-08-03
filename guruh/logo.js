@@ -188,7 +188,7 @@ async function createLogoCommand(config) {
         mek,
         reply,
         react,
-        KoyotehApi,
+        PantherApi,
         GuruApiKey,
         pushname,
         botCaption,
@@ -204,7 +204,7 @@ async function createLogoCommand(config) {
       try {
         await react("⏳");
 
-        const apiUrl = `${KoyotehApi}/api/ephoto360/${config.endpoint}?apikey=${GuruApiKey}&text=${encodeURIComponent(q)}`;
+        const apiUrl = `${PantherApi}/api/ephoto360/${config.endpoint}?apikey=${GuruApiKey}&text=${encodeURIComponent(q)}`;
         const res = await axios.get(apiUrl, { timeout: 60000 });
 
         if (!res.data || !res.data.success || !res.data.result?.image_url) {

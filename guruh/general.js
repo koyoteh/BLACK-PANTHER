@@ -215,7 +215,7 @@ gmd(
 ▢ 🌐 Mode     : *${(botMode || "public").toUpperCase()}*
 ▢ 📚 Commands : *${totalCmds}*
 ▢ ⏱️ Uptime   : *${h}h ${m}m*
-▢ 👑 Owner    : *${ownerName || "Koyoteh"}*
+▢ 👑 Owner    : *${ownerName || "TehseenTech"}*
 ▢ 📦 Library  : Baileys
 └──✦ _${botName || "BLACK PANTHER"} ┃ ᴹᴰ_ ✦──`
         );

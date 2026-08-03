@@ -141,7 +141,7 @@ gmd(
 
         const rawRepo = await getSetting("BOT_REPO");
         const match = String(rawRepo || "").match(/github\.com\/([^/\s]+\/[^/\s]+)/);
-        const repo = match ? match[1].replace(/\.git$/, "").replace(/\/*$/, "") : (rawRepo || "koyoteh/BLACK-PANTHER-");
+        const repo = match ? match[1].replace(/\.git$/, "").replace(/\/*$/, "") : (rawRepo || "tehseentech/black-panther");
 
         const updated = await runUpdate(repo, Guru, null);
         if (updated) {
@@ -349,7 +349,7 @@ gmd(
     }
 
     const commitMsg = args.join(" ").trim() || `bot: auto-push ${new Date().toISOString()}`;
-    const remoteUrl = `https://x-access-token:${token}@github.com/koyoteh/BLACK-PANTHER-`;
+    const remoteUrl = `https://x-access-token:${token}@github.com/tehseentech/black-panther`;
 
     await react("⏳");
     await reply("⏳ Staging and pushing to GitHub...");
@@ -372,7 +372,7 @@ gmd(
             `✅ *Successfully pushed to GitHub!*\n\n` +
             `📝 Commit: _${commitMsg}_\n\n` +
             `📌 *Latest commits:*\n\`\`\`\n${(log || "").trim()}\n\`\`\`\n\n` +
-            `🔗 https://github.com/koyoteh/BLACK-PANTHER-`
+            `🔗 https://github.com/tehseentech/black-panther`
           );
         });
       }

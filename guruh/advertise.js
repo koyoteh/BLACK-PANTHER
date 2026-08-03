@@ -183,7 +183,7 @@ gmd(
                 `*With optional fields:*\n` +
                 `\`\`\`${p}setad Business Name | Description | Contact | Location | Working Hours | Website\`\`\`\n\n` +
                 `*Example:*\n` +
-                `\`\`\`${p}setad Koyoteh Shop | Phone repairs & accessories | +254700000000 | Nairobi CBD | Mon-Sat 8am-6pm | koyoteh.co.ke\`\`\`\n\n` +
+                `\`\`\`${p}setad TehseenTech Shop | Phone repairs & accessories | +254700000000 | Nairobi CBD | Mon-Sat 8am-6pm | tehseentech.co.ke\`\`\`\n\n` +
                 `> _${botFooter || "BLACK PANTHER MD"}_`
             );
         }
@@ -315,7 +315,7 @@ gmd(
                 `  • \`hours\` — Working hours\n` +
                 `  • \`website\` — Website URL\n\n` +
                 `*Example:*\n` +
-                `\`${p}editad name Koyoteh Enterprises\``
+                `\`${p}editad name TehseenTech Enterprises\``
             );
         }
 

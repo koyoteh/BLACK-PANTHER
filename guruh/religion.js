@@ -12,7 +12,7 @@ gmd(
     description: "Get Bible verses",
   },
   async (from, Guru, conText) => {
-    const { reply, react, q, botFooter, botName, KoyotehApi, GuruApiKey } =
+    const { reply, react, q, botFooter, botName, PantherApi, GuruApiKey } =
       conText;
 
     const verse = q?.trim();
@@ -26,7 +26,7 @@ gmd(
     await react("⏳");
 
     try {
-      const res = await axios.get(`${KoyotehApi}/api/search/bible`, {
+      const res = await axios.get(`${PantherApi}/api/search/bible`, {
         params: { apikey: GuruApiKey, verse: verse },
       });
 

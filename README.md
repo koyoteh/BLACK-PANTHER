@@ -6,11 +6,11 @@
 
 <br/>
 
-[![GitHub Stars](https://img.shields.io/github/stars/koyoteh/BLACK-PANTHER?style=for-the-badge&logo=github&color=9B59B6&labelColor=0D0D0D)](https://github.com/koyoteh/BLACK-PANTHER/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/koyoteh/BLACK-PANTHER?style=for-the-badge&logo=github&color=8E44AD&labelColor=0D0D0D)](https://github.com/koyoteh/BLACK-PANTHER/network/members)
-[![GitHub Issues](https://img.shields.io/github/issues/koyoteh/BLACK-PANTHER?style=for-the-badge&logo=github&color=6C3483&labelColor=0D0D0D)](https://github.com/koyoteh/BLACK-PANTHER/issues)
+[![GitHub Stars](https://img.shields.io/github/stars/tehseentech/black-panther?style=for-the-badge&logo=github&color=9B59B6&labelColor=0D0D0D)](https://github.com/tehseentech/black-panther/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/tehseentech/black-panther?style=for-the-badge&logo=github&color=8E44AD&labelColor=0D0D0D)](https://github.com/tehseentech/black-panther/network/members)
+[![GitHub Issues](https://img.shields.io/github/issues/tehseentech/black-panther?style=for-the-badge&logo=github&color=6C3483&labelColor=0D0D0D)](https://github.com/tehseentech/black-panther/issues)
 [![License](https://img.shields.io/badge/LICENSE-MIT-9B59B6?style=for-the-badge&logo=opensourceinitiative&logoColor=white&labelColor=0D0D0D)](LICENSE)
-[![Author](https://img.shields.io/badge/AUTHOR-KOYOTEH-8E44AD?style=for-the-badge&logo=github&logoColor=white&labelColor=0D0D0D)](https://github.com/koyoteh)
+[![Author](https://img.shields.io/badge/AUTHOR-TEHSEENTECH-8E44AD?style=for-the-badge&logo=github&logoColor=white&labelColor=0D0D0D)](https://github.com/tehseentech)
 
 <br/>
 
@@ -40,8 +40,8 @@
 
 ### 1️⃣ Fork the Repository
 
-[![Fork Repo](https://img.shields.io/badge/FORK%20REPO-9B59B6?style=for-the-badge&logo=github&logoColor=white)](https://github.com/koyoteh/BLACK-PANTHER/fork)
-[![Download ZIP](https://img.shields.io/badge/DOWNLOAD%20ZIP-8E44AD?style=for-the-badge&logo=github&logoColor=white)](https://github.com/koyoteh/BLACK-PANTHER/archive/refs/heads/main.zip)
+[![Fork Repo](https://img.shields.io/badge/FORK%20REPO-9B59B6?style=for-the-badge&logo=github&logoColor=white)](https://github.com/tehseentech/black-panther/fork)
+[![Download ZIP](https://img.shields.io/badge/DOWNLOAD%20ZIP-8E44AD?style=for-the-badge&logo=github&logoColor=white)](https://github.com/tehseentech/black-panther/archive/refs/heads/main.zip)
 
 ### 2️⃣ Get Your SESSION ID
 
@@ -66,11 +66,11 @@ TIME_ZONE=Africa/Nairobi
 <div align="center">
 
 ### Heroku
-[![Deploy to Heroku](https://img.shields.io/badge/DEPLOY%20TO%20HEROKU-430098?style=for-the-badge&logo=heroku&logoColor=white)](https://heroku.com/deploy?template=https://github.com/koyoteh/BLACK-PANTHER)
+[![Deploy to Heroku](https://img.shields.io/badge/DEPLOY%20TO%20HEROKU-430098?style=for-the-badge&logo=heroku&logoColor=white)](https://heroku.com/deploy?template=https://github.com/tehseentech/black-panther)
 
 ### VPS / Termux / Local
 ```bash
-git clone https://github.com/koyoteh/BLACK-PANTHER.git
+git clone https://github.com/tehseentech/black-panther.git
 cd BLACK-PANTHER
 npm install
 npm start
@@ -100,7 +100,7 @@ npm start
 |---|---|---|
 | `SESSION_ID` | WhatsApp session token (`PANTHER~...`) | **Required** |
 | `MODE` | `public` or `private` | `public` |
-| `OWNER_NAME` | Your display name | `Koyoteh` |
+| `OWNER_NAME` | Your display name | `TehseenTech` |
 | `TIME_ZONE` | Your timezone | `Africa/Nairobi` |
 | `DATABASE_URL` | PostgreSQL URL (optional) | SQLite fallback |
 | `EXPIRY_DATE` | Bot expiry `YYYY-MM-DD` | None |
@@ -111,8 +111,8 @@ npm start
 
 <div align="center">
 
-[![GitHub](https://img.shields.io/badge/GitHub-koyoteh-9B59B6?style=for-the-badge&logo=github&logoColor=white)](https://github.com/koyoteh)
-[![Star](https://img.shields.io/badge/⭐%20Star%20This%20Repo-9B59B6?style=for-the-badge)](https://github.com/koyoteh/BLACK-PANTHER/stargazers)
+[![GitHub](https://img.shields.io/badge/GitHub-tehseentech-9B59B6?style=for-the-badge&logo=github&logoColor=white)](https://github.com/tehseentech)
+[![Star](https://img.shields.io/badge/⭐%20Star%20This%20Repo-9B59B6?style=for-the-badge)](https://github.com/tehseentech/black-panther/stargazers)
 
 </div>
 
@@ -120,7 +120,7 @@ npm start
 
 <div align="center">
 
-**Built with 🐾 by [KOYOTEH](https://github.com/koyoteh)**
+**Built with 🐾 by [TEHSEENTECH](https://github.com/tehseentech)**
 
 *BLACK PANTHER MD — silent, swift, unstoppable.*
 

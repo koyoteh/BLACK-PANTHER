@@ -1,6 +1,6 @@
 // ════════════════════════════════════════════════════════════════════════════
 //  BLACK PANTHER MD — Bot Entry Point
-//  by Koyoteh | github.com/koyoteh
+//  by TehseenTech | github.com/tehseentech
 // ════════════════════════════════════════════════════════════════════════════
 
 "use strict";

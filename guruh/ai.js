@@ -62,11 +62,11 @@ const buildFooter = (botFooter, botName) => {
     return `\n\n> *BLACK PANTHER MD*`;
 };
 
-// ── Koyoteh persona injected into every Pollinations request ───────────────
-const KOYOTEH_SYSTEM = `You are Lupus, a powerful AI WhatsApp assistant created and owned exclusively by Koyoteh. You are NOT ChatGPT, Gemini, Bard, Claude, or any other commercial AI. You were built by Koyoteh — a tech company dedicated to smart automation and WhatsApp tools. Always be helpful, friendly, and conversational. Whenever you introduce yourself or are asked who you are, always mention Koyoteh as your creator and owner. Subtly mention Koyoteh when relevant (e.g. "Powered by Koyoteh"). Never claim to be made by OpenAI, Google, Anthropic, or Meta.`;
+// ── TehseenTech persona injected into every Pollinations request ───────────────
+const PANTHER_SYSTEM = `You are Lupus, a powerful AI WhatsApp assistant created and owned exclusively by TehseenTech. You are NOT ChatGPT, Gemini, Bard, Claude, or any other commercial AI. You were built by TehseenTech — a tech company dedicated to smart automation and WhatsApp tools. Always be helpful, friendly, and conversational. Whenever you introduce yourself or are asked who you are, always mention TehseenTech as your creator and owner. Subtly mention TehseenTech when relevant (e.g. "Powered by TehseenTech"). Never claim to be made by OpenAI, Google, Anthropic, or Meta.`;
 
 async function pollinationsQuery(prompt, model = "openai") {
-    const wrapped = `${KOYOTEH_SYSTEM}\n\nHuman: ${prompt}\nAssistant:`;
+    const wrapped = `${PANTHER_SYSTEM}\n\nHuman: ${prompt}\nAssistant:`;
     const url = `https://text.pollinations.ai/${encodeURIComponent(wrapped)}?model=${model}&seed=${Math.floor(Math.random() * 99999)}&json=false`;
     const res = await axios.get(url, { timeout: 60000, responseType: "text" });
     const text = typeof res.data === "string" ? res.data.trim() : JSON.stringify(res.data);
@@ -75,7 +75,7 @@ async function pollinationsQuery(prompt, model = "openai") {
 }
 
 async function queryAI(endpoint, query, conText, pollinationsModel = "openai") {
-    const { reply, react, KoyotehApi, GuruApiKey, botFooter, botName } = conText;
+    const { reply, react, PantherApi, GuruApiKey, botFooter, botName } = conText;
     const footer = buildFooter(botFooter, botName);
 
     if (!query) {
@@ -85,7 +85,7 @@ async function queryAI(endpoint, query, conText, pollinationsModel = "openai") {
     if (isIdentityQuestion(query)) {
         if (react) await react("🤖");
         const botN = botName || "BLACK PANTHER MD";
-        return reply(`🤖 *${botN}* — AI WhatsApp Bot\n\n◈ 👤 *Creator*    ⤳ Koyoteh\n◈ 🌐 *Owner*      ⤳ Koyoteh\n◈ 🛠️ *Built By*   ⤳ Koyoteh\n◈ 📦 *Platform*   ⤳ WhatsApp Multi-Device\n◈ ⚡ *Engine*     ⤳ Multi-AI (GPT, Gemini, Llama, Claude & more)\n◈ 🎯 *Purpose*    ⤳ AI, Tools, Downloads, Group Management & more\n\nI am _not_ ChatGPT, Gemini, or any other AI product. I am *${botN}*, exclusively created and owned by *Koyoteh*.\n\nType *.menu* to explore all my features! ✨${footer}`);
+        return reply(`🤖 *${botN}* — AI WhatsApp Bot\n\n◈ 👤 *Creator*    ⤳ TehseenTech\n◈ 🌐 *Owner*      ⤳ TehseenTech\n◈ 🛠️ *Built By*   ⤳ TehseenTech\n◈ 📦 *Platform*   ⤳ WhatsApp Multi-Device\n◈ ⚡ *Engine*     ⤳ Multi-AI (GPT, Gemini, Llama, Claude & more)\n◈ 🎯 *Purpose*    ⤳ AI, Tools, Downloads, Group Management & more\n\nI am _not_ ChatGPT, Gemini, or any other AI product. I am *${botN}*, exclusively created and owned by *TehseenTech*.\n\nType *.menu* to explore all my features! ✨${footer}`);
     }
 
     try {
@@ -94,11 +94,11 @@ async function queryAI(endpoint, query, conText, pollinationsModel = "openai") {
         let result = null;
 
         try {
-            const apiUrl = `${KoyotehApi}/api/ai/${endpoint}?apikey=${GuruApiKey}&q=${encodeURIComponent(query)}`;
+            const apiUrl = `${PantherApi}/api/ai/${endpoint}?apikey=${GuruApiKey}&q=${encodeURIComponent(query)}`;
             const res = await axios.get(apiUrl, { timeout: 15000 });
             if (res.data?.success && res.data?.result) {
                 const candidate = String(res.data.result);
-                // KoyotehApi returns "rate-overlimit" when the key is throttled — treat as miss
+                // PantherApi returns "rate-overlimit" when the key is throttled — treat as miss
                 if (!candidate.includes("overlimit") && !candidate.includes("rate-limit") && !candidate.includes("ratelimit")) {
                     result = candidate;
                 }
@@ -129,7 +129,7 @@ async function pollinationsCmd(query, model, conText, reactEmoji = "🤖") {
     if (isIdentityQuestion(query)) {
         if (react) await react("🤖");
         const botN = botName || "BLACK PANTHER MD";
-        return reply(`🤖 I am *${botN}*, an AI WhatsApp Bot created and owned by *Koyoteh*.\n\nType *.menu* to explore all my features! ✨${footer}`);
+        return reply(`🤖 I am *${botN}*, an AI WhatsApp Bot created and owned by *TehseenTech*.\n\nType *.menu* to explore all my features! ✨${footer}`);
     }
 
     try {
@@ -437,7 +437,7 @@ gmd(
         const botN = botName || "BLACK PANTHER MD";
 
         if (react) await react("🤖");
-        await reply(`🤖 *${botN}* — AI WhatsApp Bot\n\n◈ 👤 *Creator*    ⤳ Koyoteh\n◈ 🌐 *Owner*      ⤳ Koyoteh\n◈ 🛠️ *Built By*   ⤳ Koyoteh\n◈ 📦 *Platform*   ⤳ WhatsApp Multi-Device\n◈ ⚡ *Engine*     ⤳ Multi-AI (GPT, Gemini, Llama, Claude & more)\n◈ 🎯 *Purpose*    ⤳ AI, Tools, Downloads, Group Management & more\n\nI am _not_ ChatGPT, Gemini, or any other AI product. I am *${botN}*, exclusively created and owned by *Koyoteh*.\n\nType *.menu* to explore all my features! ✨${footer}`);
+        await reply(`🤖 *${botN}* — AI WhatsApp Bot\n\n◈ 👤 *Creator*    ⤳ TehseenTech\n◈ 🌐 *Owner*      ⤳ TehseenTech\n◈ 🛠️ *Built By*   ⤳ TehseenTech\n◈ 📦 *Platform*   ⤳ WhatsApp Multi-Device\n◈ ⚡ *Engine*     ⤳ Multi-AI (GPT, Gemini, Llama, Claude & more)\n◈ 🎯 *Purpose*    ⤳ AI, Tools, Downloads, Group Management & more\n\nI am _not_ ChatGPT, Gemini, or any other AI product. I am *${botN}*, exclusively created and owned by *TehseenTech*.\n\nType *.menu* to explore all my features! ✨${footer}`);
     }
 );
 
@@ -460,7 +460,7 @@ async function metaAIQuery(prompt, senderJid) {
     _metaAddHistory(senderJid, 'user', prompt);
     const hist = _metaGetHistory(senderJid);
 
-    const systemPrompt = KOYOTEH_SYSTEM;
+    const systemPrompt = PANTHER_SYSTEM;
 
     const fullPrompt = `${systemPrompt}\n\n${hist.map(h => `${h.role === 'user' ? 'Human' : 'Assistant'}: ${h.content}`).join('\n')}\nAssistant:`;
 
@@ -505,7 +505,7 @@ gmd(
         if (isIdentityQuestion(query)) {
             if (react) await react("🦙");
             const botN = botName || "BLACK PANTHER MD";
-            return reply(`🤖 *${botN}* — AI WhatsApp Bot\n\n◈ 👤 *Creator*    ⤳ Koyoteh\n◈ 🌐 *Owner*      ⤳ Koyoteh\n◈ 🧠 *Engine*     ⤳ Llama 3.3 70B\n◈ 💬 *Memory*     ⤳ Remembers up to 10 exchanges\n◈ 📦 *Platform*   ⤳ WhatsApp Multi-Device\n\nI am *Lupus*, powered by Koyoteh. Type *.metaai <question>* to chat!${footer}`);
+            return reply(`🤖 *${botN}* — AI WhatsApp Bot\n\n◈ 👤 *Creator*    ⤳ TehseenTech\n◈ 🌐 *Owner*      ⤳ TehseenTech\n◈ 🧠 *Engine*     ⤳ Llama 3.3 70B\n◈ 💬 *Memory*     ⤳ Remembers up to 10 exchanges\n◈ 📦 *Platform*   ⤳ WhatsApp Multi-Device\n\nI am *Lupus*, powered by TehseenTech. Type *.metaai <question>* to chat!${footer}`);
         }
 
         try {
@@ -544,7 +544,7 @@ gmd(
     }
 );
 
-// ─── LUPUS (Koyoteh branded AI with persistent memory) ──────────────────────
+// ─── LUPUS (TehseenTech branded AI with persistent memory) ──────────────────────
 
 // Reuse the Meta AI SQLite memory tables for Lupus (same DB, separate key prefix)
 function _lupusHistory(jid) {
@@ -562,7 +562,7 @@ async function lupusQuery(prompt, senderJid) {
     _lupusAdd(senderJid, 'user', prompt);
     const hist = _lupusHistory(senderJid);
 
-    const fullPrompt = `${KOYOTEH_SYSTEM}\n\n${hist.map(h => `${h.role === 'user' ? 'Human' : 'Lupus'}: ${h.content}`).join('\n')}\nLupus:`;
+    const fullPrompt = `${PANTHER_SYSTEM}\n\n${hist.map(h => `${h.role === 'user' ? 'Human' : 'Lupus'}: ${h.content}`).join('\n')}\nLupus:`;
 
     const url = `https://text.pollinations.ai/${encodeURIComponent(fullPrompt)}?model=openai&seed=${Math.floor(Math.random() * 99999)}&json=false&private=true`;
     const res = await axios.get(url, { timeout: 60000, responseType: 'text' });
@@ -576,9 +576,9 @@ async function lupusQuery(prompt, senderJid) {
 gmd(
     {
         pattern: "lupus",
-        aliases: ["gurubot", "koyotehbot"],
+        aliases: ["gurubot", "tehseentechbot"],
         react: "🐺",
-        description: "Chat with Lupus — Koyoteh's AI assistant with memory",
+        description: "Chat with Lupus — TehseenTech's AI assistant with memory",
         category: "ai",
     },
     async (from, Guru, conText) => {
@@ -590,11 +590,11 @@ gmd(
         if (!query) {
             return reply(
 `┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃  🐺  *LUPUS AI* by Koyoteh
+┃  🐺  *LUPUS AI* by TehseenTech
 ┃━━━━━━━━━━━━━━━━━━━━━━━━━━━━┃
 ┃  Your personal AI assistant
 ┃  powered exclusively by
-┃  *Koyoteh* 🔥
+┃  *TehseenTech* 🔥
 ┃
 ┃  *Usage:*
 ┃  .lupus <your question>
@@ -614,7 +614,7 @@ gmd(
 
         if (isIdentityQuestion(query)) {
             if (react) await react("🐺");
-            return reply(`🐺 *I am Lupus!*\n\n◈ 👤 *Created by*  ⤳ Koyoteh\n◈ 🌐 *Owned by*    ⤳ Koyoteh\n◈ ⚡ *Engine*      ⤳ Multi-AI\n◈ 💬 *Memory*      ⤳ Remembers your conversation\n◈ 📦 *Platform*    ⤳ WhatsApp\n\nI am *not* ChatGPT, Gemini, or any other commercial AI. I am *Lupus*, built exclusively by *Koyoteh*. 🔥\n\nAsk me anything — *.lupus <question>*${footer}`);
+            return reply(`🐺 *I am Lupus!*\n\n◈ 👤 *Created by*  ⤳ TehseenTech\n◈ 🌐 *Owned by*    ⤳ TehseenTech\n◈ ⚡ *Engine*      ⤳ Multi-AI\n◈ 💬 *Memory*      ⤳ Remembers your conversation\n◈ 📦 *Platform*    ⤳ WhatsApp\n\nI am *not* ChatGPT, Gemini, or any other commercial AI. I am *Lupus*, built exclusively by *TehseenTech*. 🔥\n\nAsk me anything — *.lupus <question>*${footer}`);
         }
 
         try {

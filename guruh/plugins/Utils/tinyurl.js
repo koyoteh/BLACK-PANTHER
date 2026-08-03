@@ -14,7 +14,7 @@ export default {
 
         if (!text) {
             return client.sendMessage(m.chat, {
-                text: formatStylishReply("You forgot the URL, genius. 🤦🏻\nExample: .shorten https://github.com/koyoteh/BLACK-PANTHER")
+                text: formatStylishReply("You forgot the URL, genius. 🤦🏻\nExample: .shorten https://github.com/tehseentech/black-panther")
             });
         }
 

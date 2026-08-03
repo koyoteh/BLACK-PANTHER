@@ -206,13 +206,13 @@ gmd(
         pattern: "setbiotext",
         aliases: ["setbio", "botbio"],
         react: "✏️",
-        description: "Update the bot's WhatsApp bio — .setbiotext Powered by Koyoteh 🚀",
+        description: "Update the bot's WhatsApp bio — .setbiotext Powered by TehseenTech 🚀",
         category: "settings",
         ownerOnly: OWNER_ONLY,
     },
     async (from, Guru, conText) => {
         const { reply, react, q } = conText;
-        if (!q) return reply("❌ Provide a status text.\nExample: `.setbiotext Powered by Koyoteh 🚀`");
+        if (!q) return reply("❌ Provide a status text.\nExample: `.setbiotext Powered by TehseenTech 🚀`");
         try {
             await Guru.updateProfileStatus(q.trim());
             await setSetting("BOT_BIO", q.trim());
@@ -507,7 +507,7 @@ gmd(
         const botVersion = (await getSetting("BOT_VERSION")) || "5.0.0";
         const botMode    = (await getSetting("MODE"))        || "Public";
         const botLang    = (await getSetting("BOT_LANG"))    || "en";
-        const botRepo    = (await getSetting("BOT_REPO"))    || "koyoteh/BLACK-PANTHER-";
+        const botRepo    = (await getSetting("BOT_REPO"))    || "tehseentech/black-panther";
         const botPrefix  = (await getSetting("PREFIX"))      || ".";
         const warnLimit  = (await getSetting("WARN_LIMIT"))  || "3";
 
@@ -541,7 +541,7 @@ gmd(
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
 
 ◈ 🤖 *𝘉𝘰𝘵 𝘕𝘢𝘮𝘦*    ⤳ ${botName}
-◈ 👤 *𝘊𝘳𝘦𝘢𝘵𝘰𝘳*     ⤳ Koyoteh
+◈ 👤 *𝘊𝘳𝘦𝘢𝘵𝘰𝘳*     ⤳ TehseenTech
 ◈ 🏷️ *𝘝𝘦𝘳𝘴𝘪𝘰𝘯*     ⤳ v${botVersion}
 ◈ 📱 *𝘔𝘰𝘥𝘦*        ⤳ ${botMode}
 ◈ 🌍 *𝘓𝘢𝘯𝘨𝘶𝘢𝘨𝘦*    ⤳ ${botLang.toUpperCase()}
@@ -556,7 +556,7 @@ gmd(
 
 ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
 
-> _BLACK PANTHER MD — built by Koyoteh. All rights reserved._`
+> _BLACK PANTHER MD — built by TehseenTech. All rights reserved._`
         );
     },
 );

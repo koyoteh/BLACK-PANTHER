@@ -6,7 +6,7 @@ const { getCommitHash } = require("../guru/database/autoUpdate");
 const { runUpdate } = require("../guru/autoUpdater");
 
 const getRepo = async (guruRepo) => {
-    const raw = guruRepo || (await getSetting("BOT_REPO")) || "koyoteh/BLACK-PANTHER-";
+    const raw = guruRepo || (await getSetting("BOT_REPO")) || "tehseentech/black-panther";
     const match = String(raw).match(/github\.com\/([^/\s]+\/[^/\s]+)/);
     return match ? match[1].replace(/\.git$/, "").replace(/\/*$/, "") : String(raw).trim();
 };

@@ -137,7 +137,7 @@ gmd(
             botFooter,
             gmdBuffer,
             toAudio,
-            KoyotehApi,
+            PantherApi,
             GuruApiKey,
         } = conText;
 
@@ -170,11 +170,11 @@ gmd(
                 if (d?.url) { videoUrl = d.url; title = d.title || title; thumbnail = d.thumbnail || null; }
             } catch (_) {}
 
-            // Fallback: Koyoteh
+            // Fallback: TehseenTech
             if (!videoUrl) {
                 try {
                     const r = await axios.get(
-                        `${KoyotehApi}/api/download/facebook?apikey=${GuruApiKey}&url=${encodeURIComponent(q)}`,
+                        `${PantherApi}/api/download/facebook?apikey=${GuruApiKey}&url=${encodeURIComponent(q)}`,
                         { timeout: 15000 }
                     );
                     const d = r.data?.result;
@@ -233,7 +233,7 @@ gmd(
         description: "Download TikTok videos/audio. Usage: .tiktok <TikTok URL>",
     },
     async (from, Guru, conText) => {
-        const { q, mek, reply, react, botFooter, gmdBuffer, toAudio, formatAudio, KoyotehApi, GuruApiKey } = conText;
+        const { q, mek, reply, react, botFooter, gmdBuffer, toAudio, formatAudio, PantherApi, GuruApiKey } = conText;
 
         if (!q) {
             await react("❌");
@@ -275,11 +275,11 @@ gmd(
                 } catch (_) {}
             }
 
-            // Fallback: Koyoteh
+            // Fallback: TehseenTech
             if (!result) {
                 for (const ep of ["tiktok", "tiktokdlv2", "tiktokdlv3"]) {
                     try {
-                        const r = await axios.get(`${KoyotehApi}/api/download/${ep}?apikey=${GuruApiKey}&url=${encodeURIComponent(q)}`, { timeout: 15000 });
+                        const r = await axios.get(`${PantherApi}/api/download/${ep}?apikey=${GuruApiKey}&url=${encodeURIComponent(q)}`, { timeout: 15000 });
                         if (r.data?.success && r.data?.result) { result = r.data.result; break; }
                     } catch (_) {}
                 }
@@ -334,7 +334,7 @@ gmd(
         description: "Download Twitter/X videos. Usage: .twitter <tweet URL>",
     },
     async (from, Guru, conText) => {
-        const { q, mek, reply, react, botFooter, KoyotehApi, GuruApiKey } = conText;
+        const { q, mek, reply, react, botFooter, PantherApi, GuruApiKey } = conText;
 
         if (!q) {
             await react("❌");
@@ -366,11 +366,11 @@ gmd(
                 if (urls?.length) videoUrl = urls[0].url;
             } catch (_) {}
 
-            // Fallback: Koyoteh
+            // Fallback: TehseenTech
             if (!videoUrl) {
                 try {
                     const r = await axios.get(
-                        `${KoyotehApi}/api/download/twitter?apikey=${GuruApiKey}&url=${encodeURIComponent(q)}`,
+                        `${PantherApi}/api/download/twitter?apikey=${GuruApiKey}&url=${encodeURIComponent(q)}`,
                         { timeout: 15000 }
                     );
                     const d = r.data?.result;
@@ -412,7 +412,7 @@ gmd(
         description: "Download Instagram reels/videos/images. Usage: .ig <Instagram URL>",
     },
     async (from, Guru, conText) => {
-        const { q, mek, reply, react, botFooter, KoyotehApi, GuruApiKey } = conText;
+        const { q, mek, reply, react, botFooter, PantherApi, GuruApiKey } = conText;
 
         if (!q) {
             await react("❌");
@@ -462,11 +462,11 @@ gmd(
                 } catch (_) {}
             }
 
-            // Fallback: Koyoteh
+            // Fallback: TehseenTech
             if (!mediaUrl) {
                 try {
                     const r = await axios.get(
-                        `${KoyotehApi}/api/download/instadl?apikey=${GuruApiKey}&url=${encodeURIComponent(q)}`,
+                        `${PantherApi}/api/download/instadl?apikey=${GuruApiKey}&url=${encodeURIComponent(q)}`,
                         { timeout: 15000 }
                     );
                     const d = r.data?.result;
@@ -520,7 +520,7 @@ gmd(
         description: "Download Snack Video. Usage: .snack <Snack Video URL>",
     },
     async (from, Guru, conText) => {
-        const { q, mek, reply, react, botFooter, KoyotehApi, GuruApiKey } = conText;
+        const { q, mek, reply, react, botFooter, PantherApi, GuruApiKey } = conText;
 
         if (!q) {
             await react("❌");
@@ -540,7 +540,7 @@ gmd(
 
         try {
             const r = await axios.get(
-                `${KoyotehApi}/api/download/snackdl?apikey=${GuruApiKey}&url=${encodeURIComponent(q)}`,
+                `${PantherApi}/api/download/snackdl?apikey=${GuruApiKey}&url=${encodeURIComponent(q)}`,
                 { timeout: 60000 }
             );
 

@@ -9,7 +9,7 @@ export default {
     await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
 
     try {
-      const response = await fetch('https://api.github.com/repos/koyoteh/BLACK-PANTHER');
+      const response = await fetch('https://api.github.com/repos/tehseentech/black-panther');
       const data = await response.json();
 
       if (!response.ok) throw new Error(data.message || 'GitHub API error');
@@ -22,7 +22,7 @@ export default {
 ║  ⚡ ──「 Repository 」──
 ╠══════════════════════════════════╣
 ║  🔗 GitHub :
-║  https://github.com/koyoteh/BLACK-PANTHER
+║  https://github.com/tehseentech/black-panther
 ╠══════════════════════════════════╣
 ║  ⭐ Stars       : ${data.stargazers_count}
 ║  🍴 Forks       : ${data.forks_count}
@@ -31,7 +31,7 @@ export default {
 ║  👤 Owner       : ${data.owner.login}
 ╠══════════════════════════════════╣
 ║  🌐 Hosting :
-║  https://wa.me/254105521300
+║  https://wa.me/
 ╚══════════════════════════════════╝
 > 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ`;
 

@@ -39,7 +39,7 @@ const {
 // ─── Core Functions & Event Handlers ─────────────────────────────────────────
 const {
     logger, emojis,
-    GuruAutoReact, KoyotehApi, GuruApiKey,
+    GuruAutoReact, PantherApi, GuruApiKey,
     GuruAntiLink, GuruAntibad, GuruAntiBot, GuruAntiGroupMention,
     GuruAutoBio, GuruChatBot, GuruPresence,
     GuruAntiDelete, GuruAnticall, GuruAntiViewOnce, GuruAntiEdit,
@@ -111,7 +111,7 @@ module.exports = {
     uploadToPixhost, uploadToImgBB, uploadToCatbox,
 
     // API keys
-    KoyotehApi, GuruApiKey,
+    PantherApi, GuruApiKey,
 
     // Bot event functions
     GuruAutoReact, GuruAntiLink, GuruAntibad, GuruAntiBot,

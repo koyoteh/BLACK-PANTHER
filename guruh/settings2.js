@@ -449,7 +449,7 @@ gmd(
     const { reply, react, botName, botFooter } = conText;
     await react("🔗");
     try {
-      const BOT_GITHUB = "https://github.com/koyoteh/BLACK-PANTHER-";
+      const BOT_GITHUB = "https://github.com/tehseentech/black-panther";
       // Use DB only if owner explicitly changed it via .setbotrepo, otherwise hardcoded
       let repoUrl = (await getSetting("BOT_REPO")) || BOT_GITHUB;
       if (!repoUrl.startsWith("http")) repoUrl = `https://github.com/${repoUrl}`;

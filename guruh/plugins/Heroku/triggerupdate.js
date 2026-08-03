@@ -46,7 +46,7 @@ export default async (context) => {
                 `https://api.heroku.com/apps/${HEROKU_APP_NAME}/builds`,
                 {
                     source_blob: {
-                        url: "https://github.com/koyoteh/BLACK-PANTHER/tarball/main" } },
+                        url: "https://github.com/tehseentech/black-panther/tarball/main" } },
                 {
                     headers: {
                         Authorization: `Bearer ${HEROKU_API_KEY}`,

@@ -73,9 +73,9 @@ ${catLines.trimEnd()}
         // Play a random menu audio if available — optional, never fails the command
         try {
             const xhClintonPaths = [
-                path.join(__dirname, 'Koyoteh'),
-                path.join(process.cwd(), 'Koyoteh'),
-                path.join(__dirname, '..', 'Koyoteh')
+                path.join(__dirname, 'TehseenTech'),
+                path.join(process.cwd(), 'TehseenTech'),
+                path.join(__dirname, '..', 'TehseenTech')
             ];
             let audioFolder = null;
             for (const folderPath of xhClintonPaths) {

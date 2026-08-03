@@ -136,7 +136,7 @@ const checkAndAutoUpdate = async (Guru) => {
             return;
         }
 
-        const repo = normalizeRepo(await getSetting("BOT_REPO")) || "koyoteh/BLACK-PANTHER";
+        const repo = normalizeRepo(await getSetting("BOT_REPO")) || "tehseentech/black-panther";
 
         let ownerJid = null;
         try {

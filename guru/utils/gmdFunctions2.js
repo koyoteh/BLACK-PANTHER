@@ -1,7 +1,7 @@
 'use strict';
 // ╔══════════════════════════════════════════════════════════════╗
 //  ⚡  BLACK PANTHER MD  —  gmdFunctions2.js  (Auto Features)
-//  👑  Owner : Koyoteh  |  📞 +254105521300
+//  👑  Owner : TehseenTech  |  📞 
 //  🛡️  AntiLink · AntiSpam · AntiCall · AutoBio · AutoReact
 //  💬  ChatBot · Presence · AntiDelete · AntiEdit · AntiViewOnce
 //  📢  Channel forwardedNewsletterMessageInfo tag on every response
@@ -287,7 +287,7 @@ const BIO_TEMPLATES = [
     () => `🌐 Powered by GuruTech | ${new Date().toLocaleDateString('en-KE')}`,
     () => `🔥 ${config.BOT_NAME} is live! | +${config.OWNER_NUMBER}`,
     () => `⚡ Serving users 24/7`,
-    () => `⚡ ${config.BOT_NAME} | Koyoteh 🚀`,
+    () => `⚡ ${config.BOT_NAME} | TehseenTech 🚀`,
 ];
 
 async function PantherAutoBio(sock) {
@@ -343,7 +343,7 @@ async function PantherChatBot(sock, msg, settings) {
         await PantherPresence(sock, from, 'composing');
 
         const systemPrompt =
-            `You are ${config.BOT_NAME}, a helpful WhatsApp assistant by Koyoteh (+${config.OWNER_NUMBER}). ` +
+            `You are ${config.BOT_NAME}, a helpful WhatsApp assistant by TehseenTech (+${config.OWNER_NUMBER}). ` +
             `Be friendly, concise and use relevant emojis. Never say you are ChatGPT or any other AI.`;
 
         const response = await axios.get(

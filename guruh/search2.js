@@ -35,7 +35,7 @@ gmd(
     description: "Search Google Images and send first 10 images",
   },
   async (from, Guru, conText) => {
-    const { q, mek, reply, react, botFooter, KoyotehApi, GuruApiKey } =
+    const { q, mek, reply, react, botFooter, PantherApi, GuruApiKey } =
       conText;
 
     if (!q) {
@@ -44,7 +44,7 @@ gmd(
     }
 
     try {
-      const apiUrl = `${KoyotehApi}/api/search/googleimage?apikey=${GuruApiKey}&query=${encodeURIComponent(q)}`;
+      const apiUrl = `${PantherApi}/api/search/googleimage?apikey=${GuruApiKey}&query=${encodeURIComponent(q)}`;
       const res = await axios.get(apiUrl, { timeout: 60000 });
 
       if (
@@ -94,7 +94,7 @@ gmd(
     description: "Search Unsplash and send first 10 photos",
   },
   async (from, Guru, conText) => {
-    const { q, mek, reply, react, botFooter, KoyotehApi, GuruApiKey } =
+    const { q, mek, reply, react, botFooter, PantherApi, GuruApiKey } =
       conText;
 
     if (!q) {
@@ -103,7 +103,7 @@ gmd(
     }
 
     try {
-      const apiUrl = `${KoyotehApi}/api/search/unsplash?apikey=${GuruApiKey}&query=${encodeURIComponent(q)}`;
+      const apiUrl = `${PantherApi}/api/search/unsplash?apikey=${GuruApiKey}&query=${encodeURIComponent(q)}`;
       const res = await axios.get(apiUrl, { timeout: 60000 });
 
       if (
@@ -161,7 +161,7 @@ gmd(
     description: "Search HD wallpapers by category",
   },
   async (from, Guru, conText) => {
-    const { q, mek, reply, react, botFooter, KoyotehApi, GuruApiKey } =
+    const { q, mek, reply, react, botFooter, PantherApi, GuruApiKey } =
       conText;
 
     if (!q) {
@@ -170,7 +170,7 @@ gmd(
     }
 
     try {
-      const apiUrl = `${KoyotehApi}/api/search/wallpaper?apikey=${GuruApiKey}&query=${encodeURIComponent(q)}`;
+      const apiUrl = `${PantherApi}/api/search/wallpaper?apikey=${GuruApiKey}&query=${encodeURIComponent(q)}`;
       const res = await axios.get(apiUrl, { timeout: 60000 });
 
       if (
@@ -232,7 +232,7 @@ gmd(
       react,
       botName,
       botFooter,
-      KoyotehApi,
+      PantherApi,
       GuruApiKey,
     } = conText;
 
@@ -242,7 +242,7 @@ gmd(
     }
 
     try {
-      const apiUrl = `${KoyotehApi}/api/search/weather?apikey=${GuruApiKey}&location=${encodeURIComponent(q)}`;
+      const apiUrl = `${PantherApi}/api/search/weather?apikey=${GuruApiKey}&location=${encodeURIComponent(q)}`;
       const res = await axios.get(apiUrl, { timeout: 60000 });
 
       if (!res.data?.success || !res.data?.result) {
@@ -306,7 +306,7 @@ gmd(
       react,
       botName,
       botFooter,
-      KoyotehApi,
+      PantherApi,
       GuruApiKey,
     } = conText;
 
@@ -316,7 +316,7 @@ gmd(
     }
 
     try {
-      const apiUrl = `${KoyotehApi}/api/search/npmsearch?apikey=${GuruApiKey}&packagename=${encodeURIComponent(q)}`;
+      const apiUrl = `${PantherApi}/api/search/npmsearch?apikey=${GuruApiKey}&packagename=${encodeURIComponent(q)}`;
       const res = await axios.get(apiUrl, { timeout: 60000 });
 
       if (!res.data?.success || !res.data?.result) {
@@ -407,7 +407,7 @@ gmd(
     description: "Search Wattpad stories",
   },
   async (from, Guru, conText) => {
-    const { q, mek, reply, react, botFooter, KoyotehApi, GuruApiKey } =
+    const { q, mek, reply, react, botFooter, PantherApi, GuruApiKey } =
       conText;
 
     if (!q) {
@@ -416,7 +416,7 @@ gmd(
     }
 
     try {
-      const apiUrl = `${KoyotehApi}/api/search/wattpad?apikey=${GuruApiKey}&query=${encodeURIComponent(q)}`;
+      const apiUrl = `${PantherApi}/api/search/wattpad?apikey=${GuruApiKey}&query=${encodeURIComponent(q)}`;
       const res = await axios.get(apiUrl, { timeout: 60000 });
 
       if (
@@ -513,7 +513,7 @@ gmd(
       botName,
       botFooter,
       botPrefix,
-      KoyotehApi,
+      PantherApi,
       GuruApiKey,
     } = conText;
 
@@ -523,7 +523,7 @@ gmd(
     }
 
     try {
-      const apiUrl = `${KoyotehApi}/api/search/spotifysearch?apikey=${GuruApiKey}&query=${encodeURIComponent(q)}`;
+      const apiUrl = `${PantherApi}/api/search/spotifysearch?apikey=${GuruApiKey}&query=${encodeURIComponent(q)}`;
       const res = await axios.get(apiUrl, { timeout: 60000 });
 
       if (

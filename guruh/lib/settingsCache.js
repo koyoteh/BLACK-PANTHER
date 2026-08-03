@@ -13,7 +13,7 @@ const _DEFAULTS = {
     antibot:       false,
     chatbotpm:     false,
     packname:      _cfg.BOT_NAME      || 'BLACK PANTHER MD',
-    author:        _cfg.OWNER_NAME    || 'Koyoteh',
+    author:        _cfg.OWNER_NAME    || 'TehseenTech',
     multiprefix:   false,
     stealth:       false,
     startmessage:  true,

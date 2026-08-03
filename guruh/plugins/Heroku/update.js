@@ -37,7 +37,7 @@ export default async (context) => {
             }
 
             const githubRes = await axios.get(
-                "https://api.github.com/repos/koyoteh/BLACK-PANTHER/commits/main"
+                "https://api.github.com/repos/tehseentech/black-panther/commits/main"
             );
 
             const latestCommit = githubRes.data;

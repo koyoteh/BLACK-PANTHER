@@ -1,7 +1,7 @@
 'use strict';
 // ╔══════════════════════════════════════════════════════════════╗
 //  🐾  BLACK PANTHER MD  —  Connection Handler (Baileys v7)
-//  Owner : Koyoteh  |  +254105521300
+//  Owner : TehseenTech  |  
 //  • Auto-update from GitHub on every restart
 //  • Auto-follow CHANNEL_JID newsletter on connect
 //  • Auto-join groups from AUTO_JOIN_GROUPS env

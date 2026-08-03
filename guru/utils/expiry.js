@@ -181,8 +181,8 @@ async function checkExpiry({ onExpire, onWarn, exitOnExpiry = true } = {}) {
             `║  📅  Expiry Date  : ${fmtDate(expiryDate)}\n` +
             `║  ⏱️   Expired      : ${expiredAgo} day(s) ago\n` +
             `║  🔒  All commands have been locked.\n` +
-            `║  📞  Contact Koyoteh (+254105521300) to renew.\n` +
-            `║  💬  https://wa.me/254105521300\n` +
+            `║  📞  Contact TehseenTech () to renew.\n` +
+            `║  💬  https://wa.me/\n` +
             `╚${'═'.repeat(56)}╝\n`;
 
         logger.error('EXPIRY', `LICENCE EXPIRED on ${fmtDate(expiryDate)} (${expiredAgo} days ago). Shutting down.`);
@@ -215,8 +215,8 @@ async function checkExpiry({ onExpire, onWarn, exitOnExpiry = true } = {}) {
                 `📅 *Expires on:* ${fmtDate(expiryDate)}\n` +
                 `⏳ *Time left:*  ${countdown}\n` +
                 `${expiryBar(days, 30)}\n\n` +
-                `📞 *Renew now:*  https://wa.me/254105521300\n` +
-                `💬 Contact *Koyoteh* before it's too late!\n\n` +
+                `📞 *Renew now:*  https://wa.me/\n` +
+                `💬 Contact *TehseenTech* before it's too late!\n\n` +
                 `_${process.env.BOT_NAME || 'BLACK PANTHER MD'}_`;
 
             logger.warn('EXPIRY',
