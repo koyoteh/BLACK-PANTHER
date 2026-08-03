@@ -9,7 +9,7 @@ export default async (context) => {
         const { client, m, args, prefix } = context;
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
 
-        const fmt = (msg) => `▢ ${msg}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
+        const fmt = (msg) => `▢ ${msg}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`;
 
         try {
             const settings = await getSettings();
@@ -42,7 +42,7 @@ export default async (context) => {
             if (_devMode === 'ios') {
           await client.sendMessage(m.chat, { react: { text: '📋', key: m.reactKey } });
           await sendInteractive(client, m, `⚡ ──「 STEALTH 」──
-▢ Status: ${settings.stealth ? 'ON ✅' : 'OFF ❌'}\n▢ \n▢ Options:\n▢ ${prefix}stealth on\n▢ ${prefix}stealth off\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n> 🌐 wa.me/254116284050`);
+▢ Status: ${settings.stealth ? 'ON ✅' : 'OFF ❌'}\n▢ \n▢ Options:\n▢ ${prefix}stealth on\n▢ ${prefix}stealth off\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──\n> 🌐 wa.me/254116284050`);
       } else {
     const _stealthMsg = generateWAMessageFromContent(
                     m.chat,

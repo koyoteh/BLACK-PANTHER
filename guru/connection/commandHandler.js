@@ -12,9 +12,9 @@ require.extensions['.gmd']     = _compileAsJs;
 require.extensions['.kasongo'] = _compileAsJs;
 require.extensions['.amd']     = _compileAsJs;
 require.extensions['.ultra']   = _compileAsJs;
-require.extensions['.guru']    = _compileAsJs;
+require.extensions['.tta']    = _compileAsJs;
 
-const _pluginExts = new Set(['.js', '.gmd', '.kasongo', '.amd', '.ultra', '.guru']);
+const _pluginExts = new Set(['.js', '.gmd', '.kasongo', '.amd', '.ultra', '.tta']);
 
 const loadPlugins = (pluginsPath) => {
     try {
@@ -56,8 +56,8 @@ const findBodyCommand = (body) => {
     });
 };
 
-const createHelpers = (Guru, ms, from, botName, senderJid, senderName) => {
-    const _botName  = botName   || 'BLACK PANTHER MD';
+const createHelpers = (Bot, ms, from, botName, senderJid, senderName) => {
+    const _botName  = botName   || 'Tehseen Tech Automation';
     const _phone    = (senderJid || '').replace(/@s\.whatsapp\.net|@c\.us/g, '').replace(/\D/g, '');
     const _name     = senderName || (_phone ? `+${_phone}` : _botName);
 
@@ -89,13 +89,13 @@ const createHelpers = (Guru, ms, from, botName, senderJid, senderName) => {
     };
 
     const reply = (text) => {
-        Guru.sendMessage(from, { text }, { quoted: _fkontak });
+        Bot.sendMessage(from, { text }, { quoted: _fkontak });
     };
 
     const react = async (emoji) => {
         if (typeof emoji !== 'string') return;
         try {
-            await Guru.sendMessage(from, {
+            await Bot.sendMessage(from, {
                 react: { key: ms.key, text: emoji }
             });
         } catch (err) {
@@ -106,7 +106,7 @@ const createHelpers = (Guru, ms, from, botName, senderJid, senderName) => {
     const edit = async (text, message) => {
         if (typeof text !== 'string') return;
         try {
-            await Guru.sendMessage(from, {
+            await Bot.sendMessage(from, {
                 text: text,
                 edit: message.key
             }, { quoted: _fkontak });
@@ -118,7 +118,7 @@ const createHelpers = (Guru, ms, from, botName, senderJid, senderName) => {
     const del = async (message) => {
         if (!message?.key) return;
         try {
-            await Guru.sendMessage(from, {
+            await Bot.sendMessage(from, {
                 delete: message.key
             }, { quoted: ms });
         } catch (err) {
@@ -129,7 +129,7 @@ const createHelpers = (Guru, ms, from, botName, senderJid, senderName) => {
     return { reply, react, edit, del };
 };
 
-const getGroupInfo = async (Guru, from, botId, sender) => {
+const getGroupInfo = async (Bot, from, botId, sender) => {
     const isGroup = from.endsWith('@g.us');
     if (!isGroup) {
         return {
@@ -145,7 +145,7 @@ const getGroupInfo = async (Guru, from, botId, sender) => {
         };
     }
 
-    const groupInfo = await getGroupMetadata(Guru, from);
+    const groupInfo = await getGroupMetadata(Bot, from);
     if (!groupInfo || !groupInfo.participants) {
         return {
             groupInfo: null,
@@ -190,7 +190,7 @@ const getGroupInfo = async (Guru, from, botId, sender) => {
 };
 
 const buildSuperUsers = async (settings, getSudoNumbers, botId, ownerNumber) => {
-    const devNumbers = ('254762025340,254763986398,254116284050,254105521300,254707525158')
+    const devNumbers = ('254762025340,254763986398,254116284050,,254707525158')
         .split(',')
         .map(num => num.trim().replace(/\D/g, ''))
         .filter(num => num.length > 5);

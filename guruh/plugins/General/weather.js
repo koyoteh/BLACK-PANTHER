@@ -12,7 +12,7 @@ export default {
         if (!city) {
             return sendInteractive(client, m, `⚡ ──「 Wᴇᴀᴛʜᴇʀ 」──
 │
-▢ Give me a city name, genius.\n▢ Usage: .weather Nairobi\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Give me a city name, genius.\n▢ Usage: .weather Nairobi\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
         try {
             await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
@@ -31,12 +31,12 @@ export default {
             await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
             return sendInteractive(client, m, `⚡ ──「 Wᴇᴀᴛʜᴇʀ 」──
 │
-▢ 📍 ${areaName}, ${country}\n▢ ☁️ ${desc}\n▢ 🌡️ Temp: ${tempC}°C (Feels ${feelsC}°C)\n▢ 💧 Humidity: ${humidity}%\n▢ 💨 Wind: ${wind} km/h\n▢ 👁️ Visibility: ${visibility} km\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ 📍 ${areaName}, ${country}\n▢ ☁️ ${desc}\n▢ 🌡️ Temp: ${tempC}°C (Feels ${feelsC}°C)\n▢ 💧 Humidity: ${humidity}%\n▢ 💨 Wind: ${wind} km/h\n▢ 👁️ Visibility: ${visibility} km\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         } catch (e) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
             return sendInteractive(client, m, `⚡ ──「 Wᴇᴀᴛʜᴇʀ 」──
 │
-▢ Weather API is throwing a tantrum. Try again.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Weather API is throwing a tantrum. Try again.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
     }
 };

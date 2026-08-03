@@ -51,7 +51,7 @@ function addTrigger({ pattern, handler }) {
 }
 
 // ═══════════════════════════════════════════════════════════
-//  CONTEXT BRIDGE — maps BLACK PANTHER MD ctx → plugin ctx
+//  CONTEXT BRIDGE — maps Tehseen Tech Automation ctx → plugin ctx
 // ═══════════════════════════════════════════════════════════
 
 function buildPluginCtx(ctx) {
@@ -99,7 +99,7 @@ function buildPluginCtx(ctx) {
         config,
         // ── Fields required by guruh plugins ──────────────────
         mode:          config.MODE       || 'public',
-        botname:       config.BOT_NAME   || 'BLACK PANTHER MD',
+        botname:       config.BOT_NAME   || 'Tehseen Tech Automation',
         pict:          _pictCache,
         totalCommands: totalCmds,
     };

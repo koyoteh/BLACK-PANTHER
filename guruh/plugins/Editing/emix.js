@@ -10,7 +10,7 @@ export default async (context) => {
 if (!text) {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
     return sendInteractive(client, m, `⚡ ──「 EMIX 」──
-▢ No emojis provided?\n▢ Are you braindead?\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`)
+▢ No emojis provided?\n▢ Are you braindead?\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`)
 }
 
 
@@ -18,7 +18,7 @@ if (!text) {
 
   if (emojis.length !== 2) {
     sendInteractive(client, m, `⚡ ──「 EMIX 」──
-▢ Specify the emojis and separate\n▢ with '+', you dense fool.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Specify the emojis and separate\n▢ with '+', you dense fool.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     return;
   }
 
@@ -45,12 +45,12 @@ if (!text) {
 
     } else {
       sendInteractive(client, m, `⚡ ──「 FAILED 」──
-▢ Unable to create emoji mix.\n▢ Your emoji combo is trash.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Unable to create emoji mix.\n▢ Your emoji combo is trash.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
   } catch (error) {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
     sendInteractive(client, m, `⚡ ──「 ERROR 」──
-▢ An error occurred while creating\n▢ the emoji mix.\n▢ ${error}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ An error occurred while creating\n▢ the emoji mix.\n▢ ${error}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
   }
 
 

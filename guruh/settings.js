@@ -49,13 +49,13 @@ function isSettingEnabled(val) {
   );
 }
 
-async function formatGroupsWithNames(jids, Guru) {
+async function formatGroupsWithNames(jids, Bot) {
   if (!jids || jids.length === 0) return "None";
 
   const groupInfos = await Promise.all(
     jids.map(async (jid) => {
       try {
-        const metadata = await Guru.groupMetadata(jid);
+        const metadata = await Bot.groupMetadata(jid);
         const name = metadata?.subject || "Unknown";
         return `• ${name}`;
       } catch (e) {
@@ -74,7 +74,7 @@ gmd(
     category: "owner",
     description: "View all bot settings",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, react, isSuperUser } = conText;
     if (!isSuperUser) {
       await react("❌");
@@ -110,12 +110,12 @@ gmd(
         antibadGroups,
         antigroupmentionGroups,
       ] = await Promise.all([
-        formatGroupsWithNames(enabledGroupSettings.WELCOME_MESSAGE, Guru),
-        formatGroupsWithNames(enabledGroupSettings.GOODBYE_MESSAGE, Guru),
-        formatGroupsWithNames(enabledGroupSettings.GROUP_EVENTS, Guru),
-        formatGroupsWithNames(enabledGroupSettings.ANTILINK, Guru),
-        formatGroupsWithNames(enabledGroupSettings.ANTIBAD, Guru),
-        formatGroupsWithNames(enabledGroupSettings.ANTIGROUPMENTION, Guru),
+        formatGroupsWithNames(enabledGroupSettings.WELCOME_MESSAGE, Bot),
+        formatGroupsWithNames(enabledGroupSettings.GOODBYE_MESSAGE, Bot),
+        formatGroupsWithNames(enabledGroupSettings.GROUP_EVENTS, Bot),
+        formatGroupsWithNames(enabledGroupSettings.ANTILINK, Bot),
+        formatGroupsWithNames(enabledGroupSettings.ANTIBAD, Bot),
+        formatGroupsWithNames(enabledGroupSettings.ANTIGROUPMENTION, Bot),
       ]);
 
       msg += `*🎉 WELCOME MESSAGE:*\n${welcomeGroups}\n\n`;
@@ -143,7 +143,7 @@ gmd(
     category: "owner",
     description: "Set bot prefix",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser } = conText;
     if (!isSuperUser) return reply("❌ Owner Only Command!");
     if (!q) return reply("❌ Please provide a prefix!\nExample: .setprefix !");
@@ -169,7 +169,7 @@ gmd(
     category: "owner",
     description: "Set bot name",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser } = conText;
     if (!isSuperUser) return reply("❌ Owner Only Command!");
     if (!q) return reply("❌ Please provide a bot name!");
@@ -195,7 +195,7 @@ gmd(
     category: "owner",
     description: "Set owner name",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser } = conText;
     if (!isSuperUser) return reply("❌ Owner Only Command!");
     if (!q) return reply("❌ Please provide an owner name!");
@@ -221,7 +221,7 @@ gmd(
     category: "owner",
     description: "Set owner number",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser } = conText;
     if (!isSuperUser) return reply("❌ Owner Only Command!");
     if (!q) return reply("❌ Please provide an owner number!");
@@ -248,7 +248,7 @@ gmd(
     category: "owner",
     description: "Set bot footer",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser } = conText;
     if (!isSuperUser) return reply("❌ Owner Only Command!");
     if (!q) return reply("❌ Please provide a footer text!");
@@ -274,7 +274,7 @@ gmd(
     category: "owner",
     description: "Set bot caption",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser } = conText;
     if (!isSuperUser) return reply("❌ Owner Only Command!");
     if (!q) return reply("❌ Please provide a caption!");
@@ -300,7 +300,7 @@ gmd(
     category: "owner",
     description: "Set bot picture URL",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser } = conText;
     if (!isSuperUser) return reply("❌ Owner Only Command!");
     if (!q) return reply("❌ Please provide an image URL!");
@@ -326,7 +326,7 @@ gmd(
     category: "owner",
     description: "Set bot mode (public/private)",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser } = conText;
     if (!isSuperUser) return reply("❌ Owner Only Command!");
     const mode = q?.toLowerCase();
@@ -355,7 +355,7 @@ gmd(
     category: "owner",
     description: "Set bot timezone",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser } = conText;
     if (!isSuperUser) return reply("❌ Owner Only Command!");
     if (!q)
@@ -384,7 +384,7 @@ gmd(
     category: "owner",
     description: "Set DM presence (online/offline/typing/recording)",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser } = conText;
     if (!isSuperUser) return reply("❌ Owner Only Command!");
     const valid = ["online", "offline", "typing", "recording"];
@@ -413,7 +413,7 @@ gmd(
     category: "owner",
     description: "Set group presence (online/offline/typing/recording)",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser } = conText;
     if (!isSuperUser) return reply("❌ Owner Only Command!");
     const valid = ["online", "offline", "typing", "recording"];
@@ -444,7 +444,7 @@ gmd(
     category: "owner",
     description: "Set chatbot (on/off/audio)",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser } = conText;
     if (!isSuperUser) return reply("❌ Owner Only Command!");
     const valid = ["true", "false", "audio"];
@@ -478,7 +478,7 @@ gmd(
     category: "owner",
     description: "Set chatbot mode (inbox/groups/allchats)",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser } = conText;
     if (!isSuperUser) return reply("❌ Owner Only Command!");
     const valid = ["inbox", "groups", "allchats"];
@@ -507,7 +507,7 @@ gmd(
     category: "owner",
     description: "Set starting message (on/off)",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser } = conText;
     if (!isSuperUser) return reply("❌ Owner Only Command!");
     const valid = ["true", "false"];
@@ -539,7 +539,7 @@ gmd(
     category: "owner",
     description: "Set antidelete (inchat/indm/off)",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser } = conText;
     if (!isSuperUser) return reply("❌ Owner Only Command!");
     const valid = ["inchat", "indm", "false"];
@@ -571,7 +571,7 @@ gmd(
     category: "owner",
     description: "Set anti-edit (on/off/indm/inchat)",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser } = conText;
     if (!isSuperUser) return reply("❌ Owner Only Command!");
     const valid = ["on", "off", "indm", "inchat"];
@@ -608,7 +608,7 @@ gmd(
     category: "group",
     description: "Set welcome message for this group (on/off)",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser, isGroup, isAdmin } = conText;
     if (!isGroup) return reply("❌ This command only works in groups!");
     if (!isSuperUser && !isAdmin) return reply("❌ Admin/Owner Only Command!");
@@ -643,7 +643,7 @@ gmd(
     category: "group",
     description: "Set goodbye message for this group (on/off)",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser, isGroup, isAdmin } = conText;
     if (!isGroup) return reply("❌ This command only works in groups!");
     if (!isSuperUser && !isAdmin) return reply("❌ Admin/Owner Only Command!");
@@ -678,7 +678,7 @@ gmd(
     category: "group",
     description: "Set custom welcome message for this group",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser, isGroup, isAdmin } = conText;
     if (!isGroup) return reply("❌ This command only works in groups!");
     if (!isSuperUser && !isAdmin) return reply("❌ Admin/Owner Only Command!");
@@ -726,7 +726,7 @@ gmd(
     category: "group",
     description: "Set custom goodbye message for this group",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser, isGroup, isAdmin } = conText;
     if (!isGroup) return reply("❌ This command only works in groups!");
     if (!isSuperUser && !isAdmin) return reply("❌ Admin/Owner Only Command!");
@@ -774,7 +774,7 @@ gmd(
     category: "owner",
     description: "Set anticall (on/off/block/decline)",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser } = conText;
     if (!isSuperUser) return reply("❌ Owner Only Command!");
     const valid = ["true", "block", "false", "decline"];
@@ -816,7 +816,7 @@ gmd(
     category: "group",
     description: "Set antilink for this group (on/warn/delete/kick/off)",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser, isGroup, isAdmin } = conText;
     if (!isGroup) return reply("❌ This command only works in groups!");
     if (!isSuperUser && !isAdmin) return reply("❌ Admin/Owner Only Command!");
@@ -871,7 +871,7 @@ gmd(
     category: "group",
     description: "Set antilink warning count before kick (default 5)",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser, isGroup, isAdmin } = conText;
     if (!isGroup) return reply("❌ This command only works in groups!");
     if (!isSuperUser && !isAdmin) return reply("❌ Admin/Owner Only Command!");
@@ -913,7 +913,7 @@ gmd(
     category: "group",
     description: "Set anti-badwords for this group (on/warn/delete/kick/off)",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser, isGroup, isAdmin } = conText;
     if (!isGroup) return reply("❌ This command only works in groups!");
     if (!isSuperUser && !isAdmin) return reply("❌ Admin/Owner Only Command!");
@@ -975,7 +975,7 @@ gmd(
     category: "group",
     description: "Set anti-badwords warning count before kick (default 5)",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser, isGroup, isAdmin } = conText;
     if (!isGroup) return reply("❌ This command only works in groups!");
     if (!isSuperUser && !isAdmin) return reply("❌ Admin/Owner Only Command!");
@@ -1018,7 +1018,7 @@ gmd(
     description:
       "Manage bad words list. Usage: .badwords add/remove/list/clear/default",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser, isGroup, isAdmin, args } = conText;
     if (!isGroup) return reply("❌ This command only works in groups!");
     if (!isSuperUser && !isAdmin) return reply("❌ Admin/Owner Only Command!");
@@ -1128,7 +1128,7 @@ ${
           msg += chunk
             .map((w, idx) => `${startIdx + idx + 1}. ${w}`)
             .join("\n");
-          await Guru.sendMessage(from, { text: msg });
+          await Bot.sendMessage(from, { text: msg });
         }
         await react("✅");
       } else if (["clear", "reset"].includes(action)) {
@@ -1157,7 +1157,7 @@ gmd(
     category: "owner",
     description: "Set bot expiry date. Usage: .setexpiry 2026-12-31",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser } = conText;
     if (!isSuperUser) {
       await react("❌");
@@ -1192,7 +1192,7 @@ gmd(
     category: "owner",
     description: "Check bot expiry date and remaining time",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, react, isSuperUser } = conText;
     if (!isSuperUser) {
       await react("❌");
@@ -1247,7 +1247,7 @@ gmd(
     category: "owner",
     description: "Remove the bot expiry date",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, react, isSuperUser } = conText;
     if (!isSuperUser) {
       await react("❌");

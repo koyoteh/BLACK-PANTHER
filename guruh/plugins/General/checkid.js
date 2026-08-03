@@ -16,7 +16,7 @@ export default {
             if (!link) {
                 await client.sendMessage(m.chat, { react: { text: '', key: m.reactKey } }).catch(() => {});
                 return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
-▢ Where\`s the link?\n▢ Example: ` + prefix + "checkid https://chat.whatsapp.com/xxxxx\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──");
+▢ Where\`s the link?\n▢ Example: ` + prefix + "checkid https://chat.whatsapp.com/xxxxx\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──");
             }
 
             await client.sendMessage(m.chat, { react: { text: `⌛`, key: m.reactKey } });
@@ -27,7 +27,7 @@ export default {
             } catch {
                 await client.sendMessage(m.chat, { react: { text: ``, key: m.reactKey } });
                 return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
-▢ That\`s not a valid URL.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ That\`s not a valid URL.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
             }
 
             let id = '';
@@ -46,13 +46,13 @@ export default {
             } else {
                 await client.sendMessage(m.chat, { react: { text: '', key: m.reactKey } });
                 return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
-▢ That\`s not a WhatsApp group or channel link.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n> ©𝐏𝐨𝐰𝐞𝐫𝐞᠊ᴅ 𝐁𝐲 𝐱𝐡_𝐜𝐥𝐢𝐧𝐭𝐨𝐧`);
+▢ That\`s not a WhatsApp group or channel link.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──\n> ©𝐏𝐨𝐰𝐞𝐫𝐞᠊ᴅ 𝐁𝐲 𝐱𝐡_𝐜𝐥𝐢𝐧𝐭𝐨𝐧`);
             }
 
             await client.sendMessage(m.chat, { react: { text: ``, key: m.reactKey } });
 
             const bodyText = "⚡ ──「 " + type + ` JID 」──
-▢ *Link:* ` + link + "\n▢ *" + type + " ID:* \`" + id + "\`\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──";
+▢ *Link:* ` + link + "\n▢ *" + type + " ID:* \`" + id + "\`\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──";
             try {
                 const msg = generateWAMessageFromContent(
                     m.chat,
@@ -86,7 +86,7 @@ export default {
             console.error(`CheckID error:`, error);
             await client.sendMessage(m.chat, { react: { text: ``, key: m.reactKey } });
             await sendInteractive(client, m, `⚡ ──「 Cʀᴀsʜᴇᴅ 」──
-▢ Error: ` + error.message + "\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──");
+▢ Error: ` + error.message + "\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──");
         }
     }
 };

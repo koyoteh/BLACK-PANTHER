@@ -3,7 +3,7 @@ const { getSetting, setSetting } = require("../guru/database/settings");
 const { sendGreeting, sendWellness } = require("../guru/scheduler");
 
 // ═══════════════════════════════════════════════════════════════════
-//  SMART SETTINGS PANEL  ·  BLACK PANTHER MD
+//  SMART SETTINGS PANEL  ·  Tehseen Tech Automation
 //  Unique, highly useful settings — Daily Wellness, Auto-Status
 //  Watermark, Smart Broadcast, Bot Bio updater, Message Counter,
 //  Flood-guard config, and a rich settings dashboard.
@@ -33,7 +33,7 @@ gmd({
     category:    "owner",
     description: "Full smart settings dashboard",
     usage:       ".smartsettings",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { reply, react, isSuperUser } = conText;
     if (!isSuperUser) { await react("❌"); return reply("❌ Owner only."); }
 
@@ -42,7 +42,7 @@ gmd({
     const wellness     = await get("DAILY_WELLNESS",   "false");
     const wellnessTime = await get("WELLNESS_TIME",    "10:00");
     const watermark    = await get("MSG_WATERMARK",    "false");
-    const watermarkTxt = await get("WATERMARK_TEXT",   "BLACK PANTHER MD");
+    const watermarkTxt = await get("WATERMARK_TEXT",   "Tehseen Tech Automation");
     const antiflood    = await get("ANTIFLOOD",        "false");
     const floodCount   = await get("FLOOD_COUNT",      "7");
     const floodAction  = await get("FLOOD_ACTION",     "warn");
@@ -105,7 +105,7 @@ gmd({
     category:    "owner",
     description: "Toggle daily wellness check-in message (on/off)",
     usage:       ".wellness on",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser } = conText;
     if (!isSuperUser) { await react("❌"); return reply("❌ Owner only."); }
 
@@ -143,7 +143,7 @@ gmd({
     category:    "owner",
     description: "Set the daily wellness check-in time",
     usage:       ".wellnesstime 10:00",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser } = conText;
     if (!isSuperUser) { await react("❌"); return reply("❌ Owner only."); }
 
@@ -164,13 +164,13 @@ gmd({
     category:    "owner",
     description: "Send daily wellness check-in right now (test)",
     usage:       ".testwellness",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { reply, react, isSuperUser } = conText;
     if (!isSuperUser) { await react("❌"); return reply("❌ Owner only."); }
 
     await react("⏳");
     reply("💙 Sending wellness check-in...");
-    const sent = await sendWellness(Guru);
+    const sent = await sendWellness(Bot);
     await react("✅");
     reply(`✅ Wellness check-in sent to *${sent}* chat(s)!\n\n_Use \`.addchat\` to add more chats to the list._`);
 });
@@ -185,14 +185,14 @@ gmd({
     category:    "owner",
     description: "Toggle message watermark footer on all bot replies",
     usage:       ".watermark on",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser } = conText;
     if (!isSuperUser) { await react("❌"); return reply("❌ Owner only."); }
 
     const val = (q || "").trim().toLowerCase();
     if (!val) {
         const cur = (await getSetting("MSG_WATERMARK").catch(() => "false")) || "false";
-        const txt = (await getSetting("WATERMARK_TEXT").catch(() => "")) || "BLACK PANTHER MD";
+        const txt = (await getSetting("WATERMARK_TEXT").catch(() => "")) || "Tehseen Tech Automation";
         await react("ℹ️");
         return reply(
             `*💧 Message Watermark*\n\n` +
@@ -216,11 +216,11 @@ gmd({
     category:    "owner",
     description: "Set the message watermark text",
     usage:       ".setwatermark <text>",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser } = conText;
     if (!isSuperUser) { await react("❌"); return reply("❌ Owner only."); }
 
-    if (!q) { await react("❓"); return reply("❓ Usage: `.setwatermark <text>`\nExample: `.setwatermark Powered by BLACK PANTHER MD ⚡`"); }
+    if (!q) { await react("❓"); return reply("❓ Usage: `.setwatermark <text>`\nExample: `.setwatermark Powered by Tehseen Tech Automation ⚡`"); }
     if (q.length > 80) { await react("❌"); return reply("❌ Watermark text must be under 80 characters."); }
 
     await setSetting("WATERMARK_TEXT", q.trim());
@@ -238,7 +238,7 @@ gmd({
     category:    "owner",
     description: "Toggle anti-flood detection in groups",
     usage:       ".antiflood on",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser } = conText;
     if (!isSuperUser) { await react("❌"); return reply("❌ Owner only."); }
 
@@ -273,7 +273,7 @@ gmd({
     category:    "owner",
     description: "Set the flood message limit per 10 seconds",
     usage:       ".floodlimit 7",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser } = conText;
     if (!isSuperUser) { await react("❌"); return reply("❌ Owner only."); }
 
@@ -292,7 +292,7 @@ gmd({
     category:    "owner",
     description: "Set action when flood is detected: warn or kick",
     usage:       ".floodaction warn",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser } = conText;
     if (!isSuperUser) { await react("❌"); return reply("❌ Owner only."); }
 
@@ -308,7 +308,7 @@ gmd({
 if (!global.__pluginMsgHooks) global.__pluginMsgHooks = [];
 const floodTracker = new Map(); // jid → { count, resetAt }
 
-global.__pluginMsgHooks.push(async (ms, Guru, settings) => {
+global.__pluginMsgHooks.push(async (ms, Bot, settings) => {
     try {
         const enabled = await getSetting("ANTIFLOOD").catch(() => "false");
         if (enabled !== "true") return;
@@ -334,13 +334,13 @@ global.__pluginMsgHooks.push(async (ms, Guru, settings) => {
         const numStr  = sender.split("@")[0].split(":")[0];
 
         if (action === "warn") {
-            await Guru.sendMessage(from, {
+            await Bot.sendMessage(from, {
                 text: `⚠️ @${numStr} — *Flood detected!*\nPlease slow down or you will be removed from the group.`,
                 mentions: [sender],
             });
         } else if (action === "kick" || action === "remove") {
-            await Guru.groupParticipantsUpdate(from, [sender], "remove").catch(() => {});
-            await Guru.sendMessage(from, { text: `🚫 @${numStr} was removed for message flooding.`, mentions: [sender] });
+            await Bot.groupParticipantsUpdate(from, [sender], "remove").catch(() => {});
+            await Bot.sendMessage(from, { text: `🚫 @${numStr} was removed for message flooding.`, mentions: [sender] });
         }
 
         // Reset after action so they get another chance
@@ -358,21 +358,21 @@ gmd({
     category:    "owner",
     description: "Set the bot's WhatsApp About/Bio text",
     usage:       ".botbio <text>",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser } = conText;
     if (!isSuperUser) { await react("❌"); return reply("❌ Owner only."); }
 
     if (!q) {
         const cur = (await getSetting("BOT_BIO").catch(() => "")) || "";
         await react("ℹ️");
-        return reply(`*🤖 Bot Bio*\n\nCurrent: _${cur || "(not set)"}_\n\nUsage: \`.botbio <text>\`\nExample: \`.botbio ⚡ BLACK PANTHER MD — Always Online!\`\n\nMax 139 characters.`);
+        return reply(`*🤖 Bot Bio*\n\nCurrent: _${cur || "(not set)"}_\n\nUsage: \`.botbio <text>\`\nExample: \`.botbio ⚡ Tehseen Tech Automation — Always Online!\`\n\nMax 139 characters.`);
     }
 
     if (q.length > 139) { await react("❌"); return reply("❌ Bio must be under 139 characters (WhatsApp limit)."); }
 
     await setSetting("BOT_BIO", q.trim());
     try {
-        await Guru.updateProfileStatus(q.trim());
+        await Bot.updateProfileStatus(q.trim());
     } catch (e) {
         console.error("[BotBio] update error:", e.message);
     }
@@ -387,7 +387,7 @@ gmd({
     category:    "owner",
     description: "Toggle auto-updating bot bio with uptime/date",
     usage:       ".autobio on",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser } = conText;
     if (!isSuperUser) { await react("❌"); return reply("❌ Owner only."); }
 
@@ -413,8 +413,8 @@ gmd({
                 const upMs      = Date.now() - startTime;
                 const upH       = Math.floor(upMs / 3_600_000);
                 const upM       = Math.floor((upMs % 3_600_000) / 60_000);
-                const bio       = `⚡ BLACK PANTHER MD | Up ${upH}h${upM}m | ${new Date().toLocaleDateString()} | Always Online 🤖`;
-                await Guru.updateProfileStatus(bio);
+                const bio       = `⚡ Tehseen Tech Automation | Up ${upH}h${upM}m | ${new Date().toLocaleDateString()} | Always Online 🤖`;
+                await Bot.updateProfileStatus(bio);
             } catch (_) {}
         }, 30 * 60_000);
     } else {
@@ -435,7 +435,7 @@ gmd({
     category:    "owner",
     description: "Save a message for instant broadcast to all registered chats",
     usage:       ".broadcastmsg <message>",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser } = conText;
     if (!isSuperUser) { await react("❌"); return reply("❌ Owner only."); }
 
@@ -453,7 +453,7 @@ gmd({
     category:    "owner",
     description: "Broadcast the saved message to all registered chats",
     usage:       ".sendbroadcast",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { reply, react, isSuperUser } = conText;
     if (!isSuperUser) { await react("❌"); return reply("❌ Owner only."); }
 
@@ -470,7 +470,7 @@ gmd({
     let sent = 0;
     for (const { jid } of chats) {
         try {
-            await Guru.sendMessage(jid, { text: msg });
+            await Bot.sendMessage(jid, { text: msg });
             sent++;
             await new Promise(r => setTimeout(r, 1_200));
         } catch (_) {}
@@ -501,7 +501,7 @@ gmd({
     category:    "owner",
     description: "Show total messages handled by the bot",
     usage:       ".msgstats",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { reply, react, isSuperUser } = conText;
     if (!isSuperUser) { await react("❌"); return reply("❌ Owner only."); }
 
@@ -532,7 +532,7 @@ gmd({
     category:    "owner",
     description: "Push all bot changes to GitHub via REST API",
     usage:       ".pushgit",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { reply, react, isSuperUser } = conText;
     if (!isSuperUser) { await react("❌"); return reply("❌ Owner only."); }
 
@@ -565,7 +565,7 @@ gmd({
 
             if (code === 0 || failed === 0) {
                 await react("✅");
-                await Guru.sendMessage(from, {
+                await Bot.sendMessage(from, {
                     text:
                         `*🐙 GitHub Sync Complete!*\n${"═".repeat(30)}\n\n` +
                         `✅ Pushed   : *${pushed}* files\n` +
@@ -576,7 +576,7 @@ gmd({
             } else {
                 await react("❌");
                 const failLines = lines.filter(l => l.includes("❌")).join("\n");
-                await Guru.sendMessage(from, {
+                await Bot.sendMessage(from, {
                     text:
                         `*🐙 GitHub Sync — Partial Failure*\n\n` +
                         `✅ ${pushed} pushed | ❌ ${failed} failed\n\n` +
@@ -612,7 +612,7 @@ if (!global.__autoBioInterval) {
                 const customBio = await getSetting("BOT_BIO").catch(() => "");
                 const bio = customBio && customBio.trim()
                     ? customBio.trim()
-                    : `⚡ BLACK PANTHER MD | Up ${upH}h${upM}m | ${new Date().toLocaleDateString()} | Always Online 🤖`;
+                    : `⚡ Tehseen Tech Automation | Up ${upH}h${upM}m | ${new Date().toLocaleDateString()} | Always Online 🤖`;
                 await sock.updateProfileStatus(bio);
             } catch (_) {}
         }, 30 * 60_000);
@@ -625,7 +625,7 @@ if (!global.__autoBioInterval) {
                 const customBio = await getSetting("BOT_BIO").catch(() => "");
                 const bio = customBio && customBio.trim()
                     ? customBio.trim()
-                    : `⚡ BLACK PANTHER MD | Online & Ready | ${new Date().toLocaleDateString()} | Always Active 🤖`;
+                    : `⚡ Tehseen Tech Automation | Online & Ready | ${new Date().toLocaleDateString()} | Always Active 🤖`;
                 await sock.updateProfileStatus(bio);
             } catch (_) {}
         }, 10_000);

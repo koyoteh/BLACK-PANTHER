@@ -29,12 +29,12 @@ async function MediaFire(url, options) {
 
 if (!text) {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-    return sendInteractive(client, m, "⚡ ──「 MEDIAFIRE 」──\n▢ Provide a MediaFire link, you lazy bum!\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──");
+    return sendInteractive(client, m, "⚡ ──「 MEDIAFIRE 」──\n▢ Provide a MediaFire link, you lazy bum!\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──");
 }
 
 if (!text.includes('mediafire.com')) {
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-        return sendInteractive(client, m, "⚡ ──「 MEDIAFIRE 」──\n▢ That doesn't look like a MediaFire link, genius.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──");
+        return sendInteractive(client, m, "⚡ ──「 MEDIAFIRE 」──\n▢ That doesn't look like a MediaFire link, genius.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──");
     }
 
 
@@ -48,7 +48,7 @@ try {
 
 if (!fileInfo || !fileInfo.length) {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-    return sendInteractive(client, m, "▢ File no longer exists on MediaFire. Too slow!\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──");
+    return sendInteractive(client, m, "▢ File no longer exists on MediaFire. Too slow!\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──");
 }
 
 
@@ -66,7 +66,7 @@ if (!fileInfo || !fileInfo.length) {
                 fileName: fileInfo[0].nama,
                 mimetype: fileInfo[0].mime,
                 caption: `⚡ ──「 MEDIAFIRE DL 」──
-▢ File: ${fileInfo[0].nama}\n▢ Downloaded by ${botname}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──` }
+▢ File: ${fileInfo[0].nama}\n▢ Downloaded by ${botname}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──` }
 
 
    );
@@ -75,7 +75,7 @@ if (!fileInfo || !fileInfo.length) {
 
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
         sendInteractive(client, m, `⚡ ──「 MEDIAFIRE ERROR 」──
-▢ Download failed, not my fault.\n▢ ${error}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Download failed, not my fault.\n▢ ${error}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
 
 }

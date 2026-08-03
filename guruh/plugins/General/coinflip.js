@@ -11,6 +11,6 @@ export default {
         return sendInteractive(client, m, `⚡ ──「 Cᴏɪɴ Fʟɪᴘ 」──
 │
 ▢ ${result}\n│
-▢ There. Decision made.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ There. Decision made.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
 };

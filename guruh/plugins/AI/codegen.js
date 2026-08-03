@@ -8,7 +8,7 @@ export default async (context) => {
     if (!text) {
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
         return sendInteractive(client, m, `⚡ ──「 Cᴏᴅᴇɢᴇɴ 」──
-▢ Example usage:\n▢ .codegen Function to calculate triangle area|Python\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Example usage:\n▢ .codegen Function to calculate triangle area|Python\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
 
     let [prompt, language] = text.split("|").map(v => v.trim());
@@ -16,7 +16,7 @@ export default async (context) => {
     if (!prompt || !language) {
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
         return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
-▢ Invalid format!\n▢ Use the format: .codegen <prompt>|<language>\n▢ Example: .codegen Check for prime number|JavaScript\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Invalid format!\n▢ Use the format: .codegen <prompt>|<language>\n▢ Example: .codegen Check for prime number|JavaScript\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
 
     await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
@@ -31,17 +31,17 @@ export default async (context) => {
         if (!data || typeof data !== "string") {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
             return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
-▢ Failed to retrieve code from API.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Failed to retrieve code from API.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
 
         await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
         sendInteractive(client, m, `⚡ ──「 Cᴏᴅᴇɢᴇɴ (${language}) 」──
-` + "```" + language.toLowerCase() + "\n" + data.trim() + "\n```" + `\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+` + "```" + language.toLowerCase() + "\n" + data.trim() + "\n```" + `\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
 
     } catch (error) {
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
         console.error(error);
         sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
-▢ An error occurred while processing your request.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ An error occurred while processing your request.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
 };

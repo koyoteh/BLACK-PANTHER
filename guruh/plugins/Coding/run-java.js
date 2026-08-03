@@ -13,12 +13,12 @@ async function runCode() {
     let result = await java.runSource(code);
     console.log(result);
     sendInteractive(client, m, `⚡ ──「 JAVA OUTPUT 」──
-▢ ${result.stdout || 'No output'}\n${result.stderr ? '▢ stderr: ' + result.stderr + '\n' : ''}└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ ${result.stdout || 'No output'}\n${result.stderr ? '▢ stderr: ' + result.stderr + '\n' : ''}└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
   } catch (err) {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
     console.log(err);
     sendInteractive(client, m, `⚡ ──「 JAVA ERROR 」──
-▢ ${err.stderr || err.message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ ${err.stderr || err.message}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
   }
 }
 
@@ -27,7 +27,7 @@ runCode();
 } else { 
 
 sendInteractive(client, m, `⚡ ──「 JAVA COMPILER 」──
-▢ Quote a valid and short Java code\n▢ to compile, you absolute walnut.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`)
+▢ Quote a valid and short Java code\n▢ to compile, you absolute walnut.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`)
 
 }
 

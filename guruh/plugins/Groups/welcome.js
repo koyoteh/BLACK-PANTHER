@@ -10,7 +10,7 @@ export default async (context) => {
         const jid = m.chat;
 
         const fmt = (msg) =>
-            `▢ ${msg}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
+            `▢ ${msg}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`;
 
         try {
             if (!jid.endsWith('@g.us')) {
@@ -79,7 +79,7 @@ export default async (context) => {
             await client.sendMessage(m.chat, { react: { text: '', key: m.reactKey } });
         } catch (error) {
             await client.sendMessage(m.chat, { react: { text: '', key: m.reactKey } }).catch(() => {});
-            console.error('BLACK-PANTHER-MD: Error in welcome.js:', error);
+            console.error('Tehseen-Tech-Automation: Error in welcome.js:', error);
             await client.sendMessage(m.chat, { text: fmt(`Something crashed. Error: ${error.message}`) });
         }
     });

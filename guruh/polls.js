@@ -4,7 +4,7 @@ const path     = require("path");
 const fs       = require("fs-extra");
 
 // ═══════════════════════════════════════════════════════════════════
-//  SMART POLL SYSTEM  ·  BLACK PANTHER MD
+//  SMART POLL SYSTEM  ·  Tehseen Tech Automation
 //  Create group polls with live voting, timed auto-close,
 //  duplicate-vote protection and ASCII bar-chart results.
 // ═══════════════════════════════════════════════════════════════════
@@ -82,7 +82,7 @@ const buildResultsText = (poll, label = "📊 Results") => {
 // ── Passive hook: detect vote messages (number in active-poll group) ──
 if (!global.__pluginMsgHooks) global.__pluginMsgHooks = [];
 
-global.__pluginMsgHooks.push(async (ms, Guru, settings) => {
+global.__pluginMsgHooks.push(async (ms, Bot, settings) => {
     try {
         const from = ms.key.remoteJid;
         if (!from?.endsWith("@g.us")) return;
@@ -112,12 +112,12 @@ global.__pluginMsgHooks.push(async (ms, Guru, settings) => {
             const prev = existing.option_idx + 1;
             if (prev === num) return; // same vote, ignore silently
             $addVote.run(poll.id, voterJid, idx, Date.now());
-            await Guru.sendMessage(from, {
+            await Bot.sendMessage(from, {
                 text: `🔄 Vote changed to *${num}. ${options[idx]}* ✅`,
             }, { quoted: ms });
         } else {
             $addVote.run(poll.id, voterJid, idx, Date.now());
-            await Guru.sendMessage(from, {
+            await Bot.sendMessage(from, {
                 text: `✅ Voted for *${num}. ${options[idx]}*  _(reply again to change)_`,
             }, { quoted: ms });
         }
@@ -156,7 +156,7 @@ gmd({
     category:    "group",
     description: "Create a group poll with timed auto-close",
     usage:       `.poll "Question?" "Option 1" "Option 2" [minutes]`,
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { q, reply, react, isGroup, sender, isAdmin, isBotAdmin, isSuperUser } = conText;
 
     if (!isGroup) { await react("❌"); return reply("❌ Polls work in groups only."); }
@@ -216,7 +216,7 @@ gmd({
     category:    "group",
     description: "Vote in the active group poll",
     usage:       ".vote <option number>",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { q, reply, react, isGroup, sender } = conText;
 
     if (!isGroup) { await react("❌"); return reply("❌ No active poll here."); }
@@ -255,7 +255,7 @@ gmd({
     category:    "group",
     description: "End the active poll and show final results",
     usage:       ".endpoll",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { q, reply, react, isGroup, isAdmin, isSuperUser } = conText;
 
     if (!isGroup) { await react("❌"); return reply("❌ Groups only."); }
@@ -282,7 +282,7 @@ gmd({
     category:    "group",
     description: "Show live results of the active poll",
     usage:       ".pollresult",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { reply, react, isGroup } = conText;
 
     if (!isGroup) { await react("❌"); return reply("❌ Groups only."); }
@@ -302,7 +302,7 @@ gmd({
     category:    "group",
     description: "List all active polls in this group",
     usage:       ".polls",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { reply, react, isGroup } = conText;
 
     if (!isGroup) { await react("❌"); return reply("❌ Groups only."); }

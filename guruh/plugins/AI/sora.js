@@ -13,7 +13,7 @@ export default {
 
         if (!prompt) {
             return sendInteractive(client, m, `⚡ ──「 Sᴏʀᴀ AI 」──
-▢ Describe a scene to generate.\n▢ Example: ${prefix}sora a dragon flying over Tokyo\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Describe a scene to generate.\n▢ Example: ${prefix}sora a dragon flying over Tokyo\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
 
         try {
@@ -31,13 +31,13 @@ export default {
             await client.sendMessage(m.chat, {
                 image: buffer,
                 caption: `⚡ ──「 Sᴏʀᴀ AI Sᴄᴇɴᴇ 」──
-▢ Prompt: ${prompt}\n▢ Resolution: 1280×720\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
+▢ Prompt: ${prompt}\n▢ Resolution: 1280×720\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`
             });
 
         } catch (error) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
             await sendInteractive(client, m, `⚡ ──「 Fᴀɪʟᴇᴅ 」──
-▢ Could not generate scene.\n▢ Try a different prompt.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Could not generate scene.\n▢ Try a different prompt.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
     }
 };

@@ -12,7 +12,7 @@ export default {
 
       if (!query) {
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-        return sendInteractive(client, m, `⚡ ──「 PLAY 」──\n▢ You forgot to type something, genius.\n▢ Give me a song name OR a YouTube link.\n▢ Example: .play harlem shake\n▢ Or: .play https://youtu.be/dQw4w9WgXcQ\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+        return sendInteractive(client, m, `⚡ ──「 PLAY 」──\n▢ You forgot to type something, genius.\n▢ Give me a song name OR a YouTube link.\n▢ Example: .play harlem shake\n▢ Or: .play https://youtu.be/dQw4w9WgXcQ\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
       }
 
       await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
@@ -27,7 +27,7 @@ export default {
 
         if (!data.status || !data.cdn) {
           await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-          return sendInteractive(client, m, `▢ Can't download that YouTube link.\n▢ Your link is probably broken or private.\n▢ Even I have limits, unlike your stupidity.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+          return sendInteractive(client, m, `▢ Can't download that YouTube link.\n▢ Your link is probably broken or private.\n▢ Even I have limits, unlike your stupidity.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
 
         audioUrl = data.cdn;
@@ -37,7 +37,7 @@ export default {
       } else {
         if (query.length > 100) {
           await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-          return sendInteractive(client, m, "▢ Song title longer than my patience. 100 chars MAX!\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──");
+          return sendInteractive(client, m, "▢ Song title longer than my patience. 100 chars MAX!\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──");
         }
 
         const response = await fetch(`https://apiziaul.vercel.app/api/downloader/ytplaymp3?query=${encodeURIComponent(query)}`);
@@ -45,7 +45,7 @@ export default {
 
         if (!data.status || !data.result?.downloadUrl) {
           await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-          return sendInteractive(client, m, `▢ No song found for "${query}".\n▢ Your music taste is as bad as your search skills.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+          return sendInteractive(client, m, `▢ No song found for "${query}".\n▢ Your music taste is as bad as your search skills.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
 
         audioUrl = data.result.downloadUrl;
@@ -63,7 +63,7 @@ export default {
         contextInfo: thumbnail ? {
           externalAdReply: {
             title: filename.substring(0, 30),
-            body: "BLACK-PANTHER-MD",
+            body: "Tehseen-Tech-Automation",
             thumbnailUrl: thumbnail,
             sourceUrl: sourceUrl,
             mediaType: 1,
@@ -74,14 +74,14 @@ export default {
         mimetype: "audio/mpeg",
         fileName: `${filename.replace(/[<>:"/\\|?*]/g, '_')}.mp3`,
         caption: `⚡ ──「 PLAY 」──
-▢ ${filename}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
+▢ ${filename}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`
       });
 
     } catch (error) {
       console.error('Play error:', error);
       await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
       await sendInteractive(client, m, `⚡ ──「 PLAY ERROR 」──
-▢ Play failed. The universe rejects your music taste.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Play failed. The universe rejects your music taste.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
   }
 };

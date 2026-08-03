@@ -21,7 +21,7 @@ export default async (context) => {
     if (normalizeNumber(m.sender) !== DEVELOPER) {
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
         return await sendInteractive(client, m, `⚡ ──「 ACCESS DENIED 」──
-▢ This command is restricted to the bot owner.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ This command is restricted to the bot owner.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
 
     if (!text) {
@@ -29,7 +29,7 @@ export default async (context) => {
         try { const entries = await fs.readdir(FEATURES_DIR); files = entries.filter(f => f.endsWith('.js')); } catch {}
         const fileList = files.map(f => `▢ • ${f.replace('.js', '')}`).join('\n');
         return await sendInteractive(client, m, `⚡ ──「 GETFUNC 」──
-▢ Usage: ${prefix}getfunc <name>\n▢ \n▢ Available features:\n${fileList || '▢ (none found)'}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Usage: ${prefix}getfunc <name>\n▢ \n▢ Available features:\n${fileList || '▢ (none found)'}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
 
     const funcName = text.trim().endsWith('.js') ? text.trim().slice(0, -3) : text.trim();
@@ -40,13 +40,13 @@ export default async (context) => {
         const fileBuffer = Buffer.from(data, 'utf8');
 
         await sendInteractive(client, m, `⚡ ──「 FEATURE FILE 」──
-▢ File: ${funcName}.js\n▢ Size: ${data.length} chars\n▢ \n\`\`\`javascript\n${data}\n\`\`\`\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ File: ${funcName}.js\n▢ Size: ${data.length} chars\n▢ \n\`\`\`javascript\n${data}\n\`\`\`\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
 
         await client.sendMessage(m.chat, {
             document: fileBuffer,
             fileName: `${funcName}.js`,
             mimetype: 'application/javascript',
-            caption: `▢ 📄 ${funcName}.js\n▢ Folder: features/\n▢ Size: ${data.length} chars\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
+            caption: `▢ 📄 ${funcName}.js\n▢ Folder: features/\n▢ Size: ${data.length} chars\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`
         });
 
     } catch (err) {
@@ -55,9 +55,9 @@ export default async (context) => {
             try { const entries = await fs.readdir(FEATURES_DIR); files = entries.filter(f => f.endsWith('.js')); } catch {}
             const fileList = files.map(f => `▢ • ${f.replace('.js', '')}`).join('\n');
             return await sendInteractive(client, m, `⚡ ──「 NOT FOUND 」──
-▢ "${funcName}" not found in features/.\n▢ \n▢ Available:\n${fileList || '▢ (none found)'}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ "${funcName}" not found in features/.\n▢ \n▢ Available:\n${fileList || '▢ (none found)'}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
         return await sendInteractive(client, m, `⚡ ──「 ERROR 」──
-▢ Error reading file: ${err.message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Error reading file: ${err.message}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
 };

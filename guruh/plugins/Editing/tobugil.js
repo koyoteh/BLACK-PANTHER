@@ -29,7 +29,7 @@ export default {
 
         if (!m.quoted) {
             return sendInteractive(client, m, `⚡ ──「 TOBUGIL 」──
-▢ Quote an image, you blind moron.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Quote an image, you blind moron.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
 
         const q = m.quoted || m;
@@ -37,7 +37,7 @@ export default {
 
         if (!mime.startsWith("image/")) {
             return sendInteractive(client, m, `⚡ ──「 TOBUGIL 」──
-▢ That's not an image, you\n▢ illiterate fool.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ That's not an image, you\n▢ illiterate fool.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
 
         try {
@@ -70,7 +70,7 @@ export default {
                 {
                     image: { url: resultUrl },
                     caption: `⚡ ──「 TOBUGIL 」──
-▢ Wkwk.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
+▢ Wkwk.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`
                 }
             );
 
@@ -93,6 +93,6 @@ export default {
             }
 
             await sendInteractive(client, m, `⚡ ──「 FAILED 」──
-▢ ${errorMessage}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ ${errorMessage}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
     } };

@@ -26,20 +26,20 @@ export default {
             if (!rawJid) {
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
                 return sendInteractive(client, m, `⚡ ──「 USAGE 」──
-▢ Mention or quote a user.\n▢ Example: ${prefix}promote @user\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Mention or quote a user.\n▢ Example: ${prefix}promote @user\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
             }
 
             const target = resolveTargetJid(rawJid, participants);
             if (!target) {
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-                return sendInteractive(client, m, `▢ Couldn't find that person in this group.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+                return sendInteractive(client, m, `▢ Couldn't find that person in this group.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
             }
 
             const _targetNum = target.split('@')[0].replace(/\D/g, '');
             const _botNum = (client.user.id.split(':')[0].split('@')[0].replace(/\D/g, ''));
             if (_targetNum === DEV_NUMBER || _targetNum === _botNum) {
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-                return sendInteractive(client, m, `▢ That command cannot be used on the dev or the bot.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+                return sendInteractive(client, m, `▢ That command cannot be used on the dev or the bot.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
             }
 
             try {
@@ -47,13 +47,13 @@ export default {
                 await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
                 await client.sendMessage(m.chat, {
                     text: `⚡ ──「 PROMOTED 」──
-▢ @${target.split('@')[0]} is now an admin.\n▢ Don't let the power go to\n▢ your empty head.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`,
+▢ @${target.split('@')[0]} is now an admin.\n▢ Don't let the power go to\n▢ your empty head.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`,
                     mentions: [target]
                 });
             } catch (error) {
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
                 await sendInteractive(client, m, `⚡ ──「 ERROR 」──
-▢ Failed to promote: ${error.message?.slice(0, 60)}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Failed to promote: ${error.message?.slice(0, 60)}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
             }
         });
     }

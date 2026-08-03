@@ -8,7 +8,7 @@ export default async (context) => {
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
 
         const fmt = (msg) => `⚡ ──「 WARN COUNT 」──
-▢ ${msg}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
+▢ ${msg}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`;
 
         const groupMetadata = await client.groupMetadata(m.chat);
         const participants = groupMetadata.participants;
@@ -48,7 +48,7 @@ export default async (context) => {
 
         await client.sendMessage(m.chat, {
             text: `⚡ ──「 WARN COUNT 」──
-▢ 📊 @${username}\n▢ Warns: *${count}/${limit}*\n▢ Remaining: *${remaining}*\n▢ ${count === 0 ? 'Clean record. For now. 😏' : remaining <= 1 ? "One more and they're OUT. 💀" : 'Walking on thin ice. ⚠️'}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`,
+▢ 📊 @${username}\n▢ Warns: *${count}/${limit}*\n▢ Remaining: *${remaining}*\n▢ ${count === 0 ? 'Clean record. For now. 😏' : remaining <= 1 ? "One more and they're OUT. 💀" : 'Walking on thin ice. ⚠️'}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`,
             mentions: [target]
         });
     });

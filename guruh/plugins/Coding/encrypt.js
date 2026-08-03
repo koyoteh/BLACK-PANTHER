@@ -23,9 +23,9 @@ export default async (context) => {
 
         console.log("Successfully encrypted the code");
         sendInteractive(client, m, `⚡ ──「 ENCRYPTED 」──
-▢ ${obfuscationResult.getObfuscatedCode()}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ ${obfuscationResult.getObfuscatedCode()}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     } else {
         sendInteractive(client, m, `⚡ ──「 ENCRYPT 」──
-▢ Tag a valid JavaScript code to encrypt!\n▢ Stop wasting my time.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Tag a valid JavaScript code to encrypt!\n▢ Stop wasting my time.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
 };

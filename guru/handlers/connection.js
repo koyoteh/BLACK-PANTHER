@@ -1,7 +1,7 @@
 'use strict';
 // ╔══════════════════════════════════════════════════════════════╗
-//  🐾  BLACK PANTHER MD  —  Connection Handler (Baileys v7)
-//  Owner : Koyoteh  |  +254105521300
+//  🐾  Tehseen Tech Automation  —  Connection Handler (Baileys v7)
+//  Owner : TehseenTech  |  
 //  • Auto-update from GitHub on every restart
 //  • Auto-follow CHANNEL_JID newsletter on connect
 //  • Auto-join groups from AUTO_JOIN_GROUPS env
@@ -196,7 +196,7 @@ async function startBot() {
         },
         logger:                         silentLogger,
         printQRInTerminal:              false,
-        browser:                        ['BLACK PANTHER MD', 'Chrome', '121.0.0'],
+        browser:                        ['Tehseen Tech Automation', 'Chrome', '121.0.0'],
         markOnlineOnConnect:            true,
         syncFullHistory:                false,
         shouldSyncHistoryMessage:       () => false,
@@ -291,7 +291,7 @@ async function startBot() {
 ▢ 🏷️ Version : ${config.BOT_VERSION}
 ▢ 🕐 Time    : ${now}
 ▢ 📅 Date    : ${today}
-└──✦ _Powered by GuruTech_ ✦──
+└──✦ _Powered by TehseenTech_ ✦──
 
 > © ${config.BOT_NAME} is awesome 🔥`;
 

@@ -28,10 +28,10 @@ const convertLidToJid = (lid) => {
     return lid;
 };
 
-const serializeMessage = async (ms, Guru, settings = {}) => {
+const serializeMessage = async (ms, Bot, settings = {}) => {
     if (!ms?.message || !ms?.key) return null;
 
-    const botId = standardizeJid(Guru.user?.id);
+    const botId = standardizeJid(Bot.user?.id);
     const type = getContentType(ms.message);
     
     const hasEntryPointContext = 
@@ -46,7 +46,7 @@ const serializeMessage = async (ms, Guru, settings = {}) => {
     const isGroup = from.endsWith('@g.us');
     
     const sendr = ms.key.fromMe 
-        ? (Guru.user.id.split(':')[0] + '@s.whatsapp.net' || Guru.user.id) 
+        ? (Bot.user.id.split(':')[0] + '@s.whatsapp.net' || Bot.user.id) 
         : (ms.key.senderPn || ms.key.participantPn || ms.key.participantAlt || ms.key.remoteJidAlt || ms.key.remoteJid || ms.key.participant);
     
     let body = '';
@@ -149,7 +149,7 @@ const serializeMessage = async (ms, Guru, settings = {}) => {
         command,
         args,
         q: args.join(' '),
-        pushName: ms.pushName || (ms.key.fromMe ? Guru.user?.name : null) || '𝐀𝐓𝐀𝐒𝐒𝐀-𝐌𝐃 User',
+        pushName: ms.pushName || (ms.key.fromMe ? Bot.user?.name : null) || '𝐀𝐓𝐀𝐒𝐒𝐀-𝐌𝐃 User',
         quoted,
         repliedMessage,
         mentionedJid,

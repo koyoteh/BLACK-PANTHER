@@ -11,7 +11,7 @@ export default {
             const { client, m, text, groupMetadata } = context;
             await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
 
-            if (!m.isGroup) return sendInteractive(client, m, `▢ Group only command.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+            if (!m.isGroup) return sendInteractive(client, m, `▢ Group only command.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
 
             const resolveParticipantJid = (p, participants) => {
                 if (p.pn) return String(p.pn).replace(/\D/g, '') + '@s.whatsapp.net';
@@ -25,21 +25,21 @@ export default {
                 const admins = participants.filter(p => p.admin === 'admin' || p.admin === 'superadmin');
                 const mentions = admins.map(p => resolveParticipantJid(p, participants)).filter(Boolean);
 
-                if (!mentions.length) return sendInteractive(client, m, `▢ No admins found in this group.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+                if (!mentions.length) return sendInteractive(client, m, `▢ No admins found in this group.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
 
                 const txt = [
                     `⚡ ──「 ADMINS  」──`,
                     text ? `▢ ${text}` : `▢ Calling all admins 📢`,
                     `▢ `,
                     ...mentions.map(id => `▢ @${id.split('@')[0]}`),
-                    `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
+                    `└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`
                 ].join('\n');
 
                 await client.sendMessage(m.chat, { text: txt, mentions });
                 await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
             } catch (err) {
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-                await sendInteractive(client, m, `▢ Failed to fetch admins.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+                await sendInteractive(client, m, `▢ Failed to fetch admins.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
             }
         });
     }

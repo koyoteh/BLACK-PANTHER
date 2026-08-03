@@ -1,6 +1,6 @@
 // ════════════════════════════════════════════════════════════════════════════
-//  BLACK PANTHER MD — Bot Entry Point
-//  by Koyoteh | github.com/koyoteh
+//  Tehseen Tech Automation — Bot Entry Point
+//  by TehseenTech | github.com/tehseentech
 // ════════════════════════════════════════════════════════════════════════════
 
 "use strict";
@@ -21,7 +21,7 @@ const {
     fetchLatestWaWebVersion,
 } = require("@whiskeysockets/baileys");
 
-// ─── Guru Core ───────────────────────────────────────────────────────────────
+// ─── Bot Core ───────────────────────────────────────────────────────────────
 require("./guru/gmdHelpers");
 
 const {
@@ -53,7 +53,7 @@ const AUTO_RESTART_MS = 24 * 60 * 60 * 1000; // 24 hours
 logger.level = "silent";
 
 // ─── Mutable State ───────────────────────────────────────────────────────────
-let GuruSocket = null;
+let BotSocket = null;
 let store      = null;
 let botSettings = {};
 
@@ -153,7 +153,7 @@ function startExpiryWatchdog() {
             async (msg) => {
                 global._licenceExpired = true;
                 console.warn("[EXPIRY] ⛔ Licence expired — commands locked.");
-                await notifyOwner(`⛔ *BLACK PANTHER MD — LICENCE EXPIRED*\n\n${msg}\n\n_Commands are locked. Renew your licence to continue._`);
+                await notifyOwner(`⛔ *Tehseen Tech Automation — LICENCE EXPIRED*\n\n${msg}\n\n_Commands are locked. Renew your licence to continue._`);
             },
             async (warnMsg) => notifyOwner(warnMsg),
         );
@@ -177,7 +177,7 @@ async function initDatabase() {
 //  BOT BOOT
 // ════════════════════════════════════════════════════════════════════════════
 
-async function startGuru() {
+async function startBot() {
     try {
         const { version }        = await fetchLatestWaWebVersion();
         const sessionDbPath      = path.join(SESSION_DIR, "session.db");
@@ -194,32 +194,32 @@ async function startGuru() {
             return msg?.message ?? undefined;
         };
 
-        GuruSocket            = makeWASocket(socketConfig);
-        global._botSocket     = GuruSocket;
-        store.bind(GuruSocket.ev);
+        BotSocket            = makeWASocket(socketConfig);
+        global._botSocket     = BotSocket;
+        store.bind(BotSocket.ev);
 
         // Persist credentials on update
-        GuruSocket.ev.process(async (events) => {
+        BotSocket.ev.process(async (events) => {
             if (events["creds.update"]) await saveCreds();
         });
 
         // Attach event handlers
-        setupAutoReact(GuruSocket);
-        setupAntiDelete(GuruSocket);
-        setupAutoBio(GuruSocket);
-        setupAntiCall(GuruSocket);
-        setupPresence(GuruSocket);
-        setupChatBotAndAntiLink(GuruSocket);
-        setupAntiEdit(GuruSocket);
-        setupStatusHandlers(GuruSocket);
-        setupGroupEventsListeners(GuruSocket);
+        setupAutoReact(BotSocket);
+        setupAntiDelete(BotSocket);
+        setupAutoBio(BotSocket);
+        setupAntiCall(BotSocket);
+        setupPresence(BotSocket);
+        setupChatBotAndAntiLink(BotSocket);
+        setupAntiEdit(BotSocket);
+        setupStatusHandlers(BotSocket);
+        setupGroupEventsListeners(BotSocket);
 
         // Load plugins & commands
         loadPlugins(PLUGINS_DIR);
-        setupCommandHandler(GuruSocket);
+        setupCommandHandler(BotSocket);
 
         // Connection lifecycle
-        setupConnectionHandler(GuruSocket, SESSION_DIR, startGuru, {
+        setupConnectionHandler(BotSocket, SESSION_DIR, startBot, {
             onOpen: (socket) => onBotConnected(socket),
         });
 
@@ -229,7 +229,7 @@ async function startGuru() {
 
     } catch (err) {
         console.error("❌ Socket init error:", err.message);
-        setTimeout(startGuru, 5_000);
+        setTimeout(startBot, 5_000);
     }
 }
 
@@ -278,7 +278,7 @@ async function sendStartupMessage(socket, s) {
             `▢ 📌 Prefix  : ${s.PREFIX || d.PREFIX}`,
             `▢ 🌐 Mode    : ${modeLabel}`,
             `▢ ⏳ Licence : ${expLine}`,
-            `└──✦ _Powered by GuruTech_ ✦──`,
+            `└──✦ _Powered by TehseenTech_ ✦──`,
             ``,
             `> _Allow a few seconds to sync._`,
         ].join("\n");
@@ -309,5 +309,5 @@ async function sendStartupMessage(socket, s) {
     await loadSession();
     await initDatabase();
 
-    startGuru();
+    startBot();
 })();

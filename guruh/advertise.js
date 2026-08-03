@@ -76,7 +76,7 @@ function buildAdMessage(ad, pushName, botFooter) {
 
     lines.push(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
     lines.push(``);
-    lines.push(`> _Advertised via ${botFooter || "BLACK PANTHER MD"}_`);
+    lines.push(`> _Advertised via ${botFooter || "Tehseen Tech Automation"}_`);
 
     return lines.join("\n");
 }
@@ -124,7 +124,7 @@ gmd(
         category: "advertise",
         description: "Show the business advertiser menu",
     },
-    async (_from, _Guru, conText) => {
+    async (_from, _Bot, conText) => {
         const { reply, react, botPrefix, botFooter, pushName } = conText;
         const p   = botPrefix || ".";
         const total = _allCount.get().total;
@@ -154,7 +154,7 @@ gmd(
             `  _Post your formatted ad in this chat_\n\n` +
             `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
             `📊 *${total}* business ad(s) registered\n\n` +
-            `> *${botFooter || "BLACK PANTHER MD"}*`
+            `> *${botFooter || "Tehseen Tech Automation"}*`
         );
     }
 );
@@ -171,7 +171,7 @@ gmd(
         category: "advertise",
         description: "Create or update your business ad. Usage: .setad Name | Desc | Contact | Location",
     },
-    async (_from, _Guru, conText) => {
+    async (_from, _Bot, conText) => {
         const { q, reply, react, sender, botPrefix, botFooter, pushName } = conText;
         const p = botPrefix || ".";
 
@@ -183,8 +183,8 @@ gmd(
                 `*With optional fields:*\n` +
                 `\`\`\`${p}setad Business Name | Description | Contact | Location | Working Hours | Website\`\`\`\n\n` +
                 `*Example:*\n` +
-                `\`\`\`${p}setad Koyoteh Shop | Phone repairs & accessories | +254700000000 | Nairobi CBD | Mon-Sat 8am-6pm | koyoteh.co.ke\`\`\`\n\n` +
-                `> _${botFooter || "BLACK PANTHER MD"}_`
+                `\`\`\`${p}setad TehseenTech Shop | Phone repairs & accessories | +254700000000 | Nairobi CBD | Mon-Sat 8am-6pm | tehseentech.co.ke\`\`\`\n\n` +
+                `> _${botFooter || "Tehseen Tech Automation"}_`
             );
         }
 
@@ -218,7 +218,7 @@ gmd(
             `${website ? `🌐 ${website}\n` : ""}` +
             `\nType *${p}postad* to post your ad in any chat.\n` +
             `Type *${p}myad* to preview your full ad.\n\n` +
-            `> _${botFooter || "BLACK PANTHER MD"}_`
+            `> _${botFooter || "Tehseen Tech Automation"}_`
         );
     }
 );
@@ -235,7 +235,7 @@ gmd(
         category: "advertise",
         description: "Preview your saved business ad",
     },
-    async (_from, _Guru, conText) => {
+    async (_from, _Bot, conText) => {
         const { reply, react, sender, botPrefix, pushName } = conText;
         const p = botPrefix || ".";
 
@@ -264,7 +264,7 @@ gmd(
         category: "advertise",
         description: "Post your business ad in this chat",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, sender, botPrefix, botFooter, pushName } = conText;
         const p = botPrefix || ".";
 
@@ -280,7 +280,7 @@ gmd(
 
         const adText = buildAdMessage(ad, pushName, botFooter);
 
-        await Guru.sendMessage(from, { text: adText });
+        await Bot.sendMessage(from, { text: adText });
         _incrementPosted.run(sender);
 
         await react("✅");
@@ -299,7 +299,7 @@ gmd(
         category: "advertise",
         description: "Edit a field of your ad. Usage: .editad name My New Name",
     },
-    async (_from, _Guru, conText) => {
+    async (_from, _Bot, conText) => {
         const { q, reply, react, sender, botPrefix } = conText;
         const p = botPrefix || ".";
 
@@ -315,7 +315,7 @@ gmd(
                 `  • \`hours\` — Working hours\n` +
                 `  • \`website\` — Website URL\n\n` +
                 `*Example:*\n` +
-                `\`${p}editad name Koyoteh Enterprises\``
+                `\`${p}editad name TehseenTech Enterprises\``
             );
         }
 
@@ -363,7 +363,7 @@ gmd(
         category: "advertise",
         description: "Delete your saved business ad",
     },
-    async (_from, _Guru, conText) => {
+    async (_from, _Bot, conText) => {
         const { q, reply, react, sender, botPrefix } = conText;
         const p = botPrefix || ".";
 

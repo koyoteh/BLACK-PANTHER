@@ -13,7 +13,7 @@ export default async (context) => {
     if (!code) {
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
         return sendInteractive(client, m, `⚡ ──「 JS COMPILER 」──
-▢ Provide JavaScript code or quote one.\n▢ Example: .runjs console.log("hello")\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Provide JavaScript code or quote one.\n▢ Example: .runjs console.log("hello")\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
 
     try {
@@ -24,12 +24,12 @@ export default async (context) => {
         let error = result.stderr ? `▢ stderr: ${result.stderr}\n` : '';
         
         sendInteractive(client, m, `⚡ ──「 JS OUTPUT 」──
-▢ ${output}\n${error}└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ ${output}\n${error}└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         
     } catch (err) {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
         console.log(err);
         sendInteractive(client, m, `⚡ ──「 JS ERROR 」──
-▢ ${err.stderr || err.message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ ${err.stderr || err.message}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
 };

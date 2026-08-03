@@ -29,14 +29,14 @@ export default async (context) => {
         })
       })
       await Promise.all(promises)
-      jackhuh += `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
+      jackhuh += `└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`
       await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
       sendInteractive(client, m, jackhuh);
 
   } catch (e) {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
     sendInteractive(client, m, `⚡ ──「 ERROR 」──
-▢ Error occured while accessing\n▢ bot groups.\n▢ ${e}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`)
+▢ Error occured while accessing\n▢ bot groups.\n▢ ${e}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`)
   }
 
   });

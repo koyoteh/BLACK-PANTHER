@@ -6,9 +6,9 @@ const { getSetting, setSetting } = require("../guru/database/settings");
 const OWNER_ONLY = true;
 const ADMIN_ONLY = true;
 
-const isGroupAdmin = async (Guru, jid, senderJid) => {
+const isGroupAdmin = async (Bot, jid, senderJid) => {
     try {
-        const meta = await Guru.groupMetadata(jid);
+        const meta = await Bot.groupMetadata(jid);
         const senderNum = (senderJid || "").split("@")[0].split(":")[0];
         const participant = meta.participants.find(
             (p) => p.id.split("@")[0].split(":")[0] === senderNum
@@ -57,7 +57,7 @@ gmd(
         description: "View all current group restrictions",
         category: "group",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, isGroup, jid } = conText;
         if (!isGroup) return reply("❌ This command is for groups only.");
         await react("🔒");
@@ -74,10 +74,10 @@ const makeLockCmd = (pattern, key, label, emoji) => {
             description: `Lock ${label} messages in this group`,
             category: "group",
         },
-        async (from, Guru, conText) => {
+        async (from, Bot, conText) => {
             const { reply, react, isGroup, jid, sender } = conText;
             if (!isGroup) return reply("❌ Groups only.");
-            if (!(await isGroupAdmin(Guru, jid, sender))) return reply("❌ You must be an admin to use this.");
+            if (!(await isGroupAdmin(Bot, jid, sender))) return reply("❌ You must be an admin to use this.");
             await setGroupSetting(jid, key, "true");
             await react("🔒");
             reply(`${emoji} *${label}* messages are now *locked* in this group.\nNon-admins cannot send ${label.toLowerCase()} messages.`);
@@ -93,10 +93,10 @@ const makeUnlockCmd = (pattern, key, label, emoji) => {
             description: `Unlock ${label} messages in this group`,
             category: "group",
         },
-        async (from, Guru, conText) => {
+        async (from, Bot, conText) => {
             const { reply, react, isGroup, jid, sender } = conText;
             if (!isGroup) return reply("❌ Groups only.");
-            if (!(await isGroupAdmin(Guru, jid, sender))) return reply("❌ You must be an admin to use this.");
+            if (!(await isGroupAdmin(Bot, jid, sender))) return reply("❌ You must be an admin to use this.");
             await setGroupSetting(jid, key, "false");
             await react("🔓");
             reply(`${emoji} *${label}* messages are now *unlocked* in this group.`);
@@ -147,10 +147,10 @@ gmd(
         description: "Lock all message types in this group",
         category: "group",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, isGroup, jid, sender } = conText;
         if (!isGroup) return reply("❌ Groups only.");
-        if (!(await isGroupAdmin(Guru, jid, sender))) return reply("❌ Admin only.");
+        if (!(await isGroupAdmin(Bot, jid, sender))) return reply("❌ Admin only.");
         const keys = ["LOCK_TEXT","LOCK_MEDIA","LOCK_STICKERS","LOCK_GIF","LOCK_VIDEO","LOCK_VOICE","LOCK_AUDIO","LOCK_DOCS","LOCK_POLLS","LOCK_VIEWONCE","LOCK_CONTACTS","LOCK_LOCATION"];
         for (const k of keys) await setGroupSetting(jid, k, "true");
         await react("🔒");
@@ -165,10 +165,10 @@ gmd(
         description: "Unlock all message types in this group",
         category: "group",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, isGroup, jid, sender } = conText;
         if (!isGroup) return reply("❌ Groups only.");
-        if (!(await isGroupAdmin(Guru, jid, sender))) return reply("❌ Admin only.");
+        if (!(await isGroupAdmin(Bot, jid, sender))) return reply("❌ Admin only.");
         const keys = ["LOCK_TEXT","LOCK_MEDIA","LOCK_STICKERS","LOCK_GIF","LOCK_VIDEO","LOCK_VOICE","LOCK_AUDIO","LOCK_DOCS","LOCK_POLLS","LOCK_VIEWONCE","LOCK_CONTACTS","LOCK_LOCATION"];
         for (const k of keys) await setGroupSetting(jid, k, "false");
         await react("🔓");
@@ -183,10 +183,10 @@ gmd(
         description: "Set slow mode delay in seconds (0 = off) — e.g. .slowmode 10",
         category: "group",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, isGroup, jid, sender, q } = conText;
         if (!isGroup) return reply("❌ Groups only.");
-        if (!(await isGroupAdmin(Guru, jid, sender))) return reply("❌ Admin only.");
+        if (!(await isGroupAdmin(Bot, jid, sender))) return reply("❌ Admin only.");
 
         const secs = parseInt(q);
         if (isNaN(secs) || secs < 0) return reply("❌ Please provide a valid number of seconds.\nExample: `.slowmode 10` or `.slowmode 0` to disable.");
@@ -207,10 +207,10 @@ gmd(
         description: "Toggle anti-spam duplicate message detection — .antispam on/off",
         category: "group",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, isGroup, jid, sender, q } = conText;
         if (!isGroup) return reply("❌ Groups only.");
-        if (!(await isGroupAdmin(Guru, jid, sender))) return reply("❌ Admin only.");
+        if (!(await isGroupAdmin(Bot, jid, sender))) return reply("❌ Admin only.");
 
         const action = (q || "").trim().toLowerCase();
         if (!["on", "off"].includes(action)) return reply("❌ Usage: `.antispam on` or `.antispam off`");
@@ -233,7 +233,7 @@ gmd(
         category: "settings",
         ownerOnly: OWNER_ONLY,
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, q } = conText;
         const action = (q || "").trim().toLowerCase();
         if (!["on", "off"].includes(action)) return reply("❌ Usage: `.dmpermit on` or `.dmpermit off`");
@@ -256,7 +256,7 @@ gmd(
         category: "settings",
         ownerOnly: OWNER_ONLY,
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, q } = conText;
         if (!q) return reply("❌ Please provide a message.\nExample: `.dmpermitmsg Only approved contacts can DM this bot.`");
 
@@ -275,7 +275,7 @@ gmd(
         category: "settings",
         ownerOnly: OWNER_ONLY,
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, q } = conText;
         const action = (q || "").trim().toLowerCase();
         if (!["warn", "block"].includes(action)) return reply("❌ Usage: `.dmpermitaction warn` or `.dmpermitaction block`");
@@ -295,7 +295,7 @@ gmd(
         category: "settings",
         ownerOnly: OWNER_ONLY,
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, q } = conText;
         const args = (q || "").trim().split(" ");
         const subCmd = args[0]?.toLowerCase();
@@ -338,10 +338,10 @@ gmd(
         description: "Silently delete stickers sent by non-admins",
         category: "group",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, isGroup, jid, sender, body, args } = conText;
         if (!isGroup) return reply("❌ This command is for groups only.");
-        if (!(await isGroupAdmin(Guru, jid, sender))) return reply("❌ You must be an admin to use this.");
+        if (!(await isGroupAdmin(Bot, jid, sender))) return reply("❌ You must be an admin to use this.");
 
         const arg = (args[0] || body.split(" ")[1] || "").toLowerCase();
         if (!arg || !["on", "off"].includes(arg)) {
@@ -368,7 +368,7 @@ gmd(
         category: "settings",
         ownerOnly: OWNER_ONLY,
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react } = conText;
         const dmPermit = (await getSetting("DM_PERMIT")) || "false";
         const dmAction = (await getSetting("DM_PERMIT_ACTION")) || "warn";

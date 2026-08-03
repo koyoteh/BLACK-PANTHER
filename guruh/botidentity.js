@@ -60,19 +60,19 @@ gmd({
     category:    "owner",
     description: "View and manage bot identity (name, image, watermark)",
     usage:       ".identity",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { reply, react, isSuperUser } = conText;
     if (!isSuperUser) { await react("❌"); return reply("❌ Owner only."); }
 
     const [name, pic, wmOn, wmText, bio] = await Promise.all([
-        getSetting("BOT_NAME").catch(() => "BLACK PANTHER MD"),
+        getSetting("BOT_NAME").catch(() => "Tehseen Tech Automation"),
         getSetting("BOT_PIC").catch(() => ""),
         getSetting("WATERMARK").catch(() => "false"),
         getSetting("WATERMARK_TEXT").catch(() => ""),
         getSetting("BOT_BIO").catch(() => ""),
     ]);
 
-    const botName    = name    || "BLACK PANTHER MD";
+    const botName    = name    || "Tehseen Tech Automation";
     const picUrl     = pic     || "";
     const watermark  = wmOn === "true";
     const wmLabel    = wmText  || `_Powered by ${botName}_`;
@@ -94,17 +94,17 @@ gmd({
         `   ↳ _.botbio <text>_\n\n` +
         `${"─".repeat(32)}\n` +
         `*Quick Commands:*\n` +
-        `• \`.rebrand BLACK PANTHER MD\`\n` +
+        `• \`.rebrand Tehseen Tech Automation\`\n` +
         `• \`.setpic https://…\`\n` +
         `• \`.setpic\` _(reply to a photo)_\n` +
-        `• \`.setwm Powered by GURU\`\n` +
+        `• \`.setwm Powered by TTA\`\n` +
         `• \`.wmtoggle\`\n` +
         `• \`.previewbot\``;
 
     if (picUrl) {
         try {
             const imgBuf = await fetchImageBuffer(picUrl);
-            return Guru.sendMessage(from, {
+            return Bot.sendMessage(from, {
                 image: imgBuf,
                 caption: text,
             });
@@ -123,15 +123,15 @@ gmd({
     react:       "✏️",
     category:    "owner",
     description: "Set bot name and update WhatsApp display name live",
-    usage:       ".rebrand BLACK PANTHER MD",
-}, async (from, Guru, conText) => {
+    usage:       ".rebrand Tehseen Tech Automation",
+}, async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser } = conText;
     if (!isSuperUser) { await react("❌"); return reply("❌ Owner only."); }
     if (!q?.trim()) {
         return reply(
             `✏️ *Set Bot Name*\n\n` +
             `Usage: \`.rebrand <new name>\`\n\n` +
-            `Example: \`.rebrand BLACK PANTHER MD v2\`\n\n` +
+            `Example: \`.rebrand Tehseen Tech Automation v2\`\n\n` +
             `_Updates both the bot settings and the WhatsApp profile name._`
         );
     }
@@ -151,7 +151,7 @@ gmd({
 
     // 2 — update WhatsApp profile name live
     try {
-        await Guru.updateProfileName(newName);
+        await Bot.updateProfileName(newName);
         results.push("✅ WhatsApp display name updated");
     } catch (e) {
         results.push(`⚠️ WhatsApp name: ${e.message}`);
@@ -175,7 +175,7 @@ gmd({
     category:    "owner",
     description: "Set bot image from URL or by sending/replying to a photo",
     usage:       ".setpic <url>  OR  reply to image with .setpic",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser, quotedMsg, getMediaBuffer, mek } = conText;
     if (!isSuperUser) { await react("❌"); return reply("❌ Owner only."); }
 
@@ -242,7 +242,7 @@ gmd({
 
     // 2 — update WhatsApp profile picture live
     try {
-        await Guru.updateProfilePicture(Guru.user.id, { url: imageUrl });
+        await Bot.updateProfilePicture(Bot.user.id, { url: imageUrl });
         results.push("✅ WhatsApp profile photo updated");
     } catch (e) {
         results.push(`⚠️ WhatsApp photo: ${e.message}`);
@@ -252,7 +252,7 @@ gmd({
 
     // Send preview of the new image with result
     try {
-        await Guru.sendMessage(from, {
+        await Bot.sendMessage(from, {
             image: imgBuffer || { url: imageUrl },
             caption:
                 `*🖼️ Bot Image Updated!*\n\n` +
@@ -277,8 +277,8 @@ gmd({
     react:       "✍️",
     category:    "owner",
     description: "Set the watermark text appended to bot messages",
-    usage:       ".setwm Powered by BLACK PANTHER MD",
-}, async (from, Guru, conText) => {
+    usage:       ".setwm Powered by Tehseen Tech Automation",
+}, async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser } = conText;
     if (!isSuperUser) { await react("❌"); return reply("❌ Owner only."); }
 
@@ -287,7 +287,7 @@ gmd({
         return reply(
             `*✍️ Watermark Text*\n\n` +
             `Current: _${cur}_\n\n` +
-            `Usage: \`.setwm Powered by GURU BOT\`\n\n` +
+            `Usage: \`.setwm Powered by TTA BOT\`\n\n` +
             `_Use \`.wmtoggle\` to turn it on/off_`
         );
     }
@@ -314,7 +314,7 @@ gmd({
     category:    "owner",
     description: "Toggle the watermark on or off",
     usage:       ".wmtoggle",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { reply, react, isSuperUser } = conText;
     if (!isSuperUser) { await react("❌"); return reply("❌ Owner only."); }
 
@@ -338,18 +338,18 @@ gmd({
     category:    "owner",
     description: "Preview how the bot looks with current identity settings",
     usage:       ".previewbot",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { reply, react, isSuperUser } = conText;
     if (!isSuperUser) { await react("❌"); return reply("❌ Owner only."); }
 
     const [name, pic, wmOn, wmText] = await Promise.all([
-        getSetting("BOT_NAME").catch(() => "BLACK PANTHER MD"),
+        getSetting("BOT_NAME").catch(() => "Tehseen Tech Automation"),
         getSetting("BOT_PIC").catch(() => ""),
         getSetting("WATERMARK").catch(() => "false"),
         getSetting("WATERMARK_TEXT").catch(() => ""),
     ]);
 
-    const botName   = name   || "BLACK PANTHER MD";
+    const botName   = name   || "Tehseen Tech Automation";
     const picUrl    = pic    || "";
     const watermark = wmOn === "true";
     const wm        = wmText || `_Powered by ${botName}_`;
@@ -370,7 +370,7 @@ gmd({
     if (picUrl) {
         try {
             const imgBuf = await fetchImageBuffer(picUrl);
-            await Guru.sendMessage(from, { image: imgBuf, caption: sampleMsg });
+            await Bot.sendMessage(from, { image: imgBuf, caption: sampleMsg });
             await react("✅");
             return reply(
                 `👁️ *Preview sent above!*\n\n` +

@@ -19,7 +19,7 @@ export default {
 
         const p      = prefix || '.';
         const header = `⚡ ──「 ${EMOJI} *${LABEL}* 」──\n▢ ${EFFECT_CMDS.length} effects available\n▢ 📌 Usage: ${p}<effect> YourText\n\n`;
-        const footer = `\n└──✦ _Powered by GuruTech_ ✦──`;
+        const footer = `\n└──✦ _Powered by TehseenTech_ ✦──`;
 
         let menuText = header;
         EFFECT_CMDS.forEach((cmd, i) => {

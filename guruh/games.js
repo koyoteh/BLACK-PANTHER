@@ -74,7 +74,7 @@ gmd({
     react: "🎮",
     category: "game",
     description: "Show all available games and commands",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const helpText = `🎮 *GAMES MENU*
 
 ╭━━━━━━━━━━━━━━━━━╮
@@ -112,18 +112,18 @@ gmd({
 _🤖 AI modes let you play solo against the bot!_
 _No command prefix needed during gameplay!_`;
     
-    return await Guru.sendMessage(from, {
+    return await Bot.sendMessage(from, {
         text: helpText,
     });
 });
 
-const setJoinTimeout = (chatJid, Guru, player1) => {
+const setJoinTimeout = (chatJid, Bot, player1) => {
     clearGameTimeout(chatJid);
     const timeout = setTimeout(async () => {
         const waiting = await getWaitingGame(chatJid);
         if (waiting) {
             await endGame(chatJid);
-            await Guru.sendMessage(chatJid, {
+            await Bot.sendMessage(chatJid, {
                 text: `⏰ *TIC TAC TOE - TIMEOUT*\n\nNo one joined within 30 seconds.\nGame cancelled!\n\n@${getPlayerName(player1)} can start a new game with *.ttt*`,
     
                 mentions: [player1],
@@ -140,12 +140,12 @@ gmd({
     react: "🎮",
     category: "game",
     description: "Start a TicTacToe game. Another player must type 'join' within 30 seconds.",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { mek, sender, botName } = conText;
     
     const existingActive = await getActiveGame(from);
     if (existingActive) {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: "❌ There's already an active game in this chat!\nUse *.tttend* to end it first.",
 
         });
@@ -153,19 +153,19 @@ gmd({
     
     const existingWaiting = await getWaitingGame(from);
     if (existingWaiting) {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: "❌ There's already a game waiting for a player!\nType *join* to join, or use *.tttend* to cancel.",
 
         });
     }
     
-    const sentMsg = await Guru.sendMessage(from, {
+    const sentMsg = await Bot.sendMessage(from, {
         text: `🎮 *TIC TAC TOE*\n\n@${getPlayerName(sender)} wants to play!\n\n*Type "join" within 30 seconds to play!*\n\nPlayer 1: @${getPlayerName(sender)} (❌)\nPlayer 2: Waiting...\n\n${renderBoard([1, 2, 3, 4, 5, 6, 7, 8, 9])}\n\n⏰ _Auto-cancels in 30 seconds if no one joins_`,
         mentions: [sender],
     });
     
     await createGame(from, sender, sentMsg.key);
-    setJoinTimeout(from, Guru, sender);
+    setJoinTimeout(from, Bot, sender);
 });
 
 gmd({
@@ -174,7 +174,7 @@ gmd({
     react: "🛑",
     category: "game",
     description: "End the current TicTacToe game",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { sender, isSuperUser } = conText;
     
     const activeGame = await getActiveGame(from);
@@ -182,21 +182,21 @@ gmd({
     const game = activeGame || waitingGame;
     
     if (!game) {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: "❌ No active TicTacToe game to end!",
         });
     }
     
     const isPlayer = game.player1 === sender || game.player2 === sender;
     if (!isPlayer && !isSuperUser) {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: "❌ Only players or admins can end the game!",
         });
     }
     
     clearGameTimeout(from);
     await endGame(from);
-    await Guru.sendMessage(from, {
+    await Bot.sendMessage(from, {
         text: `🛑 TicTacToe game ended by @${getPlayerName(sender)}!`,
         mentions: [sender],
     });
@@ -208,20 +208,20 @@ gmd({
     react: "✅",
     category: "game",
     description: "Join a waiting TicTacToe game",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { sender } = conText;
     
     const result = await joinGame(from, sender);
     
     if (!result) {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: "❌ No game waiting for players! Start one with *.ttt*",
 
         });
     }
     
     if (result.error === "same_player") {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: "❌ You can't play against yourself!",
 
         });
@@ -230,12 +230,12 @@ gmd({
     clearGameTimeout(from);
     
     const board = JSON.parse(result.board);
-    await Guru.sendMessage(from, {
+    await Bot.sendMessage(from, {
         text: `🎮 *TIC TAC TOE - GAME STARTED!*\n\nPlayer 1: @${getPlayerName(result.player1)} (❌)\nPlayer 2: @${getPlayerName(result.player2)} (⭕)\n\n${renderBoard(board)}\n\n@${getPlayerName(result.currentTurn)}'s turn (❌)\n\n*Reply with a number (1-9) to move!*\n⏰ _30 seconds per move_`,
         mentions: [result.player1, result.player2, result.currentTurn],
     });
     
-    setMoveTimeout(from, Guru, result.currentTurn, result.player2, result.player1);
+    setMoveTimeout(from, Bot, result.currentTurn, result.player2, result.player1);
 });
 
 gmd({
@@ -244,11 +244,11 @@ gmd({
     react: "📋",
     category: "game",
     description: "Show the current TicTacToe board",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const game = await getActiveGame(from);
     
     if (!game) {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: "❌ No active game! Start one with *.ttt*",
 
         });
@@ -257,7 +257,7 @@ gmd({
     const board = JSON.parse(game.board);
     const currentSymbol = game.currentTurn === game.player1 ? "❌" : "⭕";
     
-    await Guru.sendMessage(from, {
+    await Bot.sendMessage(from, {
         text: `🎮 *TIC TAC TOE*\n\nPlayer 1: @${getPlayerName(game.player1)} (❌)\nPlayer 2: @${getPlayerName(game.player2)} (⭕)\n\n${renderBoard(board)}\n\n@${getPlayerName(game.currentTurn)}'s turn (${currentSymbol})`,
         mentions: [game.player1, game.player2, game.currentTurn],
     });
@@ -269,12 +269,12 @@ gmd({
     react: "🔤",
     category: "game",
     description: "Start a Word Chain Game",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { sender } = conText;
     
     const existingActive = await getActiveWcgGame(from);
     if (existingActive) {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: "❌ There's already an active Word Chain game!\nUse *.wcgend* to end it first.",
 
         });
@@ -282,7 +282,7 @@ gmd({
     
     const existingWaiting = await getWaitingWcgGame(from);
     if (existingWaiting) {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: "❌ A game is waiting for players!\nUse *.wcgjoin* to join or *.wcgend* to cancel.",
 
         });
@@ -290,7 +290,7 @@ gmd({
     
     await createWcgGame(from, sender);
     
-    await Guru.sendMessage(from, {
+    await Bot.sendMessage(from, {
         text: `🔤 *WORD CHAIN GAME*\n\n@${getPlayerName(sender)} wants to play!\n\n📜 *Rules:*\n• Each word must start with the last letter of the previous word\n• No repeating words\n• Minimum 2 letters per word\n• 30 seconds per turn\n\n👥 *Players:*\n1. @${getPlayerName(sender)}\n\n⏰ *30 seconds to join!*\n*Type .wcgjoin to join!*\n*Host types .wcgbegin to start early*`,
         mentions: [sender],
     });
@@ -302,7 +302,7 @@ gmd({
         const players = JSON.parse(waitingGame.players);
         if (players.length < 2) {
             await endWcgGame(from);
-            await Guru.sendMessage(from, {
+            await Bot.sendMessage(from, {
                 text: "⏰ *Time's up!*\n\nNo one joined the game. Game cancelled.",
             });
             return;
@@ -313,12 +313,12 @@ gmd({
         
         const playerList = result.players.map((p, i) => `${i + 1}. @${getPlayerName(p)}`).join('\n');
         
-        await Guru.sendMessage(from, {
+        await Bot.sendMessage(from, {
             text: `⏰ *Time's up! Game starting!*\n\n🚀 *WORD CHAIN STARTED!*\n\n👥 *Players:*\n${playerList}\n\n🔄 @${getPlayerName(result.currentTurn)}'s turn!\n*Say any word to begin!*\n\n⏰ _30 seconds per turn_`,
             mentions: [...result.players, result.currentTurn],
         });
         
-        setWcgTurnTimeout(from, Guru, result.currentTurn, result.game);
+        setWcgTurnTimeout(from, Bot, result.currentTurn, result.game);
     });
 });
 
@@ -328,25 +328,25 @@ gmd({
     react: "✅",
     category: "game",
     description: "Join a Word Chain Game",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { sender } = conText;
     
     const result = await joinWcgGame(from, sender);
     
     if (result.error === 'no_game') {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: "❌ No game waiting! Start one with *.wcg*",
         });
     }
     
     if (result.error === 'cant_join_own_game') {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: "❌ You can't play against yourself! Wait for someone else to join.",
         });
     }
     
     if (result.error === 'already_joined') {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: "❌ You've already joined this game!",
         });
     }
@@ -354,7 +354,7 @@ gmd({
     const playerList = result.players.map((p, i) => `${i + 1}. @${getPlayerName(p)}`).join('\n');
     const mentions = result.players;
     
-    await Guru.sendMessage(from, {
+    await Bot.sendMessage(from, {
         text: `✅ @${getPlayerName(sender)} joined!\n\n👥 *Players (${result.players.length}):*\n${playerList}\n\n*More can join with .wcgjoin*\n*Host types .wcgbegin when ready*`,
         mentions,
     });
@@ -366,12 +366,12 @@ gmd({
     react: "🚀",
     category: "game",
     description: "Start the Word Chain Game (host only)",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { sender } = conText;
     
     const waitingGame = await getWaitingWcgGame(from);
     if (!waitingGame) {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: "❌ No game waiting to start!",
 
         });
@@ -379,7 +379,7 @@ gmd({
     
     const players = JSON.parse(waitingGame.players);
     if (players[0] !== sender) {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: "❌ Only the host can start the game!",
 
         });
@@ -390,7 +390,7 @@ gmd({
     const result = await startWcgGame(from);
     
     if (result.error === 'not_enough_players') {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: "❌ Need at least 2 players to start!",
 
         });
@@ -398,12 +398,12 @@ gmd({
     
     const playerList = result.players.map((p, i) => `${i + 1}. @${getPlayerName(p)}`).join('\n');
     
-    await Guru.sendMessage(from, {
+    await Bot.sendMessage(from, {
         text: `🚀 *WORD CHAIN STARTED!*\n\n👥 *Players:*\n${playerList}\n\n🔄 @${getPlayerName(result.currentTurn)}'s turn!\n*Say any word to begin!*\n\n⏰ _30 seconds per turn_`,
         mentions: [...result.players, result.currentTurn],
     });
     
-    setWcgTurnTimeout(from, Guru, result.currentTurn, result.game);
+    setWcgTurnTimeout(from, Bot, result.currentTurn, result.game);
 });
 
 gmd({
@@ -412,13 +412,13 @@ gmd({
     react: "🛑",
     category: "game",
     description: "End the Word Chain Game",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { sender, isSuperUser } = conText;
     
     const game = await getActiveWcgGame(from) || await getWaitingWcgGame(from);
     
     if (!game) {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: "❌ No Word Chain game to end!",
         });
     }
@@ -426,7 +426,7 @@ gmd({
     const players = JSON.parse(game.players);
     const isPlayer = players.includes(sender);
     if (!isPlayer && !isSuperUser) {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: "❌ Only players or admins can end the game!",
         });
     }
@@ -440,7 +440,7 @@ gmd({
         text += `\n\n📊 *Final Scores:*\n${formatScores(scores)}`;
     }
     
-    await Guru.sendMessage(from, {
+    await Bot.sendMessage(from, {
         text,
         mentions: [sender],
     });
@@ -452,11 +452,11 @@ gmd({
     react: "📊",
     category: "game",
     description: "Show Word Chain scores",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const game = await getActiveWcgGame(from);
     
     if (!game) {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: "❌ No active Word Chain game!",
 
         });
@@ -466,7 +466,7 @@ gmd({
     const players = JSON.parse(game.players);
     const usedWords = JSON.parse(game.usedWords);
     
-    await Guru.sendMessage(from, {
+    await Bot.sendMessage(from, {
         text: `📊 *WORD CHAIN SCORES*\n\n${formatScores(scores)}\n\n📝 Words used: ${usedWords.length}\n🔄 Current turn: @${getPlayerName(game.currentTurn)}\n${game.lastWord ? `Last word: *${game.lastWord}*` : ''}`,
         mentions: [...players, game.currentTurn],
     });
@@ -478,7 +478,7 @@ gmd({
     react: "🔤",
     category: "game",
     description: "Submit a word in Word Chain Game",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { sender, q, botPrefix } = conText;
     
     const game = await getActiveWcgGame(from);
@@ -487,7 +487,7 @@ gmd({
     }
     
     if (!q || q.trim() === '') {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: `❌ Provide a word!\n\nUsage: ${botPrefix}w <word>`,
 
         });
@@ -497,28 +497,28 @@ gmd({
     const result = await submitWord(from, sender, word);
     
     if (result.error === 'not_your_turn') {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: "❌ It's not your turn!",
 
         });
     }
     
     if (result.error === 'word_used') {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: `❌ "${word}" has already been used!`,
 
         });
     }
     
     if (result.error === 'wrong_letter') {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: `❌ Word must start with *${result.expected.toUpperCase()}*!`,
 
         });
     }
     
     if (result.error === 'too_short') {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: "❌ Word must be at least 2 letters!",
 
         });
@@ -530,23 +530,23 @@ gmd({
     
     const updatedGame = await getActiveWcgGame(from);
     if (updatedGame && updatedGame.isAiGame && result.nextPlayer === BOT_JID) {
-        await Guru.sendMessage(from, {
+        await Bot.sendMessage(from, {
             text: `✅ *${result.word}* (+${result.word.length} pts)\n\n🤖 AI is thinking...`,
 
         });
-        await handleAiWcgMoveInternal(from, Guru, updatedGame);
+        await handleAiWcgMoveInternal(from, Bot, updatedGame);
         return;
     }
     
-    await Guru.sendMessage(from, {
+    await Bot.sendMessage(from, {
         text: `✅ *${result.word}* (+${result.word.length} pts)\n\n🔄 @${getPlayerName(result.nextPlayer)}'s turn\nNext word starts with: *${nextLetter}*\n\n📊 Words: ${result.wordCount} | ⏰ 30s`,
         mentions: [result.nextPlayer],
     });
     
-    setWcgTurnTimeout(from, Guru, result.nextPlayer, result.game);
+    setWcgTurnTimeout(from, Bot, result.nextPlayer, result.game);
 });
 
-async function handleAiWcgMoveInternal(from, Guru, game) {
+async function handleAiWcgMoveInternal(from, Bot, game) {
     const lastWord = game.lastWord;
     const usedWords = JSON.parse(game.usedWords);
     
@@ -557,7 +557,7 @@ async function handleAiWcgMoveInternal(from, Guru, game) {
     if (!aiWord) {
         const scores = JSON.parse(game.scores);
         await endWcgGame(from);
-        await Guru.sendMessage(from, {
+        await Bot.sendMessage(from, {
             text: `🎉 *YOU WIN!*\n\n🤖 AI couldn't find a word starting with *${lastWord.slice(-1).toUpperCase()}*!\n\n📊 *Final Scores:*\n${formatScores(scores)}`,
 
         });
@@ -569,7 +569,7 @@ async function handleAiWcgMoveInternal(from, Guru, game) {
     if (result.error) {
         const scores = JSON.parse(game.scores);
         await endWcgGame(from);
-        await Guru.sendMessage(from, {
+        await Bot.sendMessage(from, {
             text: `🎉 *YOU WIN!*\n\n🤖 AI made an error!\n\n📊 *Final Scores:*\n${formatScores(scores)}`,
 
         });
@@ -577,12 +577,12 @@ async function handleAiWcgMoveInternal(from, Guru, game) {
     }
     
     const nextLetter = result.word.slice(-1).toUpperCase();
-    await Guru.sendMessage(from, {
+    await Bot.sendMessage(from, {
         text: `🤖 AI says: *${result.word}* (+${result.word.length} pts)\n\n🔄 @${getPlayerName(result.nextPlayer)}'s turn\nNext word starts with: *${nextLetter}*\n\n📊 Words: ${result.wordCount} | ⏰ 30s`,
         mentions: [result.nextPlayer],
     });
     
-    setWcgTurnTimeout(from, Guru, result.nextPlayer, result.game);
+    setWcgTurnTimeout(from, Bot, result.nextPlayer, result.game);
 }
 
 gmd({
@@ -591,12 +591,12 @@ gmd({
     react: "🎲",
     category: "game",
     description: "Start a Dice Game",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { sender, q } = conText;
     
     const existingActive = await getActiveDiceGame(from);
     if (existingActive) {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: "❌ There's already an active Dice game!\nUse *.diceend* to end it first.",
 
         });
@@ -604,7 +604,7 @@ gmd({
     
     const existingWaiting = await getWaitingDiceGame(from);
     if (existingWaiting) {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: "❌ A game is waiting for an opponent!\nUse *.dicejoin* to join or *.diceend* to cancel.",
 
         });
@@ -613,7 +613,7 @@ gmd({
     const rounds = parseInt(q) || 3;
     await createDiceGame(from, sender, rounds);
     
-    await Guru.sendMessage(from, {
+    await Bot.sendMessage(from, {
         text: `🎲 *DICE GAME*\n\n@${getPlayerName(sender)} wants to play!\n\n📜 *Rules:*\n• ${rounds} rounds\n• Each player rolls once per round\n• Highest roll wins the round\n• Most rounds won = winner!\n\n*Type .dicejoin to play!*\n⏰ _30 seconds to join_`,
         mentions: [sender],
     });
@@ -622,7 +622,7 @@ gmd({
         const waiting = await getWaitingDiceGame(from);
         if (waiting) {
             await endDiceGame(from);
-            await Guru.sendMessage(from, {
+            await Bot.sendMessage(from, {
                 text: `⏰ *DICE GAME - TIMEOUT*\n\nNo one joined within 30 seconds.\nGame cancelled!`,
     
             });
@@ -637,7 +637,7 @@ gmd({
     react: "✅",
     category: "game",
     description: "Join a Dice Game",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { sender } = conText;
     
     if (diceTimeouts.has(from + '_join')) {
@@ -648,25 +648,25 @@ gmd({
     const result = await joinDiceGame(from, sender);
     
     if (result.error === 'no_game') {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: "❌ No game waiting! Start one with *.dice*",
 
         });
     }
     
     if (result.error === 'same_player') {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: "❌ You can't play against yourself!",
 
         });
     }
     
-    await Guru.sendMessage(from, {
+    await Bot.sendMessage(from, {
         text: `🎲 *DICE GAME STARTED!*\n\n👤 @${getPlayerName(result.player1)} vs @${getPlayerName(result.player2)}\n🎯 Best of ${result.rounds} rounds\n\n*Round 1*\n@${getPlayerName(result.player1)}, type *.roll* to roll!\n\n⏰ _30 seconds per turn_`,
         mentions: [result.player1, result.player2],
     });
     
-    setDiceTurnTimeout(from, Guru, result.player1, result.game);
+    setDiceTurnTimeout(from, Bot, result.player1, result.game);
 });
 
 gmd({
@@ -675,12 +675,12 @@ gmd({
     react: "🎲",
     category: "game",
     description: "Roll the dice in an active game",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { sender } = conText;
     
     const game = await getActiveDiceGame(from);
     if (!game) {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: "❌ No active Dice game! Start one with *.dice*",
 
         });
@@ -690,7 +690,7 @@ gmd({
     const result = await playerRoll(from, sender);
     
     if (result.error === 'not_your_turn') {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: "❌ It's not your turn!",
 
         });
@@ -719,17 +719,17 @@ gmd({
             await endDiceGame(from);
         } else {
             text += `\n\n*Round ${result.nextRound}*\n@${getPlayerName(result.player1)}, type *.roll*!`;
-            setDiceTurnTimeout(from, Guru, result.player1, game);
+            setDiceTurnTimeout(from, Bot, result.player1, game);
         }
         
-        await Guru.sendMessage(from, {
+        await Bot.sendMessage(from, {
             text,
             mentions: [result.player1, result.player2, result.roundWinner, result.gameWinner].filter(Boolean),
         });
     } else {
         if (game.isAiGame && result.waitingFor === BOT_JID) {
             clearDiceTimeout(from);
-            await Guru.sendMessage(from, {
+            await Bot.sendMessage(from, {
                 text: `🎲 @${getPlayerName(sender)} rolled: ${getDiceEmoji(result.roll)} *${result.roll}*\n\n🤖 AI is rolling...`,
                 mentions: [sender],
             });
@@ -739,7 +739,7 @@ gmd({
             const aiResult = await playerRoll(from, BOT_JID);
             
             if (aiResult.error) {
-                await Guru.sendMessage(from, {
+                await Bot.sendMessage(from, {
                     text: `❌ AI roll error. Game ended.`,
                 });
                 await endDiceGame(from);
@@ -771,21 +771,21 @@ gmd({
             } else {
                 text += `\n\n*Round ${aiResult.nextRound}*\n@${getPlayerName(aiResult.player1)}, type *.roll*!`;
                 const freshGame = await getActiveDiceGame(from);
-                setDiceTurnTimeout(from, Guru, aiResult.player1, freshGame);
+                setDiceTurnTimeout(from, Bot, aiResult.player1, freshGame);
             }
             
-            await Guru.sendMessage(from, {
+            await Bot.sendMessage(from, {
                 text,
                 mentions: [aiResult.player1],
             });
             return;
         }
         
-        await Guru.sendMessage(from, {
+        await Bot.sendMessage(from, {
             text: `🎲 @${getPlayerName(sender)} rolled: ${getDiceEmoji(result.roll)} *${result.roll}*\n\n@${getPlayerName(result.waitingFor)}, type *.roll*!`,
             mentions: [sender, result.waitingFor],
         });
-        setDiceTurnTimeout(from, Guru, result.waitingFor, game);
+        setDiceTurnTimeout(from, Bot, result.waitingFor, game);
     }
 });
 
@@ -795,20 +795,20 @@ gmd({
     react: "🛑",
     category: "game",
     description: "End the Dice Game",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { sender, isSuperUser } = conText;
     
     const game = await getActiveDiceGame(from) || await getWaitingDiceGame(from);
     
     if (!game) {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: "❌ No Dice game to end!",
         });
     }
     
     const isPlayer = game.player1 === sender || game.player2 === sender;
     if (!isPlayer && !isSuperUser) {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: "❌ Only players or admins can end the game!",
         });
     }
@@ -820,7 +820,7 @@ gmd({
     }
     await endDiceGame(from);
     
-    await Guru.sendMessage(from, {
+    await Bot.sendMessage(from, {
         text: `🛑 Dice game ended by @${getPlayerName(sender)}!`,
         mentions: [sender],
     });
@@ -832,12 +832,12 @@ gmd({
     react: "🤖",
     category: "game",
     description: "Play TicTacToe against AI",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { sender } = conText;
     
     const existingActive = await getActiveGame(from);
     if (existingActive) {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: "❌ There's already an active game in this chat!\nUse *.tttend* to end it first.",
 
         });
@@ -845,13 +845,13 @@ gmd({
     
     const existingWaiting = await getWaitingGame(from);
     if (existingWaiting) {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: "❌ There's already a game waiting!\nUse *.tttend* to cancel.",
 
         });
     }
     
-    const sentMsg = await Guru.sendMessage(from, {
+    const sentMsg = await Bot.sendMessage(from, {
         text: `🤖 *TIC TAC TOE vs AI*\n\nPlayer: @${getPlayerName(sender)} (❌)\nAI: 🤖 (⭕)\n\n${renderBoard([1, 2, 3, 4, 5, 6, 7, 8, 9])}\n\n@${getPlayerName(sender)}'s turn (❌)\n*Reply with a number (1-9) to move!*`,
         mentions: [sender],
     });
@@ -865,12 +865,12 @@ gmd({
     react: "🤖",
     category: "game",
     description: "Play Word Chain Game against AI",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { sender } = conText;
     
     const existingActive = await getActiveWcgGame(from);
     if (existingActive) {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: "❌ There's already an active Word Chain game!\nUse *.wcgend* to end it first.",
 
         });
@@ -878,7 +878,7 @@ gmd({
     
     const existingWaiting = await getWaitingWcgGame(from);
     if (existingWaiting) {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: "❌ A game is waiting for players!\nUse *.wcgend* to cancel.",
 
         });
@@ -902,12 +902,12 @@ gmd({
         isAiGame: true,
     });
     
-    await Guru.sendMessage(from, {
+    await Bot.sendMessage(from, {
         text: `🤖 *WORD CHAIN vs AI*\n\n📜 *Rules:*\n• Each word must start with the last letter of the previous word\n• No repeating words\n• Minimum 2 letters per word\n• 30 seconds per turn\n\n👤 @${getPlayerName(sender)} vs 🤖 AI\n\n@${getPlayerName(sender)}'s turn - say any word to start!\n\n⏰ _30 seconds per turn_`,
         mentions: [sender],
     });
     
-    setWcgTurnTimeout(from, Guru, sender, null);
+    setWcgTurnTimeout(from, Bot, sender, null);
 });
 
 gmd({
@@ -916,12 +916,12 @@ gmd({
     react: "🤖",
     category: "game",
     description: "Play Dice against AI",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { sender, q } = conText;
     
     const existingActive = await getActiveDiceGame(from);
     if (existingActive) {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: "❌ There's already an active Dice game!\nUse *.diceend* to end it first.",
 
         });
@@ -929,7 +929,7 @@ gmd({
     
     const existingWaiting = await getWaitingDiceGame(from);
     if (existingWaiting) {
-        return await Guru.sendMessage(from, {
+        return await Bot.sendMessage(from, {
             text: "❌ A game is waiting!\nUse *.diceend* to cancel.",
 
         });
@@ -954,12 +954,12 @@ gmd({
         isAiGame: true,
     });
     
-    await Guru.sendMessage(from, {
+    await Bot.sendMessage(from, {
         text: `🤖 *DICE GAME vs AI*\n\n👤 @${getPlayerName(sender)} vs 🤖 AI\n🎯 Best of ${rounds} rounds\n\n*Round 1*\n@${getPlayerName(sender)}, type *.roll* to roll!\n\n⏰ _30 seconds per turn_`,
         mentions: [sender],
     });
     
-    setDiceTurnTimeout(from, Guru, sender, null);
+    setDiceTurnTimeout(from, Bot, sender, null);
 });
 
 module.exports = {};

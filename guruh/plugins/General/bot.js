@@ -19,9 +19,9 @@ export default {
         await client.sendMessage(m.chat, { react: { text: '🤖', key: m.reactKey } });
 
         const xhClintonPaths = [
-            path.join(__dirname, 'Koyoteh'),
-            path.join(process.cwd(), 'Koyoteh'),
-            path.join(__dirname, '..', 'Koyoteh')
+            path.join(__dirname, 'TehseenTech'),
+            path.join(process.cwd(), 'TehseenTech'),
+            path.join(__dirname, '..', 'TehseenTech')
         ];
 
         let audioFolder = null;
@@ -50,7 +50,7 @@ export default {
         const device = await getDeviceMode();
 
         const bodyText = `⚡ ──「 Sᴛᴀʀᴛ 」──
-▢ Yo @${m.sender.split('@')[0].split(':')[0]}! You actually bothered\n▢ to check if I'm alive?\n▢ ${botname} is active 24/7, unlike\n▢ your brain cells.\n▢ Stop wasting my time and pick\n▢ something useful below.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
+▢ Yo @${m.sender.split('@')[0].split(':')[0]}! You actually bothered\n▢ to check if I'm alive?\n▢ ${botname} is active 24/7, unlike\n▢ your brain cells.\n▢ Stop wasting my time and pick\n▢ something useful below.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`;
 
         if (device === 'ios') {
             await client.sendMessage(m.chat, { text: bodyText }, { mentions: [m.sender] });

@@ -124,7 +124,7 @@ gmd(
         category: "tools",
         react: "🗂️",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { mek, reply, getMediaBuffer } = conText;
 
         // ── Find the VCF document ──────────────────────────────────────────
@@ -201,7 +201,7 @@ gmd(
         // ── Send back ─────────────────────────────────────────────────────
         // Sent with NO caption so the file stays a clean, raw .vcf that the
         // user can forward/share as-is without dragging a caption along.
-        await Guru.sendMessage(from, {
+        await Bot.sendMessage(from, {
             document: cleanedBuffer,
             fileName: outName,
             mimetype: "text/vcard",
@@ -232,7 +232,7 @@ gmd(
         category: "tools",
         react: "📂",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { mek, reply, getMediaBuffer, args } = conText;
 
         const sub = (args[0] || "").toLowerCase().trim();
@@ -361,7 +361,7 @@ gmd(
             const mergedBuffer = Buffer.from(mergedVcf, "utf8");
             const outName = `merged_contacts_${Date.now()}.vcf`;
 
-            await Guru.sendMessage(from, {
+            await Bot.sendMessage(from, {
                 document: mergedBuffer,
                 fileName: outName,
                 mimetype: "text/vcard",

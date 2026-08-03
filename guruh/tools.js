@@ -13,7 +13,7 @@ gmd(
     category: "tools",
     description: "Fetch and display content from a URL",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, mek, q, quotedMsg, formatAudio, formatVideo } = conText;
 
     const extractUrl = (text) => {
@@ -65,7 +65,7 @@ gmd(
       }
 
       if (contentType.includes("image/")) {
-        return Guru.sendMessage(
+        return Bot.sendMessage(
           from,
           { image: buffer, caption: url },
           { quoted: mek },
@@ -74,7 +74,7 @@ gmd(
 
       if (contentType.includes("video/")) {
         const formattedVideo = await formatVideo(buffer);
-        return Guru.sendMessage(
+        return Bot.sendMessage(
           from,
           { video: formattedVideo, caption: url },
           { quoted: mek },
@@ -84,7 +84,7 @@ gmd(
       if (contentType.includes("audio/")) {
         try {
           const formattedAudio = await formatAudio(buffer);
-          return Guru.sendMessage(
+          return Bot.sendMessage(
             from,
             {
               audio: formattedAudio,
@@ -94,7 +94,7 @@ gmd(
             { quoted: mek },
           );
         } catch {
-          return Guru.sendMessage(
+          return Bot.sendMessage(
             from,
             {
               audio: buffer,
@@ -136,7 +136,7 @@ gmd(
         return reply(textContent);
       }
 
-      return Guru.sendMessage(
+      return Bot.sendMessage(
         from,
         {
           document: buffer,
@@ -160,7 +160,7 @@ gmd(
     category: "tools",
     description: "Edit photos with AI using a prompt",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const {
       mek,
       reply,
@@ -170,8 +170,8 @@ gmd(
       quotedMsg,
       botFooter,
       botName,
-      KoyotehApi,
-      GuruApiKey,
+      PantherApi,
+      BotApiKey,
       uploadToImgBB,
       botPrefix,
     } = conText;
@@ -183,7 +183,7 @@ gmd(
       const quotedImage = quoted?.imageMessage || quoted?.message?.imageMessage;
       if (quotedImage) {
         try {
-          const tempPath = await Guru.downloadAndSaveMediaMessage(
+          const tempPath = await Bot.downloadAndSaveMediaMessage(
             quotedImage,
             "temp_photo",
           );
@@ -223,8 +223,8 @@ gmd(
     await react("⏳");
 
     try {
-      const res = await axios.get(`${KoyotehApi}/api/tools/photoeditor`, {
-        params: { apikey: GuruApiKey, url: imageUrl, prompt: prompt },
+      const res = await axios.get(`${PantherApi}/api/tools/photoeditor`, {
+        params: { apikey: BotApiKey, url: imageUrl, prompt: prompt },
       });
 
       if (!res.data?.success || !res.data?.result) {
@@ -232,7 +232,7 @@ gmd(
         return reply("Failed to edit the photo");
       }
 
-      await Guru.sendMessage(
+      await Bot.sendMessage(
         from,
         {
           image: { url: res.data.result },
@@ -258,7 +258,7 @@ gmd(
     category: "tools",
     description: "Create a PDF from text or image",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const {
       mek,
       reply,
@@ -268,8 +268,8 @@ gmd(
       quotedMsg,
       botFooter,
       botName,
-      KoyotehApi,
-      GuruApiKey,
+      PantherApi,
+      BotApiKey,
       uploadToImgBB,
       botPrefix,
     } = conText;
@@ -289,7 +289,7 @@ gmd(
           quoted?.imageMessage || quoted?.message?.imageMessage;
         if (quotedImage) {
           try {
-            const tempPath = await Guru.downloadAndSaveMediaMessage(
+            const tempPath = await Bot.downloadAndSaveMediaMessage(
               quotedImage,
               "temp_img",
             );
@@ -322,14 +322,14 @@ gmd(
     await react("⏳");
 
     try {
-      const res = await axios.get(`${KoyotehApi}/api/tools/topdf`, {
-        params: { apikey: GuruApiKey, query: content },
+      const res = await axios.get(`${PantherApi}/api/tools/topdf`, {
+        params: { apikey: BotApiKey, query: content },
         responseType: "arraybuffer",
       });
 
       const fileName = pdfName.endsWith(".pdf") ? pdfName : `${pdfName}.pdf`;
 
-      await Guru.sendMessage(
+      await Bot.sendMessage(
         from,
         {
           document: Buffer.from(res.data),
@@ -357,8 +357,8 @@ gmd(
     category: "tools",
     description: "Check domain WHOIS information",
   },
-  async (from, Guru, conText) => {
-    const { reply, react, q, botFooter, botName, botPrefix, KoyotehApi, GuruApiKey } =
+  async (from, Bot, conText) => {
+    const { reply, react, q, botFooter, botName, botPrefix, PantherApi, BotApiKey } =
       conText;
 
     const domain = q?.trim();
@@ -372,8 +372,8 @@ gmd(
     await react("⏳");
 
     try {
-      const res = await axios.get(`${KoyotehApi}/api/tools/whois`, {
-        params: { apikey: GuruApiKey, domain: domain },
+      const res = await axios.get(`${PantherApi}/api/tools/whois`, {
+        params: { apikey: BotApiKey, domain: domain },
       });
 
       if (!res.data?.success || !res.data?.result) {
@@ -412,7 +412,7 @@ gmd(
     category: "tools",
     description: "Enhance and restore photos with AI",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const {
       mek,
       reply,
@@ -422,8 +422,8 @@ gmd(
       quotedMsg,
       botFooter,
       botName,
-      KoyotehApi,
-      GuruApiKey,
+      PantherApi,
+      BotApiKey,
       uploadToImgBB,
       botPrefix,
     } = conText;
@@ -434,7 +434,7 @@ gmd(
       const quotedImage = quoted?.imageMessage || quoted?.message?.imageMessage;
       if (quotedImage) {
         try {
-          const tempPath = await Guru.downloadAndSaveMediaMessage(
+          const tempPath = await Bot.downloadAndSaveMediaMessage(
             quotedImage,
             "temp_enhance",
           );
@@ -459,8 +459,8 @@ gmd(
     await react("⏳");
 
     try {
-      const res = await axios.get(`${KoyotehApi}/api/tools/remini`, {
-        params: { apikey: GuruApiKey, url: imageUrl },
+      const res = await axios.get(`${PantherApi}/api/tools/remini`, {
+        params: { apikey: BotApiKey, url: imageUrl },
       });
 
       if (!res.data?.success || !res.data?.result) {
@@ -468,7 +468,7 @@ gmd(
         return reply("Failed to enhance the photo");
       }
 
-      await Guru.sendMessage(
+      await Bot.sendMessage(
         from,
         {
           image: { url: res.data.result },
@@ -494,7 +494,7 @@ gmd(
     category: "tools",
     description: "Encrypt text to binary",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, react, q, botFooter, botName, botPrefix } = conText;
 
     const text = q?.trim();
@@ -508,7 +508,7 @@ gmd(
       .map((c) => c.charCodeAt(0).toString(2).padStart(8, "0"))
       .join(" ");
 
-    await sendButtons(Guru, from, {
+    await sendButtons(Bot, from, {
       title: `${botName} BINARY ENCODER`,
       text: `📝 *Input:* ${text}\n\n🔢 *Binary:*\n${binary}`,
       footer: botFooter,
@@ -535,7 +535,7 @@ gmd(
     category: "tools",
     description: "Decrypt binary to text",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, react, q, botFooter, botName, botPrefix } = conText;
 
     const binary = q?.trim();
@@ -552,7 +552,7 @@ gmd(
         .map((b) => String.fromCharCode(parseInt(b, 2)))
         .join("");
 
-      await sendButtons(Guru, from, {
+      await sendButtons(Bot, from, {
         title: `${botName} BINARY DECODER`,
         text: `🔢 *Binary:* ${binary.substring(0, 100)}${binary.length > 100 ? "..." : ""}\n\n📝 *Text:*\n${text}`,
         footer: botFooter,
@@ -583,7 +583,7 @@ gmd(
     category: "tools",
     description: "Encrypt text to Base64",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, react, q, botFooter, botName, botPrefix } = conText;
 
     const text = q?.trim();
@@ -596,7 +596,7 @@ gmd(
 
     const base64 = Buffer.from(text).toString("base64");
 
-    await sendButtons(Guru, from, {
+    await sendButtons(Bot, from, {
       title: `${botName} BASE64 ENCODER`,
       text: `📝 *Input:* ${text}\n\n🔐 *Base64:*\n${base64}`,
       footer: botFooter,
@@ -623,7 +623,7 @@ gmd(
     category: "tools",
     description: "Decrypt Base64 to text",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, react, q, botFooter, botName, botPrefix } = conText;
 
     const base64 = q?.trim();
@@ -637,7 +637,7 @@ gmd(
     try {
       const text = Buffer.from(base64, "base64").toString("utf8");
 
-      await sendButtons(Guru, from, {
+      await sendButtons(Bot, from, {
         title: `${botName} BASE64 DECODER`,
         text: `🔐 *Base64:* ${base64.substring(0, 50)}${base64.length > 50 ? "..." : ""}\n\n📝 *Text:*\n${text}`,
         footer: botFooter,
@@ -668,7 +668,7 @@ gmd(
     category: "tools",
     description: "Take a screenshot of a website (desktop)",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const {
       mek,
       reply,
@@ -677,8 +677,8 @@ gmd(
       botFooter,
       botName,
       botPrefix,
-      KoyotehApi,
-      GuruApiKey,
+      PantherApi,
+      BotApiKey,
     } = conText;
 
     const url = q?.trim();
@@ -690,12 +690,12 @@ gmd(
     await react("⏳");
 
     try {
-      const res = await axios.get(`${KoyotehApi}/api/tools/ssweb`, {
-        params: { apikey: GuruApiKey, url: url },
+      const res = await axios.get(`${PantherApi}/api/tools/ssweb`, {
+        params: { apikey: BotApiKey, url: url },
         responseType: "arraybuffer",
       });
 
-      await Guru.sendMessage(
+      await Bot.sendMessage(
         from,
         {
           image: Buffer.from(res.data),
@@ -721,7 +721,7 @@ gmd({
   react: "📡",
   category: "tools",
   description: "Encode or decode Morse code. Usage: .morse hello / .morse decode ... ---",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { reply, react, q, mek, botFooter } = conText;
   if (!q) return reply("❌ Usage:\n`.morse hello` — encode\n`.morse decode ... ---` — decode");
   const ENC = {
@@ -737,13 +737,13 @@ gmd({
     const morse = text.slice(7).trim();
     const decoded = morse.split(" ").map(t => t === "/" ? " " : (DEC[t] || "?")).join("");
     await react("📡");
-    return Guru.sendMessage(from, {
+    return Bot.sendMessage(from, {
       text: `📡 *Morse Decoder*\n\n*Input:* \`${morse}\`\n*Output:* ${decoded}\n\n> _${botFooter}_`,
     }, { quoted: mek });
   }
   const encoded = text.toUpperCase().split("").map(c => ENC[c] || "").filter(Boolean).join(" ");
   await react("📡");
-  await Guru.sendMessage(from, {
+  await Bot.sendMessage(from, {
     text: `📡 *Morse Encoder*\n\n*Text:* ${text}\n*Morse:* \`${encoded}\`\n\n_Tip: use \`.morse decode ${encoded.slice(0,30)}...\` to reverse_\n\n> _${botFooter}_`,
   }, { quoted: mek });
 });
@@ -756,7 +756,7 @@ gmd({
   react: "💻",
   category: "tools",
   description: "Encode text to binary or decode binary. Usage: .binary hello / .binary decode 01101000",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { reply, react, q, mek, botFooter } = conText;
   if (!q) return reply("❌ Usage:\n`.binary hello` — encode\n`.binary decode 01101000` — decode");
   const text = q.trim();
@@ -764,14 +764,14 @@ gmd({
     try {
       const decoded = text.slice(7).trim().split(" ").map(b => String.fromCharCode(parseInt(b, 2))).join("");
       await react("💻");
-      return Guru.sendMessage(from, {
+      return Bot.sendMessage(from, {
         text: `💻 *Binary Decoder*\n\n*Output:* ${decoded}\n\n> _${botFooter}_`,
       }, { quoted: mek });
     } catch { return reply("❌ Invalid binary string."); }
   }
   const encoded = text.split("").map(c => c.charCodeAt(0).toString(2).padStart(8, "0")).join(" ");
   await react("💻");
-  await Guru.sendMessage(from, {
+  await Bot.sendMessage(from, {
     text: `💻 *Binary Encoder*\n\n*Text:* ${text}\n*Binary:*\n\`\`\`${encoded}\`\`\`\n\n> _${botFooter}_`,
   }, { quoted: mek });
 });
@@ -784,7 +784,7 @@ gmd({
   react: "🔐",
   category: "tools",
   description: "Generate a strong random password. Usage: .password or .password 24",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { react, q, mek, botFooter } = conText;
   const len = Math.min(Math.max(parseInt(q) || 16, 8), 64);
   const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?";
@@ -793,7 +793,7 @@ gmd({
   for (let i = 0; i < len; i++) password += charset[rand[i] % charset.length];
   const strength = len >= 24 ? "🟢 *Very Strong*" : len >= 16 ? "🟡 *Strong*" : len >= 12 ? "🟠 *Medium*" : "🔴 *Weak*";
   await react("🔐");
-  await Guru.sendMessage(from, {
+  await Bot.sendMessage(from, {
     text: `🔐 *Password Generator*\n\n\`\`\`${password}\`\`\`\n\n📏 *Length:* ${len} characters\n${strength}\n\n_⚠️ Save it somewhere safe._\n\n> _${botFooter}_`,
   }, { quoted: mek });
 });
@@ -806,7 +806,7 @@ gmd({
   react: "🔑",
   category: "tools",
   description: "Base64 encode or decode text. Usage: .encode hello / .encode decode aGVsbG8=",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { reply, react, q, mek, botFooter } = conText;
   if (!q) return reply("❌ Usage:\n`.encode hello` — encode\n`.encode decode aGVsbG8=` — decode");
   const text = q.trim();
@@ -814,14 +814,14 @@ gmd({
     try {
       const decoded = Buffer.from(text.slice(7).trim(), "base64").toString("utf8");
       await react("🔑");
-      return Guru.sendMessage(from, {
+      return Bot.sendMessage(from, {
         text: `🔑 *Base64 Decoded*\n\n${decoded}\n\n> _${botFooter}_`,
       }, { quoted: mek });
     } catch { return reply("❌ Invalid Base64 string."); }
   }
   const encoded = Buffer.from(text).toString("base64");
   await react("🔑");
-  await Guru.sendMessage(from, {
+  await Bot.sendMessage(from, {
     text: `🔑 *Base64 Encoded*\n\n\`\`\`${encoded}\`\`\`\n\n> _${botFooter}_`,
   }, { quoted: mek });
 });
@@ -834,7 +834,7 @@ gmd({
   react: "📊",
   category: "tools",
   description: "Analyse word count, characters and reading time. Usage: .wordcount <text> or reply to a message",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { reply, react, q, quotedMsg, mek, botFooter } = conText;
   const extract = (msg) => msg?.conversation || msg?.extendedTextMessage?.text
     || msg?.imageMessage?.caption || msg?.videoMessage?.caption || "";
@@ -848,7 +848,7 @@ gmd({
   const readTime   = Math.ceil(words / 200);
   const speakTime  = Math.ceil(words / 130);
   await react("📊");
-  await Guru.sendMessage(from, {
+  await Bot.sendMessage(from, {
     text: `📊 *Text Analysis*\n\n📝 *Words:* ${words}\n🔤 *Characters:* ${chars}\n🔡 *Chars (no spaces):* ${noSpaces}\n📄 *Sentences:* ${sentences}\n📑 *Paragraphs:* ${paragraphs}\n📖 *Read time:* ~${readTime} min\n🎙 *Speak time:* ~${speakTime} min\n\n> _${botFooter}_`,
   }, { quoted: mek });
 });
@@ -861,7 +861,7 @@ gmd({
   react: "⏳",
   category: "tools",
   description: "Countdown to any date. Usage: .countdown 2026-12-25",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { reply, react, q, mek, botFooter } = conText;
   if (!q) return reply("❌ Provide a date!\nExample: `.countdown 2026-12-25`");
   const target = new Date(q.trim());
@@ -876,7 +876,7 @@ gmd({
   const filled  = Math.min(Math.round((1 - days / 365) * 10), 10);
   const bar     = "🟩".repeat(filled) + "⬜".repeat(10 - filled);
   await react("⏳");
-  await Guru.sendMessage(from, {
+  await Bot.sendMessage(from, {
     text: `⏳ *COUNTDOWN*\n\n📅 *Target:* ${target.toDateString()}\n\n${bar}\n\n📆 *${days}* days\n🕐 *${hours}* hours\n⏱ *${minutes}* minutes\n⌚ *${seconds}* seconds\n\n> _${botFooter}_`,
   }, { quoted: mek });
 });
@@ -889,7 +889,7 @@ gmd({
   react: "⏰",
   category: "tools",
   description: "Set a personal reminder. Usage: .remindme 10 Take your medicine",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { reply, react, q, mek, sender, pushName, botName, botFooter } = conText;
   if (!q) return reply("❌ Usage: `.remindme <minutes> <message>`\nExample: `.remindme 15 Drink water`");
   const parts   = q.trim().split(/\s+/);
@@ -901,7 +901,7 @@ gmd({
   await reply(`⏰ *Reminder Set!*\n\n📝 *Message:* ${message}\n⏱ *In:* ${minutes} minute${minutes !== 1 ? "s" : ""}\n\n_I'll ping you here when it's time!_\n\n> _${botFooter}_`);
   setTimeout(async () => {
     try {
-      await Guru.sendMessage(from, {
+      await Bot.sendMessage(from, {
         text: `⏰ *REMINDER*\n\n👋 Hey *${pushName}*!\n\n📝 ${message}\n\n_Set ${minutes} minute${minutes !== 1 ? "s" : ""} ago_\n\n> _${botName}_`,
         mentions: [sender],
       }, { quoted: mek });
@@ -909,7 +909,7 @@ gmd({
   }, minutes * 60 * 1000);
 });
 // =============================================
-// KOYOTEH MORPH COMMAND - FINAL
+// TEHSEENTECH MORPH COMMAND - FINAL
 // =============================================
 
 gmd(
@@ -920,7 +920,7 @@ gmd(
     category: "tools",
     description: "Multi-AI Undress Tool with styles. Reply to photo + optional style",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const {
       mek, reply, react, quoted, quotedMsg,
       botFooter, botName, botPrefix,
@@ -945,7 +945,7 @@ gmd(
       await reply(`🚀 Processing with Multi-AI Undress...\nStyle: ${style}\n⏳ 20-90 seconds...`);
 
       const media = quoted?.imageMessage || quotedMsg?.imageMessage;
-      const tempPath = await Guru.downloadAndSaveMediaMessage(media, `temp_nude_${Date.now()}`);
+      const tempPath = await Bot.downloadAndSaveMediaMessage(media, `temp_nude_${Date.now()}`);
       const buffer = await require('fs').promises.readFile(tempPath);
       await require('fs').promises.unlink(tempPath).catch(() => {});
 
@@ -955,7 +955,7 @@ gmd(
         return reply("❌ All AI services failed. Try a clearer, well-lit full-body photo.");
       }
 
-      await Guru.sendMessage(from, {
+      await Bot.sendMessage(from, {
         image: { url: resultUrl },
         caption: `✅ *${botName} Multi-AI Nude*\nStyle: \( {style}\n\n> Powered by Multiple Free AIs\n \){botFooter}`,
       }, { quoted: mek });

@@ -4,7 +4,7 @@ const path     = require("path");
 const fs       = require("fs-extra");
 
 // ═══════════════════════════════════════════════════════════════════
-//  SMART AUTO-REPLY ENGINE  ·  BLACK PANTHER MD
+//  SMART AUTO-REPLY ENGINE  ·  Tehseen Tech Automation
 //  SQLite-backed keyword auto-response system
 //  Trigger types : exact | contains | starts | regex
 //  Scopes        : global (all chats) | group (one group only)
@@ -132,7 +132,7 @@ const renderTemplate = (response, vars = {}) =>
         .replace(/\{group\}/gi,   vars.group   ?? "")
         .replace(/\{time\}/gi,    vars.time    ?? "")
         .replace(/\{date\}/gi,    vars.date    ?? "")
-        .replace(/\{bot\}/gi,     vars.bot     ?? "BLACK PANTHER MD")
+        .replace(/\{bot\}/gi,     vars.bot     ?? "Tehseen Tech Automation")
         .replace(/\{trigger\}/gi, vars.trigger ?? "");
 
 // ── Display helpers ─────────────────────────────────────────────────
@@ -148,7 +148,7 @@ const trim60 = (s) => (s.length > 60 ? s.slice(0, 59) + "…" : s);
 // Fires on EVERY incoming message — silently matches and replies.
 if (!global.__pluginMsgHooks) global.__pluginMsgHooks = [];
 
-global.__pluginMsgHooks.push(async (ms, Guru, settings) => {
+global.__pluginMsgHooks.push(async (ms, Bot, settings) => {
     try {
         // Extract the body text from any message type
         const body =
@@ -191,11 +191,11 @@ global.__pluginMsgHooks.push(async (ms, Guru, settings) => {
                 group:   from.endsWith("@g.us") ? "the group" : "DM",
                 time:    nowDate.toLocaleTimeString(),
                 date:    nowDate.toLocaleDateString(),
-                bot:     settings?.BOT_NAME || "BLACK PANTHER MD",
+                bot:     settings?.BOT_NAME || "Tehseen Tech Automation",
                 trigger: reply.trigger,
             });
 
-            await Guru.sendMessage(from, { text }, { quoted: ms });
+            await Bot.sendMessage(from, { text }, { quoted: ms });
             break; // fire only the FIRST match per message
         }
     } catch (err) {
@@ -242,7 +242,7 @@ gmd({
     category:    "tools",
     description: "Add a smart auto-reply trigger",
     usage:       ".addreply <exact|contains|starts|regex> | <trigger> | <response>",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser, sender, groupName, isGroup } = conText;
 
     if (!isSuperUser) { await react("❌"); return reply("❌ Owner/Sudo only."); }
@@ -311,7 +311,7 @@ gmd({
     category:    "tools",
     description: "List all auto-reply triggers (paginated)",
     usage:       ".replies [page]",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser } = conText;
 
     if (!isSuperUser) { await react("❌"); return reply("❌ Owner/Sudo only."); }
@@ -358,7 +358,7 @@ gmd({
     category:    "tools",
     description: "Delete an auto-reply by ID",
     usage:       ".delreply <id>",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser } = conText;
 
     if (!isSuperUser) { await react("❌"); return reply("❌ Owner/Sudo only."); }
@@ -391,7 +391,7 @@ gmd({
     category:    "tools",
     description: "Enable or disable an auto-reply without deleting it",
     usage:       ".togglereply <id>",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser } = conText;
 
     if (!isSuperUser) { await react("❌"); return reply("❌ Owner/Sudo only."); }
@@ -424,7 +424,7 @@ gmd({
     category:    "tools",
     description: "Test what auto-reply would fire for any message",
     usage:       ".testreply <message text>",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { q, reply, react, isSuperUser } = conText;
 
     if (!isSuperUser) { await react("❌"); return reply("❌ Owner/Sudo only."); }
@@ -451,7 +451,7 @@ gmd({
         name: "TestUser",   sender: "@0000000000",
         group: "Test Group", time: new Date().toLocaleTimeString(),
         date:  new Date().toLocaleDateString(),
-        bot:   "BLACK PANTHER MD", trigger: matched.trigger,
+        bot:   "Tehseen Tech Automation", trigger: matched.trigger,
     });
 
     await react("✅");
@@ -480,7 +480,7 @@ gmd({
     category:    "tools",
     description: "Show auto-reply usage statistics",
     usage:       ".replystats",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { reply, react, isSuperUser } = conText;
 
     if (!isSuperUser) { await react("❌"); return reply("❌ Owner/Sudo only."); }

@@ -48,12 +48,12 @@ for (const eff of EFFECTS) {
                     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
                     return sendInteractive(client, m, 
                         `⚡ ──「 ${effect.label} 」──
-▢ Usage: ${prefix}${effect.name} YourText\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
+▢ Usage: ${prefix}${effect.name} YourText\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`
                     );
                 }
                 if (text.length > 50) {
                     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-                    return sendInteractive(client, m, '▢ Text too long. Max 50 chars.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──');
+                    return sendInteractive(client, m, '▢ Text too long. Max 50 chars.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──');
                 }
                 try {
                     await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
@@ -62,12 +62,12 @@ for (const eff of EFFECTS) {
                     await client.sendMessage(m.chat, {
                         image: imgBuffer,
                         caption: `⚡ ──「 ${effect.label} 」──
-└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
+└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`
                     });
                 } catch (err) {
                     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
                     await sendInteractive(client, m, `⚡ ──「 ${effect.label} 」──
-▢ Failed: ${err.message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Failed: ${err.message}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
                 }
             };
         })(eff)

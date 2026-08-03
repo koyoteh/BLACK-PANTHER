@@ -5,8 +5,8 @@ const { getSetting } = require("../guru/database/settings");
 const { getCommitHash } = require("../guru/database/autoUpdate");
 const { runUpdate } = require("../guru/autoUpdater");
 
-const getRepo = async (guruRepo) => {
-    const raw = guruRepo || (await getSetting("BOT_REPO")) || "koyoteh/BLACK-PANTHER-";
+const getRepo = async (botRepo) => {
+    const raw = botRepo || (await getSetting("BOT_REPO")) || "tehseentech/black-panther";
     const match = String(raw).match(/github\.com\/([^/\s]+\/[^/\s]+)/);
     return match ? match[1].replace(/\.git$/, "").replace(/\/*$/, "") : String(raw).trim();
 };
@@ -19,8 +19,8 @@ gmd(
         description: "Manually check and apply the latest bot update from GitHub.",
         category: "owner",
     },
-    async (from, Guru, conText) => {
-        const { react, reply, isSuperUser, botFooter, guruRepo } = conText;
+    async (from, Bot, conText) => {
+        const { react, reply, isSuperUser, botFooter, botRepo } = conText;
 
         if (!isSuperUser) {
             await react("❌");
@@ -29,7 +29,7 @@ gmd(
 
         try {
             await react("🔍");
-            const repo = await getRepo(guruRepo);
+            const repo = await getRepo(botRepo);
 
             await reply(
                 `🔍 *Checking for updates...*\n\n` +
@@ -44,7 +44,7 @@ gmd(
                     headers: {
                         "Accept": "application/vnd.github.v3+json",
                         "Cache-Control": "no-cache",
-                        "User-Agent": "BLACK-PANTHER-Bot",
+                        "User-Agent": "Tehseen-Tech-Automation-Bot",
                     },
                 }
             );
@@ -69,7 +69,7 @@ gmd(
                 } catch (_) {}
             };
 
-            await runUpdate(repo, Guru, null, onProgress);
+            await runUpdate(repo, Bot, null, onProgress);
 
             await react("✅");
             await reply(
@@ -101,8 +101,8 @@ gmd(
         description: "Check if a new bot update is available without applying it.",
         category: "owner",
     },
-    async (from, Guru, conText) => {
-        const { react, reply, isSuperUser, botFooter, guruRepo } = conText;
+    async (from, Bot, conText) => {
+        const { react, reply, isSuperUser, botFooter, botRepo } = conText;
 
         if (!isSuperUser) {
             await react("❌");
@@ -111,7 +111,7 @@ gmd(
 
         try {
             await react("🔍");
-            const repo = await getRepo(guruRepo);
+            const repo = await getRepo(botRepo);
             const currentHash = await getCommitHash();
 
             const { data: commitData } = await axios.get(
@@ -121,7 +121,7 @@ gmd(
                     headers: {
                         "Accept": "application/vnd.github.v3+json",
                         "Cache-Control": "no-cache",
-                        "User-Agent": "BLACK-PANTHER-Bot",
+                        "User-Agent": "Tehseen-Tech-Automation-Bot",
                     },
                 }
             );
@@ -158,7 +158,7 @@ gmd(
         description: "Reset the stored update hash so next .update re-downloads everything.",
         category: "owner",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { react, reply, isSuperUser, botFooter } = conText;
 
         if (!isSuperUser) {

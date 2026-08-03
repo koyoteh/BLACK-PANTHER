@@ -11,7 +11,7 @@ export default {
         if (!text) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
             return sendInteractive(client, m, `⚡ ──「 QR CODE 」──
-▢ Usage: ${prefix}qr <text or link>\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Usage: ${prefix}qr <text or link>\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
         try {
             await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
@@ -22,7 +22,7 @@ export default {
             await client.sendMessage(m.chat, {
                 image: imgBuffer,
                 caption: `⚡ ──「 QR CODE 」──
-▢ Scan with any QR reader.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
+▢ Scan with any QR reader.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`
             });
         } catch {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });

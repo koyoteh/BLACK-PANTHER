@@ -20,7 +20,7 @@ export default async (context) => {
         `▢ \n` +
         `▢ Here's your precious link.\n` +
         `▢ Copy it and stop bugging me.\n` +
-        `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n` +
+        `└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──\n` +
         ``;
 
       try {
@@ -55,7 +55,7 @@ export default async (context) => {
     } catch {
       await client.sendMessage(m.chat, { react: { text: '', key: m.reactKey } });
       await sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
-▢ Couldn't fetch the link.\n▢ Either make me admin or quit.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n> ©𝐏𝐨𝐰𝐞𝐫᠊ᴇᴅ 𝐁𝐲 𝐱𝐡_𝐜𝐥𝐢𝐧𝐭𝐨𝐧`);
+▢ Couldn't fetch the link.\n▢ Either make me admin or quit.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──\n> ©𝐏𝐨𝐰𝐞𝐫᠊ᴇᴅ 𝐁𝐲 𝐱𝐡_𝐜𝐥𝐢𝐧𝐭𝐨𝐧`);
     }
   });
 };

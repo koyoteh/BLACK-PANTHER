@@ -1,6 +1,6 @@
 'use strict';
 // ╔══════════════════════════════════════════════════════════════╗
-//  🐾  BLACK PANTHER MD  —  Smart Logger
+//  🐾  Tehseen Tech Automation  —  Smart Logger
 //  Auto-detects: Heroku · Panel/VPS · Railway · Render · Local
 // ╚══════════════════════════════════════════════════════════════╝
 
@@ -89,7 +89,7 @@ function printBanner(name, owner, num, prefix, mode, ver) {
     console.log(line('Host   ', PLATFORM));
     console.log(line('Time   ', ts()));
     console.log(`${C.cyan}│${C.reset}`);
-    console.log(`${C.cyan}╰─❖${C.reset} ${C.bold}Powered by GuruTech${C.reset} ${C.cyan}❖─╯${C.reset}\n`);
+    console.log(`${C.cyan}╰─❖${C.reset} ${C.bold}Powered by TehseenTech${C.reset} ${C.cyan}❖─╯${C.reset}\n`);
 }
 
 module.exports = {

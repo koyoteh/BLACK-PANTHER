@@ -31,13 +31,13 @@ export default async (context) => {
     if (normalizeNumber(m.sender) !== DEVELOPER) {
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
         return await sendInteractive(client, m, `⚡ ──「 ACCESS DENIED 」──
-▢ This command is restricted to the bot owner.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ This command is restricted to the bot owner.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
 
     if (!text) {
         const categoryList = CATEGORIES.map(c => `▢ • ${c}`).join('\n');
         return await sendInteractive(client, m, `⚡ ──「 GETCMD 」──
-▢ Usage: ${prefix}getcmd <name>\n▢ \n▢ Categories:\n${categoryList}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Usage: ${prefix}getcmd <name>\n▢ \n▢ Categories:\n${categoryList}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
 
     const rawInput = text.trim().endsWith('.js') ? text.trim().slice(0, -3) : text.trim();
@@ -53,7 +53,7 @@ export default async (context) => {
 
             const responseId = Math.random().toString(36).substring(2);
             const introText = `⚡ ──「 COMMAND FILE 」──
-▢ File: ${commandName}.js\n▢ Category: ${category}\n▢ Size: ${data.length} chars\n${aliasNote}▢ \n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
+▢ File: ${commandName}.js\n▢ Category: ${category}\n▢ Size: ${data.length} chars\n${aliasNote}▢ \n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`;
             
             const encodedData = Buffer.from(JSON.stringify({
                 "response_id": responseId,
@@ -145,7 +145,7 @@ export default async (context) => {
                 document: fileBuffer,
                 fileName: `${commandName}.js`,
                 mimetype: 'application/javascript',
-                caption: `▢ 📄 ${commandName}.js\n▢ Category: ${category}\n▢ Size: ${data.length} chars\n${aliasNote}└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
+                caption: `▢ 📄 ${commandName}.js\n▢ Category: ${category}\n▢ Size: ${data.length} chars\n${aliasNote}└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`
             });
             
             fileFound = true;
@@ -154,13 +154,13 @@ export default async (context) => {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
             if (err.code !== 'ENOENT') {
                 return await sendInteractive(client, m, `⚡ ──「 ERROR 」──
-▢ Error reading file: ${err.message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Error reading file: ${err.message}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
             }
         }
     }
 
     if (!fileFound) {
         await sendInteractive(client, m, `⚡ ──「 NOT FOUND 」──
-▢ "${rawInput}" not found in any category.\n▢ \n▢ Tip: use ${prefix}getcmd with no args\n▢ to see all categories.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ "${rawInput}" not found in any category.\n▢ \n▢ Tip: use ${prefix}getcmd with no args\n▢ to see all categories.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
 };

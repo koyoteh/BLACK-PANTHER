@@ -31,11 +31,11 @@ const SettingsDB = DATABASE.define(
 
 const DEFAULT_SETTINGS = {
     PREFIX: ".",
-    OWNER_NAME: "Koyoteh",
-    OWNER_NUMBER: "254105521300",
-    BOT_NAME: "BLACK PANTHER",
-    FOOTER: "Powered by GuruTech",
-    CAPTION: "⚡ BLACK PANTHER Premium | Ultra Fast | Ultra Secure",
+    OWNER_NAME: "TehseenTech",
+    OWNER_NUMBER: "",
+    BOT_NAME: "Tehseen Tech Automation",
+    FOOTER: "Powered by TehseenTech",
+    CAPTION: "⚡ Tehseen Tech Automation Premium | Ultra Fast | Ultra Secure",
     BOT_PIC: "https://res.cloudinary.com/dqxlb29uz/image/upload/v1780267810/bwm_uploads/media-1780267810008.jpg",
     VERSION: packageJson.version || "2.0.0",
     MODE: config.MODE || "public",
@@ -61,14 +61,14 @@ const DEFAULT_SETTINGS = {
     AUTO_BIO: "true",
     AUTO_BLOCK: "",
     AUTO_JOIN: "true",  // Added auto join setting
-    YT: "youtube.com/@koyoteh",
+    YT: "youtube.com/@tehseentech",
     NEWSLETTER_JID: "120363406649804510@newsletter",
     GC_JID: "Cp6waPAdT3hLVcbdfBeV61",  // Updated group invite code
     NEWSLETTER_URL: "https://whatsapp.com/channel/0029Vb7jauLHLHQbkcbcHi0e",
-    BOT_REPO: "koyoteh/BLACK-PANTHER",
+    BOT_REPO: "tehseentech/black-panther",
     AUTO_UPDATE: "true",
-    PACK_NAME: "BLACK PANTHER",
-    PACK_AUTHOR: "KOYOTEH 🐾",
+    PACK_NAME: "Tehseen Tech Automation",
+    PACK_AUTHOR: "TEHSEENTECH 🐾",
     SUDO_NUMBERS: "",
     PM_PERMIT: "false",
     GREETINGS_ENABLED: "false",
@@ -86,7 +86,7 @@ const DEFAULT_SETTINGS = {
     TAG_PROTECT: "false",
     GLOBAL_SPAM_FILTER: "false",
     BOT_PREFIX: ".",
-    BOT_BIO: "Powered by GuruTech 🚀",
+    BOT_BIO: "Powered by TehseenTech 🚀",
     BOT_VERSION: packageJson.version || "5.0.0",
     MENU_THEME: "ultra",
     // Anti-viewonce / VV tracker
@@ -143,7 +143,7 @@ async function initializeSettings() {
     }
 
     initialized = true;
-    console.log("✅ BLACK PANTHER Settings Initialized");
+    console.log("✅ Tehseen Tech Automation Settings Initialized");
 }
 
 async function getSetting(key) {

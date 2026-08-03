@@ -4,8 +4,8 @@ const path     = require("path");
 const fs       = require("fs-extra");
 
 // ═══════════════════════════════════════════════════════════════════
-//  GROUP ECONOMY ENGINE  ·  BLACK PANTHER MD
-//  Virtual GURU Coins — earn, spend, transfer, gamble, leaderboard.
+//  GROUP ECONOMY ENGINE  ·  Tehseen Tech Automation
+//  Virtual TTA Coins — earn, spend, transfer, gamble, leaderboard.
 //  Passive chat rewards · Daily bonus · Anti-abuse cooldowns.
 // ═══════════════════════════════════════════════════════════════════
 
@@ -99,7 +99,7 @@ const getRank = (bal) => {
     if (bal < 10_000) return { icon: "🔥", title: "Veteran"   };
     if (bal < 25_000) return { icon: "💎", title: "Elite"     };
     if (bal < 50_000) return { icon: "👑", title: "Legend"    };
-    return                    { icon: "🏆", title: "GURU Lord" };
+    return                    { icon: "🏆", title: "Tehseen Lord" };
 };
 
 const fmt = (n) => n.toLocaleString();
@@ -107,7 +107,7 @@ const fmt = (n) => n.toLocaleString();
 // ── Passive chat-activity coin rewards ────────────────────────────
 if (!global.__pluginMsgHooks) global.__pluginMsgHooks = [];
 
-global.__pluginMsgHooks.push(async (ms, Guru, settings) => {
+global.__pluginMsgHooks.push(async (ms, Bot, settings) => {
     try {
         const from = ms.key.remoteJid;
         if (!from?.endsWith("@g.us")) return; // groups only
@@ -142,9 +142,9 @@ gmd({
     aliases:     ["bal", "wallet", "coins", "mycoins"],
     react:       "💰",
     category:    "economy",
-    description: "Check your GURU Coin wallet",
+    description: "Check your TTA Coin wallet",
     usage:       ".balance",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { reply, react, sender, pushName, mek } = conText;
 
     const jid  = sender;
@@ -158,7 +158,7 @@ gmd({
 
     await react("✅");
     reply(
-        `*💰 GURU Coins Wallet*\n` +
+        `*💰 TTA Coins Wallet*\n` +
         `${"═".repeat(30)}\n\n` +
         `👤 *${name}*\n` +
         `${rank.icon} *Rank:* ${rank.title}\n\n` +
@@ -177,9 +177,9 @@ gmd({
     aliases:     ["dailybonus", "claim"],
     react:       "🎁",
     category:    "economy",
-    description: "Claim your daily GURU Coin bonus",
+    description: "Claim your daily TTA Coin bonus",
     usage:       ".daily",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { reply, react, sender, pushName } = conText;
 
     const jid  = sender;
@@ -229,9 +229,9 @@ gmd({
     aliases:     ["transfer", "send", "pay"],
     react:       "💸",
     category:    "economy",
-    description: "Send GURU Coins to another member",
+    description: "Send TTA Coins to another member",
     usage:       ".give @user <amount>",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { q, reply, react, sender, pushName, mek } = conText;
 
     if (!q) {
@@ -288,15 +288,15 @@ gmd({
     aliases:     ["bet", "flip", "casino"],
     react:       "🎰",
     category:    "economy",
-    description: "Gamble your GURU Coins (50/50 win 2×, lose 0.5×)",
+    description: "Gamble your TTA Coins (50/50 win 2×, lose 0.5×)",
     usage:       ".gamble <amount | all | half>",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { q, reply, react, sender, pushName } = conText;
 
     if (!q) {
         await react("❓");
         return reply(
-            `*🎰 GURU Casino*\n${"═".repeat(28)}\n\n` +
+            `*🎰 TTA Casino*\n${"═".repeat(28)}\n\n` +
             `*Usage:* \`.gamble <amount | all | half>\`\n\n` +
             `• Win: double your bet 🤑\n` +
             `• Lose: lose half your bet 😢\n` +
@@ -379,9 +379,9 @@ gmd({
     aliases:     ["rich", "top10", "richlist", "econboard"],
     react:       "🏆",
     category:    "economy",
-    description: "Top 10 richest GURU Coin holders",
+    description: "Top 10 richest TTA Coin holders",
     usage:       ".leaderboard",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { reply, react, sender } = conText;
 
     const rows  = $leaderboard.all();
@@ -403,7 +403,7 @@ gmd({
 
     await react("✅");
     reply(
-        `*🏆 GURU Coins Leaderboard*\n${"═".repeat(32)}\n\n` +
+        `*🏆 TTA Coins Leaderboard*\n${"═".repeat(32)}\n\n` +
         `${lines}\n\n` +
         `${"─".repeat(32)}\n` +
         (myPos
@@ -418,13 +418,13 @@ gmd({
     aliases:     ["econhelp", "coinshelp"],
     react:       "ℹ️",
     category:    "economy",
-    description: "How the GURU Coin economy works",
+    description: "How the TTA Coin economy works",
     usage:       ".coininfo",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { reply, react } = conText;
     await react("✅");
     reply(
-        `*💰 GURU Coin Economy — Guide*\n${"═".repeat(32)}\n\n` +
+        `*💰 TTA Coin Economy — Guide*\n${"═".repeat(32)}\n\n` +
         `*Earning Coins:*\n` +
         `🗨️ Chat in groups → +1–3 coins _(5min cooldown)_\n` +
         `🎁 \`.daily\` → +100–500 coins _(every 24h)_\n` +
@@ -438,7 +438,7 @@ gmd({
         `🔥 Veteran    < 10,000\n` +
         `💎 Elite      < 25,000\n` +
         `👑 Legend     < 50,000\n` +
-        `🏆 GURU Lord  50,000+\n\n` +
+        `🏆 Tehseen Lord  50,000+\n\n` +
         `*Commands:*\n` +
         `\`.balance\` \`.daily\` \`.give\` \`.gamble\` \`.leaderboard\``
     );

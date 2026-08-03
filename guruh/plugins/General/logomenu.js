@@ -24,7 +24,7 @@ export default {
 
         const p      = prefix || '.';
         const header = `⚡ ──「 ${EMOJI} *${LABEL}* 」──\n▢ ${effectCommands.length} effects available\n\n`;
-        const footer = `\n└──✦ _Powered by GuruTech_ ✦──`;
+        const footer = `\n└──✦ _Powered by TehseenTech_ ✦──`;
 
         let menuText = header;
         effectCommands.forEach((name, i) => {

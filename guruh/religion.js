@@ -11,8 +11,8 @@ gmd(
     category: "religion",
     description: "Get Bible verses",
   },
-  async (from, Guru, conText) => {
-    const { reply, react, q, botFooter, botName, KoyotehApi, GuruApiKey } =
+  async (from, Bot, conText) => {
+    const { reply, react, q, botFooter, botName, PantherApi, BotApiKey } =
       conText;
 
     const verse = q?.trim();
@@ -26,8 +26,8 @@ gmd(
     await react("⏳");
 
     try {
-      const res = await axios.get(`${KoyotehApi}/api/search/bible`, {
-        params: { apikey: GuruApiKey, verse: verse },
+      const res = await axios.get(`${PantherApi}/api/search/bible`, {
+        params: { apikey: BotApiKey, verse: verse },
       });
 
       if (!res.data?.success || !res.data?.result) {
@@ -55,7 +55,7 @@ gmd(
 
       const copyContent = r.data?.trim() || "";
 
-      await sendButtons(Guru, from, {
+      await sendButtons(Bot, from, {
         title: "",
         text: txt,
         footer: botFooter,

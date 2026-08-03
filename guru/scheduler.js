@@ -58,24 +58,24 @@ function _localHour(tz) {
 }
 
 const PERSONAL_GM = [
-    (name) => `🌅 *Good morning, ${name}!* ☀️\n\nA brand new day is here — full of energy, opportunity and blessings! Start strong, stay focused. You've got this! 💪\n\n🙏 Thank you for choosing *BLACK PANTHER MD*. We're here for you all day! 🤖`,
-    (name) => `☀️ *Rise and shine, ${name}!*\n\nToday is a fresh canvas — paint it with purpose and passion. Drink some water, take a deep breath, and conquer the day! 🌟\n\n💙 *BLACK PANTHER MD* says GM! Thanks for using us 🤖`,
-    (name) => `🌄 *Good morning, ${name}!*\n\nYou made it to another beautiful day! ✨ Make the most of every moment — greatness is just one decision away.\n\n🤖 *BLACK PANTHER MD* — always by your side. Thank you for your loyalty! 💜`,
-    (name) => `🌞 *Hey ${name}, good morning!*\n\nWishing you a day filled with success, smiles and good vibes! 🔥 Go out there and show the world what you're made of!\n\n> 🤖 _Powered by BLACK PANTHER MD — your #1 WhatsApp assistant_`,
-    (name) => `☕ *Morning, ${name}!*\n\nHope you slept well and woke up refreshed! Today is loaded with possibilities — grab them! 🚀\n\n✨ *Thank you for using BLACK PANTHER MD!* We appreciate you every single day 💙`,
+    (name) => `🌅 *Good morning, ${name}!* ☀️\n\nA brand new day is here — full of energy, opportunity and blessings! Start strong, stay focused. You've got this! 💪\n\n🙏 Thank you for choosing *Tehseen Tech Automation*. We're here for you all day! 🤖`,
+    (name) => `☀️ *Rise and shine, ${name}!*\n\nToday is a fresh canvas — paint it with purpose and passion. Drink some water, take a deep breath, and conquer the day! 🌟\n\n💙 *Tehseen Tech Automation* says GM! Thanks for using us 🤖`,
+    (name) => `🌄 *Good morning, ${name}!*\n\nYou made it to another beautiful day! ✨ Make the most of every moment — greatness is just one decision away.\n\n🤖 *Tehseen Tech Automation* — always by your side. Thank you for your loyalty! 💜`,
+    (name) => `🌞 *Hey ${name}, good morning!*\n\nWishing you a day filled with success, smiles and good vibes! 🔥 Go out there and show the world what you're made of!\n\n> 🤖 _Powered by Tehseen Tech Automation — your #1 WhatsApp assistant_`,
+    (name) => `☕ *Morning, ${name}!*\n\nHope you slept well and woke up refreshed! Today is loaded with possibilities — grab them! 🚀\n\n✨ *Thank you for using Tehseen Tech Automation!* We appreciate you every single day 💙`,
 ];
 
 const PERSONAL_GN = [
-    (name) => `🌙 *Good night, ${name}!* 😴\n\nYou made it through another day — well done! Rest well tonight, recharge and come back stronger tomorrow.\n\n🙏 *BLACK PANTHER MD* thanks you for being part of our family. Sleep tight! 🤖`,
-    (name) => `✨ *Goodnight, ${name}!*\n\nSweet dreams! You worked hard today and you deserve all the rest. Tomorrow is a fresh start waiting for you. 🌙\n\n💙 *Thank you for using BLACK PANTHER MD!* We'll be here when you wake up 🤖`,
-    (name) => `🌛 *Time to rest, ${name}!*\n\nAs the stars come out tonight, let all worries fade. Sleep deeply and wake up refreshed and ready! 💤\n\n> 🤖 _BLACK PANTHER MD — grateful for every day you choose us!_`,
-    (name) => `😴 *Good night, ${name}!*\n\nHope your day was amazing! Your body and mind need rest now — go recharge. Greatness awaits tomorrow! 🌺\n\n✨ *Thank you for using BLACK PANTHER MD* — See you in the morning! 💜`,
-    (name) => `🌙 *Goodnight, ${name}!* 💫\n\nLay your head down and let go of everything. Tomorrow is a brand new chance to shine even brighter!\n\n🙏 *BLACK PANTHER MD* night mode: ON — Thank you for being amazing! 🤖`,
+    (name) => `🌙 *Good night, ${name}!* 😴\n\nYou made it through another day — well done! Rest well tonight, recharge and come back stronger tomorrow.\n\n🙏 *Tehseen Tech Automation* thanks you for being part of our family. Sleep tight! 🤖`,
+    (name) => `✨ *Goodnight, ${name}!*\n\nSweet dreams! You worked hard today and you deserve all the rest. Tomorrow is a fresh start waiting for you. 🌙\n\n💙 *Thank you for using Tehseen Tech Automation!* We'll be here when you wake up 🤖`,
+    (name) => `🌛 *Time to rest, ${name}!*\n\nAs the stars come out tonight, let all worries fade. Sleep deeply and wake up refreshed and ready! 💤\n\n> 🤖 _Tehseen Tech Automation — grateful for every day you choose us!_`,
+    (name) => `😴 *Good night, ${name}!*\n\nHope your day was amazing! Your body and mind need rest now — go recharge. Greatness awaits tomorrow! 🌺\n\n✨ *Thank you for using Tehseen Tech Automation* — See you in the morning! 💜`,
+    (name) => `🌙 *Goodnight, ${name}!* 💫\n\nLay your head down and let go of everything. Tomorrow is a brand new chance to shine even brighter!\n\n🙏 *Tehseen Tech Automation* night mode: ON — Thank you for being amazing! 🤖`,
 ];
 
 const PERSONAL_NOON = [
-    (name) => `🌤️ *Good afternoon, ${name}!*\n\nHope your morning was productive! Keep the momentum going — the day is still yours! 💪\n\n🤖 *BLACK PANTHER MD* checking in. Thank you for choosing us! ✨`,
-    (name) => `☀️ *Afternoon, ${name}!*\n\nMidday energy check! Take a short break, grab something to eat, and then go finish the day strong! 🍽️\n\n💙 *Thank you for using BLACK PANTHER MD!* 🤖`,
+    (name) => `🌤️ *Good afternoon, ${name}!*\n\nHope your morning was productive! Keep the momentum going — the day is still yours! 💪\n\n🤖 *Tehseen Tech Automation* checking in. Thank you for choosing us! ✨`,
+    (name) => `☀️ *Afternoon, ${name}!*\n\nMidday energy check! Take a short break, grab something to eat, and then go finish the day strong! 🍽️\n\n💙 *Thank you for using Tehseen Tech Automation!* 🤖`,
 ];
 
 async function getUserTimezone(jid) {
@@ -90,7 +90,7 @@ async function getUserTimezone(jid) {
     return (await getSetting('TIME_ZONE').catch(() => null)) || 'Africa/Nairobi';
 }
 
-async function checkAndGreetUser(Guru, jid, pushName, settings) {
+async function checkAndGreetUser(Bot, jid, pushName, settings) {
     try {
         // Only greet DMs, skip groups, status, newsletters
         if (!jid || jid.endsWith('@g.us') || jid.endsWith('@newsletter') || jid === 'status@broadcast') return;
@@ -133,9 +133,9 @@ async function checkAndGreetUser(Guru, jid, pushName, settings) {
 
         const botPic = settings?.BOT_PIC || await getSetting('BOT_PIC').catch(() => null);
         if (botPic && botPic.startsWith('http')) {
-            await Guru.sendMessage(jid, { image: { url: botPic }, caption: msg });
+            await Bot.sendMessage(jid, { image: { url: botPic }, caption: msg });
         } else {
-            await Guru.sendMessage(jid, { text: msg });
+            await Bot.sendMessage(jid, { text: msg });
         }
     } catch (e) {
         // Silent fail — greetings are non-critical
@@ -143,59 +143,59 @@ async function checkAndGreetUser(Guru, jid, pushName, settings) {
 }
 
 const GM_MESSAGES = [
-    `🌅 *Good Morning!* ☀️\n\nRise and shine, fam! A brand new day is here — full of possibilities. Start strong, stay focused, and make every moment count! 💪\n\n_BLACK PANTHER is with you all day_ 🤖`,
-    `☀️ *Good Morning, Beautiful People!*\n\nToday is a fresh canvas — paint it with purpose, positivity and passion! Don't waste a single second 🌟\n\n_Your favourite bot, BLACK PANTHER, says GM!_ 🤖`,
-    `🌄 *Wakey wakey!* It's morning time!\n\nThe early bird catches the worm 🐦 Get up, drink some water, and go conquer the day!\n\n_BLACK PANTHER wishes you a productive morning_ ⚡`,
-    `🌞 *Good Morning!*\n\nEvery morning is a new beginning — a chance to do better than yesterday. Believe in yourself and make it happen! 🙏✨\n\n_Stay blessed — BLACK PANTHER_ 🤖`,
-    `☕ *GM fam!*\n\nHope you slept well! Today is going to be amazing — just go out there and own it. You've got this! 🔥\n\n_BLACK PANTHER checking in on you_ 💙`,
-    `🌻 *Good Morning!*\n\nGreat things never come from comfort zones. Push yourself today and be the best version of you! 🚀\n\n_Starting your day right — BLACK PANTHER_ ⚡`,
+    `🌅 *Good Morning!* ☀️\n\nRise and shine, fam! A brand new day is here — full of possibilities. Start strong, stay focused, and make every moment count! 💪\n\n_Tehseen Tech Automation is with you all day_ 🤖`,
+    `☀️ *Good Morning, Beautiful People!*\n\nToday is a fresh canvas — paint it with purpose, positivity and passion! Don't waste a single second 🌟\n\n_Your favourite bot, Tehseen Tech Automation, says GM!_ 🤖`,
+    `🌄 *Wakey wakey!* It's morning time!\n\nThe early bird catches the worm 🐦 Get up, drink some water, and go conquer the day!\n\n_Tehseen Tech Automation wishes you a productive morning_ ⚡`,
+    `🌞 *Good Morning!*\n\nEvery morning is a new beginning — a chance to do better than yesterday. Believe in yourself and make it happen! 🙏✨\n\n_Stay blessed — Tehseen Tech Automation_ 🤖`,
+    `☕ *GM fam!*\n\nHope you slept well! Today is going to be amazing — just go out there and own it. You've got this! 🔥\n\n_Tehseen Tech Automation checking in on you_ 💙`,
+    `🌻 *Good Morning!*\n\nGreat things never come from comfort zones. Push yourself today and be the best version of you! 🚀\n\n_Starting your day right — Tehseen Tech Automation_ ⚡`,
 ];
 
 const GN_MESSAGES = [
-    `🌙 *Good Night!* 😴\n\nAnother day done and dusted! Rest well tonight — your body and mind need it. Tomorrow is a new chance to shine! 🌟\n\n_BLACK PANTHER says sleep tight_ 🤖`,
-    `✨ *Good Night, fam!*\n\nSweet dreams to everyone! You worked hard today — now let your body recharge. See you on the other side! 😊🌙\n\n_BLACK PANTHER going to sleep mode_ 🤖`,
-    `🌙 *Goodnight everyone!*\n\nAs the stars come out tonight, let all your worries fade away. Rest deeply and wake up refreshed and ready! 💤\n\n_Signed off — BLACK PANTHER_ ⚡`,
-    `😴 *Time to rest!*\n\nHope your day was as amazing as you are! Go recharge — greatness is waiting for you tomorrow morning! 🙏\n\n_BLACK PANTHER bids you goodnight_ 💙`,
-    `🌛 *Good Night!*\n\nThe day is over, let go of everything that didn't go your way. Tomorrow is a fresh start. Sleep well! 🌺\n\n_BLACK PANTHER night mode: ON_ 🤖`,
-    `💤 *Goodnight fam!*\n\nLay your head down, close your eyes, and let the magic of sleep work on you. Wishing you peaceful rest tonight! 🌙✨\n\n_From BLACK PANTHER with love_ 🤖`,
+    `🌙 *Good Night!* 😴\n\nAnother day done and dusted! Rest well tonight — your body and mind need it. Tomorrow is a new chance to shine! 🌟\n\n_Tehseen Tech Automation says sleep tight_ 🤖`,
+    `✨ *Good Night, fam!*\n\nSweet dreams to everyone! You worked hard today — now let your body recharge. See you on the other side! 😊🌙\n\n_Tehseen Tech Automation going to sleep mode_ 🤖`,
+    `🌙 *Goodnight everyone!*\n\nAs the stars come out tonight, let all your worries fade away. Rest deeply and wake up refreshed and ready! 💤\n\n_Signed off — Tehseen Tech Automation_ ⚡`,
+    `😴 *Time to rest!*\n\nHope your day was as amazing as you are! Go recharge — greatness is waiting for you tomorrow morning! 🙏\n\n_Tehseen Tech Automation bids you goodnight_ 💙`,
+    `🌛 *Good Night!*\n\nThe day is over, let go of everything that didn't go your way. Tomorrow is a fresh start. Sleep well! 🌺\n\n_Tehseen Tech Automation night mode: ON_ 🤖`,
+    `💤 *Goodnight fam!*\n\nLay your head down, close your eyes, and let the magic of sleep work on you. Wishing you peaceful rest tonight! 🌙✨\n\n_From Tehseen Tech Automation with love_ 🤖`,
 ];
 
 // ── Daily Wellness Messages ───────────────────────────────────────────────────
 const WELLNESS_MESSAGES = [
-    `🌟 *Daily Check-In — BLACK PANTHER MD*\n${"═".repeat(32)}\n\n` +
+    `🌟 *Daily Check-In — Tehseen Tech Automation*\n${"═".repeat(32)}\n\n` +
     `👋 Hey fam! Hope you're having an amazing day!\n\n` +
     `📋 *Quick Check-In:*\n` +
     `✅ How are you doing today?\n` +
     `🔄 Have you updated your bot lately?\n` +
     `💡 Any features you'd love to see added?\n\n` +
     `${"─".repeat(32)}\n` +
-    `💙 *BLACK PANTHER MD* appreciates every single one of you!\n` +
+    `💙 *Tehseen Tech Automation* appreciates every single one of you!\n` +
     `Keep thriving — you're doing great! 🚀\n\n` +
     `> _Reply anytime — we're always listening!_`,
 
-    `💫 *Morning Pulse — BLACK PANTHER MD*\n${"═".repeat(32)}\n\n` +
+    `💫 *Morning Pulse — Tehseen Tech Automation*\n${"═".repeat(32)}\n\n` +
     `🌤️ Good day, legend!\n\n` +
     `We hope you're well-rested and fired up! 🔥\n\n` +
     `📌 *Today's Reminders:*\n` +
     `🤖 Your bot is running and protecting your chats\n` +
     `🔄 Check for bot updates: *.update* command\n` +
-    `💬 Invite friends to use BLACK PANTHER MD!\n\n` +
+    `💬 Invite friends to use Tehseen Tech Automation!\n\n` +
     `${"─".repeat(32)}\n` +
     `Stay healthy, stay blessed! 🙏\n` +
-    `> _BLACK PANTHER MD — Built with love, just for you_`,
+    `> _Tehseen Tech Automation — Built with love, just for you_`,
 
-    `🎯 *Daily Update Check — BLACK PANTHER MD*\n${"═".repeat(32)}\n\n` +
+    `🎯 *Daily Update Check — Tehseen Tech Automation*\n${"═".repeat(32)}\n\n` +
     `Hi there! 👋\n\n` +
     `*A gentle reminder:*\n` +
     `🔄 Have you checked for bot updates today?\n` +
     `   → Use *.update* to see the latest version\n\n` +
-    `🛡️ Your groups are protected by BLACK PANTHER MD\n` +
+    `🛡️ Your groups are protected by Tehseen Tech Automation\n` +
     `⚡ All systems are running smoothly!\n\n` +
     `${"─".repeat(32)}\n` +
     `We hope your day is going wonderfully! 😊\n` +
-    `Thank you for being part of the GURU family! 💜`,
+    `Thank you for being part of the TTA family! 💜`,
 
-    `☀️ *BLACK PANTHER MD — Daily Wellness*\n${"═".repeat(32)}\n\n` +
+    `☀️ *Tehseen Tech Automation — Daily Wellness*\n${"═".repeat(32)}\n\n` +
     `Hello beautiful people! 🌺\n\n` +
     `*How's your bot doing today?*\n\n` +
     `📊 Quick tips to keep your bot healthy:\n` +
@@ -217,7 +217,7 @@ function parseTime(timeStr) {
     return { hour: isNaN(h) ? 6 : h, minute: isNaN(m) ? 0 : m };
 }
 
-async function sendGreeting(Guru, type) {
+async function sendGreeting(Bot, type) {
     try {
         const chats = await getAllGreetingsChats();
         if (!chats.length) {
@@ -225,8 +225,8 @@ async function sendGreeting(Guru, type) {
             return 0;
         }
 
-        const botName = (await getSetting("BOT_NAME")) || "BLACK PANTHER";
-        const botFooter = (await getSetting("FOOTER")) || "Powered by GuruTech";
+        const botName = (await getSetting("BOT_NAME")) || "Tehseen Tech Automation";
+        const botFooter = (await getSetting("FOOTER")) || "Powered by TehseenTech";
 
         const customMsgKey = type === "morning" ? "GREETINGS_GM_MSG" : "GREETINGS_GN_MSG";
         const customMsg = await getSetting(customMsgKey);
@@ -240,12 +240,12 @@ async function sendGreeting(Guru, type) {
         for (const { jid } of chats) {
             try {
                 if (botPic) {
-                    await Guru.sendMessage(jid, {
+                    await Bot.sendMessage(jid, {
                         image: { url: botPic },
                         caption: fullText,
                     });
                 } else {
-                    await Guru.sendMessage(jid, { text: fullText });
+                    await Bot.sendMessage(jid, { text: fullText });
                 }
                 sent++;
                 await new Promise(r => setTimeout(r, 1200));
@@ -262,12 +262,12 @@ async function sendGreeting(Guru, type) {
     }
 }
 
-async function startScheduler(Guru) {
+async function startScheduler(Bot) {
     await initGreetingsDB();
 
     if (schedulerInterval) clearInterval(schedulerInterval);
 
-    Guru.ev.on("messages.upsert", async ({ messages, type }) => {
+    Bot.ev.on("messages.upsert", async ({ messages, type }) => {
         if (type !== "notify") return;
         try {
             const enabled = await getSetting("GREETINGS_ENABLED");
@@ -307,13 +307,13 @@ async function startScheduler(Guru) {
                 if (nowMin >= gmMin && nowMin <= gmMin + 10 && lastGmSent !== `gm_${dateKey}`) {
                     lastGmSent = `gm_${dateKey}`;
                     console.log("⏰ [Greeter] Sending Good Morning...");
-                    await sendGreeting(Guru, "morning");
+                    await sendGreeting(Bot, "morning");
                 }
 
                 if (nowMin >= gnMin && nowMin <= gnMin + 10 && lastGnSent !== `gn_${dateKey}`) {
                     lastGnSent = `gn_${dateKey}`;
                     console.log("⏰ [Greeter] Sending Good Night...");
-                    await sendGreeting(Guru, "night");
+                    await sendGreeting(Bot, "night");
                 }
             }
 
@@ -327,7 +327,7 @@ async function startScheduler(Guru) {
                 if (nowMin >= wMin && nowMin <= wMin + 10 && lastWellnessSent !== `wellness_${dateKey}`) {
                     lastWellnessSent = `wellness_${dateKey}`;
                     console.log("💙 [Wellness] Sending daily check-in...");
-                    await sendWellness(Guru);
+                    await sendWellness(Bot);
                 }
             }
         } catch (e) {
@@ -338,23 +338,23 @@ async function startScheduler(Guru) {
     console.log("⏰ Greeting scheduler started (checks every 60s)");
 }
 
-async function sendWellness(Guru) {
+async function sendWellness(Bot) {
     try {
         const chats = await getAllGreetingsChats();
         if (!chats.length) return 0;
 
         const msg      = WELLNESS_MESSAGES[Math.floor(Math.random() * WELLNESS_MESSAGES.length)];
         const botPic   = await getSetting("BOT_PIC").catch(() => null);
-        const footer   = (await getSetting("FOOTER").catch(() => null)) || "Powered by GuruTech";
+        const footer   = (await getSetting("FOOTER").catch(() => null)) || "Powered by TehseenTech";
         const fullText = `${msg}\n\n> _${footer}_`;
 
         let sent = 0;
         for (const { jid } of chats) {
             try {
                 if (botPic && botPic.startsWith("http")) {
-                    await Guru.sendMessage(jid, { image: { url: botPic }, caption: fullText });
+                    await Bot.sendMessage(jid, { image: { url: botPic }, caption: fullText });
                 } else {
-                    await Guru.sendMessage(jid, { text: fullText });
+                    await Bot.sendMessage(jid, { text: fullText });
                 }
                 sent++;
                 await new Promise(r => setTimeout(r, 1_200));

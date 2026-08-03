@@ -38,7 +38,7 @@ gmd(
         category: "settings",
         ownerOnly: OWNER_ONLY,
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, q } = conText;
         const num = parseInt(q);
         if (isNaN(num) || num < 1)
@@ -60,7 +60,7 @@ gmd(
         category: "settings",
         ownerOnly: OWNER_ONLY,
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, q } = conText;
         const val = onOff(q);
         if (!val) return reply("❌ Usage: `.setautomute on` or `.setautomute off`");
@@ -84,7 +84,7 @@ gmd(
         category: "settings",
         ownerOnly: OWNER_ONLY,
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, q } = conText;
         const val = onOff(q);
         if (!val) return reply("❌ Usage: `.setrejectcall on` or `.setrejectcall off`");
@@ -108,7 +108,7 @@ gmd(
         category: "settings",
         ownerOnly: OWNER_ONLY,
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, q } = conText;
         const supported = ["en", "fr", "ar", "sw", "pt", "es", "de", "zh", "ha", "yo", "ig"];
         const lang = (q || "").trim().toLowerCase();
@@ -134,7 +134,7 @@ gmd(
         category: "settings",
         ownerOnly: OWNER_ONLY,
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, q } = conText;
         const action = (q || "").trim().toLowerCase();
         if (!["join", "ignore", "leave"].includes(action))
@@ -162,7 +162,7 @@ gmd(
         category: "settings",
         ownerOnly: OWNER_ONLY,
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, q } = conText;
         const val = onOff(q);
         if (!val) return reply("❌ Usage: `.settagprotect on` or `.settagprotect off`");
@@ -186,7 +186,7 @@ gmd(
         category: "settings",
         ownerOnly: OWNER_ONLY,
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, q } = conText;
         const val = onOff(q);
         if (!val) return reply("❌ Usage: `.setspamfilter on` or `.setspamfilter off`");
@@ -206,15 +206,15 @@ gmd(
         pattern: "setbiotext",
         aliases: ["setbio", "botbio"],
         react: "✏️",
-        description: "Update the bot's WhatsApp bio — .setbiotext Powered by Koyoteh 🚀",
+        description: "Update the bot's WhatsApp bio — .setbiotext Powered by TehseenTech 🚀",
         category: "settings",
         ownerOnly: OWNER_ONLY,
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, q } = conText;
-        if (!q) return reply("❌ Provide a status text.\nExample: `.setbiotext Powered by Koyoteh 🚀`");
+        if (!q) return reply("❌ Provide a status text.\nExample: `.setbiotext Powered by TehseenTech 🚀`");
         try {
-            await Guru.updateProfileStatus(q.trim());
+            await Bot.updateProfileStatus(q.trim());
             await setSetting("BOT_BIO", q.trim());
             await react("✅");
             reply(`✅ Bio updated:\n\n_${q.trim()}_`);
@@ -236,7 +236,7 @@ gmd(
         category: "settings",
         ownerOnly: OWNER_ONLY,
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, q } = conText;
         if (!q) return reply("❌ Provide a version.\nExample: `.setbotversion 5.1.0`");
         const semver = /^\d+\.\d+(\.\d+)?$/;
@@ -260,7 +260,7 @@ gmd(
         category: "settings",
         ownerOnly: OWNER_ONLY,
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, q } = conText;
         const modes = ["on", "off", "indm"];
         const input = (q || "").trim().toLowerCase();
@@ -286,7 +286,7 @@ gmd(
         category: "settings",
         ownerOnly: OWNER_ONLY,
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, q } = conText;
         const val = onOff(q);
         if (!val) return reply("❌ Usage: `.setvvtracker on` or `.setvvtracker off`");
@@ -310,7 +310,7 @@ gmd(
         category: "settings",
         ownerOnly: OWNER_ONLY,
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, q } = conText;
         const val = onOff(q);
         if (!val) return reply("❌ Usage: `.setautochannellike on` or `.setautochannellike off`");
@@ -334,7 +334,7 @@ gmd(
         category: "settings",
         ownerOnly: OWNER_ONLY,
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, q } = conText;
         const actions = ["warn", "block", "delete"];
         const input = (q || "").trim().toLowerCase();
@@ -358,7 +358,7 @@ gmd(
         category: "settings",
         ownerOnly: OWNER_ONLY,
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, q } = conText;
         if (!q) return reply("❌ Provide the message text.\nExample: `.setdmpermitmsg 🚫 DMs are not allowed.`");
         await setSetting("DM_PERMIT_MSG", q.trim());
@@ -379,7 +379,7 @@ gmd(
         category: "settings",
         ownerOnly: OWNER_ONLY,
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, q, isSuperUser } = conText;
         if (!isSuperUser) return reply("❌ Owner Only Command!");
         if (!q) return reply(
@@ -498,16 +498,16 @@ gmd(
         description: "Show bot information and live system stats",
         category: "general",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react } = conText;
         const { totalmem, freemem } = require("os");
         const { formatBytes } = require("../guru");
 
-        const botName    = (await getSetting("BOT_NAME"))    || "BLACK PANTHER MD";
+        const botName    = (await getSetting("BOT_NAME"))    || "Tehseen Tech Automation";
         const botVersion = (await getSetting("BOT_VERSION")) || "5.0.0";
         const botMode    = (await getSetting("MODE"))        || "Public";
         const botLang    = (await getSetting("BOT_LANG"))    || "en";
-        const botRepo    = (await getSetting("BOT_REPO"))    || "koyoteh/BLACK-PANTHER-";
+        const botRepo    = (await getSetting("BOT_REPO"))    || "tehseentech/black-panther";
         const botPrefix  = (await getSetting("PREFIX"))      || ".";
         const warnLimit  = (await getSetting("WARN_LIMIT"))  || "3";
 
@@ -541,7 +541,7 @@ gmd(
 ▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔
 
 ◈ 🤖 *𝘉𝘰𝘵 𝘕𝘢𝘮𝘦*    ⤳ ${botName}
-◈ 👤 *𝘊𝘳𝘦𝘢𝘵𝘰𝘳*     ⤳ Koyoteh
+◈ 👤 *𝘊𝘳𝘦𝘢𝘵𝘰𝘳*     ⤳ TehseenTech
 ◈ 🏷️ *𝘝𝘦𝘳𝘴𝘪𝘰𝘯*     ⤳ v${botVersion}
 ◈ 📱 *𝘔𝘰𝘥𝘦*        ⤳ ${botMode}
 ◈ 🌍 *𝘓𝘢𝘯𝘨𝘶𝘢𝘨𝘦*    ⤳ ${botLang.toUpperCase()}
@@ -556,7 +556,7 @@ gmd(
 
 ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
 
-> _BLACK PANTHER MD — built by Koyoteh. All rights reserved._`
+> _Tehseen Tech Automation — built by TehseenTech. All rights reserved._`
         );
     },
 );
@@ -573,7 +573,7 @@ gmd(
         category: "settings",
         ownerOnly: OWNER_ONLY,
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react } = conText;
 
         const sections = [

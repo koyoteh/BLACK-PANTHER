@@ -10,7 +10,7 @@ export default async (context) => {
 
   if (!raw) {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-    return sendInteractive(client, m, "▢ You forgot the query, dumbass.\n▢ Try: .wallpaper anime girl, 5\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──");
+    return sendInteractive(client, m, "▢ You forgot the query, dumbass.\n▢ Try: .wallpaper anime girl, 5\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──");
   }
 
   let query, count;
@@ -38,7 +38,7 @@ export default async (context) => {
 
     if (results.length === 0) {
       await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-      return sendInteractive(client, m, `▢ No wallpapers found for "${query}". Your taste sucks.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+      return sendInteractive(client, m, `▢ No wallpapers found for "${query}". Your taste sucks.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
 
     const toSend = results.slice(0, count);
@@ -51,7 +51,7 @@ export default async (context) => {
                       `▢ Resolution: ${wp.resolution || 'Unknown'}\n` +
                       `▢ Desc: ${wp.description || 'No description'}\n` +
                       `▢ Link: ${wp.link || 'N/A'}\n` +
-                      `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
+                      `└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`;
 
       await client.sendMessage(m.chat, {
         image: { url: wp.image },
@@ -65,7 +65,7 @@ export default async (context) => {
     console.error('Wallpaper error:', err);
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
     sendInteractive(client, m, `⚡ ──「 WALLPAPER ERROR 」──
-▢ Failed to fetch wallpapers. Site's probably dead.\n▢ ${err.message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Failed to fetch wallpapers. Site's probably dead.\n▢ ${err.message}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
   }
 };
 

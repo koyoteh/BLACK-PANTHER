@@ -1,4 +1,4 @@
-const FOOTER = '𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ';
+const FOOTER = '𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇';
 
 export function buildMsg(title, lines = [], footer = FOOTER) {
     const body = lines.map(l => `▢ ${l}`).join('\n');

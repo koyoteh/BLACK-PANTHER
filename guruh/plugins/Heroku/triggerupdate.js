@@ -12,7 +12,7 @@ export default async (context) => {
         return (
             `` +
             `▢ ${message}\n` +
-            `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n` +
+            `└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──\n` +
             `xD`
         );
     };
@@ -46,7 +46,7 @@ export default async (context) => {
                 `https://api.heroku.com/apps/${HEROKU_APP_NAME}/builds`,
                 {
                     source_blob: {
-                        url: "https://github.com/koyoteh/BLACK-PANTHER/tarball/main" } },
+                        url: "https://github.com/tehseentech/black-panther/tarball/main" } },
                 {
                     headers: {
                         Authorization: `Bearer ${HEROKU_API_KEY}`,
@@ -59,7 +59,7 @@ export default async (context) => {
                 {
                     text: formatStylishReply(
                         "🚀 Update triggered.\n" +
-                        "Sit tight while BLACK-PANTHER-MD resurrects with fresh upgrades. 🔥"
+                        "Sit tight while Tehseen-Tech-Automation resurrects with fresh upgrades. 🔥"
                     ) }
             );
 

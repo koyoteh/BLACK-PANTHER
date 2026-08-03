@@ -13,7 +13,7 @@ export default {
             const query = (text || '').trim();
             if (!query) {
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-                return sendInteractive(client, m, "▢ Give me a package name, you useless human.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──");
+                return sendInteractive(client, m, "▢ Give me a package name, you useless human.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──");
             }
 
             await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
@@ -26,7 +26,7 @@ export default {
             const objects = data?.objects || [];
             if (objects.length === 0) {
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-                return sendInteractive(client, m, `▢ No packages found for "${query}".\n▢ Your search skills are as bad as your life choices.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+                return sendInteractive(client, m, `▢ No packages found for "${query}".\n▢ Your search skills are as bad as your life choices.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
             }
 
             let resultText = `⚡ ──「 NPM SEARCH 」──
@@ -43,7 +43,7 @@ export default {
                 resultText += `▢ ...and ${data.total - 5} more results\n`;
             }
 
-            resultText += "└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──";
+            resultText += "└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──";
 
             await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
             await sendInteractive(client, m, resultText);
@@ -52,7 +52,7 @@ export default {
             console.error('NPM search error:', error);
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
             await sendInteractive(client, m, `⚡ ──「 NPM ERROR 」──
-▢ NPM search failed. ${error.message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ NPM search failed. ${error.message}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
     }
 };

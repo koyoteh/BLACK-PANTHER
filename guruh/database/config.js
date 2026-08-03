@@ -154,7 +154,7 @@ export async function resetWarnings(jid, num) {
     if (_data.warn_data) { delete _data.warn_data[`${jid}:${num}`]; _save(); }
 }
 
-// ── Warn aliases (BLACK PANTHER MD naming) ───────────────────────────────────────────
+// ── Warn aliases (Tehseen Tech Automation naming) ───────────────────────────────────────────
 
 export async function getWarnCount(jid, user) {
     _init();

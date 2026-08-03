@@ -26,7 +26,7 @@ export default {
 
         const p      = prefix || '.';
         const header = `⚡ ──「 ${EMOJI} *${LABEL}* 」──\n▢ ${commandFiles.length} commands available\n\n`;
-        const footer = `\n└──✦ _Powered by GuruTech_ ✦──`;
+        const footer = `\n└──✦ _Powered by TehseenTech_ ✦──`;
 
         const lines = commandFiles.map((file, i) =>
             `▢ ${String(i + 1).padStart(2, ' ')}. *${p}${file.replace('.js', '')}*`

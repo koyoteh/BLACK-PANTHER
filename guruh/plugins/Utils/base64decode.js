@@ -21,7 +21,7 @@ export default {
         if (!input) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
             return sendInteractive(client, m, `⚡ ──「 Bᴀsᴇ64 Dᴇᴄᴏᴅᴇ 」──
-▢ You gave me nothing. Classic.\n▢ Usage: .unbase64 SGVsbG8gV29ybGQ=\n▢        .debase64 [reply to base64]\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ You gave me nothing. Classic.\n▢ Usage: .unbase64 SGVsbG8gV29ybGQ=\n▢        .debase64 [reply to base64]\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
 
         let decoded = '';
@@ -32,13 +32,13 @@ export default {
         } catch {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
             return sendInteractive(client, m, `⚡ ──「 Bᴀsᴇ64 Dᴇᴄᴏᴅᴇ 」──
-▢ That's not valid Base64.\n▢ Learn what Base64 is first.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ That's not valid Base64.\n▢ Learn what Base64 is first.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
 
         await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
 
         const resultText = `⚡ ──「 Bᴀsᴇ64 Dᴇᴄᴏᴅᴇ 」──
-▢ 📥 Input (Base64):\n▢ ${input.slice(0, 60)}${input.length > 60 ? '...' : ''}\n▢ \n▢ 📤 Decoded:\n▢ \n${decoded}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
+▢ 📥 Input (Base64):\n▢ ${input.slice(0, 60)}${input.length > 60 ? '...' : ''}\n▢ \n▢ 📤 Decoded:\n▢ \n${decoded}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`;
 
         try {
             const msg = await generateWAMessageFromContent(m.chat, proto.Message.fromObject({

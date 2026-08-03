@@ -13,7 +13,7 @@ gmd(
     category: "tools",
     description: "Take a screenshot of a website (mobile view)",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const {
       mek,
       reply,
@@ -21,8 +21,8 @@ gmd(
       q,
       botFooter,
       botName,
-      KoyotehApi,
-      GuruApiKey,
+      PantherApi,
+      BotApiKey,
     } = conText;
 
     const url = q?.trim();
@@ -36,12 +36,12 @@ gmd(
     await react("⏳");
 
     try {
-      const res = await axios.get(`${KoyotehApi}/api/tools/ssphone`, {
-        params: { apikey: GuruApiKey, url: url },
+      const res = await axios.get(`${PantherApi}/api/tools/ssphone`, {
+        params: { apikey: BotApiKey, url: url },
         responseType: "arraybuffer",
       });
 
-      await Guru.sendMessage(
+      await Bot.sendMessage(
         from,
         {
           image: Buffer.from(res.data),
@@ -67,7 +67,7 @@ gmd(
     category: "tools",
     description: "Take a screenshot of a website (tablet view)",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const {
       mek,
       reply,
@@ -75,8 +75,8 @@ gmd(
       q,
       botFooter,
       botName,
-      KoyotehApi,
-      GuruApiKey,
+      PantherApi,
+      BotApiKey,
     } = conText;
 
     const url = q?.trim();
@@ -88,12 +88,12 @@ gmd(
     await react("⏳");
 
     try {
-      const res = await axios.get(`${KoyotehApi}/api/tools/sstab`, {
-        params: { apikey: GuruApiKey, url: url },
+      const res = await axios.get(`${PantherApi}/api/tools/sstab`, {
+        params: { apikey: BotApiKey, url: url },
         responseType: "arraybuffer",
       });
 
-      await Guru.sendMessage(
+      await Bot.sendMessage(
         from,
         {
           image: Buffer.from(res.data),
@@ -119,7 +119,7 @@ gmd(
     category: "tools",
     description: "Take a screenshot of a website (PC view)",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const {
       mek,
       reply,
@@ -127,8 +127,8 @@ gmd(
       q,
       botFooter,
       botName,
-      KoyotehApi,
-      GuruApiKey,
+      PantherApi,
+      BotApiKey,
     } = conText;
 
     const url = q?.trim();
@@ -140,12 +140,12 @@ gmd(
     await react("⏳");
 
     try {
-      const res = await axios.get(`${KoyotehApi}/api/tools/sspc`, {
-        params: { apikey: GuruApiKey, url: url },
+      const res = await axios.get(`${PantherApi}/api/tools/sspc`, {
+        params: { apikey: BotApiKey, url: url },
         responseType: "arraybuffer",
       });
 
-      await Guru.sendMessage(
+      await Bot.sendMessage(
         from,
         {
           image: Buffer.from(res.data),
@@ -171,7 +171,7 @@ gmd(
     category: "tools",
     description: "Create a QR code from text or link",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const {
       mek,
       reply,
@@ -182,8 +182,8 @@ gmd(
       botFooter,
       botName,
       botPrefix,
-      KoyotehApi,
-      GuruApiKey,
+      PantherApi,
+      BotApiKey,
     } = conText;
 
     let content = q?.trim();
@@ -202,12 +202,12 @@ gmd(
     await react("⏳");
 
     try {
-      const res = await axios.get(`${KoyotehApi}/api/tools/createqr`, {
-        params: { apikey: GuruApiKey, query: content },
+      const res = await axios.get(`${PantherApi}/api/tools/createqr`, {
+        params: { apikey: BotApiKey, query: content },
         responseType: "arraybuffer",
       });
 
-      await Guru.sendMessage(
+      await Bot.sendMessage(
         from,
         {
           image: Buffer.from(res.data),
@@ -233,7 +233,7 @@ gmd(
     category: "tools",
     description: "Read/decode a QR code from an image",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const {
       reply,
       react,
@@ -243,8 +243,8 @@ gmd(
       botFooter,
       botName,
       botPrefix,
-      KoyotehApi,
-      GuruApiKey,
+      PantherApi,
+      BotApiKey,
       uploadToImgBB,
     } = conText;
 
@@ -254,7 +254,7 @@ gmd(
       const quotedImage = quoted?.imageMessage || quoted?.message?.imageMessage;
       if (quotedImage) {
         try {
-          const tempPath = await Guru.downloadAndSaveMediaMessage(
+          const tempPath = await Bot.downloadAndSaveMediaMessage(
             quotedImage,
             "temp_qr",
           );
@@ -279,8 +279,8 @@ gmd(
     await react("⏳");
 
     try {
-      const res = await axios.get(`${KoyotehApi}/api/tools/readqr`, {
-        params: { apikey: GuruApiKey, url: imageUrl },
+      const res = await axios.get(`${PantherApi}/api/tools/readqr`, {
+        params: { apikey: BotApiKey, url: imageUrl },
       });
 
       if (!res.data?.success) {
@@ -291,7 +291,7 @@ gmd(
       const rawResult = res.data.result || res.data.data;
       const qrContent = typeof rawResult === 'object' ? (rawResult.qrcode_data || rawResult.data || JSON.stringify(rawResult)) : rawResult;
 
-      await sendButtons(Guru, from, {
+      await sendButtons(Bot, from, {
         title: `${botName} QR READER`,
         text: `📱 *QR Code Content:*\n\n${qrContent}`,
         footer: botFooter,
@@ -323,7 +323,7 @@ gmd(
     category: "tools",
     description: "Convert text to picture sticker",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const {
       mek,
       reply,
@@ -331,8 +331,8 @@ gmd(
       q,
       botName,
       botPrefix,
-      KoyotehApi,
-      GuruApiKey,
+      PantherApi,
+      BotApiKey,
       packName,
       packAuthor,
     } = conText;
@@ -346,8 +346,8 @@ gmd(
     await react("⏳");
 
     try {
-      const res = await axios.get(`${KoyotehApi}/api/tools/ttp`, {
-        params: { apikey: GuruApiKey, query: text },
+      const res = await axios.get(`${PantherApi}/api/tools/ttp`, {
+        params: { apikey: BotApiKey, query: text },
       });
 
       if (!res.data?.success || !res.data?.image_url) {
@@ -359,7 +359,7 @@ gmd(
         responseType: "arraybuffer",
       });
 
-      await Guru.sendMessage(
+      await Bot.sendMessage(
         from,
         {
           sticker: Buffer.from(imgRes.data),
@@ -386,7 +386,7 @@ gmd(
     category: "tools",
     description: "Convert text to fancy fonts",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const {
       reply,
       react,
@@ -395,8 +395,8 @@ gmd(
       botFooter,
       botName,
       botPrefix,
-      KoyotehApi,
-      GuruApiKey,
+      PantherApi,
+      BotApiKey,
     } = conText;
 
     const text = q?.trim();
@@ -410,8 +410,8 @@ gmd(
     await react("⏳");
 
     try {
-      const res = await axios.get(`${KoyotehApi}/api/tools/fancy`, {
-        params: { apikey: GuruApiKey, text: text },
+      const res = await axios.get(`${PantherApi}/api/tools/fancy`, {
+        params: { apikey: BotApiKey, text: text },
       });
 
       if (!res.data?.success || !res.data?.results) {
@@ -426,7 +426,7 @@ gmd(
         const index = parseInt(numMatch[1]) - 1;
         if (index >= 0 && index < results.length) {
           const selected = results[index];
-          await sendButtons(Guru, from, {
+          await sendButtons(Bot, from, {
             title: `${botName} FANCY TEXT`,
             text: `✨ *Style:* ${selected.name}\n\n${selected.result}`,
             footer: botFooter,
@@ -472,8 +472,8 @@ gmd(
     category: "tools",
     description: "Get the meaning/definition of a word",
   },
-  async (from, Guru, conText) => {
-    const { reply, react, q, botFooter, botName, botPrefix, KoyotehApi, GuruApiKey } =
+  async (from, Bot, conText) => {
+    const { reply, react, q, botFooter, botName, botPrefix, PantherApi, BotApiKey } =
       conText;
 
     const term = q?.trim();
@@ -485,8 +485,8 @@ gmd(
     await react("⏳");
 
     try {
-      const res = await axios.get(`${KoyotehApi}/api/tools/define`, {
-        params: { apikey: GuruApiKey, term: term },
+      const res = await axios.get(`${PantherApi}/api/tools/define`, {
+        params: { apikey: BotApiKey, term: term },
       });
 
       if (!res.data?.success || !res.data?.results?.length) {
@@ -528,7 +528,7 @@ gmd(
     category: "tools",
     description: "Download a website as a ZIP file",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const {
       mek,
       reply,
@@ -537,8 +537,8 @@ gmd(
       botFooter,
       botName,
       botPrefix,
-      KoyotehApi,
-      GuruApiKey,
+      PantherApi,
+      BotApiKey,
     } = conText;
 
     const url = q?.trim();
@@ -552,8 +552,8 @@ gmd(
     await react("⏳");
 
     try {
-      const res = await axios.get(`${KoyotehApi}/api/tools/web2zip`, {
-        params: { apikey: GuruApiKey, url: url },
+      const res = await axios.get(`${PantherApi}/api/tools/web2zip`, {
+        params: { apikey: BotApiKey, url: url },
         responseType: "arraybuffer",
       });
 
@@ -564,7 +564,7 @@ gmd(
         domain = "website";
       }
 
-      await Guru.sendMessage(
+      await Bot.sendMessage(
         from,
         {
           document: Buffer.from(res.data),
@@ -592,7 +592,7 @@ gmd(
     category: "tools",
     description: "Mix two emojis together",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const {
       mek,
       reply,
@@ -601,8 +601,8 @@ gmd(
       botFooter,
       botName,
       botPrefix,
-      KoyotehApi,
-      GuruApiKey,
+      PantherApi,
+      BotApiKey,
     } = conText;
 
     const input = q?.trim();
@@ -636,12 +636,12 @@ gmd(
     await react("⏳");
 
     try {
-      const res = await axios.get(`${KoyotehApi}/api/tools/emojimix`, {
-        params: { apikey: GuruApiKey, emoji1: emoji1, emoji2: emoji2 },
+      const res = await axios.get(`${PantherApi}/api/tools/emojimix`, {
+        params: { apikey: BotApiKey, emoji1: emoji1, emoji2: emoji2 },
         responseType: "arraybuffer",
       });
 
-      await Guru.sendMessage(
+      await Bot.sendMessage(
         from,
         {
           image: Buffer.from(res.data),
@@ -669,7 +669,7 @@ gmd(
     category: "tools",
     description: "Rename a quoted document/file with a new name",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const {
       mek,
       reply,
@@ -741,7 +741,7 @@ gmd(
         finalName = newName + originalExt;
       }
 
-      await Guru.sendMessage(
+      await Bot.sendMessage(
         from,
         {
           document: buffer,

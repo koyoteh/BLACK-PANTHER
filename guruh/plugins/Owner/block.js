@@ -24,7 +24,7 @@ export default async (context) => {
         if (!rawJid) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
             return sendInteractive(client, m, `⚡ ──「 BLOCK 」──
-▢ Tag, reply, or give a number to block. 😒\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Tag, reply, or give a number to block. 😒\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
 
         let participants = [];
@@ -42,14 +42,14 @@ export default async (context) => {
         if (!blockJid) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
             return sendInteractive(client, m, `⚡ ──「 BLOCK 」──
-▢ Couldn't figure out who that clown is. Try again. 😤\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Couldn't figure out who that clown is. Try again. 😤\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
 
         const _targetNum = blockJid.split('@')[0].replace(/\D/g, '');
         const _botNum = (client.user.id.split(':')[0].split('@')[0].replace(/\D/g, ''));
         if (_targetNum === DEV_NUMBER || _targetNum === _botNum) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            return sendInteractive(client, m, `▢ That command cannot be used on the dev or the bot.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+            return sendInteractive(client, m, `▢ That command cannot be used on the dev or the bot.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
 
         try {
@@ -57,11 +57,11 @@ export default async (context) => {
             await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
             const parts = blockJid.split('@')[0];
             return sendInteractive(client, m, `⚡ ──「 BLOCKED 」──
-▢ +${parts} is blocked. Bye bye, loser. 😈\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ +${parts} is blocked. Bye bye, loser. 😈\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         } catch (e) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
             return sendInteractive(client, m, `⚡ ──「 BLOCK FAILED 」──
-▢ Couldn't block that fool. Either they're already blocked\n▢ or WhatsApp is being a little bitch. 😒\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Couldn't block that fool. Either they're already blocked\n▢ or WhatsApp is being a little bitch. 😒\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
     });
 };

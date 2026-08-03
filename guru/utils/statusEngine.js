@@ -1,7 +1,7 @@
 'use strict';
 // ╔══════════════════════════════════════════════════════════════╗
-//  🐾  BLACK PANTHER MD  —  Status Engine
-//  👑  Owner : Koyoteh  |  📞 +254105521300
+//  🐾  Tehseen Tech Automation  —  Status Engine
+//  👑  Owner : TehseenTech  |  📞 
 // ─────────────────────────────────────────────────────────────
 //  Features:
 //  ✅  Queue-based — never drops a status even under high load

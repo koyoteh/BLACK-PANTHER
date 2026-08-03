@@ -71,7 +71,7 @@ gmd(
     category: "ultracore",
     description: "Real-time bot system diagnostics dashboard",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, mek, react, botName, botFooter } = conText;
     await react("⚙️");
 
@@ -107,7 +107,7 @@ gmd(
 ╚══════[ ✨ _${botFooter}_ ]══════╝`;
 
     await react("✅");
-    await Guru.sendMessage(from, { text: dash }, { quoted: mek });
+    await Bot.sendMessage(from, { text: dash }, { quoted: mek });
   }
 );
 
@@ -123,7 +123,7 @@ gmd(
     category: "ultracore",
     description: "Detailed geo-intelligence on any IP address or domain",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, q, mek, react, botFooter } = conText;
     if (!q) return reply("❌ Usage: .iplookup <ip/domain>");
     await react("🔍");
@@ -153,7 +153,7 @@ gmd(
 > _${botFooter}_`;
 
       await react("✅");
-      await Guru.sendMessage(from, { text }, { quoted: mek });
+      await Bot.sendMessage(from, { text }, { quoted: mek });
     } catch (e) {
       await react("❌");
       reply("❌ Network error: " + e.message);
@@ -173,7 +173,7 @@ gmd(
     category: "ultracore",
     description: "Resolve DNS records for any domain",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, q, mek, react } = conText;
     if (!q) return reply("❌ Usage: .dnslookup <domain>");
     await react("🔍");
@@ -204,7 +204,7 @@ gmd(
 ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍`;
 
       await react("✅");
-      await Guru.sendMessage(from, { text }, { quoted: mek });
+      await Bot.sendMessage(from, { text }, { quoted: mek });
     } catch (e) {
       await react("❌");
       reply("❌ DNS error: " + e.message);
@@ -224,7 +224,7 @@ gmd(
     category: "ultracore",
     description: "Generate cryptographic hashes — MD5, SHA1, SHA256, SHA512",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, q, mek, react } = conText;
     if (!q) return reply("❌ Usage: .hash <text>");
     await react("⚙️");
@@ -244,7 +244,7 @@ gmd(
 ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍`;
 
     await react("✅");
-    await Guru.sendMessage(from, { text }, { quoted: mek });
+    await Bot.sendMessage(from, { text }, { quoted: mek });
   }
 );
 
@@ -260,7 +260,7 @@ gmd(
     category: "ultracore",
     description: "Generate ultra-strong random passwords",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, q, mek, react } = conText;
     await react("⚙️");
 
@@ -313,7 +313,7 @@ Strength: ${strength(pass2)} ⚡
 > ⚠️ _Store safely. Never share._`;
 
     await react("✅");
-    await Guru.sendMessage(from, { text }, { quoted: mek });
+    await Bot.sendMessage(from, { text }, { quoted: mek });
   }
 );
 
@@ -329,7 +329,7 @@ gmd(
     category: "ultracore",
     description: "Check spam/flood status of a user or the current group",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, mek, react, sender, pushName, isGroup } = conText;
     await react("🔍");
 
@@ -362,7 +362,7 @@ gmd(
 ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍`;
 
     await react("✅");
-    await Guru.sendMessage(from, { text }, { quoted: mek });
+    await Bot.sendMessage(from, { text }, { quoted: mek });
   }
 );
 
@@ -378,7 +378,7 @@ gmd(
     category: "ultracore",
     description: "Instantly freeze group — only admins can send messages",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, mek, react, isGroup, isAdmin, isSuperAdmin, isBotAdmin, botName } = conText;
     if (!isGroup) return reply("❌ Groups only!");
     if (!isBotAdmin) return reply("❌ Bot must be admin!");
@@ -388,8 +388,8 @@ gmd(
     groupLockdown.add(from);
 
     try {
-      await Guru.groupSettingUpdate(from, "announcement");
-      await Guru.sendMessage(from, {
+      await Bot.groupSettingUpdate(from, "announcement");
+      await Bot.sendMessage(from, {
         text:
 `🔒 *GROUP LOCKDOWN ACTIVATED*
 ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
@@ -422,7 +422,7 @@ gmd(
     category: "ultracore",
     description: "Lift lockdown — restore all members' send access",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, mek, react, isGroup, isAdmin, isSuperAdmin, isBotAdmin, botName } = conText;
     if (!isGroup) return reply("❌ Groups only!");
     if (!isBotAdmin) return reply("❌ Bot must be admin!");
@@ -432,8 +432,8 @@ gmd(
     groupLockdown.delete(from);
 
     try {
-      await Guru.groupSettingUpdate(from, "not_announcement");
-      await Guru.sendMessage(from, {
+      await Bot.groupSettingUpdate(from, "not_announcement");
+      await Bot.sendMessage(from, {
         text:
 `🔓 *LOCKDOWN LIFTED*
 ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
@@ -464,7 +464,7 @@ gmd(
     category: "ultracore",
     description: "Silently remove a tagged user for N minutes then readd",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, mek, react, isGroup, isAdmin, isSuperAdmin, isBotAdmin,
             mentionedJid, args, botName, sender } = conText;
     if (!isGroup) return reply("❌ Groups only!");
@@ -481,10 +481,10 @@ gmd(
     userSilence.set(target, expiry);
 
     try {
-      await Guru.groupParticipantsUpdate(from, [target], "remove");
+      await Bot.groupParticipantsUpdate(from, [target], "remove");
       const num = target.replace("@s.whatsapp.net", "");
 
-      await Guru.sendMessage(from, {
+      await Bot.sendMessage(from, {
         text:
 `🔇 *USER SILENCED*
 ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
@@ -501,8 +501,8 @@ gmd(
       setTimeout(async () => {
         try {
           userSilence.delete(target);
-          await Guru.groupParticipantsUpdate(from, [target], "add");
-          await Guru.sendMessage(from, {
+          await Bot.groupParticipantsUpdate(from, [target], "add");
+          await Bot.sendMessage(from, {
             text: `✅ @${num} silence expired — re-added to group.`,
             mentions: [target],
           });
@@ -529,7 +529,7 @@ gmd(
     category: "ultracore",
     description: "Promote ALL group members to admin (Owner only)",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, mek, react, isGroup, isSuperAdmin, isBotAdmin, isSuperUser, botName } = conText;
     if (!isGroup) return reply("❌ Groups only!");
     if (!isBotAdmin) return reply("❌ Bot must be admin!");
@@ -538,7 +538,7 @@ gmd(
     await react("⏳");
 
     try {
-      const meta = await Guru.groupMetadata(from);
+      const meta = await Bot.groupMetadata(from);
       const members = meta.participants.filter((p) => !p.admin).map((p) => p.id);
 
       if (!members.length) return reply("✅ All members are already admins!");
@@ -546,14 +546,14 @@ gmd(
       let done = 0;
       for (const jid of members) {
         try {
-          await Guru.groupParticipantsUpdate(from, [jid], "promote");
+          await Bot.groupParticipantsUpdate(from, [jid], "promote");
           done++;
           await sleep(400);
         } catch (_) {}
       }
 
       await react("✅");
-      await Guru.sendMessage(from, {
+      await Bot.sendMessage(from, {
         text:
 `👑 *MASS PROMOTE COMPLETE*
 ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
@@ -581,7 +581,7 @@ gmd(
     category: "ultracore",
     description: "Demote ALL admins to members (Owner/SuperAdmin only)",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, mek, react, isGroup, isSuperAdmin, isBotAdmin, isSuperUser, botName, sender } = conText;
     if (!isGroup) return reply("❌ Groups only!");
     if (!isBotAdmin) return reply("❌ Bot must be admin!");
@@ -590,8 +590,8 @@ gmd(
     await react("⏳");
 
     try {
-      const meta = await Guru.groupMetadata(from);
-      const botJid = Guru.user?.id?.replace(/:.*@/, "@") || "";
+      const meta = await Bot.groupMetadata(from);
+      const botJid = Bot.user?.id?.replace(/:.*@/, "@") || "";
       const admins = meta.participants
         .filter((p) => p.admin === "admin" && p.id !== sender && p.id !== botJid)
         .map((p) => p.id);
@@ -601,14 +601,14 @@ gmd(
       let done = 0;
       for (const jid of admins) {
         try {
-          await Guru.groupParticipantsUpdate(from, [jid], "demote");
+          await Bot.groupParticipantsUpdate(from, [jid], "demote");
           done++;
           await sleep(400);
         } catch (_) {}
       }
 
       await react("✅");
-      await Guru.sendMessage(from, {
+      await Bot.sendMessage(from, {
         text:
 `🔽 *MASS DEMOTE COMPLETE*
 ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
@@ -635,7 +635,7 @@ gmd(
     category: "ultracore",
     description: "Remove ALL non-admin members from group (Owner only)",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, mek, react, isGroup, isSuperAdmin, isBotAdmin, isSuperUser, botName } = conText;
     if (!isGroup) return reply("❌ Groups only!");
     if (!isBotAdmin) return reply("❌ Bot must be admin!");
@@ -643,25 +643,25 @@ gmd(
 
     await react("💣");
 
-    await Guru.sendMessage(from, {
+    await Bot.sendMessage(from, {
       text: "☢️ *NUKE INITIATED — Removing all non-admin members...*",
     }, { quoted: mek });
 
     try {
-      const meta = await Guru.groupMetadata(from);
+      const meta = await Bot.groupMetadata(from);
       const targets = meta.participants.filter((p) => !p.admin).map((p) => p.id);
 
       let done = 0;
       for (const jid of targets) {
         try {
-          await Guru.groupParticipantsUpdate(from, [jid], "remove");
+          await Bot.groupParticipantsUpdate(from, [jid], "remove");
           done++;
           await sleep(300);
         } catch (_) {}
       }
 
       await react("✅");
-      await Guru.sendMessage(from, {
+      await Bot.sendMessage(from, {
         text:
 `💣 *NUKE COMPLETE*
 ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
@@ -689,7 +689,7 @@ gmd(
     category: "ultracore",
     description: "Start sending an auto-ping message every N minutes",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, q, mek, react, isSuperUser, botName } = conText;
     if (!isSuperUser) return reply("❌ Owner only!");
 
@@ -704,7 +704,7 @@ gmd(
     const id = setInterval(async () => {
       count++;
       try {
-        await Guru.sendMessage(from, {
+        await Bot.sendMessage(from, {
           text: `📡 *AUTO-PING #${count}* — ${botName} is alive ✅\n⏱ Interval: ${minutes}min | 🕐 ${new Date().toLocaleTimeString()}`,
         });
       } catch (_) {
@@ -727,7 +727,7 @@ gmd(
     category: "ultracore",
     description: "Stop the auto-ping for this chat",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, react, isSuperUser } = conText;
     if (!isSuperUser) return reply("❌ Owner only!");
 
@@ -752,7 +752,7 @@ gmd(
     category: "ultracore",
     description: "Decode carrier + country from any phone number",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, q, mek, react } = conText;
     if (!q) return reply("❌ Usage: .numinfo <+2547xxxxxxxx>");
     await react("🔍");
@@ -805,7 +805,7 @@ gmd(
       if (ccMap[prefix]) { country = ccMap[prefix]; break; }
     }
 
-    const isRegistered = await Guru.onWhatsApp(num + "@s.whatsapp.net")
+    const isRegistered = await Bot.onWhatsApp(num + "@s.whatsapp.net")
       .then((r) => r?.[0]?.exists ? "✅ Yes" : "❌ No")
       .catch(() => "⚠️ Check failed");
 
@@ -820,7 +820,7 @@ gmd(
 ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍`;
 
     await react("✅");
-    await Guru.sendMessage(from, { text }, { quoted: mek });
+    await Bot.sendMessage(from, { text }, { quoted: mek });
   }
 );
 
@@ -836,14 +836,14 @@ gmd(
     category: "ultracore",
     description: "Deep-scan all group members — admins, numbers, stats",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, mek, react, isGroup, isAdmin, isSuperAdmin } = conText;
     if (!isGroup) return reply("❌ Groups only!");
     if (!isAdmin && !isSuperAdmin) return reply("❌ Admins only!");
 
     await react("⏳");
     try {
-      const meta = await Guru.groupMetadata(from);
+      const meta = await Bot.groupMetadata(from);
       const p = meta.participants;
       const superAdmins = p.filter((x) => x.admin === "superadmin");
       const admins = p.filter((x) => x.admin === "admin");
@@ -874,7 +874,7 @@ ${listNums(admins)}
 > Members list omitted (${members.length} total). Use *.vcf* to export.`;
 
       await react("✅");
-      await Guru.sendMessage(from, { text }, { quoted: mek });
+      await Bot.sendMessage(from, { text }, { quoted: mek });
     } catch (e) {
       await react("❌");
       reply("❌ Scan failed: " + e.message);
@@ -894,7 +894,7 @@ gmd(
     category: "ultracore",
     description: "Post bot's current stats as a WhatsApp status",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, mek, react, isSuperUser, botName, botFooter } = conText;
     if (!isSuperUser) return reply("❌ Owner only!");
     await react("📡");
@@ -912,7 +912,7 @@ gmd(
 _${botFooter}_`;
 
     try {
-      await Guru.sendMessage("status@broadcast", { text: statusText });
+      await Bot.sendMessage("status@broadcast", { text: statusText });
       await react("✅");
       reply("📢 Status posted to WhatsApp Story!");
     } catch (e) {
@@ -934,7 +934,7 @@ gmd(
     category: "ultracore",
     description: "Send a dramatic countdown in chat (5 to 1 then BOOM)",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, q, mek, react, isAdmin, isSuperAdmin, isSuperUser } = conText;
     if (!isAdmin && !isSuperAdmin && !isSuperUser) return reply("❌ Admins only!");
 
@@ -946,13 +946,13 @@ gmd(
     const frames = ["💣", "⏳", "⌛", "🔴", "🟠", "🟡", "🟢"];
     for (let i = seconds; i > 0; i--) {
       const bar = "🔴".repeat(i) + "⚪".repeat(seconds - i);
-      await Guru.sendMessage(from, {
+      await Bot.sendMessage(from, {
         text: `${frames[i % frames.length]} *COUNTDOWN: ${i}*\n${bar}`,
       });
       await sleep(1000);
     }
 
-    await Guru.sendMessage(from, { text: "💥 *B O O M !* 💥\n> _Detonation complete._" });
+    await Bot.sendMessage(from, { text: "💥 *B O O M !* 💥\n> _Detonation complete._" });
     await react("💥");
   }
 );
@@ -969,7 +969,7 @@ gmd(
     category: "ultracore",
     description: "Generate up to 20 UUID v4 identifiers at once",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, q, mek, react } = conText;
     const count = Math.min(parseInt(q?.trim()) || 5, 20);
     if (count < 1) return reply("❌ Count: 1–20");
@@ -978,7 +978,7 @@ gmd(
     const ids = Array.from({ length: count }, () => crypto.randomUUID()).join("\n");
 
     await react("✅");
-    await Guru.sendMessage(from, {
+    await Bot.sendMessage(from, {
       text: `🆔 *${count} UUID v4 Generated*\n╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍\n\`\`\`\n${ids}\n\`\`\``,
     }, { quoted: mek });
   }
@@ -996,7 +996,7 @@ gmd(
     category: "ultracore",
     description: "Detailed weather + 3-day forecast for any city",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, q, mek, react } = conText;
     if (!q) return reply("❌ Usage: .weatherpro <city>");
     await react("🌍");
@@ -1053,7 +1053,7 @@ ${days}
 ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍`;
 
       await react("✅");
-      await Guru.sendMessage(from, { text }, { quoted: mek });
+      await Bot.sendMessage(from, { text }, { quoted: mek });
     } catch (e) {
       await react("❌");
       reply("❌ Weather error: " + e.message);
@@ -1073,7 +1073,7 @@ gmd(
     category: "ultracore",
     description: "Broadcast a message to ALL groups bot is in (Owner only)",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, q, mek, react, isSuperUser, botName } = conText;
     if (!isSuperUser) return reply("❌ Owner only!");
     if (!q) return reply("❌ Usage: .robotbroadcast <message>");
@@ -1082,7 +1082,7 @@ gmd(
     reply("📡 Initiating group broadcast...");
 
     try {
-      const groups = await Guru.groupFetchAllParticipating();
+      const groups = await Bot.groupFetchAllParticipating();
       const gids = Object.keys(groups);
       let sent = 0, failed = 0;
 
@@ -1091,7 +1091,7 @@ gmd(
 
       for (const gid of gids) {
         try {
-          await Guru.sendMessage(gid, {
+          await Bot.sendMessage(gid, {
             text: `📡 *[${botName} BROADCAST]*\n╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍\n${q}\n╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍`,
           });
           sent++;
@@ -1102,7 +1102,7 @@ gmd(
       }
 
       await react("✅");
-      await Guru.sendMessage(from, {
+      await Bot.sendMessage(from, {
         text:
 `📡 *BROADCAST COMPLETE*
 ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
@@ -1130,7 +1130,7 @@ gmd(
     category: "ultracore",
     description: "Tag every member individually with a custom message",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, q, mek, react, isGroup, isAdmin, isSuperAdmin, isBotAdmin, botName } = conText;
     if (!isGroup) return reply("❌ Groups only!");
     if (!isBotAdmin) return reply("❌ Bot must be admin!");
@@ -1139,7 +1139,7 @@ gmd(
     await react("⏳");
 
     try {
-      const meta = await Guru.groupMetadata(from);
+      const meta = await Bot.groupMetadata(from);
       const members = meta.participants.map((p) => p.id);
       const msg = q?.trim() || "You have been mentioned!";
 
@@ -1147,7 +1147,7 @@ gmd(
       for (const jid of members) {
         const num = jid.replace("@s.whatsapp.net", "");
         try {
-          await Guru.sendMessage(from, {
+          await Bot.sendMessage(from, {
             text: `📌 @${num}\n${msg}`,
             mentions: [jid],
           });
@@ -1157,7 +1157,7 @@ gmd(
       }
 
       await react("✅");
-      await Guru.sendMessage(from, {
+      await Bot.sendMessage(from, {
         text: `💥 *MENTION BOMB DONE* — Tagged ${done}/${members.length} members`,
       }, { quoted: mek });
     } catch (e) {
@@ -1179,7 +1179,7 @@ gmd(
     category: "ultracore",
     description: "Generate random tokens/API keys in multiple formats",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, q, mek, react } = conText;
     await react("⚙️");
 
@@ -1214,7 +1214,7 @@ gmd(
 ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍`;
 
     await react("✅");
-    await Guru.sendMessage(from, { text }, { quoted: mek });
+    await Bot.sendMessage(from, { text }, { quoted: mek });
   }
 );
 
@@ -1230,7 +1230,7 @@ gmd(
     category: "ultracore",
     description: "Test a regex pattern against a string",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, q, mek, react } = conText;
     if (!q || !q.includes("|")) return reply("❌ Usage: .regextest <pattern>|<test string>");
 
@@ -1260,7 +1260,7 @@ ${result}
 ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍`;
 
       await react("✅");
-      await Guru.sendMessage(from, { text }, { quoted: mek });
+      await Bot.sendMessage(from, { text }, { quoted: mek });
     } catch (e) {
       await react("❌");
       reply("❌ Invalid regex: " + e.message);
@@ -1280,7 +1280,7 @@ gmd(
     category: "ultracore",
     description: "Copy current group's name + description to bot's display",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, mek, react, isGroup, isAdmin, isSuperAdmin, isBotAdmin } = conText;
     if (!isGroup) return reply("❌ Groups only!");
     if (!isBotAdmin) return reply("❌ Bot must be admin!");
@@ -1289,7 +1289,7 @@ gmd(
     await react("⏳");
 
     try {
-      const meta = await Guru.groupMetadata(from);
+      const meta = await Bot.groupMetadata(from);
       const text =
 `📋 *GROUP CLONE SNAPSHOT*
 ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍
@@ -1305,7 +1305,7 @@ ${meta.desc || "No description set."}
 ╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍`;
 
       await react("✅");
-      await Guru.sendMessage(from, { text }, { quoted: mek });
+      await Bot.sendMessage(from, { text }, { quoted: mek });
     } catch (e) {
       await react("❌");
       reply("❌ Clone failed: " + e.message);
@@ -1325,7 +1325,7 @@ gmd(
     category: "ultracore",
     description: "Show all ULTRA CORE robotic features",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, mek, react, botPrefix, botFooter, botName, newsletterJid } = conText;
     const p = botPrefix || ".";
     await react("🤖");
@@ -1370,7 +1370,7 @@ gmd(
 
 ╚══════[ ✨ _${botFooter}_ ]══════╝`;
 
-    await Guru.sendMessage(from, {
+    await Bot.sendMessage(from, {
       text,
       contextInfo: {
         forwardingScore: 5,

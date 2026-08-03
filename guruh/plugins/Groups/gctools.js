@@ -4,7 +4,7 @@ import { getDeviceMode } from '../../lib/deviceMode.js';
 
 const H = (title) => `⚡ ──「 ${title} 」──
 ├`;
-const F = `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
+const F = `└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`;
 const box = (title, lines) => `${H(title)}\n${lines.map(l => `▢ ${l}`).join('\n')}\n│
 ${F}`;
 

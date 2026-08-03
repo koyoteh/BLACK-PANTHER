@@ -89,7 +89,7 @@ async function loadSession() {
                 const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
                 console.log(`
 ╔══════════════════════════════════════════════════════════════╗
-║           📱  BLACK PANTHER MD — SESSION SETUP                  ║
+║           📱  Tehseen Tech Automation — SESSION SETUP                  ║
 ╠══════════════════════════════════════════════════════════════╣
 ║  Paste your SESSION_ID below and press Enter.                ║
 ║  Format:  PANTHER~xxxxxxxx...                                   ║
@@ -780,7 +780,7 @@ function verifyJidState(jid) {
         console.error('Your verified', jid);
         return false;
     }
-    console.log('Welcome to BLACK PANTHER Bot', jid);
+    console.log('Welcome to Tehseen Tech Automation Bot', jid);
     return true;
 }
 

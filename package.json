@@ -1,7 +1,7 @@
 {
-  "name": "black-panther-md",
+  "name": "tehseen-tech-automation",
   "version": "5.0.0",
-  "description": "KOYOTEH 🐾 - Ultimate WhatsApp Bot by Koyoteh",
+  "description": "TEHSEENTECH 🐾 - Ultimate WhatsApp Bot by TehseenTech",
   "main": "./index.js",
   "type": "commonjs",
   "engines": {
@@ -15,13 +15,13 @@
     "replit-install": "PYTHONPATH=$(python3 -c 'import setuptools; import os; print(os.path.dirname(os.path.dirname(setuptools.__file__)))' 2>/dev/null || echo '') npm install --legacy-peer-deps --no-audit --no-fund"
   },
   "keywords": [
-    "koyoteh",
+    "tehseentech",
     "black-panther",
     "black-panther-md",
     "whatsapp-bot",
     "whatsapp-md-bot"
   ],
-  "author": "KOYOTEH 🐾",
+  "author": "TEHSEENTECH 🐾",
   "license": "MIT",
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
@@ -67,12 +67,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/koyoteh/BLACK-PANTHER.git"
+    "url": "git+https://github.com/tehseentech/black-panther.git"
   },
   "bugs": {
-    "url": "https://github.com/koyoteh/BLACK-PANTHER/issues"
+    "url": "https://github.com/tehseentech/black-panther/issues"
   },
-  "homepage": "https://github.com/koyoteh/BLACK-PANTHER#readme",
+  "homepage": "https://github.com/tehseentech/black-panther#readme",
   "devDependencies": {
     "javascript-obfuscator": "^5.4.3"
   }

@@ -14,7 +14,7 @@ export default async (context) => {
     let imdbt = "";
 
     imdbt += "";
-    imdbt += "▢ BLACK-PANTHER-MD MOVIE SEARCH\n";
+    imdbt += "▢ Tehseen-Tech-Automation MOVIE SEARCH\n";
     imdbt += "";
     imdbt += "▢ 🎬 Title       : " + fids.data.Title + "\n";
     imdbt += "▢ 📅 Year        : " + fids.data.Year + "\n";
@@ -33,7 +33,7 @@ export default async (context) => {
     imdbt += "▢ 🏭 Production  : " + fids.data.Production + "\n";
     imdbt += "▢ 🌟 imdbRating  : " + fids.data.imdbRating + "\n";
     imdbt += "▢ 🗳️ imdbVotes   : " + fids.data.imdbVotes + "\n";
-    imdbt += "└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──";
+    imdbt += "└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──";
 
     await client.sendMessage(
       m.chat,

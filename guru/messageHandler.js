@@ -23,10 +23,10 @@ const {
     setCommitHash,
     getCommitHash,
     uploadToGithubCdn,
-    uploadToGuruCdn,
+    uploadToBotCdn,
     uploadToCatbox,
-    KoyotehApi,
-    GuruApiKey,
+    PantherApi,
+    BotApiKey,
     gmdBuffer,
     gmdJson,
     formatAudio,
@@ -148,7 +148,7 @@ function buildContext(ms, settings, helpers, data) {
         ownerNumber: settings.OWNER_NUMBER,
         ownerName: settings.OWNER_NAME,
         botName: settings.BOT_NAME,
-        guruRepo: settings.BOT_REPO,
+        botRepo: settings.BOT_REPO,
         packName: settings.PACK_NAME,
         packAuthor: settings.PACK_AUTHOR,
         isSuperAdmin: data.isSuperAdmin,
@@ -160,21 +160,21 @@ function buildContext(ms, settings, helpers, data) {
         setCommitHash,
         getCommitHash,
         uploadToGithubCdn,
-        uploadToGuruCdn,
+        uploadToBotCdn,
         uploadToCatbox,
         newsletterUrl: settings.NEWSLETTER_URL,
         newsletterJid: settings.NEWSLETTER_JID,
-        KoyotehApi,
-        GuruApiKey,
+        PantherApi,
+        BotApiKey,
         botPrefix: settings.PREFIX,
         timeZone: settings.TIME_ZONE,
     };
 }
 
-function setupGuruHelpers(Guru, from) {
-    Guru.getJidFromLid = async (lid) => {
+function setupBotHelpers(Bot, from) {
+    Bot.getJidFromLid = async (lid) => {
         const { getGroupMetadata } = require(".");
-        const groupMetadata = await getGroupMetadata(Guru, from);
+        const groupMetadata = await getGroupMetadata(Bot, from);
         if (!groupMetadata) return null;
         const match = groupMetadata.participants.find(
             (p) => p.lid === lid || p.id === lid,
@@ -182,9 +182,9 @@ function setupGuruHelpers(Guru, from) {
         return match?.pn || match?.phoneNumber || null;
     };
 
-    Guru.getLidFromJid = async (jid) => {
+    Bot.getLidFromJid = async (jid) => {
         const { getGroupMetadata } = require(".");
-        const groupMetadata = await getGroupMetadata(Guru, from);
+        const groupMetadata = await getGroupMetadata(Bot, from);
         if (!groupMetadata) return null;
         const match = groupMetadata.participants.find(
             (p) =>
@@ -201,7 +201,7 @@ function setupGuruHelpers(Guru, from) {
         fileType = await import("file-type");
     })();
 
-    Guru.downloadAndSaveMediaMessage = async (
+    Bot.downloadAndSaveMediaMessage = async (
         message,
         filename,
         attachExtension = true,
@@ -247,8 +247,8 @@ function setupGuruHelpers(Guru, from) {
     };
 }
 
-function setupCommandHandler(Guru) {
-    Guru.ev.on("messages.upsert", async ({ messages, type }) => {
+function setupCommandHandler(Bot) {
+    Bot.ev.on("messages.upsert", async ({ messages, type }) => {
         if (type === "append") return;
 
         const ms = messages[0];
@@ -267,9 +267,9 @@ function setupCommandHandler(Guru) {
             return;
 
         const settings = await getCachedSettings();
-        const botId = standardizeJid(Guru.user?.id);
+        const botId = standardizeJid(Bot.user?.id);
 
-        const serialized = await serializeMessage(ms, Guru, settings);
+        const serialized = await serializeMessage(ms, Bot, settings);
         if (!serialized) return;
 
         const {
@@ -299,11 +299,11 @@ function setupCommandHandler(Guru) {
         if (!ms.key.fromMe && !isGroup) {
             try {
                 const { checkAndGreetUser } = require("./scheduler");
-                checkAndGreetUser(Guru, from, pushName, settings).catch(() => {});
+                checkAndGreetUser(Bot, from, pushName, settings).catch(() => {});
             } catch (_) {}
         }
 
-        const groupData = await getGroupInfo(Guru, from, botId, rawSender);
+        const groupData = await getGroupInfo(Bot, from, botId, rawSender);
         const {
             groupInfo,
             groupName,
@@ -335,7 +335,7 @@ function setupCommandHandler(Guru) {
             );
             if (countryCodes.some((code) => sender.startsWith(code))) {
                 try {
-                    await Guru.updateBlockStatus(sender, "block");
+                    await Bot.updateBlockStatus(sender, "block");
                 } catch (blockErr) {
                     console.error("Block error:", blockErr);
                 }
@@ -353,12 +353,12 @@ function setupCommandHandler(Guru) {
         } else if (autoReadMode === "commands" && isCommand) {
             shouldRead = true;
         }
-        if (shouldRead) await Guru.readMessages([ms.key]);
+        if (shouldRead) await Bot.readMessages([ms.key]);
 
         if (Array.isArray(global.__pluginMsgHooks)) {
             for (const hook of global.__pluginMsgHooks) {
                 try {
-                    await hook(ms, Guru, settings);
+                    await hook(ms, Bot, settings);
                 } catch (_) {}
             }
         }
@@ -369,7 +369,7 @@ function setupCommandHandler(Guru) {
                 return;
             try {
                 const helpers = createHelpers(
-                    Guru,
+                    Bot,
                     ms,
                     from,
                     settings.BOT_NAME,
@@ -401,12 +401,12 @@ function setupCommandHandler(Guru) {
                     quotedMsg,
                     quotedKey,
                     quotedUser,
-                    Guru,
+                    Bot,
                     botId,
                     body,
                     command,
                 });
-                await bodyCmd.function(from, Guru, conText);
+                await bodyCmd.function(from, Bot, conText);
             } catch (error) {
                 console.error(`Body command error:`, error);
             }
@@ -423,14 +423,14 @@ function setupCommandHandler(Guru) {
                 if (gmdSudo && gmdSudo.function) {
                     try {
                         const helpers = createHelpers(
-                            Guru,
+                            Bot,
                             ms,
                             from,
                             settings.BOT_NAME,
                             sender,
                             pushName,
                         );
-                        setupGuruHelpers(Guru, from);
+                        setupBotHelpers(Bot, from);
                         const conText = buildContext(ms, settings, helpers, {
                             from,
                             isGroup,
@@ -456,17 +456,17 @@ function setupCommandHandler(Guru) {
                             quotedMsg,
                             quotedKey,
                             quotedUser,
-                            Guru,
+                            Bot,
                             botId,
                             body: sudoBody,
                             command: sudoCmd,
                         });
                         if (gmdSudo.react) {
-                            await Guru.sendMessage(from, {
+                            await Bot.sendMessage(from, {
                                 react: { key: ms.key, text: gmdSudo.react },
                             });
                         }
-                        await gmdSudo.function(from, Guru, conText);
+                        await gmdSudo.function(from, Bot, conText);
                     } catch (err) {
                         console.error(
                             `[SUDO_PREFIX] Command error [${sudoCmd}]:`,
@@ -485,7 +485,7 @@ function setupCommandHandler(Guru) {
             if (global._licenceExpired) {
                 try {
                     const helpers = createHelpers(
-                        Guru,
+                        Bot,
                         ms,
                         from,
                         settings.BOT_NAME,
@@ -504,7 +504,7 @@ function setupCommandHandler(Guru) {
 
             try {
                 const helpers = createHelpers(
-                    Guru,
+                    Bot,
                     ms,
                     from,
                     settings.BOT_NAME,
@@ -515,16 +515,16 @@ function setupCommandHandler(Guru) {
                 if (settings.AUTO_REACT === "commands") {
                     const randomEmoji =
                         emojis[Math.floor(Math.random() * emojis.length)];
-                    await Guru.sendMessage(from, {
+                    await Bot.sendMessage(from, {
                         react: { key: ms.key, text: randomEmoji },
                     });
                 } else if (gmd.react) {
-                    await Guru.sendMessage(from, {
+                    await Bot.sendMessage(from, {
                         react: { key: ms.key, text: gmd.react },
                     });
                 }
 
-                setupGuruHelpers(Guru, from);
+                setupBotHelpers(Bot, from);
 
                 const conText = buildContext(ms, settings, helpers, {
                     from,
@@ -551,17 +551,17 @@ function setupCommandHandler(Guru) {
                     quotedMsg,
                     quotedKey,
                     quotedUser,
-                    Guru,
+                    Bot,
                     botId,
                     body,
                     command,
                 });
 
-                await gmd.function(from, Guru, conText);
+                await gmd.function(from, Bot, conText);
             } catch (error) {
                 console.error(`Command error [${command}]:`, error);
                 try {
-                    await Guru.sendMessage(
+                    await Bot.sendMessage(
                         from,
                         {
                             text: (() => {

@@ -15,7 +15,7 @@ export default async (context) => {
         return (
             `` +
             `▢ ${message}\n` +
-            `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n` +
+            `└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──\n` +
             `Pσɯҽɾҽԃ Ⴆყ Tσxιƈ-ɱԃȥ 😈`
         );
     };
@@ -37,7 +37,7 @@ export default async (context) => {
             }
 
             const githubRes = await axios.get(
-                "https://api.github.com/repos/koyoteh/BLACK-PANTHER/commits/main"
+                "https://api.github.com/repos/tehseentech/black-panther/commits/main"
             );
 
             const latestCommit = githubRes.data;
@@ -60,7 +60,7 @@ export default async (context) => {
                 if (_devMode === 'ios') {
           await client.sendMessage(m.chat, { react: { text: '📋', key: m.reactKey } }).catch(()=>{});
           await sendInteractive(client, m, `⚡ ──「 UPDATE 」──
-▢ Options:\n▢ ${prefix}menu\n▢ ${prefix}settings\n▢ ${prefix}triggerupdate\n▢ ${prefix}menu\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n> 🌐 wa.me/254116284050`);
+▢ Options:\n▢ ${prefix}menu\n▢ ${prefix}settings\n▢ ${prefix}triggerupdate\n▢ ${prefix}menu\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──\n> 🌐 wa.me/254116284050`);
           return;
       } else {
     const msg = generateWAMessageFromContent(

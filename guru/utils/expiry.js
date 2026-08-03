@@ -1,6 +1,6 @@
 'use strict';
 // ╔══════════════════════════════════════════════════════════════╗
-//  🐾  BLACK PANTHER MD  —  expiry.js  (ULTRA SENSITIVE v2)
+//  🐾  Tehseen Tech Automation  —  expiry.js  (ULTRA SENSITIVE v2)
 //  🔒  Bot licence / deployment expiry gate
 //  ⚡  Features:
 //      • Checks every 30 MINUTES (was 6 hours)
@@ -176,13 +176,13 @@ async function checkExpiry({ onExpire, onWarn, exitOnExpiry = true } = {}) {
         const msg =
             `\n` +
             `╔${'═'.repeat(56)}╗\n` +
-            `║  ⛔  BLACK PANTHER MD — LICENCE EXPIRED\n` +
+            `║  ⛔  Tehseen Tech Automation — LICENCE EXPIRED\n` +
             `╠${'═'.repeat(56)}╣\n` +
             `║  📅  Expiry Date  : ${fmtDate(expiryDate)}\n` +
             `║  ⏱️   Expired      : ${expiredAgo} day(s) ago\n` +
             `║  🔒  All commands have been locked.\n` +
-            `║  📞  Contact Koyoteh (+254105521300) to renew.\n` +
-            `║  💬  https://wa.me/254105521300\n` +
+            `║  📞  Contact TehseenTech () to renew.\n` +
+            `║  💬  https://wa.me/\n` +
             `╚${'═'.repeat(56)}╝\n`;
 
         logger.error('EXPIRY', `LICENCE EXPIRED on ${fmtDate(expiryDate)} (${expiredAgo} days ago). Shutting down.`);
@@ -211,13 +211,13 @@ async function checkExpiry({ onExpire, onWarn, exitOnExpiry = true } = {}) {
             const countdown = fmtCountdown(ms);
             const warnMsg =
                 `${urgency} *LICENCE EXPIRY WARNING*\n` +
-                `${process.env.BOT_NAME || 'BLACK PANTHER MD'}\n\n` +
+                `${process.env.BOT_NAME || 'Tehseen Tech Automation'}\n\n` +
                 `📅 *Expires on:* ${fmtDate(expiryDate)}\n` +
                 `⏳ *Time left:*  ${countdown}\n` +
                 `${expiryBar(days, 30)}\n\n` +
-                `📞 *Renew now:*  https://wa.me/254105521300\n` +
-                `💬 Contact *Koyoteh* before it's too late!\n\n` +
-                `_${process.env.BOT_NAME || 'BLACK PANTHER MD'}_`;
+                `📞 *Renew now:*  https://wa.me/\n` +
+                `💬 Contact *TehseenTech* before it's too late!\n\n` +
+                `_${process.env.BOT_NAME || 'Tehseen Tech Automation'}_`;
 
             logger.warn('EXPIRY',
                 `⚠️ Licence expires in ${days} day(s) on ${fmtDate(expiryDate)}. Countdown: ${countdown}`);

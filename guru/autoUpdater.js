@@ -19,7 +19,7 @@ const fetchLatestCommit = async (axios, repo) => {
             headers: {
                 "Accept": "application/vnd.github.v3+json",
                 "Cache-Control": "no-cache",
-                "User-Agent": "BLACK-PANTHER-Bot",
+                "User-Agent": "Tehseen-Tech-Automation-Bot",
             },
         }
     );
@@ -40,7 +40,7 @@ const normalizeRepo = (raw) => {
     return String(raw).trim();
 };
 
-const runUpdate = async (repo, Guru, ownerJid, onProgress) => {
+const runUpdate = async (repo, Bot, ownerJid, onProgress) => {
     repo = normalizeRepo(repo) || repo;
     const progress = typeof onProgress === "function" ? onProgress : (msg) => console.log(msg);
     const axios = require("axios");
@@ -125,7 +125,7 @@ const runUpdate = async (repo, Guru, ownerJid, onProgress) => {
     return true;
 };
 
-const checkAndAutoUpdate = async (Guru) => {
+const checkAndAutoUpdate = async (Bot) => {
     if (updateCheckedThisSession) return;
     updateCheckedThisSession = true;
 
@@ -136,7 +136,7 @@ const checkAndAutoUpdate = async (Guru) => {
             return;
         }
 
-        const repo = normalizeRepo(await getSetting("BOT_REPO")) || "koyoteh/BLACK-PANTHER";
+        const repo = normalizeRepo(await getSetting("BOT_REPO")) || "tehseentech/black-panther";
 
         let ownerJid = null;
         try {
@@ -147,7 +147,7 @@ const checkAndAutoUpdate = async (Guru) => {
         } catch (_) {}
 
         console.log(`🔍 [AutoUpdate] Checking for updates on ${repo}...`);
-        const updated = await runUpdate(repo, Guru, ownerJid);
+        const updated = await runUpdate(repo, Bot, ownerJid);
 
         if (updated) {
             console.log("✅ [AutoUpdate] Update applied! Restarting in 3 seconds...");

@@ -19,7 +19,7 @@ export default {
                 `▢ \n` +
                 `▢ DarkGPT - Zero censorship, pure chaos 🖕\n` +
                 `▢ Example: ${prefix}darkgpt how to hack wifi\n` +
-                `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n` +
+                `└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──\n` +
                 ``
             );
         }
@@ -77,7 +77,7 @@ If someone asks something stupid, you answer BUT you also call them a dumbass. K
 ` +
                 `▢ \n` +
                 `${result.split('\n').map(l => `▢ ${l}`).join('\n')}\n` +
-                `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n` +
+                `└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──\n` +
                 ``
             );
         } catch (error) {
@@ -88,7 +88,7 @@ If someone asks something stupid, you answer BUT you also call them a dumbass. K
 ` +
                 `▢ \n` +
                 `▢ Even I fuck up sometimes. Error: ${error.message}\n` +
-                `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n` +
+                `└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──\n` +
                 ``
             );
         }

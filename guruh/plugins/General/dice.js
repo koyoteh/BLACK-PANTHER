@@ -14,6 +14,6 @@ export default {
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
         return sendInteractive(client, m, `⚡ ──「 Dɪᴄᴇ Rᴏʟʟ 」──
 │
-▢ 🎲 ${diceDisplay}\n▢ 🔢 Rolls: [${rolls.join(', ')}]\n▢ ➕ Total: ${total}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ 🎲 ${diceDisplay}\n▢ 🔢 Rolls: [${rolls.join(', ')}]\n▢ ➕ Total: ${total}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
 };
