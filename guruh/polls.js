@@ -4,7 +4,7 @@ const path     = require("path");
 const fs       = require("fs-extra");
 
 // ═══════════════════════════════════════════════════════════════════
-//  SMART POLL SYSTEM  ·  BLACK PANTHER MD
+//  SMART POLL SYSTEM  ·  Tehseen Tech Automation
 //  Create group polls with live voting, timed auto-close,
 //  duplicate-vote protection and ASCII bar-chart results.
 // ═══════════════════════════════════════════════════════════════════

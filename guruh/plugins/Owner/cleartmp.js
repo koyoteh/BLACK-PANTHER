@@ -36,6 +36,6 @@ export default {
             }
         }
         await sendInteractive(client, m, `⚡ ──「 TMP CLEANED 」──
-▢ ✅ Deleted: ${deleted} file(s)\n▢ ⏩ Skipped: ${skipped} item(s)\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ ✅ Deleted: ${deleted} file(s)\n▢ ⏩ Skipped: ${skipped} item(s)\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
 };

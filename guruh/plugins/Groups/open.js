@@ -15,12 +15,12 @@ export default async (context) => {
                 try {
                     await client.groupSettingUpdate(m.chat, 'not_announcement');
                     await sendInteractive(client, m, `⚡ ──「 OPENED 」──
-▢ ⏰ Scheduled open executed!\n▢ Group is now open.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ ⏰ Scheduled open executed!\n▢ Group is now open.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
                 } catch {}
             });
             await client.sendMessage(m.chat, { react: { text: '⏰', key: m.reactKey } });
             return m.reply(`⚡ ──「 TIMER SET 」──
-▢ ⏰ Group will open in *${label}*.\n▢ Use .open to cancel & open now.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ ⏰ Group will open in *${label}*.\n▢ Use .open to cancel & open now.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
 
         try {
@@ -28,10 +28,10 @@ export default async (context) => {
             await client.groupSettingUpdate(m.chat, 'not_announcement');
             await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
             m.reply(`⚡ ──「 OPENED 」──
-▢ Group opened. Talk your trash.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Group opened. Talk your trash.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         } catch (e) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            m.reply(`▢ Failed to open group: ${e.message?.slice(0, 60)}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+            m.reply(`▢ Failed to open group: ${e.message?.slice(0, 60)}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
     });
 };

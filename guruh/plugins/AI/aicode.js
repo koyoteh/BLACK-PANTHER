@@ -9,7 +9,7 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
       if (!text) {
           await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
           return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
-▢ Provide a language and prompt.\n▢ Usage: ${prefix}aicode <language> <prompt>\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Provide a language and prompt.\n▢ Usage: ${prefix}aicode <language> <prompt>\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
       }
 
       const [language, ...promptArr] = text.split(' ');
@@ -18,7 +18,7 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
       if (!language || !prompt) {
           await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
           return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
-▢ Missing language or prompt.\n▢ Example: ${prefix}aicode python hello world\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Missing language or prompt.\n▢ Example: ${prefix}aicode python hello world\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
       }
       let _km = {};
       try { _km = await import('../../keys.js'); } catch {}
@@ -26,7 +26,7 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
       if (!_groqKeys.length) {
           await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
           return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
-▢ No GROQ key set. Add GROQ_KEY_1 to env vars.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ No GROQ key set. Add GROQ_KEY_1 to env vars.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
       }
       const _callGroq = async (payload) => {
           const tried = new Set();
@@ -65,12 +65,12 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
           await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
           sendInteractive(client, m, `⚡ ──「 Aɪ Cᴏᴅᴇ 」──
 ▢ Language: ${language}\n│
-${code}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+${code}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
       } catch (error) {
           console.error('aicode error:', error);
           await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
           sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
-▢ Code generation failed. ${error.message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Code generation failed. ${error.message}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
       }
   };
   

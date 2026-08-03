@@ -59,7 +59,7 @@ export default async (client, event) => {
                     await client.groupParticipantsUpdate(event.id, [resolvedJid], 'remove');
                     await client.sendMessage(event.id, {
                         text: `⚡ ──「 ANTIFOREIGN 」──
-▢ 🚫 @${pNum} was removed.\n▢ Foreign numbers not allowed here!\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`,
+▢ 🚫 @${pNum} was removed.\n▢ Foreign numbers not allowed here!\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`,
                         mentions: [resolvedJid]
                     });
                 } catch {}

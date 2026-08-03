@@ -1,7 +1,7 @@
 /**
  * KEITH-INSPIRED FEATURES - FIXED v2
  * New commands ported/inspired from kkeizza/Keith bot
- * Added to BLACK-PANTHER-ULTIMATE by Guru
+ * Added to Tehseen-Tech-Automation-ULTIMATE by Guru
  *
  * Bugs fixed vs v1:
  *  - Removed duplicates: hidetag, unsplash, define, npm, online (already exist)
@@ -669,7 +669,7 @@ gmd(
     await react("⏳");
     try {
       const res = await axios.get(`https://api.github.com/users/${q.trim()}`, {
-        headers: { "User-Agent": "BLACK-PANTHER-MD" },
+        headers: { "User-Agent": "Tehseen-Tech-Automation" },
         timeout: 10000,
       });
       const u = res.data;

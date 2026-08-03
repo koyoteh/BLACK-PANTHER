@@ -56,13 +56,13 @@ export default async (context) => {
                 if (!mediaMsg) {
                     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
                     return sendInteractive(client, m, `⚡ ──「 STICKER 」──
-▢ Where's the fvcking image or\n▢ short video, idiot.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Where's the fvcking image or\n▢ short video, idiot.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
                 }
 
                 if (mediaType === 'video' && mediaMsg.seconds > 30) {
                     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
                     return sendInteractive(client, m, `⚡ ──「 STICKER 」──
-▢ Videos must be 30 seconds or shorter.\n▢ Learn to read, moron.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Videos must be 30 seconds or shorter.\n▢ Learn to read, moron.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
                 }
 
                 const dlType = mediaType === 'sticker' ? 'sticker' : mediaType;
@@ -75,7 +75,7 @@ export default async (context) => {
                 await fs.writeFile(tempFile, buffer);
 
                 const sticker = new Sticker(tempFile, {
-                    pack: packname || 'BLACK-PANTHER-MD',
+                    pack: packname || 'Tehseen-Tech-Automation',
                     author: '𝐱𝐡_𝐜𝐥𝐢𝐧𝐭𝐨𝐧 [dev]',
                     type: StickerTypes.FULL,
                     categories: ['🤩', '🎉'],
@@ -93,7 +93,7 @@ export default async (context) => {
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
                 console.error(`Sticker error: ${error.message}`);
                 await sendInteractive(client, m, `⚡ ──「 ERROR 」──
-▢ Error while creating sticker.\n▢ Try again, you failure.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Error while creating sticker.\n▢ Try again, you failure.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
             }
         }
     });

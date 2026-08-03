@@ -114,7 +114,7 @@ const createContext = async (userJid, options = {}) => {
 };
 
 const createContext2 = async (userJid, options = {}) => {
-    const botName = (await getSetting("BOT_NAME")) || "BLACK PANTHER";
+    const botName = (await getSetting("BOT_NAME")) || "Tehseen Tech Automation";
     const botPic =
         (await getSetting("BOT_PIC")) ||
         "https://res.cloudinary.com/dqxlb29uz/image/upload/v1780267810/bwm_uploads/media-1780267810008.jpg";

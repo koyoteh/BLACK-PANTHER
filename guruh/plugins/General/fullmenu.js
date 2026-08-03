@@ -41,9 +41,9 @@ export default {
 
         // ── Header block ────────────────────────────────────────────────────────
         const headerMsg =
-`⚡ ──「 *${botname || 'BLACK PANTHER'} ┃ ᴹᴰ* 」──
+`⚡ ──「 *${botname || 'Tehseen Tech Automation'} ┃ ᴹᴰ* 」──
 ▢ 👤 𝐔𝐬𝐞𝐫    : @${sender}
-▢ 🤖 𝐁𝐨𝐭     : ${botname || 'BLACK PANTHER MD'}
+▢ 🤖 𝐁𝐨𝐭     : ${botname || 'Tehseen Tech Automation'}
 ▢ 📌 𝐏𝐫𝐞𝐟𝐢𝐱  : ${p}
 ▢ 🌐 𝐌𝐨𝐝𝐞    : ${mode || 'public'}
 ▢ 📚 𝐂𝐦𝐝𝐬    : ${totalCommands || '?'}

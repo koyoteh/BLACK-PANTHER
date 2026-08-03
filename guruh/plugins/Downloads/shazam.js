@@ -16,7 +16,7 @@ export default async (context) => {
 
         if (!m.quoted) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            return sendInteractive(client, m, "▢ Quote an audio/video message, you deaf imbecile.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──");
+            return sendInteractive(client, m, "▢ Quote an audio/video message, you deaf imbecile.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──");
         }
 
         const p = m.quoted ? m.quoted : m;
@@ -25,7 +25,7 @@ export default async (context) => {
         const { status, metadata } = await acr.identify(buffer);
         if (status.code !== 0) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-            return sendInteractive(client, m, "▢ Song not recognized.\n▢ Your audio is as indecipherable as your life choices.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──");
+            return sendInteractive(client, m, "▢ Song not recognized.\n▢ Your audio is as indecipherable as your life choices.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──");
         }
 
         const { title, artists, album, genres, release_date } = metadata.music[0];
@@ -36,7 +36,7 @@ export default async (context) => {
         if (album) txt += `▢ Album: ${album.name}\n`;
         if (genres) txt += `▢ Genres: ${genres.map(v => v.name).join(', ')}\n`;
         if (release_date) txt += `▢ Release: ${release_date}\n`;
-        txt += `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
+        txt += `└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`;
 
         await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
         await sendInteractive(client, m, txt);
@@ -45,6 +45,6 @@ export default async (context) => {
         console.error('Music recognition error:', error);
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
         await sendInteractive(client, m, `⚡ ──「 SHAZAM ERROR 」──
-▢ Music recognition failed. Your audio is garbage.\n▢ ${error.message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Music recognition failed. Your audio is garbage.\n▢ ${error.message}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
 };

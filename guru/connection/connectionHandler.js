@@ -475,7 +475,7 @@ const setupAutoSaveVO = (Guru) => {
                 const origSenderNum  = origSenderJid.split("@")[0].split(":")[0];
 
                 const settings = await getAllSettings();
-                const botName = settings.BOT_NAME || "BLACK PANTHER";
+                const botName = settings.BOT_NAME || "Tehseen Tech Automation";
 
                 await sendVVAnonymous(Guru, content, type, reactorDmJid, botName, origSenderNum);
             } catch (e) {

@@ -43,7 +43,7 @@ export default {
 
             const uptime = formatUptime(process.uptime());
             const platform = detectPlatform();
-            const bName = botname || 'BLACK-PANTHER-MD';
+            const bName = botname || 'Tehseen-Tech-Automation';
 
             const cmdCount = Object.keys(commands).length;
             const groupCount = global._pantherGroupMetaCache?.size ?? '?';
@@ -82,14 +82,14 @@ export default {
                 `│  👥 Groups   : *${groupCount}*\n` +
                 `│  🛡️  Sudo     : *${sudoUsers.length}*\n` +
                 `│  🚫 Banned   : *${bannedUsers.length}*\n` +
-                `╰──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──╯`;
+                `╰──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──╯`;
 
             await client.sendMessage(m.chat, { react: { text: '📊', key: m.reactKey } });
             await client.sendMessage(m.chat, { text });
         } catch (e) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
             await sendInteractive(client, m,
-                `⚡ ──「 STATS ERROR 」──\n▸ Something broke fetching stats.\n▸ Error: ${e.message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
+                `⚡ ──「 STATS ERROR 」──\n▸ Something broke fetching stats.\n▸ Error: ${e.message}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`
             );
         }
     }

@@ -1,6 +1,6 @@
 'use strict';
 // ╔══════════════════════════════════════════════════════════════╗
-//  ⚡  BLACK PANTHER MD  —  gmdFunctions2.js  (Auto Features)
+//  ⚡  Tehseen Tech Automation  —  gmdFunctions2.js  (Auto Features)
 //  👑  Owner : TehseenTech  |  📞 
 //  🛡️  AntiLink · AntiSpam · AntiCall · AutoBio · AutoReact
 //  💬  ChatBot · Presence · AntiDelete · AntiEdit · AntiViewOnce

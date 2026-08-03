@@ -4,7 +4,7 @@ const path     = require("path");
 const fs       = require("fs-extra");
 
 // ═══════════════════════════════════════════════════════════════════
-//  SMART REMINDER ENGINE  ·  BLACK PANTHER MD
+//  SMART REMINDER ENGINE  ·  Tehseen Tech Automation
 //  Natural-language time parsing, per-user reminders,
 //  background delivery, snooze, and full management commands.
 //  Supports: "in 30m", "in 2h", "in 1d", "at 15:30", "tomorrow 9am"

@@ -11,18 +11,18 @@ export default {
       if (args.length < 2) {
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
         await sendInteractive(client, m, `⚡ ──「 USAGE 」──
-▢ .addbutton <button_name> <command>\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ .addbutton <button_name> <command>\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         return;
       }
       const buttonName = args[0];
       const command = args[1];
       await sendInteractive(client, m, `⚡ ──「 BUTTON ADDED 」──
-▢ Added button "${buttonName}"\n▢ for command "${command}"\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Added button "${buttonName}"\n▢ for command "${command}"\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     } catch (error) {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
       console.error(`AddButton error: ${error.stack}`);
       await sendInteractive(client, m, `⚡ ──「 ERROR 」──
-▢ Error adding custom button.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Error adding custom button.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
   }
 };

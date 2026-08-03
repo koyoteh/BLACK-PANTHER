@@ -208,7 +208,7 @@ gmd(
                     contextInfo: thumbnail ? {
                         externalAdReply: {
                             title: (title || query).substring(0, 30),
-                            body: botName || "BLACK PANTHER MD",
+                            body: botName || "Tehseen Tech Automation",
                             thumbnailUrl: thumbnail,
                             sourceUrl: sourceUrl || url,
                             mediaType: 1,

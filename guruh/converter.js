@@ -101,7 +101,7 @@ gmd({
                 }
 
                 const stickerBuffer = await gmdSticker(mediaFile, {
-                    pack: packName || "BLACK PANTHER", 
+                    pack: packName || "Tehseen Tech Automation", 
                     author: packAuthor || "GURU-TECH",
                     type: q.includes("--crop") || q.includes("-c") ? StickerTypes.CROPPED : StickerTypes.FULL,
                     categories: ["🤩", "🎉"],
@@ -122,7 +122,7 @@ gmd({
                 await fs.writeFile(stickerFile, stickerData);
 
                 const newStickerBuffer = await gmdSticker(stickerFile, {
-                    pack: packName || "BLACK PANTHER", 
+                    pack: packName || "Tehseen Tech Automation", 
                     author: packAuthor || "GURU-TECH",
                     type: q.includes("--crop") || q.includes("-c") ? StickerTypes.CROPPED : StickerTypes.FULL,
                     categories: ["🤩", "🎉"],
@@ -451,7 +451,7 @@ gmd({
 
         // wa-sticker-formatter natively handles both .gif and .mp4 → animated webp
         const stickerBuffer = await gmdSticker(tempFile, {
-            pack: packName || "BLACK PANTHER",
+            pack: packName || "Tehseen Tech Automation",
             author: packAuthor || "GURU-TECH",
             type: StickerTypes.FULL,
             categories: ["🤩", "🎉"],
@@ -583,7 +583,7 @@ gmd({
         await fs.writeFile(tempPng, pngBuffer);
 
         const stickerBuffer = await gmdSticker(tempPng, {
-            pack:   packName   || "BLACK PANTHER",
+            pack:   packName   || "Tehseen Tech Automation",
             author: packAuthor || "GURU-TECH",
             type:   StickerTypes.FULL,
             categories: ["🤩", "🎉"],

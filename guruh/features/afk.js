@@ -11,7 +11,7 @@ export default async (client, m) => {
         try {
             await client.sendMessage(m.chat, {
                 text: `⚡ ──「 BACK ONLINE 」──
-▢ @${senderNum} finally crawled back.\n▢ Was AFK for ${mins} min${mins !== 1 ? 's' : ''}.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`,
+▢ @${senderNum} finally crawled back.\n▢ Was AFK for ${mins} min${mins !== 1 ? 's' : ''}.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`,
                 mentions: [m.sender]
             });
         } catch {}
@@ -29,7 +29,7 @@ export default async (client, m) => {
             try {
                 await client.sendMessage(m.chat, {
                     text: `⚡ ──「 AFK ALERT 」──
-▢ @${num} is currently ghosting everyone.\n▢ Reason: ${reason || 'none given 💀'}\n▢ Since: ${mins} min${mins !== 1 ? 's' : ''} ago\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`,
+▢ @${num} is currently ghosting everyone.\n▢ Reason: ${reason || 'none given 💀'}\n▢ Since: ${mins} min${mins !== 1 ? 's' : ''} ago\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`,
                     mentions: [jid, m.sender]
                 });
             } catch {}

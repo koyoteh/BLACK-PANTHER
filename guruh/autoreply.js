@@ -4,7 +4,7 @@ const path     = require("path");
 const fs       = require("fs-extra");
 
 // ═══════════════════════════════════════════════════════════════════
-//  SMART AUTO-REPLY ENGINE  ·  BLACK PANTHER MD
+//  SMART AUTO-REPLY ENGINE  ·  Tehseen Tech Automation
 //  SQLite-backed keyword auto-response system
 //  Trigger types : exact | contains | starts | regex
 //  Scopes        : global (all chats) | group (one group only)
@@ -132,7 +132,7 @@ const renderTemplate = (response, vars = {}) =>
         .replace(/\{group\}/gi,   vars.group   ?? "")
         .replace(/\{time\}/gi,    vars.time    ?? "")
         .replace(/\{date\}/gi,    vars.date    ?? "")
-        .replace(/\{bot\}/gi,     vars.bot     ?? "BLACK PANTHER MD")
+        .replace(/\{bot\}/gi,     vars.bot     ?? "Tehseen Tech Automation")
         .replace(/\{trigger\}/gi, vars.trigger ?? "");
 
 // ── Display helpers ─────────────────────────────────────────────────
@@ -191,7 +191,7 @@ global.__pluginMsgHooks.push(async (ms, Guru, settings) => {
                 group:   from.endsWith("@g.us") ? "the group" : "DM",
                 time:    nowDate.toLocaleTimeString(),
                 date:    nowDate.toLocaleDateString(),
-                bot:     settings?.BOT_NAME || "BLACK PANTHER MD",
+                bot:     settings?.BOT_NAME || "Tehseen Tech Automation",
                 trigger: reply.trigger,
             });
 
@@ -451,7 +451,7 @@ gmd({
         name: "TestUser",   sender: "@0000000000",
         group: "Test Group", time: new Date().toLocaleTimeString(),
         date:  new Date().toLocaleDateString(),
-        bot:   "BLACK PANTHER MD", trigger: matched.trigger,
+        bot:   "Tehseen Tech Automation", trigger: matched.trigger,
     });
 
     await react("✅");

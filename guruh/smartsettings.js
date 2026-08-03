@@ -3,7 +3,7 @@ const { getSetting, setSetting } = require("../guru/database/settings");
 const { sendGreeting, sendWellness } = require("../guru/scheduler");
 
 // ═══════════════════════════════════════════════════════════════════
-//  SMART SETTINGS PANEL  ·  BLACK PANTHER MD
+//  SMART SETTINGS PANEL  ·  Tehseen Tech Automation
 //  Unique, highly useful settings — Daily Wellness, Auto-Status
 //  Watermark, Smart Broadcast, Bot Bio updater, Message Counter,
 //  Flood-guard config, and a rich settings dashboard.
@@ -42,7 +42,7 @@ gmd({
     const wellness     = await get("DAILY_WELLNESS",   "false");
     const wellnessTime = await get("WELLNESS_TIME",    "10:00");
     const watermark    = await get("MSG_WATERMARK",    "false");
-    const watermarkTxt = await get("WATERMARK_TEXT",   "BLACK PANTHER MD");
+    const watermarkTxt = await get("WATERMARK_TEXT",   "Tehseen Tech Automation");
     const antiflood    = await get("ANTIFLOOD",        "false");
     const floodCount   = await get("FLOOD_COUNT",      "7");
     const floodAction  = await get("FLOOD_ACTION",     "warn");
@@ -192,7 +192,7 @@ gmd({
     const val = (q || "").trim().toLowerCase();
     if (!val) {
         const cur = (await getSetting("MSG_WATERMARK").catch(() => "false")) || "false";
-        const txt = (await getSetting("WATERMARK_TEXT").catch(() => "")) || "BLACK PANTHER MD";
+        const txt = (await getSetting("WATERMARK_TEXT").catch(() => "")) || "Tehseen Tech Automation";
         await react("ℹ️");
         return reply(
             `*💧 Message Watermark*\n\n` +
@@ -220,7 +220,7 @@ gmd({
     const { q, reply, react, isSuperUser } = conText;
     if (!isSuperUser) { await react("❌"); return reply("❌ Owner only."); }
 
-    if (!q) { await react("❓"); return reply("❓ Usage: `.setwatermark <text>`\nExample: `.setwatermark Powered by BLACK PANTHER MD ⚡`"); }
+    if (!q) { await react("❓"); return reply("❓ Usage: `.setwatermark <text>`\nExample: `.setwatermark Powered by Tehseen Tech Automation ⚡`"); }
     if (q.length > 80) { await react("❌"); return reply("❌ Watermark text must be under 80 characters."); }
 
     await setSetting("WATERMARK_TEXT", q.trim());
@@ -365,7 +365,7 @@ gmd({
     if (!q) {
         const cur = (await getSetting("BOT_BIO").catch(() => "")) || "";
         await react("ℹ️");
-        return reply(`*🤖 Bot Bio*\n\nCurrent: _${cur || "(not set)"}_\n\nUsage: \`.botbio <text>\`\nExample: \`.botbio ⚡ BLACK PANTHER MD — Always Online!\`\n\nMax 139 characters.`);
+        return reply(`*🤖 Bot Bio*\n\nCurrent: _${cur || "(not set)"}_\n\nUsage: \`.botbio <text>\`\nExample: \`.botbio ⚡ Tehseen Tech Automation — Always Online!\`\n\nMax 139 characters.`);
     }
 
     if (q.length > 139) { await react("❌"); return reply("❌ Bio must be under 139 characters (WhatsApp limit)."); }
@@ -413,7 +413,7 @@ gmd({
                 const upMs      = Date.now() - startTime;
                 const upH       = Math.floor(upMs / 3_600_000);
                 const upM       = Math.floor((upMs % 3_600_000) / 60_000);
-                const bio       = `⚡ BLACK PANTHER MD | Up ${upH}h${upM}m | ${new Date().toLocaleDateString()} | Always Online 🤖`;
+                const bio       = `⚡ Tehseen Tech Automation | Up ${upH}h${upM}m | ${new Date().toLocaleDateString()} | Always Online 🤖`;
                 await Guru.updateProfileStatus(bio);
             } catch (_) {}
         }, 30 * 60_000);
@@ -612,7 +612,7 @@ if (!global.__autoBioInterval) {
                 const customBio = await getSetting("BOT_BIO").catch(() => "");
                 const bio = customBio && customBio.trim()
                     ? customBio.trim()
-                    : `⚡ BLACK PANTHER MD | Up ${upH}h${upM}m | ${new Date().toLocaleDateString()} | Always Online 🤖`;
+                    : `⚡ Tehseen Tech Automation | Up ${upH}h${upM}m | ${new Date().toLocaleDateString()} | Always Online 🤖`;
                 await sock.updateProfileStatus(bio);
             } catch (_) {}
         }, 30 * 60_000);
@@ -625,7 +625,7 @@ if (!global.__autoBioInterval) {
                 const customBio = await getSetting("BOT_BIO").catch(() => "");
                 const bio = customBio && customBio.trim()
                     ? customBio.trim()
-                    : `⚡ BLACK PANTHER MD | Online & Ready | ${new Date().toLocaleDateString()} | Always Active 🤖`;
+                    : `⚡ Tehseen Tech Automation | Online & Ready | ${new Date().toLocaleDateString()} | Always Active 🤖`;
                 await sock.updateProfileStatus(bio);
             } catch (_) {}
         }, 10_000);

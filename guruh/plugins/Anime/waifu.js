@@ -14,12 +14,12 @@ export default {
             await client.sendMessage(m.chat, {
                 image: { url },
                 caption: `⚡ ──「 Wᴀɪꜰᴜ 」──
-└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
+└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`
             });
         } catch (error) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
             await sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
-▢ Waifu ran away!\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Waifu ran away!\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
     }
 };

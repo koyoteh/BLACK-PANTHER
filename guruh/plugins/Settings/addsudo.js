@@ -20,18 +20,18 @@ export default async (context) => {
 
         if (!numberToAdd || !/^\d+$/.test(numberToAdd)) {
             return sendInteractive(client, m, `⚡ ──「 ADD SUDO 」──
-▢ Give me a valid number or quote a user, fool!\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Give me a valid number or quote a user, fool!\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
 
         const sudoUsers = await getSudoUsers();
         if (sudoUsers.includes(numberToAdd)) {
             return sendInteractive(client, m, `⚡ ──「 ADD SUDO 」──
-▢ Already a sudo user, you clueless twit!\n▢ ${numberToAdd} is already in the elite ranks.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Already a sudo user, you clueless twit!\n▢ ${numberToAdd} is already in the elite ranks.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
 
         await addSudoUser(numberToAdd);
         await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
         return sendInteractive(client, m, `⚡ ──「 ADD SUDO 」──
-▢ Bow down!\n▢ ${numberToAdd} is now a Sudo King!\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Bow down!\n▢ ${numberToAdd} is now a Sudo King!\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     });
 };

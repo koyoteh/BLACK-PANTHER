@@ -9,19 +9,19 @@ export default async (context) => {
     if (!m.isGroup) {
       await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
       return sendInteractive(client, m, `⚡ ──「 ERROR 」──
-▢ Yo, genius, this command's\n▢ for groups. Quit embarrassing\n▢ yourself.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Yo, genius, this command's\n▢ for groups. Quit embarrassing\n▢ yourself.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
 
     if (!isAdmin) {
       await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
       return sendInteractive(client, m, `⚡ ──「 ERROR 」──
-▢ Pfft, you? Admin? Get real,\n▢ loser. Only admins can do this.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Pfft, you? Admin? Get real,\n▢ loser. Only admins can do this.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
 
     if (!isBotAdmin) {
       await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
       return sendInteractive(client, m, `⚡ ──「 ERROR 」──
-▢ I'm not admin, dipshit.\n▢ Promote me or stop wasting\n▢ my time.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ I'm not admin, dipshit.\n▢ Promote me or stop wasting\n▢ my time.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
 
     const responseList = await client.groupRequestParticipantsList(m.chat);
@@ -29,7 +29,7 @@ export default async (context) => {
     if (responseList.length === 0) {
       await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
       return sendInteractive(client, m, `⚡ ──「 NO REQUESTS 」──
-▢ Wow, no one's dumb enough to\n▢ wanna join this trash group.\n▢ No requests to reject, moron.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Wow, no one's dumb enough to\n▢ wanna join this trash group.\n▢ No requests to reject, moron.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
 
     for (const participant of responseList) {
@@ -44,11 +44,11 @@ export default async (context) => {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
         console.error('Error rejecting participant:', error);
         return sendInteractive(client, m, `⚡ ──「 ERROR 」──
-▢ Screw-up alert! Couldn't reject\n▢ @${participant.jid.split('@')[0]}.\n▢ Fix your damn group, idiot.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`, { mentions: [participant.jid] });
+▢ Screw-up alert! Couldn't reject\n▢ @${participant.jid.split('@')[0]}.\n▢ Fix your damn group, idiot.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`, { mentions: [participant.jid] });
       }
     }
 
     sendInteractive(client, m, `⚡ ──「 REJECTED 」──
-▢ All those pathetic join requests?\n▢ REJECTED. Go cry about it, losers.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ All those pathetic join requests?\n▢ REJECTED. Go cry about it, losers.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
   });
 };

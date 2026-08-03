@@ -132,7 +132,7 @@ async function buildMenuData(conText) {
     return {
         sender,
         pushName:   pushName   || "User",
-        botName:    botName    || "BLACK PANTHER",
+        botName:    botName    || "Tehseen Tech Automation",
         botPrefix:  botPrefix  || ".",
         botVersion: botVersion || "5.0.0",
         botMode:    botMode    || "public",
@@ -505,7 +505,7 @@ async function sendMenuMsg(Guru, from, text, conText) {
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
                     newsletterJid: newsletterJid || "120363406649804510@newsletter",
-                    newsletterName: botName || "BLACK PANTHER",
+                    newsletterName: botName || "Tehseen Tech Automation",
                     serverMessageId: 0,
                 },
             },
@@ -747,7 +747,7 @@ gmd(
         if (!q || !q.trim()) {
             await react("❌");
             const cur = (await getSetting("FOOTER")) || "Not set";
-            return reply(`❌ Provide footer text!\n\nCurrent: _${cur}_\n\nExample: *.setfooter Powered by BLACK-PANTHER 🔥*`);
+            return reply(`❌ Provide footer text!\n\nCurrent: _${cur}_\n\nExample: *.setfooter Powered by Tehseen-Tech-Automation 🔥*`);
         }
 
         await setSetting("FOOTER", q.trim());
@@ -774,7 +774,7 @@ gmd(
         if (!q || !q.trim()) {
             await react("❌");
             const cur = (await getSetting("CAPTION")) || "Not set";
-            return reply(`❌ Provide a caption!\n\nCurrent: _${cur}_\n\nExample: *.setcaption ⚡ BLACK PANTHER | Ultra Fast*`);
+            return reply(`❌ Provide a caption!\n\nCurrent: _${cur}_\n\nExample: *.setcaption ⚡ Tehseen Tech Automation | Ultra Fast*`);
         }
 
         await setSetting("CAPTION", q.trim());
@@ -800,7 +800,7 @@ gmd(
 
         if (!q || !q.trim()) {
             await react("❌");
-            const cur = (await getSetting("BOT_NAME")) || "BLACK PANTHER";
+            const cur = (await getSetting("BOT_NAME")) || "Tehseen Tech Automation";
             return reply(`❌ Provide a name!\n\nCurrent: *${cur}*\n\nExample: *.setbotname MY GURU BOT*`);
         }
 
@@ -901,7 +901,7 @@ gmd(
 ┃  🎨  *BOT DESIGN SETTINGS*
 ┃━━━━━━━━━━━━━━━━━━━━━━━━━━━━┃
 ┃  Menu Theme : ${themeName} (${themeNum}/${THEME_KEYS.length})
-┃  Bot Name   : ${name || "BLACK PANTHER"}
+┃  Bot Name   : ${name || "Tehseen Tech Automation"}
 ┃  Footer     : _${footer || "Not set"}_
 ┃  Caption    : _${caption || "Not set"}_
 ┃  Menu Pic   : ${picShort}

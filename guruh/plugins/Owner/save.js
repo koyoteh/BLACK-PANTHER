@@ -37,7 +37,7 @@ import { downloadContentFromMessage } from '@whiskeysockets/baileys';
 ` +
                       `▢ \n` +
                       `▢ Reply to something first, genius.\n` +
-                      `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n` +
+                      `└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──\n` +
                       ``
               });
           }

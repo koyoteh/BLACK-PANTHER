@@ -11,7 +11,7 @@ export default {
         if (!_isGroup) {
             return sendInteractive(client, m, `⚡ ──「 Oɴʟɪɴᴇ Lɪsᴛ 」──
 │
-▢ This only works in groups, genius.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ This only works in groups, genius.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
         try {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
@@ -55,14 +55,14 @@ export default {
             return client.sendMessage(m.chat, {
                 text: `⚡ ──「 Oɴʟɪɴᴇ Mᴇᴍʙᴇʀs 」──
 │
-${body}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`,
+${body}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`,
                 mentions: onlineList
             });
         } catch {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
             return sendInteractive(client, m, `⚡ ──「 Oɴʟɪɴᴇ Lɪsᴛ 」──
 │
-▢ Couldn't fetch online members.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Couldn't fetch online members.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
     }
 };

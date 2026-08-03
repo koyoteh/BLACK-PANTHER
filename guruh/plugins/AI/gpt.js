@@ -9,7 +9,7 @@ export default async (context) => {
     if (!text) {
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
         return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
-▢ Type a prompt, genius.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Type a prompt, genius.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
         let _km = {};
         try { _km = await import('../../keys.js'); } catch {}
@@ -17,7 +17,7 @@ export default async (context) => {
         if (!_groqKeys.length) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
             return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
-▢ No GROQ key set. Add GROQ_KEY_1 to env vars.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ No GROQ key set. Add GROQ_KEY_1 to env vars.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
         const _callGroq = async (payload) => {
             const tried = new Set();
@@ -59,12 +59,12 @@ export default async (context) => {
 
         await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
         await sendInteractive(client, m, `⚡ ──「 Gᴘᴛ Rᴇsᴘᴏɴsᴇ 」──
-▢ ${reply}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ ${reply}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
 
     } catch (error) {
         console.error('GPT error:', error);
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
         await sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
-▢ AI choked. Classic.\n▢ ${error.message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ AI choked. Classic.\n▢ ${error.message}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
 };

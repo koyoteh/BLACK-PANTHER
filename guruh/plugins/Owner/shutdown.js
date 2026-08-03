@@ -7,7 +7,7 @@ export default async (context) => {
         await client.sendMessage(m.chat, { react: { text: '💀', key: m.reactKey } });
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
         await sendInteractive(client, m, `⚡ ──「 SHUTDOWN 」──
-▢ 💀 BLACK-PANTHER-MD going offline...\n▢ Don't cry.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ 💀 Tehseen-Tech-Automation going offline...\n▢ Don't cry.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         setTimeout(() => process.exit(0), 2000);
     });
 };

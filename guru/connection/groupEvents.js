@@ -172,7 +172,7 @@ const setupGroupEventsListeners = (Guru) => {
 
             const timeZone =
                 (await getSetting("TIME_ZONE")) || "Africa/Nairobi";
-            const botName = (await getSetting("BOT_NAME")) || "BLACK PANTHER";
+            const botName = (await getSetting("BOT_NAME")) || "Tehseen Tech Automation";
             const botFooter =
                 (await getSetting("FOOTER")) || "Powered by GuruTech";
             const newsletterJid = (await getSetting("NEWSLETTER_JID")) || "";

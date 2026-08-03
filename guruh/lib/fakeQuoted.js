@@ -5,7 +5,7 @@ export function getFakeQuoted(m) {
             remoteJid:   '0@s.whatsapp.net',
             id:          m?.id || m?.key?.id || '0',
         },
-        message: { conversation: 'BLACK PANTHER MD' },
+        message: { conversation: 'Tehseen Tech Automation' },
         contextInfo: {
             mentionedJid:    [m?.sender || m?.key?.participant || ''],
             forwardingScore: 999,

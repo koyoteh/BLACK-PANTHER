@@ -27,16 +27,16 @@ export default async (context) => {
             await client.sendMessage(m.chat, {
                 image: resultBuffer,
                 caption: `⚡ ──「 NEGRO FILTER 」──
-▢ Done! Your image now has the\n▢ *black* filter applied.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
+▢ Done! Your image now has the\n▢ *black* filter applied.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`
             });
         } catch (error) {
             console.error('Error while processing image:', error);
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
             await sendInteractive(client, m, `⚡ ──「 ERROR 」──
-▢ Image processing failed. Try again.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Image processing failed. Try again.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
     } else {
         await sendInteractive(client, m, `⚡ ──「 NEGRO 」──
-▢ Quote an image and type *negro*\n▢ to apply the black filter, genius.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Quote an image and type *negro*\n▢ to apply the black filter, genius.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
 };

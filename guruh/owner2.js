@@ -355,7 +355,7 @@ gmd(
     await reply("⏳ Staging and pushing to GitHub...");
 
     _shellExec(
-      `git add -A && git diff --cached --quiet || git -c user.email="bot@ultraguru.md" -c user.name="Black Panther MD" commit -m "${commitMsg.replace(/"/g, "'")}" && git push "${remoteUrl}" main 2>&1`,
+      `git add -A && git diff --cached --quiet || git -c user.email="bot@ultraguru.md" -c user.name="Tehseen Tech Automation" commit -m "${commitMsg.replace(/"/g, "'")}" && git push "${remoteUrl}" main 2>&1`,
       { timeout: 60000, maxBuffer: 1024 * 1024 * 2 },
       async (err, stdout, stderr) => {
         const output = (stdout || "").trim();

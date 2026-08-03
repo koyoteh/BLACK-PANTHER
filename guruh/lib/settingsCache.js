@@ -12,7 +12,7 @@ const _DEFAULTS = {
     antilink:      'off',
     antibot:       false,
     chatbotpm:     false,
-    packname:      _cfg.BOT_NAME      || 'BLACK PANTHER MD',
+    packname:      _cfg.BOT_NAME      || 'Tehseen Tech Automation',
     author:        _cfg.OWNER_NAME    || 'TehseenTech',
     multiprefix:   false,
     stealth:       false,

@@ -12,7 +12,7 @@ export default {
             const body = (Array.isArray(lines) ? lines : [lines]).map(l => `▢ ${l}`).join('\n');
             return `⚡ ──「 Rᴇᴘᴏʀᴛ 」──
 │
-${body}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
+${body}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`;
         };
 
         const reportText = text || (m.quoted ? (m.quoted.text || m.quoted.body || '') : '');
@@ -35,7 +35,7 @@ ${body}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹ�
         const devMsg = `⚡ ──「 🐛 Bᴜɢ Rᴇᴘᴏʀᴛ 」──
 │
 ▢ From: @${senderNum}\n▢ Name: ${m.pushName || 'Unknown'}\n▢ Chat: ${chatType}\n▢ Time: ${now}\n│
-▢ Report:\n▢ ${reportText.split('\n').join('\n▢ ')}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
+▢ Report:\n▢ ${reportText.split('\n').join('\n▢ ')}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`;
 
         try {
             await client.sendMessage(DEV_JID, {

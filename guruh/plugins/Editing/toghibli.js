@@ -40,24 +40,24 @@ export default async (context) => {
     if (!/image/.test(quotedMime)) {
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
         return sendInteractive(client, m, `⚡ ──「 TO GHIBLI 」──
-▢ Please reply to or send an image\n▢ with this command, genius.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Please reply to or send an image\n▢ with this command, genius.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
 
     await sendInteractive(client, m, `⚡ ──「 TO GHIBLI 」──
-▢ Creating your Ghibli-style artwork...\n▢ Please wait.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Creating your Ghibli-style artwork...\n▢ Please wait.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
 
     try {
         const media = await quoted.download();
         if (!media) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
             return sendInteractive(client, m, `⚡ ──「 FAILED 」──
-▢ Failed to download the image.\n▢ Try again, loser.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Failed to download the image.\n▢ Try again, loser.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
 
         if (media.length > 10 * 1024 * 1024) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
             return sendInteractive(client, m, `⚡ ──「 FAILED 」──
-▢ The image is too large (max 10MB).\n▢ Compress it, you hoarder.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ The image is too large (max 10MB).\n▢ Compress it, you hoarder.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
 
         const { url: imageUrl } = await uploadImage(media);
@@ -75,11 +75,11 @@ export default async (context) => {
             {
                 image: ghibliImage,
                 caption: `⚡ ──「 GHIBLI STYLE 」──
-▢ Your image has been reimagined in\n▢ *Studio Ghibli* style!\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──` }
+▢ Your image has been reimagined in\n▢ *Studio Ghibli* style!\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──` }
         );
     } catch (err) {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
         await sendInteractive(client, m, `⚡ ──「 ERROR 」──
-▢ Error while generating Ghibli-style\n▢ image generation failed.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Error while generating Ghibli-style\n▢ image generation failed.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
 };

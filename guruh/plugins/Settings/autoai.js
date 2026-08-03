@@ -17,7 +17,7 @@ export default {
         const body = (Array.isArray(lines) ? lines : [lines]).map(l => `▢ ${l}`).join('\n');
         return `⚡ ──「 ${title} 」──
 │
-${body}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
+${body}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`;
       };
 
       try {
@@ -45,7 +45,7 @@ ${body}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹ�
         if (_devMode === 'ios') {
           await client.sendMessage(m.chat, { react: { text: '📋', key: m.reactKey } });
           await sendInteractive(client, m, `⚡ ──「 AUTOAI 」──
-▢ Status: ${settings.autoai ? 'ON ✅' : 'OFF ❌'}\n▢ \n▢ Options:\n▢ ${prefix}autoai on\n▢ ${prefix}autoai off\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n> 🌐 wa.me/254116284050`);
+▢ Status: ${settings.autoai ? 'ON ✅' : 'OFF ❌'}\n▢ \n▢ Options:\n▢ ${prefix}autoai on\n▢ ${prefix}autoai off\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──\n> 🌐 wa.me/254116284050`);
       } else {
     const _msg = generateWAMessageFromContent(
               m.chat,

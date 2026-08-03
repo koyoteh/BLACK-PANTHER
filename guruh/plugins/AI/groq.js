@@ -9,7 +9,7 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
       if (!text) {
           await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
           return m.reply(`⚡ ──「 Eʀʀᴏʀ 」──
-▢ Provide a query, you walnut.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Provide a query, you walnut.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
       }
       let _km = {};
       try { _km = await import('../../keys.js'); } catch {}
@@ -17,7 +17,7 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
       if (!_groqKeys.length) {
           await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
           return m.reply(`⚡ ──「 Eʀʀᴏʀ 」──
-▢ No GROQ key set. Add GROQ_KEY_1 to env vars.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ No GROQ key set. Add GROQ_KEY_1 to env vars.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
       }
       const _callGroq = async (payload) => {
           const tried = new Set();
@@ -55,11 +55,11 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
           if (!content) throw new Error('No response received.');
           await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
           await sendInteractive(client, m, `⚡ ──「 Gʀᴏǫ Rᴇsᴘᴏɴsᴇ 」──
-▢ ${content}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ ${content}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
       } catch (error) {
           await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
           m.reply(`⚡ ──「 Eʀʀᴏʀ 」──
-▢ ${error.message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ ${error.message}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
       }
   };
   

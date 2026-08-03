@@ -57,7 +57,7 @@ const findBodyCommand = (body) => {
 };
 
 const createHelpers = (Guru, ms, from, botName, senderJid, senderName) => {
-    const _botName  = botName   || 'BLACK PANTHER MD';
+    const _botName  = botName   || 'Tehseen Tech Automation';
     const _phone    = (senderJid || '').replace(/@s\.whatsapp\.net|@c\.us/g, '').replace(/\D/g, '');
     const _name     = senderName || (_phone ? `+${_phone}` : _botName);
 

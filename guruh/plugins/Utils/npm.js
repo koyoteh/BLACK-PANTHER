@@ -12,7 +12,7 @@ export default {
         if (!pkg) {
             return sendInteractive(client, m, `⚡ ──「 NPM 」──
 │
-▢ Usage: .npm express\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Usage: .npm express\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
         try {
             await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
@@ -28,12 +28,12 @@ export default {
             await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
             return sendInteractive(client, m, `⚡ ──「 NPM: ${d.name} 」──
 │
-▢ 📦 Version: ${latest}\n▢ 📝 Desc: ${desc}\n▢ 👤 Author: ${author}\n▢ 📄 License: ${license}\n▢ 📅 Created: ${created}\n▢ 🔗 ${homepage}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ 📦 Version: ${latest}\n▢ 📝 Desc: ${desc}\n▢ 👤 Author: ${author}\n▢ 📄 License: ${license}\n▢ 📅 Created: ${created}\n▢ 🔗 ${homepage}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         } catch {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
             return sendInteractive(client, m, `⚡ ──「 NPM 」──
 │
-▢ Package "${pkg}" not found. Made it up?\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Package "${pkg}" not found. Made it up?\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
     }
 };

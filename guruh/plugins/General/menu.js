@@ -13,7 +13,7 @@ const { getSortedCategories, CAT_ICONS } = require('../../design');
 export default {
     name: 'menu',
     aliases: ['commands', 'list', 'cmds', 'm', 'cmd', 'commandlist', 'allcmds'],
-    description: 'Displays the BLACK-PANTHER-MD command menu',
+    description: 'Displays the Tehseen-Tech-Automation command menu',
     run: async (context) => {
         const { client, m, mode, botname, prefix, config: cfg } = context;
 
@@ -34,13 +34,13 @@ export default {
 
         // ── Header ────────────────────────────────────────────────────────────
         const headerText =
-`⚡ ──「 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ 」──
+`⚡ ──「 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 」──
 ▢ 👤 𝐔𝐬𝐞𝐫    : @${m.sender.split('@')[0].split(':')[0]}
-▢ 🤖 𝐁𝐨𝐭     : ${botname || 'BLACK-PANTHER-MD'}
+▢ 🤖 𝐁𝐨𝐭     : ${botname || 'Tehseen-Tech-Automation'}
 ▢ 📌 𝐏𝐫𝐞𝐟𝐢𝐱  : ${prefix}
 ▢ 🌐 𝐌𝐨𝐝𝐞    : ${mode}
 ${expiryLine}
-└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
+└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`;
 
         // ── Dynamic category list (same order as getSortedCategories / menuReply) ─
         const sorted = getSortedCategories();
@@ -55,7 +55,7 @@ ${expiryLine}
         const categoryText =
 `⚡ ──「 Sᴇʟᴇᴄᴛ Cᴀᴛᴇɢᴏʀʏ 」──
 ${catLines.trimEnd()}
-└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──
+└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──
 
 > *Reply with a number to view that category*`;
 

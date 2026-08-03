@@ -8,11 +8,11 @@ export default async (context) => {
 
 if (!text) {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-    return sendInteractive(client, m, `▢ \n▢ Provide a broadcast message!\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+    return sendInteractive(client, m, `▢ \n▢ Provide a broadcast message!\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
 }
 if (!m.isGroup) {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-    return sendInteractive(client, m, `▢ \n▢ This command is meant for groups.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+    return sendInteractive(client, m, `▢ \n▢ This command is meant for groups.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
 }
 
 let getGroups = await client.groupFetchAllParticipating() 
@@ -22,13 +22,13 @@ let getGroups = await client.groupFetchAllParticipating()
          let res = groups.map(v => v.id) 
 
 await sendInteractive(client, m, `⚡ ──「 BROADCAST 」──
-▢ Sending broadcast message...\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`)
+▢ Sending broadcast message...\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`)
 
 for (let i of res) { 
 
 
 let txt = `⚡ ──「 BROADCAST 」──
-▢ Message: ${text}\n▢ \n▢ Written by: ${pushname}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──` 
+▢ Message: ${text}\n▢ \n▢ Written by: ${pushname}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──` 
 
 await client.sendMessage(i, { 
                  image: { 
@@ -38,7 +38,7 @@ await client.sendMessage(i, {
              }) 
          } 
 await sendInteractive(client, m, `⚡ ──「 DONE 」──
-▢ Message sent across all groups.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Message sent across all groups.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
 })
 
 }

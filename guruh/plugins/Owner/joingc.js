@@ -10,7 +10,7 @@ export default async (context) => {
             console.error(`Join-Error: botname missing in context.`);
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
             return sendInteractive(client, m, 
-                `▢ \n▢ Bot's fucked. No botname in context.\n▢ Yell at your dev, dumbass.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
+                `▢ \n▢ Bot's fucked. No botname in context.\n▢ Yell at your dev, dumbass.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`
             );
         }
 
@@ -18,7 +18,7 @@ export default async (context) => {
             console.error(`Join-Error: Owner missing in context.`);
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
             return sendInteractive(client, m, 
-                `▢ \n▢ Bot's broken. No owner in context.\n▢ Go cry to the dev.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
+                `▢ \n▢ Bot's broken. No owner in context.\n▢ Go cry to the dev.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`
             );
         }
 
@@ -29,7 +29,7 @@ export default async (context) => {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
             return sendInteractive(client, m, 
                 `⚡ ──「 USAGE 」──
-▢ Provide a real group invite link\n▢ or reply to one.\n▢ Example: *${args && args[0] ? args[0] : '.join https://chat.whatsapp.com/abcdef...'}*\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
+▢ Provide a real group invite link\n▢ or reply to one.\n▢ Example: *${args && args[0] ? args[0] : '.join https://chat.whatsapp.com/abcdef...'}*\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`
             );
         }
 
@@ -47,7 +47,7 @@ export default async (context) => {
         if (!inviteCode) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
             return sendInteractive(client, m, 
-                `▢ \n▢ That ain't a valid link or invite\n▢ code. Don't waste my time.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
+                `▢ \n▢ That ain't a valid link or invite\n▢ code. Don't waste my time.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`
             );
         }
 
@@ -61,7 +61,7 @@ export default async (context) => {
             await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
             return sendInteractive(client, m, 
                 `⚡ ──「 JOINED 」──
-▢ Joined: *${subject}*\n▢ Don't spam, or I'll ghost you.\n▢ — ${botname}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
+▢ Joined: *${subject}*\n▢ Don't spam, or I'll ghost you.\n▢ — ${botname}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`
             );
         } catch (error) {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
@@ -78,37 +78,37 @@ export default async (context) => {
             if (status === 400 || status === 404) {
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
                 return sendInteractive(client, m, 
-                    `▢ \n▢ Group does not exist or the link\n▢ is invalid. Stop sending trash links.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
+                    `▢ \n▢ Group does not exist or the link\n▢ is invalid. Stop sending trash links.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`
                 );
             }
             if (status === 401) {
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
                 return sendInteractive(client, m, 
-                    `▢ \n▢ I was previously removed from that\n▢ group. I can't rejoin using this link.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
+                    `▢ \n▢ I was previously removed from that\n▢ group. I can't rejoin using this link.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`
                 );
             }
             if (status === 409) {
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
                 return sendInteractive(client, m, 
-                    `▢ \n▢ I'm already in that group, genius.\n▢ You trying to confuse me?\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
+                    `▢ \n▢ I'm already in that group, genius.\n▢ You trying to confuse me?\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`
                 );
             }
             if (status === 410) {
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
                 return sendInteractive(client, m, 
-                    `▢ \n▢ That invite link was reset. Get a\n▢ fresh one and try again.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
+                    `▢ \n▢ That invite link was reset. Get a\n▢ fresh one and try again.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`
                 );
             }
             if (status === 403) {
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
                 return sendInteractive(client, m, 
-                    `▢ \n▢ I don't have permission to join\n▢ that group. Maybe it's private.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
+                    `▢ \n▢ I don't have permission to join\n▢ that group. Maybe it's private.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`
                 );
             }
             if (status === 500) {
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
                 return sendInteractive(client, m, 
-                    `▢ \n▢ That group is full or server error.\n▢ Try later or check the link.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
+                    `▢ \n▢ That group is full or server error.\n▢ Try later or check the link.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`
                 );
             }
 
@@ -116,7 +116,7 @@ export default async (context) => {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
             return sendInteractive(client, m, 
                 `⚡ ──「 FAILED 」──
-▢ Failed to join: ${shortMsg}\n▢ Check the link or try again.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
+▢ Failed to join: ${shortMsg}\n▢ Check the link or try again.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`
             );
         }
     });

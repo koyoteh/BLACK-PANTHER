@@ -15,7 +15,7 @@ import { generateWAMessageFromContent, proto } from '@whiskeysockets/baileys';
 │
 ▢ 🔐 Length: ${len} chars\n│
 ▢ ${pass}\n│
-▢ Save it. I won't regenerate it for you.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
+▢ Save it. I won't regenerate it for you.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`;
           try {
               const msg = await generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                   interactiveMessage: {

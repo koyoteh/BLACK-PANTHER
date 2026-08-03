@@ -1,6 +1,6 @@
 'use strict';
 // ╔══════════════════════════════════════════════════════════════╗
-//  🐾  BLACK PANTHER MD  —  Connection Handler (Baileys v7)
+//  🐾  Tehseen Tech Automation  —  Connection Handler (Baileys v7)
 //  Owner : TehseenTech  |  
 //  • Auto-update from GitHub on every restart
 //  • Auto-follow CHANNEL_JID newsletter on connect
@@ -196,7 +196,7 @@ async function startBot() {
         },
         logger:                         silentLogger,
         printQRInTerminal:              false,
-        browser:                        ['BLACK PANTHER MD', 'Chrome', '121.0.0'],
+        browser:                        ['Tehseen Tech Automation', 'Chrome', '121.0.0'],
         markOnlineOnConnect:            true,
         syncFullHistory:                false,
         shouldSyncHistoryMessage:       () => false,

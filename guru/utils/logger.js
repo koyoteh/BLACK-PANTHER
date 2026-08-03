@@ -1,6 +1,6 @@
 'use strict';
 // ╔══════════════════════════════════════════════════════════════╗
-//  🐾  BLACK PANTHER MD  —  Smart Logger
+//  🐾  Tehseen Tech Automation  —  Smart Logger
 //  Auto-detects: Heroku · Panel/VPS · Railway · Render · Local
 // ╚══════════════════════════════════════════════════════════════╝
 

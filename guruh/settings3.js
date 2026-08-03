@@ -503,7 +503,7 @@ gmd(
         const { totalmem, freemem } = require("os");
         const { formatBytes } = require("../guru");
 
-        const botName    = (await getSetting("BOT_NAME"))    || "BLACK PANTHER MD";
+        const botName    = (await getSetting("BOT_NAME"))    || "Tehseen Tech Automation";
         const botVersion = (await getSetting("BOT_VERSION")) || "5.0.0";
         const botMode    = (await getSetting("MODE"))        || "Public";
         const botLang    = (await getSetting("BOT_LANG"))    || "en";
@@ -556,7 +556,7 @@ gmd(
 
 ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
 
-> _BLACK PANTHER MD — built by TehseenTech. All rights reserved._`
+> _Tehseen Tech Automation — built by TehseenTech. All rights reserved._`
         );
     },
 );

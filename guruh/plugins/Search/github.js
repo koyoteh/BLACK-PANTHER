@@ -3,7 +3,7 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
 
 function getHeaders() {
     return {
-        'User-Agent': 'BLACK-PANTHER-MD-Bot/2.0',
+        'User-Agent': 'Tehseen-Tech-Automation-Bot/2.0',
         'Accept': 'application/vnd.github.v3+json'
     };
 }
@@ -40,7 +40,7 @@ export default async (context) => {
     if (!text) {
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
         return sendInteractive(client, m, `⚡ ──「 GitHub Search 」──
-▢ Usage:\n▢ ${prefix}github user <username>\n▢ ${prefix}github repos <query>\n▢ ${prefix}github trending\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Usage:\n▢ ${prefix}github user <username>\n▢ ${prefix}github repos <query>\n▢ ${prefix}github trending\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
 
     const subCommand = args[0]?.toLowerCase();
@@ -61,7 +61,7 @@ export default async (context) => {
             await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
             await sendInteractive(client, m, 
                 `⚡ ──「 GitHub User 」──
-▢ Name: ${userData.name || userData.login}\n▢ Username: @${userData.login}\n▢ Bio: ${bio}\n▢ Location: ${location}\n▢ Repos: ${userData.public_repos}\n▢ Followers: ${userData.followers}\n▢ Following: ${userData.following}\n▢ Joined: ${createdDate}\n▢ URL: ${userData.html_url}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
+▢ Name: ${userData.name || userData.login}\n▢ Username: @${userData.login}\n▢ Bio: ${bio}\n▢ Location: ${location}\n▢ Repos: ${userData.public_repos}\n▢ Followers: ${userData.followers}\n▢ Following: ${userData.following}\n▢ Joined: ${createdDate}\n▢ URL: ${userData.html_url}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`
             );
         } else if (subCommand === 'repos' || subCommand === 'search') {
             if (!searchQuery) {
@@ -79,7 +79,7 @@ export default async (context) => {
             ).join('\n');
             await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
             await sendInteractive(client, m, `⚡ ──「 GitHub Repos 」──
-${repoList}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+${repoList}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         } else if (subCommand === 'trending') {
             const trendData = await githubTrending();
             if (!trendData.items || trendData.items.length === 0) {
@@ -92,14 +92,14 @@ ${repoList}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ 
             ).join('\n');
             await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
             await sendInteractive(client, m, `⚡ ──「 GitHub Trending 」──
-${trendList}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+${trendList}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         } else {
             const userData = await githubUserStalk(text.trim());
             const bio = userData.bio || 'No bio';
             await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
             await sendInteractive(client, m, 
                 `⚡ ──「 GitHub User 」──
-▢ Name: ${userData.name || userData.login}\n▢ Username: @${userData.login}\n▢ Bio: ${bio}\n▢ Repos: ${userData.public_repos}\n▢ Followers: ${userData.followers}\n▢ URL: ${userData.html_url}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
+▢ Name: ${userData.name || userData.login}\n▢ Username: @${userData.login}\n▢ Bio: ${bio}\n▢ Repos: ${userData.public_repos}\n▢ Followers: ${userData.followers}\n▢ URL: ${userData.html_url}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`
             );
         }
     } catch (error) {
@@ -107,6 +107,6 @@ ${trendList}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
         if (error.message.includes('404')) return sendInteractive(client, m, 'User/repo not found. Double-check the name.');
         if (error.message.includes('403')) return sendInteractive(client, m, 'GitHub rate limit hit. Try again in a minute.');
-        await sendInteractive(client, m, `▢ GitHub search failed.\n▢ Something went wrong. Try again.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+        await sendInteractive(client, m, `▢ GitHub search failed.\n▢ Something went wrong. Try again.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
 };

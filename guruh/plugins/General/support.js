@@ -12,7 +12,7 @@ export default async (context) => {
 ▢ 
 ▢ *Group*
 ▢ https:
-└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
+└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`;
 
   try {
     await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
@@ -24,6 +24,6 @@ export default async (context) => {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
     console.error("Support command error:", error);
     await sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
-▢ Failed to send support links.\n▢ Try again, you impatient fool.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Failed to send support links.\n▢ Try again, you impatient fool.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
   }
 };

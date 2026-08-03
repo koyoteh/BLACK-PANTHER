@@ -18,7 +18,7 @@ export default async (context) => {
 
         if (!herokuAppName || !herokuApiKey) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            return await sendInteractive(client, m, "⚡ ──「 HEROKU VARS 」──\n▢ HEROKU_APP_NAME or HEROKU_API_KEY not set.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──");
+            return await sendInteractive(client, m, "⚡ ──「 HEROKU VARS 」──\n▢ HEROKU_APP_NAME or HEROKU_API_KEY not set.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──");
         }
 
         try {
@@ -29,7 +29,7 @@ export default async (context) => {
             const configVars = response.data;
             if (!configVars || Object.keys(configVars).length === 0) {
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-                return await sendInteractive(client, m, "⚡ ──「 HEROKU VARS 」──\n▢ No config vars found.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──");
+                return await sendInteractive(client, m, "⚡ ──「 HEROKU VARS 」──\n▢ No config vars found.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──");
             }
 
             let msg = `⚡ ──「 HEROKU VARS 」──
@@ -37,18 +37,18 @@ export default async (context) => {
             for (const [key, value] of Object.entries(configVars)) {
                 msg += `▢ ${key}: ${isSensitive(key) ? '**REDACTED**' : value}\n`;
             }
-            msg += "└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──";
+            msg += "└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──";
 
             const dmJid = typeof m.sender === 'string' && m.sender.endsWith('@s.whatsapp.net') ? m.sender : null;
             if (dmJid) {
                 await client.sendMessage(dmJid, { text: msg });
-                await sendInteractive(client, m, "⚡ ──「 HEROKU VARS 」──\n▢ Vars sent to your DM only. 🔒\n▢ Sensitive keys are always redacted.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──");
+                await sendInteractive(client, m, "⚡ ──「 HEROKU VARS 」──\n▢ Vars sent to your DM only. 🔒\n▢ Sensitive keys are always redacted.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──");
             } else {
-                await sendInteractive(client, m, "⚡ ──「 HEROKU VARS 」──\n▢ Couldn't resolve your JID for DM.\n▢ Use this command from DM only.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──");
+                await sendInteractive(client, m, "⚡ ──「 HEROKU VARS 」──\n▢ Couldn't resolve your JID for DM.\n▢ Use this command from DM only.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──");
             }
         } catch (error) {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            await sendInteractive(client, m, `⚡ ──「 HEROKU VARS 」──\n▢ Failed to fetch config vars.\n▢ ${error.response?.data || error.message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+            await sendInteractive(client, m, `⚡ ──「 HEROKU VARS 」──\n▢ Failed to fetch config vars.\n▢ ${error.response?.data || error.message}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
     });
 };

@@ -1,6 +1,6 @@
 'use strict';
 // ╔══════════════════════════════════════════════════════════════╗
-//  🐾  BLACK PANTHER MD  —  Message Handler (High-Speed)
+//  🐾  Tehseen Tech Automation  —  Message Handler (High-Speed)
 //  • Concurrent message processing (Promise.allSettled)
 //  • De-dup Set with auto-expiry
 //  • Non-blocking command dispatch

@@ -1,6 +1,6 @@
 'use strict';
 // ╔══════════════════════════════════════════════════════════════╗
-//  🐾  BLACK PANTHER MD  —  Status Engine
+//  🐾  Tehseen Tech Automation  —  Status Engine
 //  👑  Owner : TehseenTech  |  📞 
 // ─────────────────────────────────────────────────────────────
 //  Features:

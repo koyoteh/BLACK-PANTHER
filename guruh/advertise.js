@@ -76,7 +76,7 @@ function buildAdMessage(ad, pushName, botFooter) {
 
     lines.push(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
     lines.push(``);
-    lines.push(`> _Advertised via ${botFooter || "BLACK PANTHER MD"}_`);
+    lines.push(`> _Advertised via ${botFooter || "Tehseen Tech Automation"}_`);
 
     return lines.join("\n");
 }
@@ -154,7 +154,7 @@ gmd(
             `  _Post your formatted ad in this chat_\n\n` +
             `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
             `📊 *${total}* business ad(s) registered\n\n` +
-            `> *${botFooter || "BLACK PANTHER MD"}*`
+            `> *${botFooter || "Tehseen Tech Automation"}*`
         );
     }
 );
@@ -184,7 +184,7 @@ gmd(
                 `\`\`\`${p}setad Business Name | Description | Contact | Location | Working Hours | Website\`\`\`\n\n` +
                 `*Example:*\n` +
                 `\`\`\`${p}setad TehseenTech Shop | Phone repairs & accessories | +254700000000 | Nairobi CBD | Mon-Sat 8am-6pm | tehseentech.co.ke\`\`\`\n\n` +
-                `> _${botFooter || "BLACK PANTHER MD"}_`
+                `> _${botFooter || "Tehseen Tech Automation"}_`
             );
         }
 
@@ -218,7 +218,7 @@ gmd(
             `${website ? `🌐 ${website}\n` : ""}` +
             `\nType *${p}postad* to post your ad in any chat.\n` +
             `Type *${p}myad* to preview your full ad.\n\n` +
-            `> _${botFooter || "BLACK PANTHER MD"}_`
+            `> _${botFooter || "Tehseen Tech Automation"}_`
         );
     }
 );

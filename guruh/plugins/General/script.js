@@ -3,7 +3,7 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
 export default {
   name: 'script',
   aliases: ['repo', 'source', 'github', 'git', 'gh', 'src', 'code', 'sourcecode'],
-  description: 'Show GitHub repository info for BLACK-PANTHER-MD',
+  description: 'Show GitHub repository info for Tehseen-Tech-Automation',
   run: async (context) => {
     const { client, m } = context;
     await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
@@ -33,7 +33,7 @@ export default {
 ║  🌐 Hosting :
 ║  https://wa.me/
 ╚══════════════════════════════════╝
-> 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ`;
+> 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇`;
 
       await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
       await sendInteractive(client, m, replyText);
@@ -44,7 +44,7 @@ export default {
 `⚡ ──「 Eʀʀᴏʀ 」──
 ▢ Couldn't fetch repo data
 ▢ ${error.message}
-└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
   }
 };

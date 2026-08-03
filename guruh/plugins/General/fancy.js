@@ -70,13 +70,13 @@ export default {
       const example = 'PANTHER';
       let preview = `⚡ ──「 Fᴀɴᴄʏ Tᴇxᴛ 」──
 │
-▢ Usage: ${prefix}fancy <number> <text>\n▢ Example: ${prefix}fancy 1 BLACK-PANTHER-MD\n│
+▢ Usage: ${prefix}fancy <number> <text>\n▢ Example: ${prefix}fancy 1 Tehseen-Tech-Automation\n│
 ▢ Available styles (1-${totalStyles}):\n`;
       for (let i = 0; i < totalStyles; i++) {
         const styled = applyStyle(example, i);
         if (styled) preview += `▢ ${i + 1}. ${styled}\n`;
       }
-      preview += `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
+      preview += `└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`;
       await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
       return client.sendMessage(m.chat, { text: preview });
     }
@@ -87,14 +87,14 @@ export default {
     if (isNaN(styleNum) || styleNum < 1 || styleNum > totalStyles) {
       return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
 │
-▢ Invalid style number!\n▢ Use 1-${totalStyles}\n▢ Example: ${prefix}fancy 1 BLACK-PANTHER-MD\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Invalid style number!\n▢ Use 1-${totalStyles}\n▢ Example: ${prefix}fancy 1 Tehseen-Tech-Automation\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
 
     const inputText = args.slice(1).join(' ');
     if (!inputText) {
       return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
 │
-▢ No text provided!\n▢ ${prefix}fancy ${styleNum} Your Text Here\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ No text provided!\n▢ ${prefix}fancy ${styleNum} Your Text Here\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
 
     try {
@@ -106,7 +106,7 @@ export default {
         {
           interactiveMessage: {
             body: { text: styledText },
-            footer: { text: '𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ' },
+            footer: { text: '𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇' },
             nativeFlowMessage: {
               messageVersion: 1,
               buttons: [{
@@ -125,7 +125,7 @@ export default {
     await client.sendMessage(m.chat, { react: { text: '', key: m.reactKey } }).catch(() => {});
       await sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
 │
-▢ Failed to apply fancy style.\n▢ Try again or use a different number.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Failed to apply fancy style.\n▢ Try again or use a different number.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
   }
 };

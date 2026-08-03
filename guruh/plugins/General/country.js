@@ -12,7 +12,7 @@ export default {
         if (!query) {
             return sendInteractive(client, m, `⚡ ──「 Cᴏᴜɴᴛʀʏ Iɴғᴏ 」──
 │
-▢ Usage: .country Kenya\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Usage: .country Kenya\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
         try {
             await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
@@ -31,12 +31,12 @@ export default {
             await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
             return sendInteractive(client, m, `⚡ ──「 Cᴏᴜɴᴛʀʏ Iɴғᴏ 」──
 │
-▢ ${flag} ${name}\n▢ 📋 Official: ${official}\n▢ 🏙️ Capital: ${capital}\n▢ 🌍 Region: ${region}${sub ? ' / ' + sub : ''}\n▢ 👥 Population: ${pop}\n▢ 💰 Currency: ${currencies}\n▢ 🗣️ Language(s): ${langs}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ ${flag} ${name}\n▢ 📋 Official: ${official}\n▢ 🏙️ Capital: ${capital}\n▢ 🌍 Region: ${region}${sub ? ' / ' + sub : ''}\n▢ 👥 Population: ${pop}\n▢ 💰 Currency: ${currencies}\n▢ 🗣️ Language(s): ${langs}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         } catch {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
             return sendInteractive(client, m, `⚡ ──「 Cᴏᴜɴᴛʀʏ Iɴғᴏ 」──
 │
-▢ Country not found. Did you make it up?\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Country not found. Did you make it up?\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
     }
 };

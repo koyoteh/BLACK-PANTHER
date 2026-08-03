@@ -14,7 +14,7 @@ export default {
             if (!query) {
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
                 return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
-▢ Provide a package name,\n▢ you incompetent fool.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Provide a package name,\n▢ you incompetent fool.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
             }
 
             await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
@@ -27,7 +27,7 @@ export default {
                 if (!Array.isArray(list) || list.length === 0) {
                     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
                     return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
-▢ No packages found in scope *${query}*\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ No packages found in scope *${query}*\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
                 }
                 
                 query = list[0]?.name || list[0]?.package?.name || query;
@@ -54,14 +54,14 @@ export default {
                 fileName: fileName,
                 mimetype: 'application/gzip',
                 caption: `⚡ ──「 NPM 」──
-▢ ${query} v${latest}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
+▢ ${query} v${latest}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`
             });
 
         } catch (error) {
             console.error('NPM download error:', error);
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
             await sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
-▢ Download failed.\n▢ Error: ${error.message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Download failed.\n▢ Error: ${error.message}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
     }
 };

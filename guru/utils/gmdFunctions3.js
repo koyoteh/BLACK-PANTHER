@@ -1,6 +1,6 @@
 'use strict';
 // ╔══════════════════════════════════════════════════════════════╗
-//  🐾  BLACK PANTHER MD  —  gmdFunctions3.js  (Search & APIs)
+//  🐾  Tehseen Tech Automation  —  gmdFunctions3.js  (Search & APIs)
 //  👑  Owner : TehseenTech  |  📞 
 //  🔍  Weather · News · Currency · Crypto · Dictionary · Lyrics
 //  🎬  Movie · Sports · Anime · GitHub · Color · Font · More

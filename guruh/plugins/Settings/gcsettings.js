@@ -11,7 +11,7 @@ export default async (context) => {
         if (!jid.endsWith('@g.us')) {
             await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            return await sendInteractive(client, m, "▢ This command is for groups only, you fool.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──");
+            return await sendInteractive(client, m, "▢ This command is for groups only, you fool.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──");
         }
 
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
@@ -19,7 +19,7 @@ export default async (context) => {
 
         if (!groupSettings) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            return await sendInteractive(client, m, "▢ No group settings found. Configure something first!\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──");
+            return await sendInteractive(client, m, "▢ No group settings found. Configure something first!\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──");
         }
 
         const on = (v) => (v ? '✅ ON' : '❌ OFF');
@@ -36,7 +36,7 @@ export default async (context) => {
         response += `▢ Antipromote: ${on(groupSettings.antipromote)}\n`;
         response += `▢ Welcome: ${on(groupSettings.welcome)}\n`;
         response += `▢ Goodbye: ${on(groupSettings.goodbye)}\n`;
-        response += `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
+        response += `└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`;
 
         await sendInteractive(client, m, response);
         await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });

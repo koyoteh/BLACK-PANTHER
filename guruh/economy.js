@@ -4,7 +4,7 @@ const path     = require("path");
 const fs       = require("fs-extra");
 
 // ═══════════════════════════════════════════════════════════════════
-//  GROUP ECONOMY ENGINE  ·  BLACK PANTHER MD
+//  GROUP ECONOMY ENGINE  ·  Tehseen Tech Automation
 //  Virtual GURU Coins — earn, spend, transfer, gamble, leaderboard.
 //  Passive chat rewards · Daily bonus · Anti-abuse cooldowns.
 // ═══════════════════════════════════════════════════════════════════

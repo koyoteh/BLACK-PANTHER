@@ -1,7 +1,7 @@
 import https from 'https';
 
 const GH_OWNER = 'xhclintohn';
-const GH_REPO  = 'BLACK-PANTHER';
+const GH_REPO  = 'Tehseen-Tech-Automation';
 const GH_BRANCH = 'main';
 const GH_ASSET_DIR = 'assets/reactions';
 
@@ -9,7 +9,7 @@ const BOX = (title, lines) => {
     const body = (Array.isArray(lines) ? lines : [lines]).map(l => `▢ ${l}`).join('\n');
     return `⚡ ──「 ${title} 」──
 │
-${body}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
+${body}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`;
 };
 
 async function ghApiPut(token, path, body) {
@@ -22,7 +22,7 @@ async function ghApiPut(token, path, body) {
             headers: {
                 'Authorization': `token ${token}`,
                 'Content-Type': 'application/json',
-                'User-Agent': 'BLACK-PANTHER-MD-Bot',
+                'User-Agent': 'Tehseen-Tech-Automation-Bot',
                 'Content-Length': Buffer.byteLength(data)
             }
         }, (res) => {
@@ -45,7 +45,7 @@ async function ghApiGet(token, path) {
             hostname: 'api.github.com',
             path: `/repos/${GH_OWNER}/${GH_REPO}/contents/${path}`,
             method: 'GET',
-            headers: { 'Authorization': `token ${token}`, 'User-Agent': 'BLACK-PANTHER-MD-Bot' }
+            headers: { 'Authorization': `token ${token}`, 'User-Agent': 'Tehseen-Tech-Automation-Bot' }
         }, (res) => {
             let raw = '';
             res.on('data', c => raw += c);

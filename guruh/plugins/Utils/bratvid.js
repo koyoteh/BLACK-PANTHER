@@ -21,7 +21,7 @@ export default {
         if (!text) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
             return sendInteractive(client, m, `⚡ ──「 BRAT VID 」──
-▢ What am i, a mind reader?\n▢ @` + m.sender.split('@')[0] + '! you forgot the text, genius.\n▢ Example: ' + prefix + 'bratvid i\'m a dumbass\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──', { mentions: [m.sender] });
+▢ What am i, a mind reader?\n▢ @` + m.sender.split('@')[0] + '! you forgot the text, genius.\n▢ Example: ' + prefix + 'bratvid i\'m a dumbass\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──', { mentions: [m.sender] });
         }
 
         try {
@@ -78,7 +78,7 @@ export default {
             }
 
             await sendInteractive(client, m, `⚡ ──「 FAILED 」──
-▢ Brat video generation failed.\n▢ ${errorMessage}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Brat video generation failed.\n▢ ${errorMessage}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
     }
 };

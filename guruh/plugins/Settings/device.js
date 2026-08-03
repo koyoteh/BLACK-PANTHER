@@ -14,7 +14,7 @@ export default {
 
             const fmt = (msg) =>
                 `⚡ ──「 DEVICE MODE 」──
-▢ ${msg}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
+▢ ${msg}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`;
 
             const value = (args[0] || '').toLowerCase().trim();
 

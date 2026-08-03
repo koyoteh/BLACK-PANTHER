@@ -65,14 +65,14 @@ gmd({
     if (!isSuperUser) { await react("❌"); return reply("❌ Owner only."); }
 
     const [name, pic, wmOn, wmText, bio] = await Promise.all([
-        getSetting("BOT_NAME").catch(() => "BLACK PANTHER MD"),
+        getSetting("BOT_NAME").catch(() => "Tehseen Tech Automation"),
         getSetting("BOT_PIC").catch(() => ""),
         getSetting("WATERMARK").catch(() => "false"),
         getSetting("WATERMARK_TEXT").catch(() => ""),
         getSetting("BOT_BIO").catch(() => ""),
     ]);
 
-    const botName    = name    || "BLACK PANTHER MD";
+    const botName    = name    || "Tehseen Tech Automation";
     const picUrl     = pic     || "";
     const watermark  = wmOn === "true";
     const wmLabel    = wmText  || `_Powered by ${botName}_`;
@@ -94,7 +94,7 @@ gmd({
         `   ↳ _.botbio <text>_\n\n` +
         `${"─".repeat(32)}\n` +
         `*Quick Commands:*\n` +
-        `• \`.rebrand BLACK PANTHER MD\`\n` +
+        `• \`.rebrand Tehseen Tech Automation\`\n` +
         `• \`.setpic https://…\`\n` +
         `• \`.setpic\` _(reply to a photo)_\n` +
         `• \`.setwm Powered by GURU\`\n` +
@@ -123,7 +123,7 @@ gmd({
     react:       "✏️",
     category:    "owner",
     description: "Set bot name and update WhatsApp display name live",
-    usage:       ".rebrand BLACK PANTHER MD",
+    usage:       ".rebrand Tehseen Tech Automation",
 }, async (from, Guru, conText) => {
     const { q, reply, react, isSuperUser } = conText;
     if (!isSuperUser) { await react("❌"); return reply("❌ Owner only."); }
@@ -131,7 +131,7 @@ gmd({
         return reply(
             `✏️ *Set Bot Name*\n\n` +
             `Usage: \`.rebrand <new name>\`\n\n` +
-            `Example: \`.rebrand BLACK PANTHER MD v2\`\n\n` +
+            `Example: \`.rebrand Tehseen Tech Automation v2\`\n\n` +
             `_Updates both the bot settings and the WhatsApp profile name._`
         );
     }
@@ -277,7 +277,7 @@ gmd({
     react:       "✍️",
     category:    "owner",
     description: "Set the watermark text appended to bot messages",
-    usage:       ".setwm Powered by BLACK PANTHER MD",
+    usage:       ".setwm Powered by Tehseen Tech Automation",
 }, async (from, Guru, conText) => {
     const { q, reply, react, isSuperUser } = conText;
     if (!isSuperUser) { await react("❌"); return reply("❌ Owner only."); }
@@ -343,13 +343,13 @@ gmd({
     if (!isSuperUser) { await react("❌"); return reply("❌ Owner only."); }
 
     const [name, pic, wmOn, wmText] = await Promise.all([
-        getSetting("BOT_NAME").catch(() => "BLACK PANTHER MD"),
+        getSetting("BOT_NAME").catch(() => "Tehseen Tech Automation"),
         getSetting("BOT_PIC").catch(() => ""),
         getSetting("WATERMARK").catch(() => "false"),
         getSetting("WATERMARK_TEXT").catch(() => ""),
     ]);
 
-    const botName   = name   || "BLACK PANTHER MD";
+    const botName   = name   || "Tehseen Tech Automation";
     const picUrl    = pic    || "";
     const watermark = wmOn === "true";
     const wm        = wmText || `_Powered by ${botName}_`;

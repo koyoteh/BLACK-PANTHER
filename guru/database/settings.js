@@ -33,9 +33,9 @@ const DEFAULT_SETTINGS = {
     PREFIX: ".",
     OWNER_NAME: "TehseenTech",
     OWNER_NUMBER: "",
-    BOT_NAME: "BLACK PANTHER",
+    BOT_NAME: "Tehseen Tech Automation",
     FOOTER: "Powered by GuruTech",
-    CAPTION: "⚡ BLACK PANTHER Premium | Ultra Fast | Ultra Secure",
+    CAPTION: "⚡ Tehseen Tech Automation Premium | Ultra Fast | Ultra Secure",
     BOT_PIC: "https://res.cloudinary.com/dqxlb29uz/image/upload/v1780267810/bwm_uploads/media-1780267810008.jpg",
     VERSION: packageJson.version || "2.0.0",
     MODE: config.MODE || "public",
@@ -67,7 +67,7 @@ const DEFAULT_SETTINGS = {
     NEWSLETTER_URL: "https://whatsapp.com/channel/0029Vb7jauLHLHQbkcbcHi0e",
     BOT_REPO: "tehseentech/black-panther",
     AUTO_UPDATE: "true",
-    PACK_NAME: "BLACK PANTHER",
+    PACK_NAME: "Tehseen Tech Automation",
     PACK_AUTHOR: "TEHSEENTECH 🐾",
     SUDO_NUMBERS: "",
     PM_PERMIT: "false",
@@ -143,7 +143,7 @@ async function initializeSettings() {
     }
 
     initialized = true;
-    console.log("✅ BLACK PANTHER Settings Initialized");
+    console.log("✅ Tehseen Tech Automation Settings Initialized");
 }
 
 async function getSetting(key) {

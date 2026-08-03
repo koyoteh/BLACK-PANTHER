@@ -1,6 +1,6 @@
 'use strict';
 // ╔══════════════════════════════════════════════════════════════╗
-//  BLACK PANTHER MD  —  expiry.js
+//  Tehseen Tech Automation  —  expiry.js
 //  Licence / deployment expiry gate
 //  Reads from: process.env.EXPIRY_DATE (primary)
 //              BOT_EXPIRY_DATE in DB (fallback)
@@ -151,7 +151,7 @@ async function checkExpiry({ onExpire, onWarn, exitOnExpiry = true } = {}) {
         const expiredAgo = Math.abs(days);
         const msg =
             `\n╔${'═'.repeat(54)}╗\n` +
-            `║  ⛔  BLACK PANTHER MD — LICENCE EXPIRED\n` +
+            `║  ⛔  Tehseen Tech Automation — LICENCE EXPIRED\n` +
             `╠${'═'.repeat(54)}╣\n` +
             `║  📅  Expiry Date : ${fmtDate(expiryDate)}\n` +
             `║  ⏱️   Expired     : ${expiredAgo} day(s) ago\n` +

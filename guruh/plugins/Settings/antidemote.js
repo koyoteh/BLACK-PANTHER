@@ -13,7 +13,7 @@ export default async (context) => {
 
     const formatStylishReply = (title, message) => {
       return `⚡ ──「 ${title} 」──
-▢ ${message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
+▢ ${message}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`;
     };
 
     if (!jid.endsWith('@g.us')) {
@@ -45,7 +45,7 @@ export default async (context) => {
     if (_devMode === 'ios') {
           await client.sendMessage(m.chat, { react: { text: '📋', key: m.reactKey } });
           await sendInteractive(client, m, `⚡ ──「 ANTIDEMOTE 」──
-▢ Status: ${settings.antidemote ? 'ON ✅' : 'OFF ❌'}\n▢ \n▢ Options:\n▢ ${prefix}antidemote on\n▢ ${prefix}antidemote off\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n> 🌐 wa.me/254116284050`);
+▢ Status: ${settings.antidemote ? 'ON ✅' : 'OFF ❌'}\n▢ \n▢ Options:\n▢ ${prefix}antidemote on\n▢ ${prefix}antidemote off\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──\n> 🌐 wa.me/254116284050`);
       } else {
     const _msg = generateWAMessageFromContent(
             m.chat,

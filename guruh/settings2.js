@@ -453,7 +453,7 @@ gmd(
       // Use DB only if owner explicitly changed it via .setbotrepo, otherwise hardcoded
       let repoUrl = (await getSetting("BOT_REPO")) || BOT_GITHUB;
       if (!repoUrl.startsWith("http")) repoUrl = `https://github.com/${repoUrl}`;
-      const botN     = botName || "BLACK PANTHER MD";
+      const botN     = botName || "Tehseen Tech Automation";
       const footer   = botFooter ? `\n\n> *${botFooter}*` : "";
       await reply(
 `🌟 *${botN} — Source Code*

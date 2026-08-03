@@ -8,7 +8,7 @@ export default async (context) => {
     if (!text) {
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
         return sendInteractive(client, m, `⚡ ──「 Wᴇʙ2Zɪᴩ 」──
-▢ Downloads entire websites as ZIP files\n▢ Example: ${prefix}web2zip https://example.com\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Downloads entire websites as ZIP files\n▢ Example: ${prefix}web2zip https://example.com\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
 
     try {
@@ -43,7 +43,7 @@ export default async (context) => {
 
         const caption = `⚡ ──「 Wᴇʙsɪᴛᴇ Zɪᴩ 」──
 ▢ *URL:* ${result.url}\n▢ *Files Copied:* ${result.copiedFilesAmount}\n▢ *Download Link:*\n▢ ${result.downloadUrl}\n│
-▢ Click the link above to download the ZIP\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
+▢ Click the link above to download the ZIP\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`;
 
         await client.sendMessage(m.chat, { text: caption });
 
@@ -67,6 +67,6 @@ export default async (context) => {
         }
 
         await sendInteractive(client, m, `⚡ ──「 Fᴀɪʟᴇᴅ 」──
-▢ ${errorMessage}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ ${errorMessage}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
 };

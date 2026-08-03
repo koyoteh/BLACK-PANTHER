@@ -99,7 +99,7 @@ gmd(
 ▢ 📶 Ping    : *${ping}ms*
 ▢ ⏱️ Alive   : *${alive}*
 ▢ 📌 Prefix  : *${botPrefix || "."}*
-└──✦ _${botName || "BLACK PANTHER"} ┃ ᴹᴰ_ ✦──`;
+└──✦ _${botName || "Tehseen Tech Automation"} ┃ ᴹᴰ_ ✦──`;
         };
 
         // Send the first message
@@ -120,7 +120,7 @@ gmd(
                 // Final edit — remove the "counting live" footer
                 try {
                     await Guru.sendMessage(from, {
-                        text: buildMsg().replace(`_${botName || "BLACK PANTHER"} ┃ ᴹᴰ_ ✦──`, `*${botName || "BLACK PANTHER"} ┃ ᴹᴰ* ✦──`),
+                        text: buildMsg().replace(`_${botName || "Tehseen Tech Automation"} ┃ ᴹᴰ_ ✦──`, `*${botName || "Tehseen Tech Automation"} ┃ ᴹᴰ* ✦──`),
                         edit: sent.key,
                     });
                 } catch (_) {}
@@ -144,7 +144,7 @@ gmd(
         await react("⏱️");
 
         const tz = timeZone || process.env.TIME_ZONE || "Africa/Nairobi";
-        const bn = botName || "BLACK PANTHER";
+        const bn = botName || "Tehseen Tech Automation";
 
         const buildMsg = () => {
             const t     = moment().tz(tz);
@@ -217,7 +217,7 @@ gmd(
 ▢ ⏱️ Uptime   : *${h}h ${m}m*
 ▢ 👑 Owner    : *${ownerName || "TehseenTech"}*
 ▢ 📦 Library  : Baileys
-└──✦ _${botName || "BLACK PANTHER"} ┃ ᴹᴰ_ ✦──`
+└──✦ _${botName || "Tehseen Tech Automation"} ┃ ᴹᴰ_ ✦──`
         );
     }
 );

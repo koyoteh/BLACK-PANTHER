@@ -12,13 +12,13 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
       if (!text) {
           await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-          return sendInteractive(client, m, `⚡ ──「 YTMP3 」──\n▢ Example: ${prefix}ytmp3 https://youtu.be/xxxx\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+          return sendInteractive(client, m, `⚡ ──「 YTMP3 」──\n▢ Example: ${prefix}ytmp3 https://youtu.be/xxxx\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
       }
       const ytUrl = text.trim();
       const id = extractYtId(ytUrl);
       if (!id) {
           await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-          return sendInteractive(client, m, '⚡ ──「 YTMP3 」──\n▢ Invalid YouTube link.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──');
+          return sendInteractive(client, m, '⚡ ──「 YTMP3 」──\n▢ Invalid YouTube link.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──');
       }
       await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
       try {
@@ -38,10 +38,10 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
               fileName: `${title || 'youtube-audio'}.mp3`
           });
           await sendInteractive(client, m, `⚡ ──「 YouTube MP3 」──
-▢ 🎵 ${title || 'Unknown'}\n▢ 🔊 Quality: ${quality || '320'}kbps\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ 🎵 ${title || 'Unknown'}\n▢ 🔊 Quality: ${quality || '320'}kbps\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
       } catch (e) {
           await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-          sendInteractive(client, m, `▢ Failed: ${e.message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+          sendInteractive(client, m, `▢ Failed: ${e.message}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
       }
   };
   

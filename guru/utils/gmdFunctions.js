@@ -1,6 +1,6 @@
 'use strict';
 // ╔══════════════════════════════════════════════════════════════╗
-//  ⚡  BLACK PANTHER MD  —  gmdFunctions.js  (Core Utilities)
+//  ⚡  Tehseen Tech Automation  —  gmdFunctions.js  (Core Utilities)
 //  👑  Owner : TehseenTech  |  📞 
 //  🔧  Rich formatting · Media tools · Upload helpers
 // ╚══════════════════════════════════════════════════════════════╝

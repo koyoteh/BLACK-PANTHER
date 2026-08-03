@@ -16,7 +16,7 @@ export default {
     if (text) {
       await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
       return client.sendMessage(m.chat, { text: `⚡ ──「 Eʀʀᴏʀ 」──
-▢ Yo, @${m.sender.split('@')[0].split(':')[0]}, what's this extra\n▢ garbage? Just say .test, you clown.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──` }, { mentions: [m.sender] });
+▢ Yo, @${m.sender.split('@')[0].split(':')[0]}, what's this extra\n▢ garbage? Just say .test, you clown.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──` }, { mentions: [m.sender] });
     }
 
     try {
@@ -45,13 +45,13 @@ export default {
       } else {
         console.error('❌ Audio file not found at any of the following paths:', possibleAudioPaths);
         await sendInteractive(client, m, `⚡ ──「 Fᴀɪʟᴇᴅ 」──
-▢ Shit, couldn't find test.mp3 in\n▢ TehseenTech/. Fix your files, you slacker.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Shit, couldn't find test.mp3 in\n▢ TehseenTech/. Fix your files, you slacker.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
       }
     } catch (error) {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
       console.error('Error in test command:', error);
       await sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
-▢ Yo, something fucked up the test\n▢ audio. Try again later, dumbass.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Yo, something fucked up the test\n▢ audio. Try again later, dumbass.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
   }
 };

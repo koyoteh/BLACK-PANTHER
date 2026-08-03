@@ -15,12 +15,12 @@ export default async (context) => {
                 try {
                     await client.groupSettingUpdate(m.chat, 'announcement');
                     await sendInteractive(client, m, `⚡ ──「 CLOSED 」──
-▢ ⏰ Scheduled close executed!\n▢ Group is now closed.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ ⏰ Scheduled close executed!\n▢ Group is now closed.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
                 } catch {}
             });
             await client.sendMessage(m.chat, { react: { text: '⏰', key: m.reactKey } });
             return m.reply(`⚡ ──「 TIMER SET 」──
-▢ ⏰ Group will close in *${label}*.\n▢ Use .close to cancel & close now.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ ⏰ Group will close in *${label}*.\n▢ Use .close to cancel & close now.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
 
         try {
@@ -28,10 +28,10 @@ export default async (context) => {
             await client.groupSettingUpdate(m.chat, 'announcement');
             await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
             m.reply(`⚡ ──「 CLOSED 」──
-▢ Group closed. Shut up now.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Group closed. Shut up now.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         } catch (e) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            m.reply(`▢ Failed to close group: ${e.message?.slice(0, 60)}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+            m.reply(`▢ Failed to close group: ${e.message?.slice(0, 60)}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
     });
 };

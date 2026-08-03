@@ -28,7 +28,7 @@ export default {
                 const body = (Array.isArray(lines) ? lines : [lines]).map(l => `▢ ${l}`).join('\n');
                 return `⚡ ──「 ${title} 」──
 │
-${body}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
+${body}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`;
             };
 
             const sendModeButtons = async (currentMode) => {
@@ -65,7 +65,7 @@ ${body}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹ�
                     const interactiveMsg = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                         interactiveMessage: {
                             body: { text: bodyText },
-                            footer: { text: '𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ' },
+                            footer: { text: '𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇' },
                             header: { hasMediaAttachment: false },
                             nativeFlowMessage: {
                                 buttons: [
@@ -88,7 +88,7 @@ ${body}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹ�
                             buttonText: 'Choose Mode',
                             listType: 1,
                             sections: sections.map(s => ({ title: s.title, rows: s.rows.map(r => ({ title: r.title, description: r.description, rowId: r.id })) })),
-                            footer: '𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ' } });
+                            footer: '𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇' } });
                 }
             };
 

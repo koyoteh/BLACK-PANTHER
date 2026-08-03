@@ -115,7 +115,7 @@ const GuruAntiLink = async (Guru, message, getGroupMetadata) => {
         }
 
         const settings = await getAllSettings();
-        const botName = settings.BOT_NAME || 'BLACK PANTHER';
+        const botName = settings.BOT_NAME || 'Tehseen Tech Automation';
         
         if (sender.endsWith('@lid')) {
             const cached = getLidMapping(sender);
@@ -445,7 +445,7 @@ const GuruAntiBot = async (Guru, message, getGroupMetadata) => {
         if (groupAdmins.includes(senderNum)) return; // Spare admins
 
         const settings = await getAllSettings();
-        const botName = settings.BOT_NAME || 'BLACK PANTHER';
+        const botName = settings.BOT_NAME || 'Tehseen Tech Automation';
 
         // Delete the offending command message silently
         try { await Guru.sendMessage(from, { delete: message.key }); } catch {}
@@ -503,7 +503,7 @@ const GuruAntiGroupMention = async (Guru, message, getGroupMetadata) => {
         if (!sender || sender.endsWith('@g.us')) return;
         
         const settings = await getAllSettings();
-        const botName = settings.BOT_NAME || 'BLACK PANTHER';
+        const botName = settings.BOT_NAME || 'Tehseen Tech Automation';
         
         if (sender.endsWith('@lid')) {
             const cached = getLidMapping(sender);
@@ -636,7 +636,7 @@ function getTimeBlock() {
 const GuruAutoBio = async (Guru) => {
                 try {
                     const settings = await getAllSettings();
-                    const botName = settings.BOT_NAME || 'BLACK PANTHER';
+                    const botName = settings.BOT_NAME || 'Tehseen Tech Automation';
                     
                     const block = getTimeBlock();
                     const timeDate = getCurrentDateTime();
@@ -1230,7 +1230,7 @@ const GuruAntiViewOnce = async (Guru, message) => {
         const targetJid = antiViewOnce === "on" ? message.key.remoteJid : botJid;
         const senderNum = (message.key.participant || message.key.remoteJid).split("@")[0].split(":")[0];
         const chatName = message.key.remoteJid.endsWith("@g.us") ? "a group" : "DM";
-        const botName = settings.BOT_NAME || "BLACK PANTHER";
+        const botName = settings.BOT_NAME || "Tehseen Tech Automation";
         const botPic = settings.BOT_PIC || "https://res.cloudinary.com/dqxlb29uz/image/upload/v1780267810/bwm_uploads/media-1780267810008.jpg";
         
         const mediaMessage = {
@@ -1564,7 +1564,7 @@ const setupVVTracker = (Guru) => {
                 const ownerJid = ownerNumber
                     ? ownerNumber.replace(/\D/g, "") + "@s.whatsapp.net"
                     : botJid;
-                const botName = settings.BOT_NAME || "BLACK PANTHER";
+                const botName = settings.BOT_NAME || "Tehseen Tech Automation";
 
                 const from = msg.key.remoteJid;
                 const msgContent = msg.message;

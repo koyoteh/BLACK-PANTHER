@@ -1,8 +1,8 @@
 <div align="center">
 
-# 🐾 BLACK PANTHER MD 🐾
+# 🐾 Tehseen Tech Automation 🐾
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=28&pause=1000&color=9B59B6&center=true&vCenter=true&width=600&lines=BLACK+PANTHER+MD;Ultimate+WhatsApp+Bot;Fast+%7C+Powerful+%7C+Unstoppable" alt="Typing SVG" />
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=28&pause=1000&color=9B59B6&center=true&vCenter=true&width=600&lines=Tehseen+Tech+Automation;Ultimate+WhatsApp+Bot;Fast+%7C+Powerful+%7C+Unstoppable" alt="Typing SVG" />
 
 <br/>
 
@@ -14,7 +14,7 @@
 
 <br/>
 
-> **⚡ Silent. Swift. Unstoppable. — The BLACK PANTHER WhatsApp Bot.**
+> **⚡ Silent. Swift. Unstoppable. — The Tehseen Tech Automation WhatsApp Bot.**
 
 </div>
 
@@ -71,7 +71,7 @@ TIME_ZONE=Africa/Nairobi
 ### VPS / Termux / Local
 ```bash
 git clone https://github.com/tehseentech/black-panther.git
-cd BLACK-PANTHER
+cd Tehseen-Tech-Automation
 npm install
 npm start
 ```
@@ -122,6 +122,6 @@ npm start
 
 **Built with 🐾 by [TEHSEENTECH](https://github.com/tehseentech)**
 
-*BLACK PANTHER MD — silent, swift, unstoppable.*
+*Tehseen Tech Automation — silent, swift, unstoppable.*
 
 </div>

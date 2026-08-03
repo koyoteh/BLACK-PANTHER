@@ -167,7 +167,7 @@ import { PANTHER_API_KEY, PANTHER_API_FALLBACK } from '../keys.js';
       let lastErr;
       for (const apikey of keys) {
           try {
-              const params = new URLSearchParams({ url: imgUrl, title, type: type || 'spotify', text: text || '', watermark: watermark || 'BLACK PANTHER MD', apikey });
+              const params = new URLSearchParams({ url: imgUrl, title, type: type || 'spotify', text: text || '', watermark: watermark || 'Tehseen Tech Automation', apikey });
               const res = await fetch(`${BASE}/tools/canvas?${params}`, { timeout: 30000 });
               if (!res.ok) { lastErr = new Error(`HTTP ${res.status}`); continue; }
               const ct = res.headers.get('content-type') || '';

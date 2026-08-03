@@ -1,5 +1,5 @@
 // ════════════════════════════════════════════════════════════════════════════
-//  BLACK PANTHER MD — Bot Entry Point
+//  Tehseen Tech Automation — Bot Entry Point
 //  by TehseenTech | github.com/tehseentech
 // ════════════════════════════════════════════════════════════════════════════
 
@@ -153,7 +153,7 @@ function startExpiryWatchdog() {
             async (msg) => {
                 global._licenceExpired = true;
                 console.warn("[EXPIRY] ⛔ Licence expired — commands locked.");
-                await notifyOwner(`⛔ *BLACK PANTHER MD — LICENCE EXPIRED*\n\n${msg}\n\n_Commands are locked. Renew your licence to continue._`);
+                await notifyOwner(`⛔ *Tehseen Tech Automation — LICENCE EXPIRED*\n\n${msg}\n\n_Commands are locked. Renew your licence to continue._`);
             },
             async (warnMsg) => notifyOwner(warnMsg),
         );

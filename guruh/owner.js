@@ -2181,7 +2181,7 @@ gmd(
       (errors.length
         ? `│\n│ *Errors:*\n${errors.slice(0, 5).map(e => `│ • ${e}`).join("\n")}\n`
         : "") +
-      `╰⊷ *${botName || "BLACK PANTHER"}*`;
+      `╰⊷ *${botName || "Tehseen Tech Automation"}*`;
 
     await react(failed === 0 ? "✅" : "⚠️");
     await reply(summary);
@@ -2341,7 +2341,7 @@ gmd(
       await react("✅");
       return reply(
         broadcastAll
-          ? `╭─⌈ 📢 *GROUP STATUS POSTED* ⌋\n│ ✅ Green ring posted to all groups!\n│ 👁 Members will see it on the\n│    group profile picture.\n╰⊷ *${botName || "BLACK PANTHER MD"}*`
+          ? `╭─⌈ 📢 *GROUP STATUS POSTED* ⌋\n│ ✅ Green ring posted to all groups!\n│ 👁 Members will see it on the\n│    group profile picture.\n╰⊷ *${botName || "Tehseen Tech Automation"}*`
           : `✅ *Group status posted!*\nMembers will see a green ring on the group profile.`
       );
     } catch (err) {

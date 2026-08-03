@@ -23,14 +23,14 @@ export default async (context) => {
 ▢ Status: ${status}
 ▢ Synopsis: ${synopsis}
 ▢ URL: ${data.url}
-└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
+└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`;
 
     await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
     await client.sendMessage(m.chat, { image: { url: imageUrl }, caption: message });
   } catch (error) {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
    sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
-▢ An error occurred fetching anime.\n▢ Try again, weeb.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ An error occurred fetching anime.\n▢ Try again, weeb.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
   }
 
 }

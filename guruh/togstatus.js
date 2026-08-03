@@ -39,7 +39,7 @@ gmd(
             isForwarded: true,
             forwardedNewsletterMessageInfo: {
                 newsletterJid: newsletterJid || "120363200367779016@newsletter",
-                newsletterName: botName || "BLACK PANTHER MD",
+                newsletterName: botName || "Tehseen Tech Automation",
                 serverMessageId: 143,
             },
             mentionedJid: [mek.key.participant || from],

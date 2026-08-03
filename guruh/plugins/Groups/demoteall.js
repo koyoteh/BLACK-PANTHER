@@ -5,7 +5,7 @@ const BOX = (title, lines) => {
     const body = (Array.isArray(lines) ? lines : [lines]).map(l => `▢ ${l}`).join('\n');
     return `⚡ ──「 ${title} 」──
 │
-${body}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
+${body}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`;
 };
 
 const resolveP = (p, participants) => {

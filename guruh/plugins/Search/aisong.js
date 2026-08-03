@@ -17,7 +17,7 @@ export default {
 
         if (!prompt) {
             return sendInteractive(client, m, `⚡ ──「 Eʀʀoʀ 」──
-▢ Give me something to work with.\n▢ Example: ${prefix}aisong a sad love song about rain\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n> ©𝒯𝓎𝓌𝓂𝓃𝓁 𝒱𝒵 𝓽𝓵_𝓬𝓵𝓲𝓷𝓼𝓸𝓷`);
+▢ Give me something to work with.\n▢ Example: ${prefix}aisong a sad love song about rain\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──\n> ©𝒯𝓎𝓌𝓂𝓃𝓁 𝒱𝒵 𝓽𝓵_𝓬𝓵𝓲𝓷𝓼𝓸𝓷`);
         }
 
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
@@ -37,16 +37,16 @@ export default {
                     fileName: 'song.mp3'
                 });
                 await sendInteractive(client, m, `⚡ ──「 AI Sᴏɴɢ 」──
-▢ Prompt: ${prompt}\n▢ Generated successfully.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n> ©𝒯𝓎𝓌𝓂𝓃𝓁 𝒱𝒵 𝓽𝓵_𝓬𝓵𝓲𝓷𝓼𝓸𝓷`);
+▢ Prompt: ${prompt}\n▢ Generated successfully.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──\n> ©𝒯𝓎𝓌𝓂𝓃𝓁 𝒱𝒵 𝓽𝓵_𝓬𝓵𝓲𝓷𝓼𝓸𝓷`);
             } else {
                 const display = typeof result === 'string' ? result : JSON.stringify(result);
                 await sendInteractive(client, m, `⚡ ──「 AI Sᴏɴɢ 」──
-▢ Prompt: ${prompt}\n▢ \n▢ ${display}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n> ©𝒯𝓎𝓌𝓂𝓃𝓁 𝒱𝒵 𝓽𝓵_𝓬𝓵𝓲𝓷𝓼𝓸𝓷`);
+▢ Prompt: ${prompt}\n▢ \n▢ ${display}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──\n> ©𝒯𝓎𝓌𝓂𝓃𝓁 𝒱𝒵 𝓽𝓵_𝓬𝓵𝓲𝓷𝓼𝓸𝓷`);
             }
         } catch {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
             await sendInteractive(client, m, `⚡ ──「 Fᴀɪʟᴇᴅ 」──
-▢ Song generation failed. Try again.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n> ©𝒯𝓎𝓌𝓂𝓃𝓁 𝒱𝒵 𝓽𝓵_𝓬𝓵𝓲𝓷𝓼𝓸𝓷`);
+▢ Song generation failed. Try again.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──\n> ©𝒯𝓎𝓌𝓂𝓃𝓁 𝒱𝒵 𝓽𝓵_𝓬𝓵𝓲𝓷𝓼𝓸𝓷`);
         }
     }
 };

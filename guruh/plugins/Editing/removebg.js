@@ -17,7 +17,7 @@ export default {
         if (!/image/.test(quotedMime)) {
             return client.sendMessage(m.chat, {
                 text: `⚡ ──「 REMOVE BG 」──
-▢ Do you have eyes? That's clearly\n▢ not an image. Quote an actual image\n▢ file, you incompetent fool.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`,
+▢ Do you have eyes? That's clearly\n▢ not an image. Quote an actual image\n▢ file, you incompetent fool.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`,
                 mentions: [m.sender]
             });
         }
@@ -27,13 +27,13 @@ export default {
             if (!media) {
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
                 return sendInteractive(client, m, `⚡ ──「 FAILED 」──
-▢ Failed to download the image.\n▢ Your device is probably as defective\n▢ as your judgment.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Failed to download the image.\n▢ Your device is probably as defective\n▢ as your judgment.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
             }
 
             if (media.length > 10 * 1024 * 1024) {
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
                 return sendInteractive(client, m, `⚡ ──「 FAILED 」──
-▢ Image exceeds 10MB limit.\n▢ Do you think I have infinite storage?\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Image exceeds 10MB limit.\n▢ Do you think I have infinite storage?\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
             }
 
             const imageUrl = await uploadTempUrl(media, 'png');
@@ -67,7 +67,7 @@ export default {
                 { 
                     image: transparentImage, 
                     caption: `⚡ ──「 REMOVE BG 」──
-▢ Background successfully removed.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
+▢ Background successfully removed.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`
                 }
             );
 
@@ -79,7 +79,7 @@ export default {
                         mimetype: 'image/png',
                         fileName: `transparent_bg_${Date.now()}.png`,
                         caption: `⚡ ──「 PNG FILE 」──
-▢ PNG version for higher quality.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
+▢ PNG version for higher quality.\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`
                     }
                 );
             }
@@ -106,7 +106,7 @@ export default {
             }
 
             await sendInteractive(client, m, `⚡ ──「 FAILED 」──
-▢ Background removal failed.\n▢ Error: ${errorMessage}\n▢ \n▢ Suggestions:\n▢ Use clear, high-contrast images\n▢ Ensure subject has defined edges\n▢ Try a simpler composition\n▢ Check your internet connection\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Background removal failed.\n▢ Error: ${errorMessage}\n▢ \n▢ Suggestions:\n▢ Use clear, high-contrast images\n▢ Ensure subject has defined edges\n▢ Try a simpler composition\n▢ Check your internet connection\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
         }
     }
 };

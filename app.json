@@ -1,7 +1,7 @@
 {
-  "name": "BLACK PANTHER MD",
+  "name": "Tehseen Tech Automation",
   "version": "5.0.0",
-  "description": "BLACK PANTHER - A Powerful Multi-Device WhatsApp Bot built by TehseenTech to Enhance Your WhatsApp Experience",
+  "description": "Tehseen Tech Automation - A Powerful Multi-Device WhatsApp Bot built by TehseenTech to Enhance Your WhatsApp Experience",
   "logo": "https://res.cloudinary.com/dqxlb29uz/image/upload/v1780267810/bwm_uploads/media-1780267810008.jpg",
   "keywords": ["black-panther", "tehseentech", "whatsapp-bot", "black-panther-md"],
   "success_url": "/",
@@ -15,7 +15,7 @@
     "BOT_NAME": {
       "description": "Name of your bot",
       "required": false,
-      "value": "BLACK PANTHER MD"
+      "value": "Tehseen Tech Automation"
     },
     "OWNER_NAME": {
       "description": "Owner name",

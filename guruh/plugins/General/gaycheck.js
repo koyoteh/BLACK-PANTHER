@@ -35,7 +35,7 @@ export default {
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
         return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
-▢ Who the fuck am I torching?\n▢ Tag someone or I'll roast your\n▢ sorry ass to ashes!\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ Who the fuck am I torching?\n▢ Tag someone or I'll roast your\n▢ sorry ass to ashes!\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
       }
 
       targetNumber = targetUser.split('@')[0];
@@ -43,7 +43,7 @@ export default {
         console.error(`Failed to extract target number from JID: ${targetUser}`);
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
         return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
-▢ This user's ID is fucked beyond\n▢ repair. Try again, you brainless twit!\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ This user's ID is fucked beyond\n▢ repair. Try again, you brainless twit!\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
       }
 
     
@@ -51,7 +51,7 @@ export default {
         m.chat,
         {
           text: `⚡ ──「 Sᴄᴀɴɴɪɴɢ 」──
-▢ Cracking open @${targetNumber}'s soul\n▢ for gay vibes...\n▢ This is gonna hurt like hell,\n▢ you weakling!\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`,
+▢ Cracking open @${targetNumber}'s soul\n▢ for gay vibes...\n▢ This is gonna hurt like hell,\n▢ you weakling!\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`,
           mentions: [targetUser] }
       );
 
@@ -260,7 +260,7 @@ export default {
 ▢ *DISCLAIMER:* This is 100% accurate
 ▢ and scientific, you sensitive
 ▢ snowflake! Cry about it!
-└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
+└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`;
 
       await client.sendMessage(
         m.chat,
@@ -282,6 +282,6 @@ export default {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
       console.error(`Gaycheck command detonated: ${error.stack}`);
       await sendInteractive(client, m, `⚡ ──「 Cʀᴀsʜᴇᴅ 」──
-▢ This shit blew up harder than your\n▢ ego! Can't check gay levels now,\n▢ you doomed idiot!\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
+▢ This shit blew up harder than your\n▢ ego! Can't check gay levels now,\n▢ you doomed idiot!\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`);
     }
   } };

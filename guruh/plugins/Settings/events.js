@@ -11,7 +11,7 @@ export default async (context) => {
     const jid = m.chat;
 
     const formatStylishReply = (message) => {
-      return `▢ ${message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
+      return `▢ ${message}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`;
     };
 
     try {
@@ -35,7 +35,7 @@ export default async (context) => {
 
       const value = args[0]?.toLowerCase();
       let groupSettings = await getGroupSettings(jid);
-      console.log('BLACK-PANTHER-MD: Group settings for', jid, ':', groupSettings);
+      console.log('Tehseen-Tech-Automation: Group settings for', jid, ':', groupSettings);
       let isEnabled = groupSettings?.events === true || groupSettings?.events === 1;
 
       if (value === 'on' || value === 'off') {
@@ -69,7 +69,7 @@ export default async (context) => {
       if (_devMode === 'ios') {
           await client.sendMessage(m.chat, { react: { text: '📋', key: m.reactKey } });
           await sendInteractive(client, m, `⚡ ──「 EVENTS 」──
-▢ Status: ${settings.events ? 'ON ✅' : 'OFF ❌'}\n▢ \n▢ Options:\n▢ ${prefix}events on\n▢ ${prefix}events off\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n> 🌐 wa.me/254116284050`);
+▢ Status: ${settings.events ? 'ON ✅' : 'OFF ❌'}\n▢ \n▢ Options:\n▢ ${prefix}events on\n▢ ${prefix}events off\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──\n> 🌐 wa.me/254116284050`);
       } else {
     const _msg = generateWAMessageFromContent(
             m.chat,
@@ -104,7 +104,7 @@ export default async (context) => {
       }
     } catch (error) {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-      console.error('BLACK-PANTHER-MD: Error in events.js:', error.stack);
+      console.error('Tehseen-Tech-Automation: Error in events.js:', error.stack);
       await client.sendMessage(
         m.chat,
         {

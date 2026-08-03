@@ -176,7 +176,7 @@ gmd(
 
             // Header
             doc.fontSize(11).font("Courier-Bold").fillColor("#1a1a2e")
-                .text(`BLACK PANTHER MD — ${target}`, { align: "center" });
+                .text(`Tehseen Tech Automation — ${target}`, { align: "center" });
             doc.moveDown(0.3);
             doc.fontSize(8).font("Courier").fillColor("#555555")
                 .text(`Generated: ${new Date().toUTCString()}  |  Lines: ${lines.length}`, { align: "center" });

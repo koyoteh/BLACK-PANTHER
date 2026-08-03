@@ -19,7 +19,7 @@ const fetchLatestCommit = async (axios, repo) => {
             headers: {
                 "Accept": "application/vnd.github.v3+json",
                 "Cache-Control": "no-cache",
-                "User-Agent": "BLACK-PANTHER-Bot",
+                "User-Agent": "Tehseen-Tech-Automation-Bot",
             },
         }
     );

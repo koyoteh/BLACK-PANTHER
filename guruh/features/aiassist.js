@@ -68,7 +68,7 @@ function boxWrap(text, title) {
     const body = processed.join('\n');
     return `⚡ ──「 ${title} 」──
 │
-${body}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
+${body}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`;
 }
 
 function isClearIntent(text) {
@@ -399,7 +399,7 @@ export default async (context) => {
         if (toolName === 'upload_image_to_github') {
             if (!pendingImageBuf) return 'no image found. quote or send an image first.';
             try {
-                const url = await uploadImageToGithub(args.owner || GH_USERNAME, args.repo || 'BLACK-PANTHER', pendingImageBuf, pendingImageExt);
+                const url = await uploadImageToGithub(args.owner || GH_USERNAME, args.repo || 'Tehseen-Tech-Automation', pendingImageBuf, pendingImageExt);
                 imageUploadedUrl = url;
                 return `image uploaded 📎 link: ${url}`;
             } catch { return 'image upload ran into an error 😒'; }
@@ -419,7 +419,7 @@ export default async (context) => {
         { type: 'function', function: { name: 'delete_repo', description: 'Permanently delete a single named GitHub repository. NEVER call this with "all" or without a specific repo name.', parameters: { type: 'object', properties: { owner: { type: 'string', description: 'Owner, default xhclintohn' }, name: { type: 'string', description: 'Exact repo name to delete. Must be a specific name, never "all" or wildcard.' } }, required: ['owner', 'name'] } } },
         { type: 'function', function: { name: 'rename_repo', description: 'Rename a GitHub repository', parameters: { type: 'object', properties: { owner: { type: 'string' }, old_name: { type: 'string' }, new_name: { type: 'string' } }, required: ['owner', 'old_name', 'new_name'] } } },
         { type: 'function', function: { name: 'upload_file', description: 'Upload or create a text file in a GitHub repository', parameters: { type: 'object', properties: { owner: { type: 'string' }, repo: { type: 'string' }, file_path: { type: 'string' }, content: { type: 'string' }, message: { type: 'string' } }, required: ['owner', 'repo', 'file_path', 'content'] } } },
-        { type: 'function', function: { name: 'upload_image_to_github', description: 'Upload the image sent/quoted by the user to a GitHub repository and return the link', parameters: { type: 'object', properties: { owner: { type: 'string' }, repo: { type: 'string', description: 'Which repo to upload to, default BLACK-PANTHER' } }, required: ['repo'] } } },
+        { type: 'function', function: { name: 'upload_image_to_github', description: 'Upload the image sent/quoted by the user to a GitHub repository and return the link', parameters: { type: 'object', properties: { owner: { type: 'string' }, repo: { type: 'string', description: 'Which repo to upload to, default Tehseen-Tech-Automation' } }, required: ['repo'] } } },
         { type: 'function', function: { name: 'read_file', description: 'Read/check the content of a specific file in a GitHub repository', parameters: { type: 'object', properties: { owner: { type: 'string' }, repo: { type: 'string' }, file_path: { type: 'string', description: 'Path to file like src/index.js or README.md' } }, required: ['owner', 'repo', 'file_path'] } } },
         { type: 'function', function: { name: 'get_auth_user', description: 'Get info about the authenticated GitHub user — name, repo count, followers etc. Do NOT call this to find repo names.', parameters: { type: 'object', properties: {} } } },
         { type: 'function', function: { name: 'get_repo_info', description: 'Get details about a specific GitHub repository', parameters: { type: 'object', properties: { owner: { type: 'string' }, repo: { type: 'string' } }, required: ['owner', 'repo'] } } },
@@ -547,7 +547,7 @@ export default async (context) => {
             await client.sendMessage(m.chat, {
                 text: `⚡ ──「 IMAGE UPLOADED 」──
 │
-▢ 🔗 ${imageUploadedUrl}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
+▢ 🔗 ${imageUploadedUrl}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`
             });
         }
         try { await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } }); } catch {}

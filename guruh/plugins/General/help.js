@@ -17,7 +17,7 @@ export default {
 
         const fmt = (title, body) =>
             `⚡ ──「 ${title} 」──
-${body}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
+${body}\n└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`;
 
         if (!args || args.length === 0) {
             const pluginsDir = path.join(__dirname, '..');

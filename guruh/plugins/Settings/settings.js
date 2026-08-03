@@ -12,7 +12,7 @@ export default {
       const { client, m, prefix } = context;
       await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
       await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
-      const bName = botname || 'BLACK-PANTHER-MD';
+      const bName = botname || 'Tehseen-Tech-Automation';
 
       const settings = await getSettings();
       const sudoUsers = await getSudoUsers();
@@ -120,7 +120,7 @@ export default {
         fmt(
           'Sticker Pack Name',
           'Sets the pack name shown on stickers created by the bot.',
-          settings.packname || 'BLACK-PANTHER-MD',
+          settings.packname || 'Tehseen-Tech-Automation',
           `${prefix}stickerwm <name>`,
           `${prefix}stickerwm MyPack`
         ) +
@@ -169,7 +169,7 @@ export default {
         `⚡ ──「 Tips 」──\n` +
         `▢ Only owner/sudo can change settings.\n` +
         `▢ Settings save instantly to database.\n` +
-        `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
+        `└──✦ 𝐓𝐄𝐇𝐒𝐄𝐄𝐍 𝐓𝐄𝐂𝐇 ✦──`;
 
       await sendInteractive(client, m, message);
     });
