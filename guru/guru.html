@@ -4,355 +4,209 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tehseen Tech Automation | Premium WhatsApp Bot</title>
-
-    <!-- Metadata for SEO -->
-    <meta name="description" content="Tehseen Tech Automation - Premium WhatsApp Bot by TEHSEENTECH LAB">
+    <meta name="description" content="Tehseen Tech Automation - Premium WhatsApp Bot by TehseenTech">
     <meta property="og:title" content="Tehseen Tech Automation | Premium WhatsApp Bot">
-    <meta property="og:description" content="Tehseen Tech Automation is Active & Running | Deploy Your Own Bot Now">
+    <meta property="og:description" content="Premium WhatsApp Bot — Pair your number and deploy in seconds.">
     <meta property="og:image" content="https://res.cloudinary.com/dqxlb29uz/image/upload/v1780267810/bwm_uploads/media-1780267810008.jpg">
-    <meta property="og:url" content="https://github.com/tehseentech/black-panther">
     <link rel="icon" href="https://res.cloudinary.com/dqxlb29uz/image/upload/v1780267810/bwm_uploads/media-1780267810008.jpg">
-
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{min-height:100vh;background:linear-gradient(135deg,#0a0a0a 0%,#0a1a2a 50%,#0a0f1e 100%);font-family:'Segoe UI',system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;position:relative;overflow-x:hidden}
+        body::before{content:'';position:absolute;width:100%;height:100%;background-image:url('https://res.cloudinary.com/dqxlb29uz/image/upload/v1780267810/bwm_uploads/media-1780267810008.jpg');background-size:cover;background-position:center;opacity:.04;z-index:0;pointer-events:none}
+        body::after{content:'';position:absolute;width:100%;height:100%;background:radial-gradient(circle at 50% 50%,rgba(0,184,255,.03) 0%,transparent 80%);z-index:0;pointer-events:none}
+        .page{position:relative;z-index:1;width:100%;max-width:560px}
 
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #0a0a0a 0%, #0a1a2a 50%, #0a0f1e 100%);
-            font-family: 'Poppins', 'Segoe UI', system-ui, sans-serif;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-        }
+        .hero{text-align:center;margin-bottom:28px}
+        .bot-name{font-size:2.4em;font-weight:900;background:linear-gradient(135deg,#00b8ff,#1E90FF,#00b8ff);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:2px;text-transform:uppercase;animation:gradientShift 3s ease-in-out infinite;background-size:200% 200%}
+        @keyframes gradientShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+        .tagline{color:#8899aa;font-size:.95rem;margin-top:8px}
+        .status-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(0,255,100,.08);border:1px solid rgba(0,255,100,.25);border-radius:50px;padding:6px 18px;margin-top:14px;font-size:.85rem;color:#4f4;font-weight:600}
+        .dot{width:10px;height:10px;background:#4f4;border-radius:50%;animation:pulse 1.5s ease-in-out infinite}
+        @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(0,255,100,.5)}50%{opacity:.7;box-shadow:0 0 0 8px rgba(0,255,100,0)}}
+        .badges{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+        .badge{background:rgba(0,184,255,.1);border:1px solid rgba(0,184,255,.25);border-radius:50px;padding:5px 14px;font-size:.8rem;color:#00b8ff;font-weight:600}
 
-        /* Animated background particles */
-        body::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://res.cloudinary.com/dqxlb29uz/image/upload/v1780267810/bwm_uploads/media-1780267810008.jpg');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.05;
-            z-index: 0;
-            pointer-events: none;
-        }
+        .card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:36px 32px;backdrop-filter:blur(12px);box-shadow:0 8px 48px rgba(0,0,0,.5)}
+        .tabs{display:flex;gap:0;margin-bottom:24px;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.1)}
+        .tab{flex:1;padding:12px;text-align:center;font-size:.9rem;font-weight:700;color:#667;cursor:pointer;background:transparent;border:none;transition:all .2s}
+        .tab.active{background:rgba(0,184,255,.15);color:#00b8ff}
+        .tab:hover:not(.active){background:rgba(255,255,255,.04)}
+        .panel{display:none}.panel.active{display:block}
 
-        body::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(0,184,255,0.03) 0%, transparent 80%);
-            z-index: 0;
-            pointer-events: none;
-        }
+        .info-grid{display:grid;gap:12px}
+        .info-row{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:rgba(255,255,255,.03);border-radius:10px;border:1px solid rgba(255,255,255,.06)}
+        .info-label{color:#8899aa;font-size:.85rem}
+        .info-value{color:#fff;font-size:.9rem;font-weight:600;font-family:monospace}
+        .features{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+        .feat{display:flex;align-items:center;gap:8px;padding:10px 12px;background:rgba(0,184,255,.05);border:1px solid rgba(0,184,255,.12);border-radius:10px;font-size:.82rem;color:#aabbd0}
 
-        .container {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            padding: 40px;
-            background: rgba(10, 20, 30, 0.75);
-            backdrop-filter: blur(15px);
-            border-radius: 40px;
-            border: 1px solid rgba(0, 184, 255, 0.3);
-            box-shadow: 0 0 50px rgba(0, 184, 255, 0.1);
-            animation: borderPulse 3s ease-in-out infinite;
-            max-width: 90%;
-            width: 550px;
-        }
-
-        @keyframes borderPulse {
-            0%, 100% {
-                border-color: rgba(0, 184, 255, 0.3);
-                box-shadow: 0 0 30px rgba(0, 184, 255, 0.1);
-            }
-            50% {
-                border-color: rgba(0, 184, 255, 0.8);
-                box-shadow: 0 0 60px rgba(0, 184, 255, 0.3);
-            }
-        }
-
-        .glow {
-            font-size: 2.2em;
-            font-weight: 800;
-            color: #fff;
-            text-align: center;
-            animation: textGlow 3s ease-in-out infinite;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-        }
-
-        @keyframes textGlow {
-            0%, 100% {
-                text-shadow: 0 0 10px #00b8ff, 0 0 20px #00b8ff, 0 0 30px #00b8ff;
-                color: #ffffff;
-            }
-            50% {
-                text-shadow: 0 0 20px #1E90FF, 0 0 40px #1E90FF, 0 0 60px #1E90FF;
-                color: #00b8ff;
-            }
-        }
-
-        .bot-name {
-            font-size: 2.8em;
-            font-weight: 900;
-            background: linear-gradient(135deg, #00b8ff, #1E90FF, #00b8ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 15px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            animation: gradientShift 3s ease-in-out infinite;
-        }
-
-        @keyframes gradientShift {
-            0%, 100% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-        }
-
-        .status-card {
-            background: rgba(0, 184, 255, 0.08);
-            border-radius: 20px;
-            padding: 20px;
-            margin: 20px 0;
-            border: 1px solid rgba(0, 184, 255, 0.2);
-        }
-
-        .current-info {
-            font-size: 1.1em;
-            color: #00b8ff;
-            font-family: monospace;
-            letter-spacing: 1px;
-            margin: 15px 0;
-            padding: 12px;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 15px;
-            word-break: break-word;
-        }
-
-        .badge-container {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin: 20px 0;
-        }
-
-        .badge {
-            background: rgba(0, 184, 255, 0.12);
-            border: 1px solid rgba(0, 184, 255, 0.3);
-            border-radius: 50px;
-            padding: 8px 18px;
-            font-size: 0.85em;
-            color: #00b8ff;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .badge:hover {
-            background: rgba(0, 184, 255, 0.25);
-            transform: scale(1.05);
-        }
-
-        .btn-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            justify-content: center;
-            margin-top: 22px;
-        }
-
-        .icon-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 9px;
-            padding: 11px 22px;
-            border-radius: 8px;
-            font-size: 0.95em;
-            font-weight: 600;
-            text-decoration: none;
-            cursor: pointer;
-            transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
-            letter-spacing: 0.3px;
-            border: none;
-            white-space: nowrap;
-        }
-
-        .icon-btn svg {
-            width: 18px;
-            height: 18px;
-            flex-shrink: 0;
-            fill: currentColor;
-        }
-
-        .icon-btn.gh-dark {
-            background: #24292e;
-            color: #ffffff;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-        }
-        .icon-btn.gh-dark:hover {
-            background: #393f45;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 14px rgba(0,0,0,0.5);
-        }
-
-        .icon-btn.gh-green {
-            background: #2ea44f;
-            color: #ffffff;
-            box-shadow: 0 2px 8px rgba(46,164,79,0.35);
-        }
-        .icon-btn.gh-green:hover {
-            background: #2c974b;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 14px rgba(46,164,79,0.5);
-        }
-
-        .icon-btn.gh-outline {
-            background: transparent;
-            color: #c9d1d9;
-            border: 1px solid rgba(201,209,217,0.25);
-            box-shadow: none;
-        }
-        .icon-btn.gh-outline:hover {
-            background: rgba(201,209,217,0.08);
-            border-color: rgba(201,209,217,0.5);
-            transform: translateY(-2px);
-        }
-
-        .developer {
-            margin-top: 20px;
-            font-size: 0.9em;
-            color: #6c757d;
-            text-align: center;
-        }
-
-        .developer a {
-            color: #00b8ff;
-            text-decoration: none;
-        }
-
-        .pulse {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            background-color: #00ff00;
-            border-radius: 50%;
-            animation: pulse 1.5s ease-in-out infinite;
-            margin-right: 8px;
-            vertical-align: middle;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 1;
-                transform: scale(1);
-                box-shadow: 0 0 0 0 rgba(0, 255, 0, 0.7);
-            }
-            50% {
-                opacity: 0.7;
-                transform: scale(1.1);
-                box-shadow: 0 0 0 10px rgba(0, 255, 0, 0);
-            }
-        }
-
-        @media (max-width: 600px) {
-            .container {
-                padding: 25px;
-                width: 95%;
-            }
-            .bot-name {
-                font-size: 1.8em;
-            }
-            .glow {
-                font-size: 1.5em;
-            }
-            .current-info {
-                font-size: 0.85em;
-            }
-        }
+        label{display:block;color:#aabbd0;font-size:.8rem;font-weight:600;margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em}
+        input{width:100%;padding:13px 16px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:10px;color:#fff;font-size:1rem;outline:none;transition:border-color .2s}
+        input:focus{border-color:#4ea8ff}
+        input::placeholder{color:#445566}
+        button{width:100%;margin-top:14px;padding:14px;background:linear-gradient(135deg,#1a6fff,#0a4fcc);border:none;border-radius:10px;color:#fff;font-size:1rem;font-weight:700;cursor:pointer;transition:opacity .2s}
+        button:hover{opacity:.88}
+        button:disabled{opacity:.4;cursor:not-allowed}
+        .step{display:none}.step.active{display:block}
+        .code-box{background:rgba(30,215,96,.1);border:2px solid rgba(30,215,96,.3);border-radius:14px;padding:24px;text-align:center;margin:20px 0}
+        .code{font-size:2.6rem;font-weight:900;color:#1ed760;letter-spacing:6px;font-family:'Courier New',monospace}
+        .code-label{color:#aac;font-size:.78rem;margin-top:6px}
+        .instructions{background:rgba(255,255,255,.04);border-radius:10px;padding:16px;margin-top:16px}
+        .instructions ol{color:#aabbd0;font-size:.85rem;line-height:1.9;padding-left:20px}
+        .success-box{background:rgba(30,215,96,.1);border:2px solid rgba(30,215,96,.4);border-radius:14px;padding:20px;margin:16px 0}
+        .session-title{color:#1ed760;font-weight:700;font-size:.9rem;margin-bottom:10px}
+        .session-val{background:rgba(0,0,0,.4);border-radius:8px;padding:12px;font-family:'Courier New',monospace;font-size:.72rem;color:#7ff;word-break:break-all;max-height:110px;overflow-y:auto;line-height:1.4}
+        .copy-btn{width:100%;margin-top:10px;padding:11px;background:rgba(30,215,96,.2);border:1px solid rgba(30,215,96,.4);border-radius:8px;color:#1ed760;font-weight:700;font-size:.9rem;cursor:pointer;transition:background .2s}
+        .copy-btn:hover{background:rgba(30,215,96,.3)}
+        .warning{background:rgba(255,170,0,.1);border:1px solid rgba(255,170,0,.3);border-radius:10px;padding:14px;margin-top:16px;color:#ffa;font-size:.82rem;line-height:1.6}
+        .warning strong{color:#ffd740}
+        .status-msg{text-align:center;color:#8899aa;font-size:.85rem;margin-top:14px;min-height:20px}
+        .spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.2);border-top-color:#4ea8ff;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        .err-box{background:rgba(255,60,60,.1);border:1px solid rgba(255,60,60,.3);border-radius:10px;padding:14px;margin-top:14px;color:#ff9999;font-size:.84rem}
+        .back-btn{width:100%;margin-top:12px;padding:11px;background:transparent;border:1px solid rgba(255,255,255,.15);border-radius:8px;color:#889;font-size:.85rem;cursor:pointer;transition:border-color .2s}
+        .back-btn:hover{border-color:rgba(255,255,255,.35)}
+        .step-badge{display:inline-block;background:rgba(78,168,255,.15);border:1px solid rgba(78,168,255,.3);border-radius:20px;padding:3px 12px;font-size:.75rem;color:#4ea8ff;margin-bottom:18px}
+        .footer{text-align:center;margin-top:24px;color:#445;font-size:.8rem}
+        .footer a{color:#00b8ff;text-decoration:none}
+        @media(max-width:500px){.bot-name{font-size:1.6em}.card{padding:24px 20px}.features{grid-template-columns:1fr}.code{font-size:2rem;letter-spacing:4px}}
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="bot-name">
-            🎖️ Tehseen Tech Automation 🎖️
-        </div>
-        
-        <div class="glow">
-            ✅ DEPLOYMENT SUCCESSFUL!<br>
-            BOT IS NOW ACTIVE & RUNNING
-        </div>
-        
-        <div class="status-card">
-            <div style="margin-bottom: 10px;">
-                <span class="pulse"></span>
-                <span style="font-weight: bold; color: #00b8ff;">LIVE STATUS</span>
-            </div>
-            <div class="current-info" id="Info">Loading...</div>
-        </div>
-
-        <div class="badge-container">
-            <span class="badge">⚡ Premium Bot</span>
-            <span class="badge">🤖 Multi-Device</span>
-            <span class="badge">🚀 24/7 Online</span>
-            <span class="badge">🔒 Secure</span>
-        </div>
-
-        <div class="btn-row">
-            <a href="https://github.com/tehseentech/black-panther" target="_blank" class="icon-btn gh-dark">
-                <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
-                View on GitHub
-            </a>
-            <a href="https://github.com/tehseentech/black-panther/fork" target="_blank" class="icon-btn gh-green">
-                <svg viewBox="0 0 16 16"><path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75v-.878a2.25 2.25 0 1 1 1.5 0v.878a2.25 2.25 0 0 1-2.25 2.25h-1.5v2.128a2.251 2.251 0 1 1-1.5 0V8.5h-1.5A2.25 2.25 0 0 1 3.5 6.25v-.878a2.25 2.25 0 1 1 1.5 0ZM5 3.25a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Zm6.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm-3 8.75a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z"/></svg>
-                Fork Repo
-            </a>
-            <a href="https://github.com/tehseentech/black-panther" target="_blank" class="icon-btn gh-outline">
-                <svg viewBox="0 0 16 16"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/></svg>
-                Star
-            </a>
-        </div>
-
-        <div class="developer">
-            Developed with 💙 by <a href="https://github.com/tehseentech" target="_blank">TEHSEENTECH</a>
+<div class="page">
+    <div class="hero">
+        <div class="bot-name">Tehseen Tech Automation</div>
+        <p class="tagline">Premium WhatsApp Bot — Ultra Fast, Ultra Secure</p>
+        <div class="status-pill"><span class="dot"></span> Online &amp; Running</div>
+        <div class="badges">
+            <span class="badge">Multi-Device</span>
+            <span class="badge">24/7 Uptime</span>
+            <span class="badge">500+ Commands</span>
+            <span class="badge">Encrypted</span>
         </div>
     </div>
-</body>
-<script>
-    function updateInfo() {
-        const now = new Date();
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const seconds = String(now.getSeconds()).padStart(2, '0');
-        
-        const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-        const dayName = dayNames[now.getDay()];
-        
-        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        const date = `${monthNames[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
-        
-        const timeString = `${hours}:${minutes}:${seconds}`;
-        const infoString = `🕐 ${timeString} • 📅 ${date} • 📆 ${dayName}`;
-        
-        document.getElementById('Info').textContent = infoString;
-    }
 
-    setInterval(updateInfo, 1000);
-    updateInfo();
+    <div class="card">
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab('home')">Status</div>
+            <div class="tab" onclick="switchTab('pair')">Pair Device</div>
+        </div>
+
+        <div class="panel active" id="panel-home">
+            <div class="info-grid">
+                <div class="info-row"><span class="info-label">Server</span><span class="info-value" style="color:#4f4">ONLINE</span></div>
+                <div class="info-row"><span class="info-label">Time</span><span class="info-value" id="liveTime">--:--:--</span></div>
+                <div class="info-row"><span class="info-label">Uptime</span><span class="info-value" id="uptime">Loading...</span></div>
+            </div>
+            <div class="features">
+                <div class="feat"><span>🤖</span> AI Chat</div>
+                <div class="feat"><span>🎵</span> Music &amp; Media</div>
+                <div class="feat"><span>🛡️</span> Anti-Link</div>
+                <div class="feat"><span>📊</span> Group Tools</div>
+                <div class="feat"><span>🎨</span> Sticker Maker</div>
+                <div class="feat"><span>🔒</span> Privacy Guard</div>
+            </div>
+        </div>
+
+        <div class="panel" id="panel-pair">
+            <div class="step active" id="step1">
+                <div style="text-align:center;margin-bottom:20px"><span class="step-badge">Step 1 of 3 — Enter your number</span></div>
+                <label for="phone">Your WhatsApp Number</label>
+                <input type="tel" id="phone" placeholder="e.g. 254763986398" autocomplete="off">
+                <p style="color:#556;font-size:.78rem;margin-top:6px">Include country code, no + sign. E.g. 254700000000</p>
+                <button id="pairBtn" onclick="startPair()">Get Pairing Code</button>
+                <div class="status-msg" id="status1"></div>
+            </div>
+            <div class="step" id="step2">
+                <div style="text-align:center;margin-bottom:20px"><span class="step-badge">Step 2 of 3 — Enter this code in WhatsApp</span></div>
+                <div class="code-box">
+                    <div class="code" id="pairingCode">---- ----</div>
+                    <div class="code-label">Enter this code in WhatsApp Linked Devices</div>
+                </div>
+                <div class="instructions"><ol>
+                    <li>Open <strong style="color:#fff">WhatsApp</strong> on your phone</li>
+                    <li>Tap <strong style="color:#fff">Menu → Linked Devices</strong></li>
+                    <li>Tap <strong style="color:#fff">Link a Device</strong></li>
+                    <li>Tap <strong style="color:#fff">"Link with phone number instead"</strong></li>
+                    <li>Enter the code above</li>
+                </ol></div>
+                <div class="status-msg" id="status2"><span class="spinner"></span> Waiting for you to enter the code...</div>
+                <div class="err-box" id="errBox2" style="display:none"></div>
+                <button class="back-btn" onclick="goBack()">Use a different number</button>
+            </div>
+            <div class="step" id="step3">
+                <div style="text-align:center;margin-bottom:20px"><span class="step-badge">Step 3 of 3 — Save your Session ID</span></div>
+                <div class="success-box">
+                    <div class="session-title">Linked! Your new Session ID:</div>
+                    <div class="session-val" id="sessionVal">...</div>
+                    <button class="copy-btn" onclick="copySession()">Copy Session ID</button>
+                </div>
+                <div class="warning">
+                    <strong>Next steps:</strong><br>
+                    1. Copy the Session ID above<br>
+                    2. Go to your deployment platform settings<br>
+                    3. Set <code style="background:rgba(0,0,0,.3);padding:1px 5px;border-radius:4px">SESSION_ID</code> to the copied value<br>
+                    4. Restart the bot — it will connect automatically!
+                </div>
+                <button class="back-btn" style="margin-top:16px" onclick="goBack()">Link another number</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">Powered by <a href="https://whatsapp.com/channel/0029Vb7jauLHLHQbkcbcHi0e" target="_blank">TehseenTech</a></div>
+</div>
+
+<script>
+function switchTab(name){
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    document.querySelector('.tab:nth-child('+(name==='home'?1:2)+')').classList.add('active');
+    document.getElementById('panel-'+name).classList.add('active');
+}
+function updateClock(){
+    document.getElementById('liveTime').textContent=new Date().toLocaleTimeString('en-US',{hour12:false});
+}
+function updateUptime(){
+    fetch('/health').then(r=>r.json()).then(d=>{
+        var s=Math.floor(d.uptime),h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sec=s%60;
+        document.getElementById('uptime').textContent=h+'h '+m+'m '+sec+'s';
+    }).catch(function(){document.getElementById('uptime').textContent='--';});
+}
+setInterval(updateClock,1000);updateClock();
+setInterval(updateUptime,10000);updateUptime();
+
+var pollTimer=null;
+function showStep(id){['step1','step2','step3'].forEach(function(s){document.getElementById(s).classList.remove('active')});document.getElementById(id).classList.add('active')}
+function setStatus(elId,html){document.getElementById(elId).innerHTML=html}
+
+function startPair(){
+    var phone=document.getElementById('phone').value.trim().replace(/\D/g,'');
+    if(!phone||phone.length<7){setStatus('status1','<span style="color:#f88">Please enter a valid phone number.</span>');return}
+    var btn=document.getElementById('pairBtn');btn.disabled=true;
+    setStatus('status1','<span class="spinner"></span> Requesting pairing code...');
+    fetch('/api/pair',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:phone})})
+    .then(function(r){return r.json()}).then(function(data){
+        if(!data.ok){setStatus('status1','<span style="color:#f88">'+(data.error||'Failed to start.')+'</span>');btn.disabled=false;return}
+        pollTimer=setInterval(checkStatus,2000);setTimeout(function(){showStep('step2')},400);
+    }).catch(function(e){setStatus('status1','<span style="color:#f88">Network error: '+e.message+'</span>');btn.disabled=false});
+}
+function checkStatus(){
+    fetch('/api/pair/status').then(function(r){return r.json()}).then(function(data){
+        if((data.status==='ready'||data.status==='success')&&data.code)document.getElementById('pairingCode').textContent=data.code;
+        if(data.status==='success'&&data.sessionId){clearInterval(pollTimer);document.getElementById('sessionVal').textContent=data.sessionId;showStep('step3')}
+        else if(data.status==='error'){clearInterval(pollTimer);var eb=document.getElementById('errBox2');eb.style.display='block';eb.textContent=data.error||'Pairing failed. Try again.';setStatus('status2','')}
+    }).catch(function(){});
+}
+function copySession(){
+    var val=document.getElementById('sessionVal').textContent;
+    navigator.clipboard.writeText(val).then(function(){var b=document.querySelector('.copy-btn');b.textContent='Copied!';setTimeout(function(){b.textContent='Copy Session ID'},2500)});
+}
+function goBack(){
+    clearInterval(pollTimer);fetch('/api/pair/cancel').catch(function(){});
+    document.getElementById('pairBtn').disabled=false;setStatus('status1','');
+    setStatus('status2','<span class="spinner"></span> Waiting for you to enter the code...');
+    document.getElementById('errBox2').style.display='none';showStep('step1');
+}
 </script>
+</body>
 </html>
