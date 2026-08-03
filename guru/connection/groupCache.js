@@ -44,7 +44,7 @@ const isExpectedError = (errorMsg) => {
     return expectedErrors.some((e) => errorMsg?.toLowerCase().includes(e));
 };
 
-const getGroupMetadata = async (Guru, jid) => {
+const getGroupMetadata = async (Bot, jid) => {
     if (!jid || !jid.endsWith("@g.us")) return null;
 
     try {
@@ -54,7 +54,7 @@ const getGroupMetadata = async (Guru, jid) => {
             return cached;
         }
 
-        const metadata = await Guru.groupMetadata(jid);
+        const metadata = await Bot.groupMetadata(jid);
         if (metadata) {
             groupCache.set(jid, metadata);
             updateLidMappingsFromMetadata(metadata);
@@ -86,11 +86,11 @@ const clearGroupCache = () => {
     groupCache.flushAll();
 };
 
-const setupGroupCacheListeners = (Guru) => {
-    Guru.ev.on("groups.update", async ([event]) => {
+const setupGroupCacheListeners = (Bot) => {
+    Bot.ev.on("groups.update", async ([event]) => {
         try {
             if (event?.id) {
-                const metadata = await Guru.groupMetadata(event.id);
+                const metadata = await Bot.groupMetadata(event.id);
                 updateGroupCache(event.id, metadata);
             }
         } catch (error) {
@@ -101,7 +101,7 @@ const setupGroupCacheListeners = (Guru) => {
         }
     });
 
-    Guru.ev.on("group-participants.update", async (event) => {
+    Bot.ev.on("group-participants.update", async (event) => {
         try {
             if (event?.id) {
                 const cachedMeta = groupCache.get(event.id);
@@ -109,7 +109,7 @@ const setupGroupCacheListeners = (Guru) => {
                     updateLidMappingsFromMetadata(cachedMeta);
                 }
 
-                const metadata = await Guru.groupMetadata(event.id);
+                const metadata = await Bot.groupMetadata(event.id);
                 updateGroupCache(event.id, metadata);
             }
         } catch (error) {
@@ -128,9 +128,9 @@ const cachedGroupMetadata = async (jid) => {
     return groupCache.get(jid);
 };
 
-const initializeLidStore = async (Guru) => {
+const initializeLidStore = async (Bot) => {
     try {
-        const groups = await Guru.groupFetchAllParticipating();
+        const groups = await Bot.groupFetchAllParticipating();
         if (groups) {
             for (const groupJid of Object.keys(groups)) {
                 const meta = groups[groupJid];

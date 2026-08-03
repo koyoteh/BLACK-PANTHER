@@ -1,5 +1,5 @@
 // ════════════════════════════════════════════════════════════════════════════
-//  GURU CONFIG — Environment Variable Loader
+//  TTA CONFIG — Environment Variable Loader
 // ════════════════════════════════════════════════════════════════════════════
 
 "use strict";

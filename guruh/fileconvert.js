@@ -56,7 +56,7 @@ gmd(
         category: "owner",
         description: "Pack one or more files/folders into a zip. Usage: .tozip <file1> <file2> ... OR .tozip scripts (all bot scripts)",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, isSuperUser, mek, args } = conText;
         if (!isSuperUser) return reply("❌ Owner/Sudo only.");
 
@@ -103,9 +103,9 @@ gmd(
             }
 
             const zipBuffer = zip.toBuffer();
-            const zipName = `ultraguru_${targets[0].replace(/[^a-z0-9]/gi, "_")}_${Date.now()}.zip`;
+            const zipName = `tehseentech_${targets[0].replace(/[^a-z0-9]/gi, "_")}_${Date.now()}.zip`;
 
-            await Guru.sendMessage(
+            await Bot.sendMessage(
                 from,
                 {
                     document: zipBuffer,
@@ -134,7 +134,7 @@ gmd(
         category: "owner",
         description: "Convert a script/text file to a PDF document. Usage: .topdf <file>",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, isSuperUser, mek, args } = conText;
         if (!isSuperUser) return reply("❌ Owner/Sudo only.");
 
@@ -195,7 +195,7 @@ gmd(
             const pdfBuffer = await bufferPromise;
             const pdfName = path.basename(target).replace(/\.[^.]+$/, "") + `_${Date.now()}.pdf`;
 
-            await Guru.sendMessage(
+            await Bot.sendMessage(
                 from,
                 {
                     document: pdfBuffer,

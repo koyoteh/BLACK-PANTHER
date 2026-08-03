@@ -291,7 +291,7 @@ async function startBot() {
 ▢ 🏷️ Version : ${config.BOT_VERSION}
 ▢ 🕐 Time    : ${now}
 ▢ 📅 Date    : ${today}
-└──✦ _Powered by GuruTech_ ✦──
+└──✦ _Powered by TehseenTech_ ✦──
 
 > © ${config.BOT_NAME} is awesome 🔥`;
 

@@ -34,8 +34,8 @@ gmd(
     react: "🔍",
     description: "perform youtube search",
   },
-  async (from, Guru, conText) => {
-    const { q, mek, reply, react, sender, botFooter, gmdBuffer, PantherApi, GuruApiKey } = conText;
+  async (from, Bot, conText) => {
+    const { q, mek, reply, react, sender, botFooter, gmdBuffer, PantherApi, BotApiKey } = conText;
 
     if (!q) {
       await react("❌");
@@ -43,7 +43,7 @@ gmd(
     }
 
     try {
-      const apiUrl = `${PantherApi}/api/search/youtube?apikey=${GuruApiKey}&q=${encodeURIComponent(q)}`;
+      const apiUrl = `${PantherApi}/api/search/youtube?apikey=${BotApiKey}&q=${encodeURIComponent(q)}`;
       const res = await axios.get(apiUrl, { timeout: 30000 });
       const results = res.data?.videos;
 
@@ -59,7 +59,7 @@ gmd(
               await generateWAMessageContent(
                 { image: { url: vid.thumbnail } },
                 {
-                  upload: Guru.waUploadToServer,
+                  upload: Bot.waUploadToServer,
                 },
               )
             ).imageMessage,
@@ -111,7 +111,7 @@ gmd(
         { quoted: mek },
       );
 
-      await Guru.relayMessage(from, message.message, {
+      await Bot.relayMessage(from, message.message, {
         messageId: message.key.id,
       });
 
@@ -132,7 +132,7 @@ gmd(
     react: "🙄",
     description: "Identify music from audio or video messages",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const {
       mek,
       q,
@@ -147,7 +147,7 @@ gmd(
       botFooter,
       newsletterJid,
       PantherApi,
-      GuruApiKey,
+      BotApiKey,
       getMediaBuffer,
       uploadToCatbox,
     } = conText;
@@ -200,7 +200,7 @@ gmd(
         ({ url: fileUrl } = await uploadToCatbox(buffer, `audio.${ext}`));
       }
 
-      const apiUrl = `${PantherApi}/api/search/shazam?apikey=${GuruApiKey}&url=${encodeURIComponent(fileUrl)}`;
+      const apiUrl = `${PantherApi}/api/search/shazam?apikey=${BotApiKey}&url=${encodeURIComponent(fileUrl)}`;
       const res = await axios.get(apiUrl, { timeout: 60000 });
 
       if (!res.data?.success || !res.data?.result) {
@@ -230,7 +230,7 @@ gmd(
       if (youtubeUrl)  txt += `🔴 *YouTube:* ${youtubeUrl}\n`;
       txt += `\n> *${botFooter}*`;
 
-      await Guru.sendMessage(
+      await Bot.sendMessage(
         from,
         {
           image: { url: coverart },
@@ -269,8 +269,8 @@ gmd(
     react: "🔍",
     description: "Search Google and display first 5 results",
   },
-  async (from, Guru, conText) => {
-    const { q, mek, reply, react, botFooter, PantherApi, GuruApiKey } =
+  async (from, Bot, conText) => {
+    const { q, mek, reply, react, botFooter, PantherApi, BotApiKey } =
       conText;
 
     if (!q) {
@@ -279,7 +279,7 @@ gmd(
     }
 
     try {
-      const apiUrl = `${PantherApi}/api/search/google?apikey=${GuruApiKey}&query=${encodeURIComponent(q)}`;
+      const apiUrl = `${PantherApi}/api/search/google?apikey=${BotApiKey}&query=${encodeURIComponent(q)}`;
       const res = await axios.get(apiUrl, { timeout: 60000 });
 
       if (
@@ -305,7 +305,7 @@ gmd(
             imageMessage: (
               await generateWAMessageContent(
                 { image: { url: defaultImg } },
-                { upload: Guru.waUploadToServer },
+                { upload: Bot.waUploadToServer },
               )
             ).imageMessage,
           },
@@ -356,7 +356,7 @@ gmd(
         { quoted: mek },
       );
 
-      await Guru.relayMessage(from, message.message, {
+      await Bot.relayMessage(from, message.message, {
         messageId: message.key.id,
       });
       await react("✅");
@@ -376,7 +376,7 @@ gmd(
     react: "🎵",
     description: "Get song lyrics with copy button",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const {
       q,
       mek,
@@ -385,7 +385,7 @@ gmd(
       botName,
       botFooter,
       PantherApi,
-      GuruApiKey,
+      BotApiKey,
     } = conText;
 
     if (!q) {
@@ -394,7 +394,7 @@ gmd(
     }
 
     try {
-      const apiUrl = `${PantherApi}/api/search/lyricsv2?apikey=${GuruApiKey}&query=${encodeURIComponent(q)}`;
+      const apiUrl = `${PantherApi}/api/search/lyricsv2?apikey=${BotApiKey}&query=${encodeURIComponent(q)}`;
       const res = await axios.get(apiUrl, { timeout: 60000 });
 
       if (!res.data?.success || !res.data?.result) {
@@ -409,7 +409,7 @@ gmd(
       txt += `🎵 *Title:* ${title || "Unknown"}\n\n`;
       txt += `${lyrics}\n\n`;
 
-      await sendButtons(Guru, from, {
+      await sendButtons(Bot, from, {
         title: "",
         text: txt,
         footer: botFooter,
@@ -441,8 +441,8 @@ gmd(
     react: "📱",
     description: "Search HappyMod for modded APKs",
   },
-  async (from, Guru, conText) => {
-    const { q, mek, reply, react, botFooter, PantherApi, GuruApiKey } =
+  async (from, Bot, conText) => {
+    const { q, mek, reply, react, botFooter, PantherApi, BotApiKey } =
       conText;
 
     if (!q) {
@@ -451,7 +451,7 @@ gmd(
     }
 
     try {
-      const apiUrl = `${PantherApi}/api/search/happymod?apikey=${GuruApiKey}&query=${encodeURIComponent(q)}`;
+      const apiUrl = `${PantherApi}/api/search/happymod?apikey=${BotApiKey}&query=${encodeURIComponent(q)}`;
       const res = await axios.get(apiUrl, { timeout: 60000 });
 
       if (!res.data?.success || !res.data?.results?.data) {
@@ -470,7 +470,7 @@ gmd(
               await generateWAMessageContent(
                 { image: { url: app.icon } },
                 {
-                  upload: Guru.waUploadToServer,
+                  upload: Bot.waUploadToServer,
                 },
               )
             ).imageMessage,
@@ -515,7 +515,7 @@ gmd(
         { quoted: mek },
       );
 
-      await Guru.relayMessage(from, message.message, {
+      await Bot.relayMessage(from, message.message, {
         messageId: message.key.id,
       });
       await react("✅");
@@ -535,8 +535,8 @@ gmd(
     react: "📦",
     description: "Search APK Mirror for apps",
   },
-  async (from, Guru, conText) => {
-    const { q, mek, reply, react, botFooter, PantherApi, GuruApiKey } =
+  async (from, Bot, conText) => {
+    const { q, mek, reply, react, botFooter, PantherApi, BotApiKey } =
       conText;
 
     if (!q) {
@@ -545,7 +545,7 @@ gmd(
     }
 
     try {
-      const apiUrl = `${PantherApi}/api/search/apkmirror?apikey=${GuruApiKey}&query=${encodeURIComponent(q)}`;
+      const apiUrl = `${PantherApi}/api/search/apkmirror?apikey=${BotApiKey}&query=${encodeURIComponent(q)}`;
       const res = await axios.get(apiUrl, { timeout: 60000 });
 
       if (!res.data?.success || !res.data?.results?.data) {
@@ -564,7 +564,7 @@ gmd(
               await generateWAMessageContent(
                 { image: { url: app.icon } },
                 {
-                  upload: Guru.waUploadToServer,
+                  upload: Bot.waUploadToServer,
                 },
               )
             ).imageMessage,
@@ -609,7 +609,7 @@ gmd(
         { quoted: mek },
       );
 
-      await Guru.relayMessage(from, message.message, {
+      await Bot.relayMessage(from, message.message, {
         messageId: message.key.id,
       });
       await react("✅");
@@ -629,7 +629,7 @@ gmd(
     react: "🎨",
     description: "Search and send stickers",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const {
       q,
       mek,
@@ -638,7 +638,7 @@ gmd(
       packName,
       packAuthor,
       PantherApi,
-      GuruApiKey,
+      BotApiKey,
     } = conText;
 
     if (!q) {
@@ -647,7 +647,7 @@ gmd(
     }
 
     try {
-      const apiUrl = `${PantherApi}/api/search/stickersearch?apikey=${GuruApiKey}&query=${encodeURIComponent(q)}`;
+      const apiUrl = `${PantherApi}/api/search/stickersearch?apikey=${BotApiKey}&query=${encodeURIComponent(q)}`;
       const res = await axios.get(apiUrl, { timeout: 60000 });
 
       if (
@@ -671,13 +671,13 @@ gmd(
 
           const processedSticker = await gmdSticker(stickerBuffer, {
             pack: packName || "𝐀𝐓𝐀𝐒𝐒𝐀-𝐌𝐃",
-            author: packAuthor || "GIFTED-TECH",
+            author: packAuthor || "TEHSEENTECH",
             type: StickerTypes.FULL,
             categories: ["🤩", "🎉"],
             quality: 75,
           });
 
-          await Guru.sendMessage(
+          await Bot.sendMessage(
             from,
             { sticker: processedSticker },
             { quoted: mek },
@@ -705,7 +705,7 @@ gmd({
   react: "📖",
   category: "search",
   description: "Look up any word on Urban Dictionary. Usage: .urban slay",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { reply, react, q, mek, botFooter } = conText;
   if (!q) return reply("❌ Provide a word!\nExample: `.urban no cap`");
   try {
@@ -718,7 +718,7 @@ gmd({
     const up  = entry.thumbs_up || 0;
     const dn  = entry.thumbs_down || 0;
     await react("✅");
-    await Guru.sendMessage(from, {
+    await Bot.sendMessage(from, {
       text: `📖 *Urban Dictionary*\n\n🔤 *Word:* ${q}\n\n*Definition:*\n${def}\n${ex ? `\n*Example:*\n_${ex}_\n` : ""}\n👍 ${up}  👎 ${dn}\n\n> _${botFooter}_`,
     }, { quoted: mek });
   } catch {

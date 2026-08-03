@@ -9,7 +9,7 @@ gmd(
         description: "Forward quoted media to owner inbox",
         usage: "Reply to any media with .save",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { mek, reply, react, ownerNumber } = conText;
 
         if (!ownerNumber) {
@@ -55,21 +55,21 @@ gmd(
         try {
             if (msg.imageMessage) {
                 const buffer = await getMediaBuffer(msg.imageMessage, "image");
-                await Guru.sendMessage(ownerJid, {
+                await Bot.sendMessage(ownerJid, {
                     image: buffer,
                     caption: msg.imageMessage.caption || "📥 *Saved to inbox*",
                 });
 
             } else if (msg.videoMessage) {
                 const buffer = await getMediaBuffer(msg.videoMessage, "video");
-                await Guru.sendMessage(ownerJid, {
+                await Bot.sendMessage(ownerJid, {
                     video: buffer,
                     caption: msg.videoMessage.caption || "📥 *Saved to inbox*",
                 });
 
             } else if (msg.audioMessage) {
                 const buffer = await getMediaBuffer(msg.audioMessage, "audio");
-                await Guru.sendMessage(ownerJid, {
+                await Bot.sendMessage(ownerJid, {
                     audio: buffer,
                     mimetype: "audio/mpeg",
                     ptt: msg.audioMessage.ptt || false,
@@ -77,7 +77,7 @@ gmd(
 
             } else if (msg.documentMessage) {
                 const buffer = await getMediaBuffer(msg.documentMessage, "document");
-                await Guru.sendMessage(ownerJid, {
+                await Bot.sendMessage(ownerJid, {
                     document: buffer,
                     fileName: msg.documentMessage.fileName || "document",
                     mimetype: msg.documentMessage.mimetype || "application/octet-stream",
@@ -86,7 +86,7 @@ gmd(
 
             } else if (msg.stickerMessage) {
                 const buffer = await getMediaBuffer(msg.stickerMessage, "sticker");
-                await Guru.sendMessage(ownerJid, { sticker: buffer });
+                await Bot.sendMessage(ownerJid, { sticker: buffer });
             }
 
             await react("✅");

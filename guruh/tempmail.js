@@ -64,7 +64,7 @@ gmd(
         category: "tempmail",
         description: "Generate a new temporary email address",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const {
             sender,
             mek,
@@ -73,7 +73,7 @@ gmd(
             botFooter,
             botName,
             PantherApi,
-            GuruApiKey,
+            BotApiKey,
         } = conText;
 
         const userJid = normalizeUserJid(sender);
@@ -82,7 +82,7 @@ gmd(
         if (existingData) {
             await react("⚠️");
 
-            await Guru.sendMessage(
+            await Bot.sendMessage(
                 from,
                 {
                     text: `⚠️ *ACTIVE EMAIL EXISTS*
@@ -101,7 +101,7 @@ Use *.delmail* first to delete it, then generate a new one.
                 { quoted: mek },
             );
 
-            await sendButtons(Guru, from, {
+            await sendButtons(Bot, from, {
                 text: `📋 Copy your email`,
                 footer: botFooter,
                 buttons: [
@@ -123,7 +123,7 @@ Use *.delmail* first to delete it, then generate a new one.
             const res = await axios.get(
                 `${PantherApi}/api/tempmail/generate`,
                 {
-                    params: { apikey: GuruApiKey },
+                    params: { apikey: BotApiKey },
                     timeout: 30000,
                 },
             );
@@ -136,7 +136,7 @@ Use *.delmail* first to delete it, then generate a new one.
             const email = res.data.result.email;
             await setUserEmail(userJid, email);
 
-            await Guru.sendMessage(
+            await Bot.sendMessage(
                 from,
                 {
                     text: `📧 *TEMP MAIL GENERATED*
@@ -156,7 +156,7 @@ _Copy the email below and use it for verification_`,
                 { quoted: mek },
             );
 
-            await sendButtons(Guru, from, {
+            await sendButtons(Bot, from, {
                 text: `📋 Copy your email`,
                 footer: botFooter,
                 buttons: [
@@ -187,7 +187,7 @@ gmd(
         category: "tempmail",
         description: "Check inbox of your generated temp email",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const {
             sender,
             mek,
@@ -196,7 +196,7 @@ gmd(
             botFooter,
             botName,
             PantherApi,
-            GuruApiKey,
+            BotApiKey,
         } = conText;
 
         const userJid = normalizeUserJid(sender);
@@ -214,7 +214,7 @@ gmd(
 
         try {
             const res = await axios.get(`${PantherApi}/api/tempmail/inbox`, {
-                params: { apikey: GuruApiKey, email: email },
+                params: { apikey: BotApiKey, email: email },
                 timeout: 30000,
             });
 
@@ -222,7 +222,7 @@ gmd(
                 if (res.data?.message?.includes("No Emails")) {
                     await react("📭");
 
-                    await Guru.sendMessage(
+                    await Bot.sendMessage(
                         from,
                         {
                             text: `📭 *EMPTY INBOX*
@@ -238,7 +238,7 @@ _Wait a few seconds after sending an email and try again._`,
                         { quoted: mek },
                     );
 
-                    await sendButtons(Guru, from, {
+                    await sendButtons(Bot, from, {
                         text: `📋 Copy your email`,
                         footer: botFooter,
                         buttons: [
@@ -263,7 +263,7 @@ _Wait a few seconds after sending an email and try again._`,
             if (!emails || emails.length === 0) {
                 await react("📭");
 
-                await Guru.sendMessage(
+                await Bot.sendMessage(
                     from,
                     {
                         text: `📭 *EMPTY INBOX*
@@ -279,7 +279,7 @@ _Wait a few seconds after sending an email or try again._`,
                     { quoted: mek },
                 );
 
-                await sendButtons(Guru, from, {
+                await sendButtons(Bot, from, {
                     text: `📋 Copy your email:`,
                     footer: botFooter,
                     buttons: [
@@ -322,7 +322,7 @@ Hey @${getUserName(sender)}, you have *${emails.length}* email(s)
 
 📖 Use *.readmail <number>* to read full email`;
 
-            await Guru.sendMessage(
+            await Bot.sendMessage(
                 from,
                 {
                     text: inboxText,
@@ -331,7 +331,7 @@ Hey @${getUserName(sender)}, you have *${emails.length}* email(s)
                 { quoted: mek },
             );
 
-            await sendButtons(Guru, from, {
+            await sendButtons(Bot, from, {
                 text: `📋 Copy your email`,
                 footer: botFooter,
                 buttons: [
@@ -367,7 +367,7 @@ gmd(
         category: "tempmail",
         description: "Read a specific email by number",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const {
             sender,
             mek,
@@ -377,7 +377,7 @@ gmd(
             botFooter,
             botName,
             PantherApi,
-            GuruApiKey,
+            BotApiKey,
         } = conText;
 
         const userJid = normalizeUserJid(sender);
@@ -405,7 +405,7 @@ gmd(
             const inboxRes = await axios.get(
                 `${PantherApi}/api/tempmail/inbox`,
                 {
-                    params: { apikey: GuruApiKey, email: email },
+                    params: { apikey: BotApiKey, email: email },
                     timeout: 30000,
                 },
             );
@@ -482,7 +482,7 @@ gmd(
                         `${PantherApi}/api/tempmail/message`,
                         {
                             params: {
-                                apikey: GuruApiKey,
+                                apikey: BotApiKey,
                                 email: email,
                                 message_id: messageId,
                             },
@@ -554,7 +554,7 @@ Hey @${getUserName(sender)}, here's your email:
 ${cleanBody}
 ━━━━━━━━━━━━━━━━━━`;
 
-            await Guru.sendMessage(
+            await Bot.sendMessage(
                 from,
                 {
                     text: messageText,
@@ -564,7 +564,7 @@ ${cleanBody}
             );
 
             if (code) {
-                await sendButtons(Guru, from, {
+                await sendButtons(Bot, from, {
                     text: `🔐 *Code Found* ${code}`,
                     footer: botFooter,
                     buttons: [
@@ -602,7 +602,7 @@ gmd(
         category: "tempmail",
         description: "Delete your stored temp email",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { sender, reply, react } = conText;
 
         const userJid = normalizeUserJid(sender);
@@ -631,7 +631,7 @@ gmd(
         category: "tempmail",
         description: "Show all tempmail commands",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { sender, reply } = conText;
 
         const helpText = `📧 *TEMPMAIL COMMANDS*

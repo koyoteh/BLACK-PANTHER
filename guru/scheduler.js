@@ -90,7 +90,7 @@ async function getUserTimezone(jid) {
     return (await getSetting('TIME_ZONE').catch(() => null)) || 'Africa/Nairobi';
 }
 
-async function checkAndGreetUser(Guru, jid, pushName, settings) {
+async function checkAndGreetUser(Bot, jid, pushName, settings) {
     try {
         // Only greet DMs, skip groups, status, newsletters
         if (!jid || jid.endsWith('@g.us') || jid.endsWith('@newsletter') || jid === 'status@broadcast') return;
@@ -133,9 +133,9 @@ async function checkAndGreetUser(Guru, jid, pushName, settings) {
 
         const botPic = settings?.BOT_PIC || await getSetting('BOT_PIC').catch(() => null);
         if (botPic && botPic.startsWith('http')) {
-            await Guru.sendMessage(jid, { image: { url: botPic }, caption: msg });
+            await Bot.sendMessage(jid, { image: { url: botPic }, caption: msg });
         } else {
-            await Guru.sendMessage(jid, { text: msg });
+            await Bot.sendMessage(jid, { text: msg });
         }
     } catch (e) {
         // Silent fail — greetings are non-critical
@@ -193,7 +193,7 @@ const WELLNESS_MESSAGES = [
     `⚡ All systems are running smoothly!\n\n` +
     `${"─".repeat(32)}\n` +
     `We hope your day is going wonderfully! 😊\n` +
-    `Thank you for being part of the GURU family! 💜`,
+    `Thank you for being part of the TTA family! 💜`,
 
     `☀️ *Tehseen Tech Automation — Daily Wellness*\n${"═".repeat(32)}\n\n` +
     `Hello beautiful people! 🌺\n\n` +
@@ -217,7 +217,7 @@ function parseTime(timeStr) {
     return { hour: isNaN(h) ? 6 : h, minute: isNaN(m) ? 0 : m };
 }
 
-async function sendGreeting(Guru, type) {
+async function sendGreeting(Bot, type) {
     try {
         const chats = await getAllGreetingsChats();
         if (!chats.length) {
@@ -226,7 +226,7 @@ async function sendGreeting(Guru, type) {
         }
 
         const botName = (await getSetting("BOT_NAME")) || "Tehseen Tech Automation";
-        const botFooter = (await getSetting("FOOTER")) || "Powered by GuruTech";
+        const botFooter = (await getSetting("FOOTER")) || "Powered by TehseenTech";
 
         const customMsgKey = type === "morning" ? "GREETINGS_GM_MSG" : "GREETINGS_GN_MSG";
         const customMsg = await getSetting(customMsgKey);
@@ -240,12 +240,12 @@ async function sendGreeting(Guru, type) {
         for (const { jid } of chats) {
             try {
                 if (botPic) {
-                    await Guru.sendMessage(jid, {
+                    await Bot.sendMessage(jid, {
                         image: { url: botPic },
                         caption: fullText,
                     });
                 } else {
-                    await Guru.sendMessage(jid, { text: fullText });
+                    await Bot.sendMessage(jid, { text: fullText });
                 }
                 sent++;
                 await new Promise(r => setTimeout(r, 1200));
@@ -262,12 +262,12 @@ async function sendGreeting(Guru, type) {
     }
 }
 
-async function startScheduler(Guru) {
+async function startScheduler(Bot) {
     await initGreetingsDB();
 
     if (schedulerInterval) clearInterval(schedulerInterval);
 
-    Guru.ev.on("messages.upsert", async ({ messages, type }) => {
+    Bot.ev.on("messages.upsert", async ({ messages, type }) => {
         if (type !== "notify") return;
         try {
             const enabled = await getSetting("GREETINGS_ENABLED");
@@ -307,13 +307,13 @@ async function startScheduler(Guru) {
                 if (nowMin >= gmMin && nowMin <= gmMin + 10 && lastGmSent !== `gm_${dateKey}`) {
                     lastGmSent = `gm_${dateKey}`;
                     console.log("⏰ [Greeter] Sending Good Morning...");
-                    await sendGreeting(Guru, "morning");
+                    await sendGreeting(Bot, "morning");
                 }
 
                 if (nowMin >= gnMin && nowMin <= gnMin + 10 && lastGnSent !== `gn_${dateKey}`) {
                     lastGnSent = `gn_${dateKey}`;
                     console.log("⏰ [Greeter] Sending Good Night...");
-                    await sendGreeting(Guru, "night");
+                    await sendGreeting(Bot, "night");
                 }
             }
 
@@ -327,7 +327,7 @@ async function startScheduler(Guru) {
                 if (nowMin >= wMin && nowMin <= wMin + 10 && lastWellnessSent !== `wellness_${dateKey}`) {
                     lastWellnessSent = `wellness_${dateKey}`;
                     console.log("💙 [Wellness] Sending daily check-in...");
-                    await sendWellness(Guru);
+                    await sendWellness(Bot);
                 }
             }
         } catch (e) {
@@ -338,23 +338,23 @@ async function startScheduler(Guru) {
     console.log("⏰ Greeting scheduler started (checks every 60s)");
 }
 
-async function sendWellness(Guru) {
+async function sendWellness(Bot) {
     try {
         const chats = await getAllGreetingsChats();
         if (!chats.length) return 0;
 
         const msg      = WELLNESS_MESSAGES[Math.floor(Math.random() * WELLNESS_MESSAGES.length)];
         const botPic   = await getSetting("BOT_PIC").catch(() => null);
-        const footer   = (await getSetting("FOOTER").catch(() => null)) || "Powered by GuruTech";
+        const footer   = (await getSetting("FOOTER").catch(() => null)) || "Powered by TehseenTech";
         const fullText = `${msg}\n\n> _${footer}_`;
 
         let sent = 0;
         for (const { jid } of chats) {
             try {
                 if (botPic && botPic.startsWith("http")) {
-                    await Guru.sendMessage(jid, { image: { url: botPic }, caption: fullText });
+                    await Bot.sendMessage(jid, { image: { url: botPic }, caption: fullText });
                 } else {
-                    await Guru.sendMessage(jid, { text: fullText });
+                    await Bot.sendMessage(jid, { text: fullText });
                 }
                 sent++;
                 await new Promise(r => setTimeout(r, 1_200));

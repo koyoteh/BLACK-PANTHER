@@ -18,11 +18,11 @@ gmd(
         category: "general",
         description: "Show the bot command menu",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { react, mek } = conText;
         await react("📋");
-        const text = await buildThemedMenu(conText, Guru);
-        await sendMenuMsg(Guru, from, text, conText);
+        const text = await buildThemedMenu(conText, Bot);
+        await sendMenuMsg(Bot, from, text, conText);
         await react("✅");
 
         // ── Live clock below the menu — ticks every second for 60s ──────────
@@ -41,12 +41,12 @@ gmd(
         };
 
         try {
-            const clockMsg = await Guru.sendMessage(from, { text: buildClock() }, { quoted: mek });
+            const clockMsg = await Bot.sendMessage(from, { text: buildClock() }, { quoted: mek });
             let ticks = 0;
             const timer = setInterval(async () => {
                 ticks++;
                 try {
-                    await Guru.sendMessage(from, { text: buildClock(), edit: clockMsg.key });
+                    await Bot.sendMessage(from, { text: buildClock(), edit: clockMsg.key });
                 } catch (_) {}
                 if (ticks >= 60) clearInterval(timer);
             }, 1000);
@@ -86,7 +86,7 @@ gmd(
         category: "general",
         description: "Check if the bot is online and responsive",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { mek, react, botName, botPrefix } = conText;
         const start = Date.now();
         await react("🏓");
@@ -103,14 +103,14 @@ gmd(
         };
 
         // Send the first message
-        const sent = await Guru.sendMessage(from, { text: buildMsg() }, { quoted: mek });
+        const sent = await Bot.sendMessage(from, { text: buildMsg() }, { quoted: mek });
 
         // Edit it every second for 30 ticks so user sees it count live
         let ticks = 0;
         const timer = setInterval(async () => {
             ticks++;
             try {
-                await Guru.sendMessage(from, {
+                await Bot.sendMessage(from, {
                     text: buildMsg(),
                     edit: sent.key,
                 });
@@ -119,7 +119,7 @@ gmd(
                 clearInterval(timer);
                 // Final edit — remove the "counting live" footer
                 try {
-                    await Guru.sendMessage(from, {
+                    await Bot.sendMessage(from, {
                         text: buildMsg().replace(`_${botName || "Tehseen Tech Automation"} ┃ ᴹᴰ_ ✦──`, `*${botName || "Tehseen Tech Automation"} ┃ ᴹᴰ* ✦──`),
                         edit: sent.key,
                     });
@@ -139,7 +139,7 @@ gmd(
         category: "general",
         description: "Check how long the bot has been running",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { react, botName, timeZone, mek } = conText;
         await react("⏱️");
 
@@ -165,18 +165,18 @@ gmd(
             );
         };
 
-        const sent = await Guru.sendMessage(from, { text: buildMsg() }, { quoted: mek });
+        const sent = await Bot.sendMessage(from, { text: buildMsg() }, { quoted: mek });
 
         let ticks = 0;
         const timer = setInterval(async () => {
             ticks++;
             try {
-                await Guru.sendMessage(from, { text: buildMsg(), edit: sent.key });
+                await Bot.sendMessage(from, { text: buildMsg(), edit: sent.key });
             } catch (_) {}
             if (ticks >= 30) {
                 clearInterval(timer);
                 try {
-                    await Guru.sendMessage(from, {
+                    await Bot.sendMessage(from, {
                         text: buildMsg().replace(`_${bn} ┃ ᴹᴰ_ ✦──`, `*${bn} ┃ ᴹᴰ* ✦──`),
                         edit: sent.key,
                     });
@@ -197,7 +197,7 @@ gmd(
         category: "general",
         description: "Show information about this bot",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, botName, botPrefix, botVersion,
                 botMode, ownerName } = conText;
         await react("🤖");

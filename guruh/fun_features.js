@@ -38,7 +38,7 @@ gmd(
     react: "🎲",
     category: "fun",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, react, botFooter } = conText;
     const result = Math.floor(Math.random() * 6) + 1;
     const faces = ["", "⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
@@ -55,7 +55,7 @@ gmd(
     react: "🪙",
     category: "fun",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, react, botFooter } = conText;
     const flip = Math.random() > 0.5 ? "🟡 Heads" : "⚪ Tails";
     await react("✅");
@@ -71,7 +71,7 @@ gmd(
     react: "🎰",
     category: "fun",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { args, reply, react, botFooter } = conText;
     const min = parseInt(args[0]) || 1;
     const max = parseInt(args[1]) || 100;
@@ -90,7 +90,7 @@ gmd(
     react: "😂",
     category: "fun",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, react, botFooter } = conText;
     try {
       await react("⏳");
@@ -113,13 +113,13 @@ gmd(
     react: "😆",
     category: "fun",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, react, mek, botFooter, botName } = conText;
     try {
       await react("⏳");
       const res = await axios.get("https://meme-api.com/gimme", { timeout: 10000 });
       const { url, title, subreddit } = res.data;
-      await Guru.sendMessage(from, {
+      await Bot.sendMessage(from, {
         image: { url },
         caption: `*${botName} MEME*\n\n😆 ${title}\n📌 r/${subreddit}\n\n> _${botFooter}_`,
       }, { quoted: mek });
@@ -139,7 +139,7 @@ gmd(
     react: "🧩",
     category: "fun",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, react, botFooter } = conText;
     const item = RIDDLES[Math.floor(Math.random() * RIDDLES.length)];
     await react("✅");
@@ -155,7 +155,7 @@ gmd(
     react: "🧠",
     category: "fun",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, react, botFooter } = conText;
     try {
       await react("⏳");
@@ -182,7 +182,7 @@ gmd(
     react: "🎱",
     category: "fun",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { q, reply, react, botFooter } = conText;
     if (!q) return reply("*Usage:* `.8ball <your question>`");
     const responses = [
@@ -204,7 +204,7 @@ gmd(
     react: "🎯",
     category: "fun",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { q, reply, react, botFooter } = conText;
     if (!q) return reply("*Usage:* `.choose option1|option2|option3`\n_Example: .choose pizza|burger|tacos_");
     const options = q.split("|").map(o => o.trim()).filter(Boolean);
@@ -223,7 +223,7 @@ gmd(
     react: "⭐",
     category: "fun",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { q, reply, react, botFooter } = conText;
     if (!q) return reply("*Usage:* `.rate <something>`\n_Example: .rate pizza_");
     const rating = Math.floor(Math.random() * 11);
@@ -241,7 +241,7 @@ gmd(
     react: "🔥",
     category: "fun",
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { reply, react, botFooter } = conText;
     const roast = ROASTS[Math.floor(Math.random() * ROASTS.length)];
     await react("✅");

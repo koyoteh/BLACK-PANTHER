@@ -176,7 +176,7 @@ async function uploadToGithubCdn(buffer, filename) {
 }
 
 
-async function uploadToGuruCdn(buffer, filename, deleteKey = '') {
+async function uploadToBotCdn(buffer, filename, deleteKey = '') {
     const form = new FormData();
     const stream = bufferToStream(buffer);
     
@@ -280,7 +280,7 @@ module.exports = {
   uploadToImgBB,
   uploadToCatbox,
   uploadToGithubCdn,
-  uploadToGuruCdn,
+  uploadToBotCdn,
   getUserName,
   normalizeUserJid,
   extractCode,

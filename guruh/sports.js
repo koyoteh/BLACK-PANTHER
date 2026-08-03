@@ -67,7 +67,7 @@ gmd(
     category: "sports",
     filename: __filename,
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { mek, reply, react, botName } = conText;
 
     try {
@@ -120,7 +120,7 @@ gmd(
 
       txt += `_⚠️ Bet responsibly. Past results don't guarantee future outcomes._`;
 
-      await Guru.sendMessage(
+      await Bot.sendMessage(
         from,
         {
           text: txt,
@@ -147,7 +147,7 @@ gmd(
     category: "sports",
     filename: __filename,
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { mek, botName, timeZone } = conText;
 
     const caption = `╭━━━━━━━━━━━╮
@@ -160,7 +160,7 @@ gmd(
 │ 3. ⏰ Upcoming
 ╰━━━━━━━━━━━╯`;
 
-    const sent = await Guru.sendMessage(
+    const sent = await Bot.sendMessage(
       from,
       {
         text: caption,
@@ -191,7 +191,7 @@ gmd(
       };
 
       if (!optionMap[choice]) {
-        return Guru.sendMessage(
+        return Bot.sendMessage(
           chatId,
           {
             text: "❌ Invalid option. Reply with 1, 2, or 3.",
@@ -204,7 +204,7 @@ gmd(
       const selected = optionMap[choice];
 
       try {
-        await Guru.sendMessage(chatId, {
+        await Bot.sendMessage(chatId, {
           react: { text: selected.emoji, key: msg.key },
         });
 
@@ -214,7 +214,7 @@ gmd(
         const data = res.data;
 
         if (!data.status || !data.result?.games) {
-          return Guru.sendMessage(
+          return Bot.sendMessage(
             chatId,
             {
               text: `❌ No match data available at the moment.`,
@@ -249,7 +249,7 @@ gmd(
           }));
 
         if (filteredGames.length === 0) {
-          return Guru.sendMessage(
+          return Bot.sendMessage(
             chatId,
             {
               text: `╭━━━━━━━━━━━╮\n│ ${selected.emoji} *${selected.name}*\n╰━━━━━━━━━━━╯\n\n_No matches found._`,
@@ -279,7 +279,7 @@ gmd(
 
         output += `_📊 Showing ${Math.min(filteredGames.length, 20)} of ${filteredGames.length} matches_`;
 
-        await Guru.sendMessage(
+        await Bot.sendMessage(
           chatId,
           {
             text: output,
@@ -288,10 +288,10 @@ gmd(
           { quoted: msg },
         );
 
-        Guru.ev.off("messages.upsert", handler);
+        Bot.ev.off("messages.upsert", handler);
       } catch (err) {
         console.error("livescore error:", err);
-        await Guru.sendMessage(
+        await Bot.sendMessage(
           chatId,
           {
             text: `❌ Error fetching matches: ${err.message}`,
@@ -302,8 +302,8 @@ gmd(
       }
     };
 
-    Guru.ev.on("messages.upsert", handler);
-    setTimeout(() => Guru.ev.off("messages.upsert", handler), 120000);
+    Bot.ev.on("messages.upsert", handler);
+    setTimeout(() => Bot.ev.off("messages.upsert", handler), 120000);
   },
 );
 
@@ -316,7 +316,7 @@ gmd(
     description: "Get latest football news",
     filename: __filename,
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { mek, react, reply, botName } = conText;
 
     try {
@@ -341,7 +341,7 @@ gmd(
               await generateWAMessageContent(
                 { image: { url: item.cover?.url } },
                 {
-                  upload: Guru.waUploadToServer,
+                  upload: Bot.waUploadToServer,
                 },
               )
             ).imageMessage,
@@ -385,7 +385,7 @@ gmd(
         { quoted: mek },
       );
 
-      await Guru.relayMessage(from, message.message, {
+      await Bot.relayMessage(from, message.message, {
         messageId: message.key.id,
       });
       await react("✅");
@@ -406,12 +406,12 @@ gmd(
     category: "sports",
     filename: __filename,
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { mek, botName } = conText;
 
     const caption = formatLeagueMenu("TOP SCORERS", "⚽");
 
-    const sent = await Guru.sendMessage(
+    const sent = await Bot.sendMessage(
       from,
       {
         text: caption,
@@ -438,7 +438,7 @@ gmd(
       const league = LEAGUE_CONFIG[choice];
 
       if (!league) {
-        return Guru.sendMessage(
+        return Bot.sendMessage(
           chatId,
           {
             text: "❌ Invalid option. Reply with a number between 1 and 8.",
@@ -449,7 +449,7 @@ gmd(
       }
 
       try {
-        await Guru.sendMessage(chatId, {
+        await Bot.sendMessage(chatId, {
           react: { text: "⚽", key: msg.key },
         });
 
@@ -460,7 +460,7 @@ gmd(
         const data = res.data;
 
         if (!data.status || !Array.isArray(data.result?.topScorers)) {
-          return Guru.sendMessage(
+          return Bot.sendMessage(
             chatId,
             {
               text: `❌ Failed to fetch ${league.name} scorers.`,
@@ -493,7 +493,7 @@ gmd(
           output += `\n`;
         });
 
-        await Guru.sendMessage(
+        await Bot.sendMessage(
           chatId,
           {
             text: output,
@@ -502,10 +502,10 @@ gmd(
           { quoted: msg },
         );
 
-        Guru.ev.off("messages.upsert", handler);
+        Bot.ev.off("messages.upsert", handler);
       } catch (err) {
         console.error("topscorers error:", err);
-        await Guru.sendMessage(
+        await Bot.sendMessage(
           chatId,
           {
             text: `❌ Error: ${err.message}`,
@@ -516,8 +516,8 @@ gmd(
       }
     };
 
-    Guru.ev.on("messages.upsert", handler);
-    setTimeout(() => Guru.ev.off("messages.upsert", handler), 120000);
+    Bot.ev.on("messages.upsert", handler);
+    setTimeout(() => Bot.ev.off("messages.upsert", handler), 120000);
   },
 );
 
@@ -530,12 +530,12 @@ gmd(
     category: "sports",
     filename: __filename,
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { mek, botName } = conText;
 
     const caption = formatLeagueMenu("LEAGUE STANDINGS", "📊");
 
-    const sent = await Guru.sendMessage(
+    const sent = await Bot.sendMessage(
       from,
       {
         text: caption,
@@ -562,7 +562,7 @@ gmd(
       const league = LEAGUE_CONFIG[choice];
 
       if (!league) {
-        return Guru.sendMessage(
+        return Bot.sendMessage(
           chatId,
           {
             text: "❌ Invalid option. Reply with 1-8.",
@@ -573,7 +573,7 @@ gmd(
       }
 
       try {
-        await Guru.sendMessage(chatId, {
+        await Bot.sendMessage(chatId, {
           react: { text: "📊", key: msg.key },
         });
 
@@ -584,7 +584,7 @@ gmd(
         const data = res.data;
 
         if (!data.status || !Array.isArray(data.result?.standings)) {
-          return Guru.sendMessage(
+          return Bot.sendMessage(
             chatId,
             {
               text: `❌ Failed to fetch ${league.name} standings.`,
@@ -618,7 +618,7 @@ gmd(
 
         output += `_🏆UCL 🔵UEL 🔴Rel_`;
 
-        await Guru.sendMessage(
+        await Bot.sendMessage(
           chatId,
           {
             text: output,
@@ -627,10 +627,10 @@ gmd(
           { quoted: msg },
         );
 
-        Guru.ev.off("messages.upsert", handler);
+        Bot.ev.off("messages.upsert", handler);
       } catch (err) {
         console.error("standings error:", err);
-        await Guru.sendMessage(
+        await Bot.sendMessage(
           chatId,
           {
             text: `❌ Error: ${err.message}`,
@@ -641,8 +641,8 @@ gmd(
       }
     };
 
-    Guru.ev.on("messages.upsert", handler);
-    setTimeout(() => Guru.ev.off("messages.upsert", handler), 120000);
+    Bot.ev.on("messages.upsert", handler);
+    setTimeout(() => Bot.ev.off("messages.upsert", handler), 120000);
   },
 );
 
@@ -655,12 +655,12 @@ gmd(
     category: "sports",
     filename: __filename,
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { mek, botName } = conText;
 
     const caption = formatLeagueMenu("UPCOMING MATCHES", "📅");
 
-    const sent = await Guru.sendMessage(
+    const sent = await Bot.sendMessage(
       from,
       {
         text: caption,
@@ -687,7 +687,7 @@ gmd(
       const league = LEAGUE_CONFIG[choice];
 
       if (!league) {
-        return Guru.sendMessage(
+        return Bot.sendMessage(
           chatId,
           {
             text: "❌ Invalid option. Reply with 1-8.",
@@ -698,7 +698,7 @@ gmd(
       }
 
       try {
-        await Guru.sendMessage(chatId, {
+        await Bot.sendMessage(chatId, {
           react: { text: "📅", key: msg.key },
         });
 
@@ -709,7 +709,7 @@ gmd(
         const data = res.data;
 
         if (!data.status || !Array.isArray(data.result?.upcomingMatches)) {
-          return Guru.sendMessage(
+          return Bot.sendMessage(
             chatId,
             {
               text: `❌ No upcoming ${league.name} fixtures found.`,
@@ -733,7 +733,7 @@ gmd(
           output += `┗━━━━━━━━━┛\n\n`;
         });
 
-        await Guru.sendMessage(
+        await Bot.sendMessage(
           chatId,
           {
             text: output,
@@ -742,10 +742,10 @@ gmd(
           { quoted: msg },
         );
 
-        Guru.ev.off("messages.upsert", handler);
+        Bot.ev.off("messages.upsert", handler);
       } catch (err) {
         console.error("upcomingmatches error:", err);
-        await Guru.sendMessage(
+        await Bot.sendMessage(
           chatId,
           {
             text: `❌ Error: ${err.message}`,
@@ -756,8 +756,8 @@ gmd(
       }
     };
 
-    Guru.ev.on("messages.upsert", handler);
-    setTimeout(() => Guru.ev.off("messages.upsert", handler), 120000);
+    Bot.ev.on("messages.upsert", handler);
+    setTimeout(() => Bot.ev.off("messages.upsert", handler), 120000);
   },
 );
 
@@ -770,12 +770,12 @@ gmd(
     category: "sports",
     filename: __filename,
   },
-  async (from, Guru, conText) => {
+  async (from, Bot, conText) => {
     const { mek, botName } = conText;
 
     const caption = formatLeagueMenu("MATCH HISTORY", "📋");
 
-    const sent = await Guru.sendMessage(
+    const sent = await Bot.sendMessage(
       from,
       {
         text: caption,
@@ -802,7 +802,7 @@ gmd(
       const league = LEAGUE_CONFIG[choice];
 
       if (!league) {
-        return Guru.sendMessage(
+        return Bot.sendMessage(
           chatId,
           {
             text: "❌ Invalid option. Reply with 1-8.",
@@ -813,7 +813,7 @@ gmd(
       }
 
       try {
-        await Guru.sendMessage(chatId, {
+        await Bot.sendMessage(chatId, {
           react: { text: "📋", key: msg.key },
         });
 
@@ -824,7 +824,7 @@ gmd(
         const data = res.data;
 
         if (!data.status || !Array.isArray(data.result?.matches)) {
-          return Guru.sendMessage(
+          return Bot.sendMessage(
             chatId,
             {
               text: `❌ No match history found for ${league.name}.`,
@@ -851,7 +851,7 @@ gmd(
           output += `┗━━━━━━━━━┛\n\n`;
         });
 
-        await Guru.sendMessage(
+        await Bot.sendMessage(
           chatId,
           {
             text: output,
@@ -860,10 +860,10 @@ gmd(
           { quoted: msg },
         );
 
-        Guru.ev.off("messages.upsert", handler);
+        Bot.ev.off("messages.upsert", handler);
       } catch (err) {
         console.error("gamehistory error:", err);
-        await Guru.sendMessage(
+        await Bot.sendMessage(
           chatId,
           {
             text: `❌ Error: ${err.message}`,
@@ -874,8 +874,8 @@ gmd(
       }
     };
 
-    Guru.ev.on("messages.upsert", handler);
-    setTimeout(() => Guru.ev.off("messages.upsert", handler), 120000);
+    Bot.ev.on("messages.upsert", handler);
+    setTimeout(() => Bot.ev.off("messages.upsert", handler), 120000);
   },
 );
 

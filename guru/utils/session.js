@@ -13,7 +13,7 @@ async function resolveSession() {
     if (!sid) {
         console.log('\n⚡ Tehseen Tech Automation — Session Setup\n');
         console.log('No SESSION_ID found in environment.');
-        console.log('Get one from: https://pantherr-session.onrender.com\n');
+        console.log('Get one from: https://tehseentech-session.onrender.com\n');
         return;
     }
 

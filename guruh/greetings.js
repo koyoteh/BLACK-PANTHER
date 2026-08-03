@@ -18,7 +18,7 @@ gmd(
         category: "owner",
         description: "Toggle automatic good morning / good night broadcasts. Usage: .greetings on",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { react, reply, isSuperUser, q, botFooter } = conText;
 
         if (!isSuperUser) {
@@ -72,7 +72,7 @@ gmd(
         category: "owner",
         description: "Set the Good Morning broadcast time. Usage: .gmtime 06:00",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { react, reply, isSuperUser, q, botFooter } = conText;
 
         if (!isSuperUser) {
@@ -99,7 +99,7 @@ gmd(
         category: "owner",
         description: "Set the Good Night broadcast time. Usage: .gntime 22:00",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { react, reply, isSuperUser, q, botFooter } = conText;
 
         if (!isSuperUser) {
@@ -126,7 +126,7 @@ gmd(
         category: "owner",
         description: "Set a custom Good Morning message. Usage: .gmsg Good morning fam!",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { react, reply, isSuperUser, q, botFooter } = conText;
 
         if (!isSuperUser) {
@@ -154,7 +154,7 @@ gmd(
         category: "owner",
         description: "Set a custom Good Night message. Usage: .gnmsg Sweet dreams fam!",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { react, reply, isSuperUser, q, botFooter } = conText;
 
         if (!isSuperUser) {
@@ -182,7 +182,7 @@ gmd(
         category: "owner",
         description: "Add the current chat to the greetings broadcast list",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { react, reply, isSuperUser, botFooter } = conText;
 
         if (!isSuperUser) {
@@ -213,7 +213,7 @@ gmd(
         category: "owner",
         description: "Remove the current chat from the greetings broadcast list",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { react, reply, isSuperUser, botFooter } = conText;
 
         if (!isSuperUser) {
@@ -241,7 +241,7 @@ gmd(
         category: "owner",
         description: "List all chats registered for the greetings broadcast",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { react, reply, isSuperUser, botFooter } = conText;
 
         if (!isSuperUser) {
@@ -290,7 +290,7 @@ gmd(
         category: "owner",
         description: "Send a test Good Morning greeting to all registered chats right now",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { react, reply, isSuperUser, botFooter } = conText;
 
         if (!isSuperUser) {
@@ -306,7 +306,7 @@ gmd(
 
         await react("⏳");
         await reply(`🌅 Sending Good Morning to ${total} chat(s)...`);
-        const sent = await sendGreeting(Guru, "morning");
+        const sent = await sendGreeting(Bot, "morning");
         await react("✅");
         await reply(`✅ Good Morning sent to *${sent}/${total}* chats!\n\n> _${botFooter}_`);
     }
@@ -320,7 +320,7 @@ gmd(
         category: "owner",
         description: "Send a test Good Night greeting to all registered chats right now",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { react, reply, isSuperUser, botFooter } = conText;
 
         if (!isSuperUser) {
@@ -336,7 +336,7 @@ gmd(
 
         await react("⏳");
         await reply(`🌙 Sending Good Night to ${total} chat(s)...`);
-        const sent = await sendGreeting(Guru, "night");
+        const sent = await sendGreeting(Bot, "night");
         await react("✅");
         await reply(`✅ Good Night sent to *${sent}/${total}* chats!\n\n> _${botFooter}_`);
     }
@@ -350,7 +350,7 @@ gmd(
         category: "owner",
         description: "Toggle auto-tracking of chats for greetings. Usage: .autotrack on",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { react, reply, isSuperUser, q, botFooter } = conText;
 
         if (!isSuperUser) {
@@ -391,7 +391,7 @@ gmd(
         category: "general",
         description: "Set your timezone for personal greetings. Usage: .mytimezone Africa/Nairobi",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { react, reply, sender, q, botFooter } = conText;
         const { getUserTimezone } = require("../guru/scheduler");
 

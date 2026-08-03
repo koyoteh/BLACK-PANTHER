@@ -47,7 +47,7 @@ export default {
 ▢ 📌 𝐏𝐫𝐞𝐟𝐢𝐱  : ${p}
 ▢ 🌐 𝐌𝐨𝐝𝐞    : ${mode || 'public'}
 ▢ 📚 𝐂𝐦𝐝𝐬    : ${totalCommands || '?'}
-└──✦ _Powered by GuruTech_ ✦──`;
+└──✦ _Powered by TehseenTech_ ✦──`;
 
         await client.sendMessage(m.chat, {
             text: headerMsg,
@@ -65,7 +65,7 @@ export default {
             if (!commandFiles.length) continue;
 
             const header = `⚡ ──「 ${cat.emoji} *${cat.label}* 」──\n▢ ${commandFiles.length} commands available\n\n`;
-            const footer = `\n└──✦ _Powered by GuruTech_ ✦──`;
+            const footer = `\n└──✦ _Powered by TehseenTech_ ✦──`;
 
             const lines = commandFiles.map((file, i) =>
                 `▢ ${String(i + 1).padStart(2, ' ')}. *${p}${file.replace('.js', '')}*`

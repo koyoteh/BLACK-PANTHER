@@ -40,7 +40,7 @@ const normalizeRepo = (raw) => {
     return String(raw).trim();
 };
 
-const runUpdate = async (repo, Guru, ownerJid, onProgress) => {
+const runUpdate = async (repo, Bot, ownerJid, onProgress) => {
     repo = normalizeRepo(repo) || repo;
     const progress = typeof onProgress === "function" ? onProgress : (msg) => console.log(msg);
     const axios = require("axios");
@@ -125,7 +125,7 @@ const runUpdate = async (repo, Guru, ownerJid, onProgress) => {
     return true;
 };
 
-const checkAndAutoUpdate = async (Guru) => {
+const checkAndAutoUpdate = async (Bot) => {
     if (updateCheckedThisSession) return;
     updateCheckedThisSession = true;
 
@@ -147,7 +147,7 @@ const checkAndAutoUpdate = async (Guru) => {
         } catch (_) {}
 
         console.log(`🔍 [AutoUpdate] Checking for updates on ${repo}...`);
-        const updated = await runUpdate(repo, Guru, ownerJid);
+        const updated = await runUpdate(repo, Bot, ownerJid);
 
         if (updated) {
             console.log("✅ [AutoUpdate] Update applied! Restarting in 3 seconds...");

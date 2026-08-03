@@ -47,7 +47,7 @@ const IDENTITY_PATTERNS = [
     /introduce\s*yourself/i,
     /what\s*model\s*are\s*you\??/i,
     /are\s*you\s*(chatgpt|gpt|openai|gemini|claude|bard)/i,
-    /are\s*you\s*(guruai|ultra\s*guru|guru\s*bot)/i,
+    /are\s*you\s*(tta|tehseen\s*tech|tehseen\s*bot)/i,
     /who\s*built\s*u\??/i,
     /who\s*made\s*u\??/i,
     /whos?\s*your\s*maker\??/i,
@@ -63,7 +63,7 @@ const buildFooter = (botFooter, botName) => {
 };
 
 // ── TehseenTech persona injected into every Pollinations request ───────────────
-const PANTHER_SYSTEM = `You are Lupus, a powerful AI WhatsApp assistant created and owned exclusively by TehseenTech. You are NOT ChatGPT, Gemini, Bard, Claude, or any other commercial AI. You were built by TehseenTech — a tech company dedicated to smart automation and WhatsApp tools. Always be helpful, friendly, and conversational. Whenever you introduce yourself or are asked who you are, always mention TehseenTech as your creator and owner. Subtly mention TehseenTech when relevant (e.g. "Powered by TehseenTech"). Never claim to be made by OpenAI, Google, Anthropic, or Meta.`;
+const PANTHER_SYSTEM = `You are TTA Bot, a powerful AI WhatsApp assistant created and owned exclusively by TehseenTech. You are NOT ChatGPT, Gemini, Bard, Claude, or any other commercial AI. You were built by TehseenTech — a tech company dedicated to smart automation and WhatsApp tools. Always be helpful, friendly, and conversational. Whenever you introduce yourself or are asked who you are, always mention TehseenTech as your creator and owner. Subtly mention TehseenTech when relevant (e.g. "Powered by TehseenTech"). Never claim to be made by OpenAI, Google, Anthropic, or Meta.`;
 
 async function pollinationsQuery(prompt, model = "openai") {
     const wrapped = `${PANTHER_SYSTEM}\n\nHuman: ${prompt}\nAssistant:`;
@@ -75,7 +75,7 @@ async function pollinationsQuery(prompt, model = "openai") {
 }
 
 async function queryAI(endpoint, query, conText, pollinationsModel = "openai") {
-    const { reply, react, PantherApi, GuruApiKey, botFooter, botName } = conText;
+    const { reply, react, PantherApi, BotApiKey, botFooter, botName } = conText;
     const footer = buildFooter(botFooter, botName);
 
     if (!query) {
@@ -94,7 +94,7 @@ async function queryAI(endpoint, query, conText, pollinationsModel = "openai") {
         let result = null;
 
         try {
-            const apiUrl = `${PantherApi}/api/ai/${endpoint}?apikey=${GuruApiKey}&q=${encodeURIComponent(query)}`;
+            const apiUrl = `${PantherApi}/api/ai/${endpoint}?apikey=${BotApiKey}&q=${encodeURIComponent(query)}`;
             const res = await axios.get(apiUrl, { timeout: 15000 });
             if (res.data?.success && res.data?.result) {
                 const candidate = String(res.data.result);
@@ -146,13 +146,13 @@ async function pollinationsCmd(query, model, conText, reactEmoji = "🤖") {
 
 gmd(
     {
-        pattern: "guruai",
+        pattern: "ttaai",
         aliases: ["ai"],
         react: "🤖",
         description: "Chat with Tehseen Tech Automation AI assistant",
         category: "ai",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         await queryAI("ai", conText.q || "Introduce yourself briefly", conText, "openai");
     }
 );
@@ -165,7 +165,7 @@ gmd(
         description: "General AI chat assistant",
         category: "ai",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         await queryAI("chat", conText.q, conText, "openai");
     }
 );
@@ -178,7 +178,7 @@ gmd(
         description: "Chat with GPT-4o AI model",
         category: "ai",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         await queryAI("gpt", conText.q, conText, "openai");
     }
 );
@@ -191,7 +191,7 @@ gmd(
         description: "Chat with GPT-4 AI model",
         category: "ai",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         await queryAI("gpt4", conText.q, conText, "openai-large");
     }
 );
@@ -204,7 +204,7 @@ gmd(
         description: "Chat with GPT-4o AI model",
         category: "ai",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         await queryAI("gpt4o", conText.q, conText, "openai");
     }
 );
@@ -217,7 +217,7 @@ gmd(
         description: "Chat with GPT-4o-mini AI model",
         category: "ai",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         await queryAI("gpt4o-mini", conText.q, conText, "openai-reasoning");
     }
 );
@@ -229,7 +229,7 @@ gmd(
         description: "Chat with OpenAI GPT model",
         category: "ai",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         await queryAI("openai", conText.q, conText, "openai");
     }
 );
@@ -241,7 +241,7 @@ gmd(
         description: "Chat with Gemini AI",
         category: "ai",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         await queryAI("geminiai", conText.q, conText, "openai-large");
     }
 );
@@ -253,7 +253,7 @@ gmd(
         description: "Chat with Mistral AI model",
         category: "ai",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         await pollinationsCmd(conText.q, "mistral", conText, "🔮");
     }
 );
@@ -266,7 +266,7 @@ gmd(
         description: "Get AI-powered web search answers",
         category: "ai",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         await queryAI("letmegpt", conText.q, conText, "searchgpt");
     }
 );
@@ -279,7 +279,7 @@ gmd(
         description: "Chat with Meta Llama AI model",
         category: "ai",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         await pollinationsCmd(conText.q, "llama", conText, "🦙");
     }
 );
@@ -292,7 +292,7 @@ gmd(
         description: "Chat with Claude AI model",
         category: "ai",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         await pollinationsCmd(conText.q, "claude-hybridspace", conText, "🌌");
     }
 );
@@ -305,7 +305,7 @@ gmd(
         description: "AI coding assistant powered by Qwen Coder",
         category: "ai",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, botFooter, botName } = conText;
         const footer = buildFooter(botFooter, botName);
         const query = conText.q;
@@ -325,7 +325,7 @@ gmd(
         description: "Chat with Unity creative AI (uncensored)",
         category: "ai",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         await pollinationsCmd(conText.q, "unity", conText, "🎭");
     }
 );
@@ -338,7 +338,7 @@ gmd(
         description: "AI-powered web search assistant",
         category: "ai",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         await pollinationsCmd(conText.q, "searchgpt", conText, "🌐");
     }
 );
@@ -351,7 +351,7 @@ gmd(
         description: "Generate AI images from text description",
         category: "ai",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, botFooter, botName, mek } = conText;
         const footer = buildFooter(botFooter, botName);
         const prompt = conText.q;
@@ -366,7 +366,7 @@ gmd(
             const seed = Math.floor(Math.random() * 999999);
             const imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?model=flux&width=1024&height=1024&seed=${seed}&nologo=true&enhance=true`;
 
-            await Guru.sendMessage(
+            await Bot.sendMessage(
                 from,
                 {
                     image: { url: imageUrl },
@@ -392,7 +392,7 @@ gmd(
         description: "List all available AI models and commands",
         category: "ai",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, botFooter, botName } = conText;
         const footer = buildFooter(botFooter, botName);
         const botN = botName || "Tehseen Tech Automation";
@@ -431,7 +431,7 @@ gmd(
         category: "ai",
         dontAddCommandList: true,
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, botFooter, botName } = conText;
         const footer = buildFooter(botFooter, botName);
         const botN = botName || "Tehseen Tech Automation";
@@ -481,7 +481,7 @@ gmd(
         description: "Chat with real Meta AI (Llama 3.3 70B) with memory",
         category: "ai",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, q, mek, botFooter, botName, sender } = conText;
         const footer = buildFooter(botFooter, botName);
         const query  = q || mek?.message?.extendedTextMessage?.contextInfo?.quotedMessage?.conversation;
@@ -505,7 +505,7 @@ gmd(
         if (isIdentityQuestion(query)) {
             if (react) await react("🦙");
             const botN = botName || "Tehseen Tech Automation";
-            return reply(`🤖 *${botN}* — AI WhatsApp Bot\n\n◈ 👤 *Creator*    ⤳ TehseenTech\n◈ 🌐 *Owner*      ⤳ TehseenTech\n◈ 🧠 *Engine*     ⤳ Llama 3.3 70B\n◈ 💬 *Memory*     ⤳ Remembers up to 10 exchanges\n◈ 📦 *Platform*   ⤳ WhatsApp Multi-Device\n\nI am *Lupus*, powered by TehseenTech. Type *.metaai <question>* to chat!${footer}`);
+            return reply(`🤖 *${botN}* — AI WhatsApp Bot\n\n◈ 👤 *Creator*    ⤳ TehseenTech\n◈ 🌐 *Owner*      ⤳ TehseenTech\n◈ 🧠 *Engine*     ⤳ Llama 3.3 70B\n◈ 💬 *Memory*     ⤳ Remembers up to 10 exchanges\n◈ 📦 *Platform*   ⤳ WhatsApp Multi-Device\n\nI am *TTA Bot*, powered by TehseenTech. Type *.metaai <question>* to chat!${footer}`);
         }
 
         try {
@@ -535,7 +535,7 @@ gmd(
         description: "Clear your Meta AI conversation history",
         category: "ai",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, sender, botFooter, botName } = conText;
         const footer = buildFooter(botFooter, botName);
         if (react) await react("✅");
@@ -546,42 +546,42 @@ gmd(
 
 // ─── LUPUS (TehseenTech branded AI with persistent memory) ──────────────────────
 
-// Reuse the Meta AI SQLite memory tables for Lupus (same DB, separate key prefix)
-function _lupusHistory(jid) {
-    return _stmtFetch.all(`lupus:${jid}`);
+// Reuse the Meta AI SQLite memory tables for TTA Bot (same DB, separate key prefix)
+function _ttaHistory(jid) {
+    return _stmtFetch.all(`tta:${jid}`);
 }
-function _lupusAdd(jid, role, content) {
-    _stmtInsert.run(`lupus:${jid}`, role, content);
-    _stmtDeleteOld.run(`lupus:${jid}`, `lupus:${jid}`);
+function _ttaAdd(jid, role, content) {
+    _stmtInsert.run(`tta:${jid}`, role, content);
+    _stmtDeleteOld.run(`tta:${jid}`, `tta:${jid}`);
 }
-function _lupusClear(jid) {
-    _stmtClear.run(`lupus:${jid}`);
+function _ttaClear(jid) {
+    _stmtClear.run(`tta:${jid}`);
 }
 
-async function lupusQuery(prompt, senderJid) {
-    _lupusAdd(senderJid, 'user', prompt);
-    const hist = _lupusHistory(senderJid);
+async function ttaQuery(prompt, senderJid) {
+    _ttaAdd(senderJid, 'user', prompt);
+    const hist = _ttaHistory(senderJid);
 
-    const fullPrompt = `${PANTHER_SYSTEM}\n\n${hist.map(h => `${h.role === 'user' ? 'Human' : 'Lupus'}: ${h.content}`).join('\n')}\nLupus:`;
+    const fullPrompt = `${PANTHER_SYSTEM}\n\n${hist.map(h => `${h.role === 'user' ? 'Human' : 'TTA Bot'}: ${h.content}`).join('\n')}\nTTA Bot:`;
 
     const url = `https://text.pollinations.ai/${encodeURIComponent(fullPrompt)}?model=openai&seed=${Math.floor(Math.random() * 99999)}&json=false&private=true`;
     const res = await axios.get(url, { timeout: 60000, responseType: 'text' });
     const text = typeof res.data === 'string' ? res.data.trim() : JSON.stringify(res.data);
-    if (!text || text.length < 2) throw new Error('No response from Lupus AI');
+    if (!text || text.length < 2) throw new Error('No response from TTA Bot AI');
 
-    _lupusAdd(senderJid, 'assistant', text);
+    _ttaAdd(senderJid, 'assistant', text);
     return text;
 }
 
 gmd(
     {
-        pattern: "lupus",
-        aliases: ["gurubot", "tehseentechbot"],
+        pattern: "tta",
+        aliases: ["ttabot", "tehseentechbot"],
         react: "🐺",
-        description: "Chat with Lupus — TehseenTech's AI assistant with memory",
+        description: "Chat with TTA Bot — TehseenTech's AI assistant with memory",
         category: "ai",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, q, mek, botFooter, botName, sender } = conText;
         const footer = buildFooter(botFooter, botName);
         const botN  = botName || "Tehseen Tech Automation";
@@ -597,43 +597,43 @@ gmd(
 ┃  *TehseenTech* 🔥
 ┃
 ┃  *Usage:*
-┃  .lupus <your question>
+┃  .tta <your question>
 ┃
 ┃  *Memory:*
-┃  .lupus clear — reset history
+┃  .tta clear — reset history
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-> _Powered by GuruTech_${footer}`
+> _Powered by TehseenTech_${footer}`
             );
         }
 
         if (query.trim().toLowerCase() === 'clear') {
-            _lupusClear(sender);
+            _ttaClear(sender);
             if (react) await react("🗑️");
-            return reply(`🗑️ *Lupus memory cleared!*\n\nFresh conversation started. Ask me anything!\n\n> _Powered by GuruTech_${footer}`);
+            return reply(`🗑️ *TTA Bot memory cleared!*\n\nFresh conversation started. Ask me anything!\n\n> _Powered by TehseenTech_${footer}`);
         }
 
         if (isIdentityQuestion(query)) {
             if (react) await react("🐺");
-            return reply(`🐺 *I am Lupus!*\n\n◈ 👤 *Created by*  ⤳ TehseenTech\n◈ 🌐 *Owned by*    ⤳ TehseenTech\n◈ ⚡ *Engine*      ⤳ Multi-AI\n◈ 💬 *Memory*      ⤳ Remembers your conversation\n◈ 📦 *Platform*    ⤳ WhatsApp\n\nI am *not* ChatGPT, Gemini, or any other commercial AI. I am *Lupus*, built exclusively by *TehseenTech*. 🔥\n\nAsk me anything — *.lupus <question>*${footer}`);
+            return reply(`🐺 *I am TTA Bot!*\n\n◈ 👤 *Created by*  ⤳ TehseenTech\n◈ 🌐 *Owned by*    ⤳ TehseenTech\n◈ ⚡ *Engine*      ⤳ Multi-AI\n◈ 💬 *Memory*      ⤳ Remembers your conversation\n◈ 📦 *Platform*    ⤳ WhatsApp\n\nI am *not* ChatGPT, Gemini, or any other commercial AI. I am *TTA Bot*, built exclusively by *TehseenTech*. 🔥\n\nAsk me anything — *.tta <question>*${footer}`);
         }
 
         try {
             if (react) await react("🐺");
-            const result = await lupusQuery(query, sender);
+            const result = await ttaQuery(query, sender);
             if (react) await react("✅");
             await reply(
 `┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃  🐺  *LUPUS* by GuruTech
+┃  🐺  *LUPUS* by TehseenTech
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
 ${result}
 
-> _Powered by GuruTech_${footer}`
+> _Powered by TehseenTech_${footer}`
             );
         } catch (err) {
-            console.error('Lupus AI error:', err.message);
+            console.error('TTA Bot AI error:', err.message);
             if (react) await react("❌");
-            await reply(`❌ Lupus AI Error: ${err.message}\n\nPlease try again.${footer}`);
+            await reply(`❌ TTA Bot AI Error: ${err.message}\n\nPlease try again.${footer}`);
         }
     }
 );
@@ -648,7 +648,7 @@ gmd(
         description: "Generate an AI image from a text prompt",
         category: "ai",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, q, mek, botFooter, botName, sender } = conText;
         const footer = buildFooter(botFooter, botName);
 
@@ -676,7 +676,7 @@ gmd(
             const imgRes = await axios.get(url, { responseType: 'arraybuffer', timeout: 90000 });
             const imgBuf = Buffer.from(imgRes.data);
             if (react) await react("✅");
-            await Guru.sendMessage(from, {
+            await Bot.sendMessage(from, {
                 image: imgBuf,
                 caption: `🎨 *AI Generated Image*\n\n📝 *Prompt:* ${q.trim()}\n\n_Powered by Flux · Pollinations_${footer}`,
                 contextInfo: { mentionedJid: [sender] },
@@ -700,7 +700,7 @@ gmd(
         description: "AI-edit a quoted image. Quote image + describe the change.",
         category: "ai",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, q, mek, quoted, botFooter, botName, sender } = conText;
         const footer = buildFooter(botFooter, botName);
 
@@ -736,7 +736,7 @@ gmd(
 
             if (media) {
                 // Download the quoted image to build context
-                const tmpPath = await Guru.downloadAndSaveMediaMessage(media, 'aiedit_src');
+                const tmpPath = await Bot.downloadAndSaveMediaMessage(media, 'aiedit_src');
                 const fs = require('fs').promises;
                 imageBuffer = await fs.readFile(tmpPath).catch(() => null);
                 await fs.unlink(tmpPath).catch(() => {});
@@ -758,7 +758,7 @@ gmd(
 
             // Send original back alongside edited if we had it
             if (imageBuffer) {
-                await Guru.sendMessage(from, {
+                await Bot.sendMessage(from, {
                     image: imgBuf,
                     caption:
 `┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -769,7 +769,7 @@ gmd(
                     contextInfo: { mentionedJid: [sender] },
                 }, { quoted: mek });
             } else {
-                await Guru.sendMessage(from, {
+                await Bot.sendMessage(from, {
                     image: imgBuf,
                     caption: `✏️ *AI Image Edit*\n\n📝 *Instruction:* ${instruction}\n\n_Powered by Flux · Pollinations_${footer}`,
                     contextInfo: { mentionedJid: [sender] },
@@ -792,7 +792,7 @@ gmd(
         description: "Generate an AI image and convert to sticker. Usage: .aisticker <prompt>",
         category: "ai",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, q, mek, botFooter, botName, sender, packName, packAuthor } = conText;
         const footer = buildFooter(botFooter, botName);
 
@@ -814,7 +814,7 @@ gmd(
 
             const stickerBuf = await gmdSticker(tmpFile, {
                 pack:   packName   || 'Tehseen Tech Automation',
-                author: packAuthor || 'GURU-TECH',
+                author: packAuthor || 'TEHSEENTECH',
                 type:   StickerTypes.FULL,
                 categories: ['🤩', '🎉'],
                 quality: 80,
@@ -822,7 +822,7 @@ gmd(
             await fs.unlink(tmpFile).catch(() => {});
 
             if (react) await react("✅");
-            await Guru.sendMessage(from, { sticker: stickerBuf }, { quoted: mek });
+            await Bot.sendMessage(from, { sticker: stickerBuf }, { quoted: mek });
         } catch (err) {
             if (react) await react("❌");
             await reply(`❌ AI sticker failed: ${err.message}${footer}`);
@@ -840,7 +840,7 @@ gmd(
         description: "Generate a social media caption for any topic",
         category: "ai",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, q, mek, botFooter, botName, sender } = conText;
         const footer = buildFooter(botFooter, botName);
 
@@ -899,7 +899,7 @@ gmd(
         category: "ai",
         description: "Explain a URL as a voice note. Usage: .explain <url>",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { q, reply, react, botFooter, botName } = conText;
         const footer = buildFooter(botFooter, botName);
 
@@ -987,13 +987,13 @@ gmd(
             }
 
             if (pttBuffer) {
-                await Guru.sendMessage(from, {
+                await Bot.sendMessage(from, {
                     audio: pttBuffer,
                     mimetype: "audio/ogg; codecs=opus",
                     ptt: true,
                 });
             } else {
-                await Guru.sendMessage(from, {
+                await Bot.sendMessage(from, {
                     audio: audioBuffer,
                     mimetype: "audio/mpeg",
                     ptt: false,
@@ -1046,7 +1046,7 @@ gmd(
         category: "tools",
         description: "Convert text to a voice note. Usage: .tts <text> or .tts lang=sw <text>",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { q, reply, react, botFooter, botName } = conText;
         const footer = buildFooter(botFooter, botName);
 
@@ -1101,14 +1101,14 @@ gmd(
             } catch (_) {}
 
             if (pttBuffer) {
-                await Guru.sendMessage(from, {
+                await Bot.sendMessage(from, {
                     audio: pttBuffer,
                     mimetype: "audio/ogg; codecs=opus",
                     ptt: true,
                 });
             } else {
                 // Fallback: send as plain audio file
-                await Guru.sendMessage(from, {
+                await Bot.sendMessage(from, {
                     audio: audioBuffer,
                     mimetype: "audio/mpeg",
                     ptt: false,

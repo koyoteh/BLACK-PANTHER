@@ -122,7 +122,7 @@ async function buildMenuData(conText) {
         return `> ${num}  ${icon}  ${label}  _(${count})_`;
     }).join("\n");
 
-    const catLinesGuruTech = sortedCats.map(({ cat, cmds }, i) => {
+    const catLinesTehseen = sortedCats.map(({ cat, cmds }, i) => {
         const icon  = CAT_ICONS[cat] || "🔥";
         const label = (cat[0].toUpperCase() + cat.slice(1)).toUpperCase();
         const num   = String(i + 1).padStart(2, ' ');
@@ -136,10 +136,10 @@ async function buildMenuData(conText) {
         botPrefix:  botPrefix  || ".",
         botVersion: botVersion || "5.0.0",
         botMode:    botMode    || "public",
-        botFooter:  botFooter  || "Powered by GuruTech",
+        botFooter:  botFooter  || "Powered by TehseenTech",
         botCaption: botCaption || "",
         newsletterJid,
-        uptime, totalCmds, catLines, catLinesGuruTech,
+        uptime, totalCmds, catLines, catLinesTehseen,
         expiryLine, expiryDetail,
         memBar, memDetail,
         dateStr, timeStr, timeStr24,
@@ -152,11 +152,11 @@ async function buildMenuData(conText) {
 
 const THEMES = {
 
-    gurutech: {
-        name: "⚡ GURUTECH",
+    tehseentech: {
+        name: "⚡ TEHSEENTECH",
         description: "Clean ⚡ panel style — small, smart & sharp",
         render({ botName, botPrefix, botMode, botFooter,
-                  uptime, totalCmds, catLinesGuruTech, expiryLine,
+                  uptime, totalCmds, catLinesTehseen, expiryLine,
                   pushName, sender, numCats }) {
             const userNum = sender ? sender.split('@')[0].split(':')[0] : pushName;
             return (
@@ -171,7 +171,7 @@ const THEMES = {
 └──✦ *${botName} ┃ ᴹᴰ* ✦──
 
 ⚡ ──「 Sᴇʟᴇᴄᴛ Cᴀᴛᴇɢᴏʀʏ 」──
-${catLinesGuruTech}
+${catLinesTehseen}
 └──✦ _${botFooter}_ ✦──
 
 > *Reply with a number to view that category*`
@@ -183,7 +183,7 @@ ${catLinesGuruTech}
         name: "🔷 ULTRA",
         description: "Premium blockquote style with clean stats",
         render({ botName, botPrefix, botMode, botFooter,
-                  uptime, totalCmds, catLinesGuruTech, expiryLine,
+                  uptime, totalCmds, catLinesTehseen, expiryLine,
                   pushName, sender, numCats }) {
             const userNum = sender ? sender.split('@')[0].split(':')[0] : pushName;
             return (
@@ -198,7 +198,7 @@ ${catLinesGuruTech}
 └──✦ *${botName} ┃ ᴹᴰ* ✦──
 
 ⚡ ──「 Sᴇʟᴇᴄᴛ Cᴀᴛᴇɢᴏʀʏ 」──
-${catLinesGuruTech}
+${catLinesTehseen}
 └──✦ _${botFooter}_ ✦──
 
 > *Reply with a number to view that category*`
@@ -490,13 +490,13 @@ const THEME_KEYS = Object.keys(THEMES);
 
 const MENU_IMAGE_URL = "https://files.catbox.moe/9dmdu1.jpg";
 
-async function sendMenuMsg(Guru, from, text, conText) {
+async function sendMenuMsg(Bot, from, text, conText) {
     const { mek, botName, newsletterJid, sender } = conText;
     // Use custom menu pic if owner set one via .setmenupic, otherwise use hardcoded default
     const customPic = await getSetting("MENU_PIC_CUSTOM");
     const picUrl = customPic || MENU_IMAGE_URL;
     try {
-        await Guru.sendMessage(from, {
+        await Bot.sendMessage(from, {
             image: { url: picUrl },
             caption: text.trim(),
             contextInfo: {
@@ -511,7 +511,7 @@ async function sendMenuMsg(Guru, from, text, conText) {
             },
         }, { quoted: mek });
     } catch {
-        await Guru.sendMessage(from, { text: text.trim() }, { quoted: mek });
+        await Bot.sendMessage(from, { text: text.trim() }, { quoted: mek });
     }
 }
 
@@ -525,7 +525,7 @@ gmd(
         category: "owner",
         description: "Change the bot menu design. Usage: .setmenu [1-11] or .setmenu to list",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, isSuperUser, args, botFooter } = conText;
 
         if (!isSuperUser) { await react("❌"); return reply("❌ Owner Only Command!"); }
@@ -568,7 +568,7 @@ ${list}
 
         const data = await buildMenuData(conText);
         const text = `✅ *Theme switched to ${THEMES[key].name}!*\n\nHere's a preview:\n\n${THEMES[key].render(data)}`;
-        await sendMenuMsg(Guru, from, text, conText);
+        await sendMenuMsg(Bot, from, text, conText);
         await react("✅");
     }
 );
@@ -583,7 +583,7 @@ gmd(
         category: "owner",
         description: "Preview a menu theme without switching. Usage: .previewmenu <1-11>",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, isSuperUser, args } = conText;
 
         if (!isSuperUser) { await react("❌"); return reply("❌ Owner Only Command!"); }
@@ -597,7 +597,7 @@ gmd(
         const key  = THEME_KEYS[n - 1];
         const data = await buildMenuData(conText);
         const text = `👁️ *Preview — ${THEMES[key].name}*\n_(Not applied. Send .setmenu ${n} to apply.)_\n\n${THEMES[key].render(data)}`;
-        await sendMenuMsg(Guru, from, text, conText);
+        await sendMenuMsg(Bot, from, text, conText);
         await react("✅");
     }
 );
@@ -612,7 +612,7 @@ gmd(
         category: "owner",
         description: "Change the bot WhatsApp profile picture. Quote an image or send a URL.",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, isSuperUser, quoted, quotedMsg, q } = conText;
 
         if (!isSuperUser) { await react("❌"); return reply("❌ Owner Only Command!"); }
@@ -641,7 +641,7 @@ gmd(
             let imageBuffer;
 
             if (quotedImg) {
-                tempPath = await Guru.downloadAndSaveMediaMessage(quotedImg, "temp_botpic");
+                tempPath = await Bot.downloadAndSaveMediaMessage(quotedImg, "temp_botpic");
                 const img = await Jimp.read(tempPath);
                 img.scaleToFit({ w: 720, h: 720 });
                 imageBuffer = await img.getBuffer("image/jpeg");
@@ -651,7 +651,7 @@ gmd(
                 imageBuffer = await img.getBuffer("image/jpeg");
             }
 
-            await Guru.query({
+            await Bot.query({
                 tag: "iq",
                 attrs: { to: S_WHATSAPP_NET, type: "set", xmlns: "w:profile:picture" },
                 content: [{ tag: "picture", attrs: { type: "image" }, content: imageBuffer }],
@@ -680,7 +680,7 @@ gmd(
         category: "owner",
         description: "Set the image shown in .menu. Usage: .setmenupic <URL> or quote an image.",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, isSuperUser, quoted, quotedMsg, q } = conText;
 
         if (!isSuperUser) { await react("❌"); return reply("❌ Owner Only Command!"); }
@@ -712,7 +712,7 @@ gmd(
                 finalUrl = q.trim();
             } else {
                 const { uploadToCatbox } = require("../guru");
-                tempPath = await Guru.downloadAndSaveMediaMessage(quotedImg, "temp_menupic");
+                tempPath = await Bot.downloadAndSaveMediaMessage(quotedImg, "temp_menupic");
                 finalUrl = await uploadToCatbox(tempPath);
                 if (!finalUrl) throw new Error("Upload to catbox failed — try a URL instead.");
             }
@@ -739,7 +739,7 @@ gmd(
         category: "owner",
         description: "Change the bot footer shown in menus. Usage: .setfooter <text>",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, isSuperUser, q } = conText;
 
         if (!isSuperUser) { await react("❌"); return reply("❌ Owner Only Command!"); }
@@ -766,7 +766,7 @@ gmd(
         category: "owner",
         description: "Change the bot caption/tagline. Usage: .setcaption <text>",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, isSuperUser, q } = conText;
 
         if (!isSuperUser) { await react("❌"); return reply("❌ Owner Only Command!"); }
@@ -793,7 +793,7 @@ gmd(
         category: "owner",
         description: "Change the bot display name in menus. Usage: .setbotname <name>",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, isSuperUser, q } = conText;
 
         if (!isSuperUser) { await react("❌"); return reply("❌ Owner Only Command!"); }
@@ -801,12 +801,12 @@ gmd(
         if (!q || !q.trim()) {
             await react("❌");
             const cur = (await getSetting("BOT_NAME")) || "Tehseen Tech Automation";
-            return reply(`❌ Provide a name!\n\nCurrent: *${cur}*\n\nExample: *.setbotname MY GURU BOT*`);
+            return reply(`❌ Provide a name!\n\nCurrent: *${cur}*\n\nExample: *.setbotname MY TTA BOT*`);
         }
 
         await setSetting("BOT_NAME", q.trim());
 
-        try { await Guru.updateProfileName(q.trim()); } catch {}
+        try { await Bot.updateProfileName(q.trim()); } catch {}
 
         await react("✅");
         return reply(`✅ Bot name set to: *${q.trim()}*\n_(WhatsApp profile name also updated)_`);
@@ -823,7 +823,7 @@ gmd(
         category: "owner",
         description: "Set the bot licence expiry date. Usage: .setexpiry YYYY-MM-DD",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, isSuperUser, args } = conText;
 
         if (!isSuperUser) { await react("❌"); return reply("❌ Owner Only Command!"); }
@@ -872,7 +872,7 @@ gmd(
         category: "owner",
         description: "Show current bot design settings.",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, isSuperUser } = conText;
 
         if (!isSuperUser) { await react("❌"); return reply("❌ Owner Only Command!"); }
@@ -935,7 +935,7 @@ gmd(
         category: "owner",
         description: "Reset all bot design settings to defaults. Run twice to confirm.",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, isSuperUser } = conText;
 
         if (!isSuperUser) { await react("❌"); return reply("❌ Owner Only Command!"); }
@@ -948,7 +948,7 @@ gmd(
             await react("⚠️");
             return reply(
                 "⚠️ *Reset Confirmation*\n\n" +
-                "This will reset:\n◈ Menu theme → gurutech\n◈ Bot name → default\n◈ Footer, caption, pic → defaults\n\n" +
+                "This will reset:\n◈ Menu theme → tehseentech\n◈ Bot name → default\n◈ Footer, caption, pic → defaults\n\n" +
                 "Send *.resetdesign* again within *25 seconds* to confirm."
             );
         }
@@ -970,9 +970,9 @@ gmd(
 
 // ─── exported for general.js ──────────────────────────────────────────────────
 
-async function buildThemedMenu(conText, Guru) {
-    const themeKey = (await getSetting("MENU_THEME")) || "gurutech";
-    const theme    = THEMES[themeKey] || THEMES.gurutech;
+async function buildThemedMenu(conText, Bot) {
+    const themeKey = (await getSetting("MENU_THEME")) || "tehseentech";
+    const theme    = THEMES[themeKey] || THEMES.tehseentech;
     const data     = await buildMenuData(conText);
     return theme.render(data);
 }

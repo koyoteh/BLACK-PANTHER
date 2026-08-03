@@ -45,8 +45,8 @@
 
 ### 2️⃣ Get Your SESSION ID
 
-[![Pair Code](https://img.shields.io/badge/PAIR%20CODE-9B59B6?style=for-the-badge&logo=whatsapp&logoColor=white)](https://pantherr-session.onrender.com/pair)
-[![QR Code](https://img.shields.io/badge/SCAN%20QR%20CODE-6C3483?style=for-the-badge&logo=qrcode&logoColor=white)](https://pantherr-session.onrender.com/qr)
+[![Pair Code](https://img.shields.io/badge/PAIR%20CODE-9B59B6?style=for-the-badge&logo=whatsapp&logoColor=white)](https://tehseentech-session.onrender.com/pair)
+[![QR Code](https://img.shields.io/badge/SCAN%20QR%20CODE-6C3483?style=for-the-badge&logo=qrcode&logoColor=white)](https://tehseentech-session.onrender.com/qr)
 
 > 💡 *Self-host your pairing page using `/guru/pairing.js` and `/guru/pair.html`.*
 

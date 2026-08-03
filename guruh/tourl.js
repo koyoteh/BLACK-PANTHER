@@ -11,17 +11,17 @@ gmd({
     react: "🔗",
     category: "uploader",
     description: "Convert any media to a URL. Reply to an image/video/audio/document with .url",
-}, async (from, Guru, conText) => {
-    await handleUpload(from, Guru, conText, 'catbox');
+}, async (from, Bot, conText) => {
+    await handleUpload(from, Bot, conText, 'catbox');
 });
 
 gmd({
-    pattern: "gurucdn",
+    pattern: "ttacdn",
     react: "⬆️",
     category: "uploader",
-    description: "Upload any file to GuruCDN",
-}, async (from, Guru, conText) => {
-    await handleUpload(from, Guru, conText, 'gurucdn');
+    description: "Upload any file to BotCDN",
+}, async (from, Bot, conText) => {
+    await handleUpload(from, Bot, conText, 'ttacdn');
 });
 
 gmd({
@@ -29,8 +29,8 @@ gmd({
     react: "⬆️",
     category: "uploader",
     description: "Upload any file to Github Repo",
-}, async (from, Guru, conText) => {
-    await handleUpload(from, Guru, conText, 'githubcdn');
+}, async (from, Bot, conText) => {
+    await handleUpload(from, Bot, conText, 'githubcdn');
 });
 
 gmd({
@@ -38,8 +38,8 @@ gmd({
     react: "⬆️",
     category: "uploader",
     description: "Upload any file to Catbox",
-}, async (from, Guru, conText) => {
-    await handleUpload(from, Guru, conText, 'catbox');
+}, async (from, Bot, conText) => {
+    await handleUpload(from, Bot, conText, 'catbox');
 });
 
 gmd({
@@ -47,8 +47,8 @@ gmd({
     react: "🖼️",
     category: "uploader",
     description: "Upload images to Pixhost",
-}, async (from, Guru, conText) => {
-    await handleUpload(from, Guru, conText, 'pixhost');
+}, async (from, Bot, conText) => {
+    await handleUpload(from, Bot, conText, 'pixhost');
 });
 
 gmd({
@@ -56,12 +56,12 @@ gmd({
     react: "📷",
     category: "uploader",
     description: "Upload images to ImgBB",
-}, async (from, Guru, conText) => {
-    await handleUpload(from, Guru, conText, 'imgbb');
+}, async (from, Bot, conText) => {
+    await handleUpload(from, Bot, conText, 'imgbb');
 });
 
-async function handleUpload(from, Guru, conText, service) {
-    const { mek, reply, react, botFooter, botPrefix, quoted, getMediaBuffer, uploadToGuruCdn, uploadToGithubCdn, uploadToPixhost, getFileContentType, uploadToImgBB, uploadToCatbox, pushName, newsletterUrl } = conText;
+async function handleUpload(from, Bot, conText, service) {
+    const { mek, reply, react, botFooter, botPrefix, quoted, getMediaBuffer, uploadToBotCdn, uploadToGithubCdn, uploadToPixhost, getFileContentType, uploadToImgBB, uploadToCatbox, pushName, newsletterUrl } = conText;
 
     if (!quoted) {
         return reply(`⚠️ Please reply to/quote a media message.`);
@@ -95,8 +95,8 @@ async function handleUpload(from, Guru, conText, service) {
             mediaType = 'image';
         } 
         else if (quotedVideo) {
-            if (service !== 'catbox' && service !== 'gurucdn' && service !== 'githubcdn') {
-                return reply(`❌ ${service} only supports images. Use ${botPrefix}catbox or ${botPrefix}gurucdn or ${botPrefix}githubcdn  for videos and any other file type.`);
+            if (service !== 'catbox' && service !== 'ttacdn' && service !== 'githubcdn') {
+                return reply(`❌ ${service} only supports images. Use ${botPrefix}catbox or ${botPrefix}ttacdn or ${botPrefix}githubcdn  for videos and any other file type.`);
             }
             buffer = await getMediaBuffer(quotedVideo, "video");
             fileExt = '.mp4';
@@ -105,8 +105,8 @@ async function handleUpload(from, Guru, conText, service) {
             mediaType = 'video';
         } 
         else if (quotedAudio) {
-            if (service !== 'catbox' && service !== 'gurucdn' && service !== 'githubcdn') {
-                return reply(`❌ ${service} only supports images. Use ${botPrefix}catbox or ${botPrefix}gurucdn or ${botPrefix}githubcdn  for audios and any other file type.`);
+            if (service !== 'catbox' && service !== 'ttacdn' && service !== 'githubcdn') {
+                return reply(`❌ ${service} only supports images. Use ${botPrefix}catbox or ${botPrefix}ttacdn or ${botPrefix}githubcdn  for audios and any other file type.`);
             }
             buffer = await getMediaBuffer(quotedAudio, "audio");
             fileExt = '.mp3';
@@ -116,7 +116,7 @@ async function handleUpload(from, Guru, conText, service) {
         } 
         else if (quotedSticker) {
             if (service === 'pixhost') {
-                return reply(`❌ ${service} does not support sticker uploads. Use ${botPrefix}imgbb, ${botPrefix}catbox, ${botPrefix}gurucdn or ${botPrefix}githubcdn instead.`);
+                return reply(`❌ ${service} does not support sticker uploads. Use ${botPrefix}imgbb, ${botPrefix}catbox, ${botPrefix}ttacdn or ${botPrefix}githubcdn instead.`);
             }
             buffer = await getMediaBuffer(quotedSticker, "sticker");
             fileExt = '.webp';
@@ -126,8 +126,8 @@ async function handleUpload(from, Guru, conText, service) {
             mediaType = 'sticker';
         } 
         else if (quotedDocument) {
-            if (service !== 'catbox' && service !== 'gurucdn' && service !== 'githubcdn') {
-                return reply(`❌ ${service} only supports images. Use ${botPrefix}catbox or ${botPrefix}gurucdn or ${botPrefix}githubcdn  for documents and any other file type.`);
+            if (service !== 'catbox' && service !== 'ttacdn' && service !== 'githubcdn') {
+                return reply(`❌ ${service} only supports images. Use ${botPrefix}catbox or ${botPrefix}ttacdn or ${botPrefix}githubcdn  for documents and any other file type.`);
             }
             buffer = await getMediaBuffer(quotedDocument, "document");
             fileExt = quotedDocument.fileName ? path.extname(quotedDocument.fileName).toLowerCase() : '.bin';
@@ -138,14 +138,14 @@ async function handleUpload(from, Guru, conText, service) {
             return reply(`❌ Unsupported message type.`);
         }
 
-        if (!isImage && service !== 'catbox' && service !== 'gurucdn' && service !== 'githubcdn') {
-            return reply(`❌ ${service} only supports image files. Use ${botPrefix}catbox or ${botPrefix}gurucdn or ${botPrefix}githubcdn for any other file types.`);
+        if (!isImage && service !== 'catbox' && service !== 'ttacdn' && service !== 'githubcdn') {
+            return reply(`❌ ${service} only supports image files. Use ${botPrefix}catbox or ${botPrefix}ttacdn or ${botPrefix}githubcdn for any other file types.`);
         }
 
         let uploadResult;
         switch (service) {
-            case 'gurucdn':
-                uploadResult = await uploadToGuruCdn(buffer, fileName);
+            case 'ttacdn':
+                uploadResult = await uploadToBotCdn(buffer, fileName);
                 break;
             case 'catbox':
                 uploadResult = await uploadToCatbox(buffer, fileName);
@@ -169,7 +169,7 @@ async function handleUpload(from, Guru, conText, service) {
         const caption = `Hey *${pushName},*\nHere is Your *${service.toUpperCase()}* Upload Result:\n\n*File Type:* ${fileTypeName}\n*File Size:* ${fileSizeMB.toFixed(2)} MBs\n*File Url:* ${uploadResult.url}\n*File Expiration:* No Expiry\n`;
 
         // Send buttons
-        await sendButtons(Guru, from, {
+        await sendButtons(Bot, from, {
             title: '',
             text: caption,
             footer: `> *${botFooter}*`,

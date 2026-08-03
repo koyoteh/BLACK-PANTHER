@@ -7,8 +7,8 @@ const {
         getMimeCategory,
         getMimeFromUrl,
     } = require("../guru"),
-    GIFTED_DLS = require("gifted-dls"),
-    guruDls = new GIFTED_DLS(),
+    DL_MODULE = require("gifted-dls"),
+    botDls = new DL_MODULE(),
     axios = require("axios"),
     { sendButtons } = require("gifted-btns");
 
@@ -38,7 +38,7 @@ gmd(
         aliases: ["gitdl", "github", "git", "repodl", "clone"],
         description: "Download GitHub repository as zip file",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { q, mek, reply, react, sender, botName, newsletterJid } =
             conText;
 
@@ -77,7 +77,7 @@ gmd(
             const defaultBranch = repoData.default_branch || "main";
             const filename = `${user}-${repo}-${defaultBranch}.zip`;
 
-            await Guru.sendMessage(
+            await Bot.sendMessage(
                 from,
                 {
                     document: { url: zipUrl },
@@ -127,7 +127,7 @@ gmd(
         aliases: ["fbdl", "facebookdl", "facebook"],
         description: "Download Facebook videos. Usage: .fb <Facebook URL>",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const {
             q,
             mek,
@@ -138,7 +138,7 @@ gmd(
             gmdBuffer,
             toAudio,
             PantherApi,
-            GuruApiKey,
+            BotApiKey,
         } = conText;
 
         if (!q) {
@@ -174,7 +174,7 @@ gmd(
             if (!videoUrl) {
                 try {
                     const r = await axios.get(
-                        `${PantherApi}/api/download/facebook?apikey=${GuruApiKey}&url=${encodeURIComponent(q)}`,
+                        `${PantherApi}/api/download/facebook?apikey=${BotApiKey}&url=${encodeURIComponent(q)}`,
                         { timeout: 15000 }
                     );
                     const d = r.data?.result;
@@ -198,7 +198,7 @@ gmd(
             const msgOpts = { quoted: mek };
 
             if (fileSize > MAX_MEDIA_SIZE) {
-                await Guru.sendMessage(from, {
+                await Bot.sendMessage(from, {
                     document: { url: videoUrl },
                     fileName: `${title.replace(/[^\w\s.-]/gi, "")}.mp4`,
                     mimetype: "video/mp4",
@@ -207,7 +207,7 @@ gmd(
                     ], botFooter),
                 }, msgOpts);
             } else {
-                await Guru.sendMessage(from, {
+                await Bot.sendMessage(from, {
                     video: { url: videoUrl },
                     mimetype: "video/mp4",
                     caption: toxicBox("FACEBOOK DOWNLOADER", [
@@ -232,8 +232,8 @@ gmd(
         aliases: ["tiktokdl", "ttdl", "tt"],
         description: "Download TikTok videos/audio. Usage: .tiktok <TikTok URL>",
     },
-    async (from, Guru, conText) => {
-        const { q, mek, reply, react, botFooter, gmdBuffer, toAudio, formatAudio, PantherApi, GuruApiKey } = conText;
+    async (from, Bot, conText) => {
+        const { q, mek, reply, react, botFooter, gmdBuffer, toAudio, formatAudio, PantherApi, BotApiKey } = conText;
 
         if (!q) {
             await react("❌");
@@ -279,7 +279,7 @@ gmd(
             if (!result) {
                 for (const ep of ["tiktok", "tiktokdlv2", "tiktokdlv3"]) {
                     try {
-                        const r = await axios.get(`${PantherApi}/api/download/${ep}?apikey=${GuruApiKey}&url=${encodeURIComponent(q)}`, { timeout: 15000 });
+                        const r = await axios.get(`${PantherApi}/api/download/${ep}?apikey=${BotApiKey}&url=${encodeURIComponent(q)}`, { timeout: 15000 });
                         if (r.data?.success && r.data?.result) { result = r.data.result; break; }
                     } catch (_) {}
                 }
@@ -294,7 +294,7 @@ gmd(
 
             // Send video
             const fileSize = await getFileSize(video).catch(() => 0);
-            await Guru.sendMessage(from, {
+            await Bot.sendMessage(from, {
                 ...(fileSize > MAX_MEDIA_SIZE
                     ? { document: { url: video }, fileName: `${(title).replace(/[^\w\s.-]/gi, "")}.mp4`, mimetype: "video/mp4" }
                     : { video: { url: video }, mimetype: "video/mp4" }),
@@ -307,7 +307,7 @@ gmd(
             // Send music as audio too
             if (music) {
                 try {
-                    await Guru.sendMessage(from, {
+                    await Bot.sendMessage(from, {
                         audio: { url: music },
                         mimetype: "audio/mpeg",
                         ptt: false,
@@ -333,8 +333,8 @@ gmd(
         aliases: ["twitterdl", "xdl", "xdownloader", "twitterdownloader", "x"],
         description: "Download Twitter/X videos. Usage: .twitter <tweet URL>",
     },
-    async (from, Guru, conText) => {
-        const { q, mek, reply, react, botFooter, PantherApi, GuruApiKey } = conText;
+    async (from, Bot, conText) => {
+        const { q, mek, reply, react, botFooter, PantherApi, BotApiKey } = conText;
 
         if (!q) {
             await react("❌");
@@ -370,7 +370,7 @@ gmd(
             if (!videoUrl) {
                 try {
                     const r = await axios.get(
-                        `${PantherApi}/api/download/twitter?apikey=${GuruApiKey}&url=${encodeURIComponent(q)}`,
+                        `${PantherApi}/api/download/twitter?apikey=${BotApiKey}&url=${encodeURIComponent(q)}`,
                         { timeout: 15000 }
                     );
                     const d = r.data?.result;
@@ -387,7 +387,7 @@ gmd(
             }
 
             const fileSize = await getFileSize(videoUrl).catch(() => 0);
-            await Guru.sendMessage(from, {
+            await Bot.sendMessage(from, {
                 ...(fileSize > MAX_MEDIA_SIZE
                     ? { document: { url: videoUrl }, fileName: "twitter_video.mp4", mimetype: "video/mp4" }
                     : { video: { url: videoUrl }, mimetype: "video/mp4" }),
@@ -411,8 +411,8 @@ gmd(
         aliases: ["insta", "instadl", "igdl", "instagram"],
         description: "Download Instagram reels/videos/images. Usage: .ig <Instagram URL>",
     },
-    async (from, Guru, conText) => {
-        const { q, mek, reply, react, botFooter, PantherApi, GuruApiKey } = conText;
+    async (from, Bot, conText) => {
+        const { q, mek, reply, react, botFooter, PantherApi, BotApiKey } = conText;
 
         if (!q) {
             await react("❌");
@@ -466,7 +466,7 @@ gmd(
             if (!mediaUrl) {
                 try {
                     const r = await axios.get(
-                        `${PantherApi}/api/download/instadl?apikey=${GuruApiKey}&url=${encodeURIComponent(q)}`,
+                        `${PantherApi}/api/download/instadl?apikey=${BotApiKey}&url=${encodeURIComponent(q)}`,
                         { timeout: 15000 }
                     );
                     const d = r.data?.result;
@@ -489,14 +489,14 @@ gmd(
             const fileSize = await getFileSize(mediaUrl).catch(() => 0);
 
             if (isVideo) {
-                await Guru.sendMessage(from, {
+                await Bot.sendMessage(from, {
                     ...(fileSize > MAX_MEDIA_SIZE
                         ? { document: { url: mediaUrl }, fileName: "instagram_video.mp4", mimetype: "video/mp4" }
                         : { video: { url: mediaUrl }, mimetype: "video/mp4" }),
                     caption: boxCaption,
                 }, { quoted: mek });
             } else {
-                await Guru.sendMessage(from, {
+                await Bot.sendMessage(from, {
                     image: { url: mediaUrl },
                     caption: boxCaption,
                 }, { quoted: mek });
@@ -519,8 +519,8 @@ gmd(
         aliases: ["snackdl", "snackvideo"],
         description: "Download Snack Video. Usage: .snack <Snack Video URL>",
     },
-    async (from, Guru, conText) => {
-        const { q, mek, reply, react, botFooter, PantherApi, GuruApiKey } = conText;
+    async (from, Bot, conText) => {
+        const { q, mek, reply, react, botFooter, PantherApi, BotApiKey } = conText;
 
         if (!q) {
             await react("❌");
@@ -540,7 +540,7 @@ gmd(
 
         try {
             const r = await axios.get(
-                `${PantherApi}/api/download/snackdl?apikey=${GuruApiKey}&url=${encodeURIComponent(q)}`,
+                `${PantherApi}/api/download/snackdl?apikey=${BotApiKey}&url=${encodeURIComponent(q)}`,
                 { timeout: 60000 }
             );
 
@@ -552,7 +552,7 @@ gmd(
             const { title, media, author, like } = r.data.result;
 
             const fileSize = await getFileSize(media).catch(() => 0);
-            await Guru.sendMessage(from, {
+            await Bot.sendMessage(from, {
                 ...(fileSize > MAX_MEDIA_SIZE
                     ? { document: { url: media }, fileName: `${(title || "snack_video").replace(/[^\w\s.-]/gi, "")}.mp4`, mimetype: "video/mp4" }
                     : { video: { url: media }, mimetype: "video/mp4" }),

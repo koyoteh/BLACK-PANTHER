@@ -174,7 +174,7 @@ gmd({
     category:    "tools",
     description: "Set a smart reminder with natural language time",
     usage:       ".remind in 30m <message> | at 15:30 <message> | tomorrow <message>",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { q, reply, react, sender, pushName } = conText;
 
     if (!q) {
@@ -240,7 +240,7 @@ gmd({
     category:    "tools",
     description: "List all your pending reminders",
     usage:       ".reminders",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { reply, react, sender } = conText;
 
     const rows = $myList.all(sender);
@@ -273,7 +273,7 @@ gmd({
     category:    "tools",
     description: "Cancel a pending reminder by ID",
     usage:       ".cancelreminder <id>",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { q, reply, react, sender } = conText;
 
     const id = parseInt(q?.trim(), 10);
@@ -301,7 +301,7 @@ gmd({
     category:    "tools",
     description: "Snooze a reminder for an extra time period",
     usage:       ".snooze <id> <time>  (e.g. .snooze 3 15m)",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
     const { q, reply, react, sender } = conText;
 
     if (!q) {

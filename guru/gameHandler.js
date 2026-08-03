@@ -60,14 +60,14 @@ const clearDiceTimeout = (chatJid) => {
     }
 };
 
-const setMoveTimeout = (chatJid, Guru, currentPlayer, otherPlayer, player1) => {
+const setMoveTimeout = (chatJid, Bot, currentPlayer, otherPlayer, player1) => {
     clearGameTimeout(chatJid);
     const timeout = setTimeout(async () => {
         const active = await getActiveGame(chatJid);
         if (active && active.currentTurn === currentPlayer) {
             await endGame(chatJid);
             const currentSymbol = currentPlayer === active.player1 ? "❌" : "⭕";
-            await Guru.sendMessage(chatJid, {
+            await Bot.sendMessage(chatJid, {
                 text: `⏰ *TIC TAC TOE - TIMEOUT*\n\n@${getPlayerName(currentPlayer)} (${currentSymbol}) took too long to move!\n\n🏆 *WINNER: @${getPlayerName(otherPlayer)}* by timeout!\n\nStart a new game with *.ttt*`,
                 mentions: [currentPlayer, otherPlayer],
             });
@@ -77,7 +77,7 @@ const setMoveTimeout = (chatJid, Guru, currentPlayer, otherPlayer, player1) => {
     gameTimeouts.set(chatJid, timeout);
 };
 
-const setWcgTurnTimeout = (chatJid, Guru, currentPlayer, game) => {
+const setWcgTurnTimeout = (chatJid, Bot, currentPlayer, game) => {
     clearWcgTimeout(chatJid);
     const timeout = setTimeout(async () => {
         const activeGame = await getActiveWcgGame(chatJid);
@@ -86,22 +86,22 @@ const setWcgTurnTimeout = (chatJid, Guru, currentPlayer, game) => {
             if (result.finished) {
                 await endWcgGame(chatJid);
                 if (result.noWinner || !result.winner) {
-                    await Guru.sendMessage(chatJid, {
+                    await Bot.sendMessage(chatJid, {
                         text: `⏰ *WORD CHAIN - GAME OVER*\n\n@${getPlayerName(currentPlayer)} ran out of time!\n\n📊 *Final Scores:*\n${formatScores(result.scores)}`,
                         mentions: [currentPlayer],
                     });
                 } else {
-                    await Guru.sendMessage(chatJid, {
+                    await Bot.sendMessage(chatJid, {
                         text: `⏰ *WORD CHAIN - TIMEOUT*\n\n@${getPlayerName(currentPlayer)} ran out of time!\n\n🏆 *WINNER:* @${getPlayerName(result.winner)}\n\n📊 *Final Scores:*\n${formatScores(result.scores)}`,
                         mentions: [currentPlayer, result.winner],
                     });
                 }
             } else {
-                await Guru.sendMessage(chatJid, {
+                await Bot.sendMessage(chatJid, {
                     text: `⏰ @${getPlayerName(currentPlayer)} ran out of time and is eliminated!\n\n🔄 @${getPlayerName(result.nextPlayer)}'s turn\nLast word: *${activeGame.lastWord || 'None'}*\n${activeGame.lastWord ? `Start with: *${activeGame.lastWord.slice(-1).toUpperCase()}*` : 'Any word to start!'}\n\n⏰ _30 seconds to respond_`,
                     mentions: [currentPlayer, result.nextPlayer],
                 });
-                setWcgTurnTimeout(chatJid, Guru, result.nextPlayer, activeGame);
+                setWcgTurnTimeout(chatJid, Bot, result.nextPlayer, activeGame);
             }
         }
         wcgTimeouts.delete(chatJid);
@@ -109,14 +109,14 @@ const setWcgTurnTimeout = (chatJid, Guru, currentPlayer, game) => {
     wcgTimeouts.set(chatJid, timeout);
 };
 
-const setDiceTurnTimeout = (chatJid, Guru, currentPlayer, game) => {
+const setDiceTurnTimeout = (chatJid, Bot, currentPlayer, game) => {
     clearDiceTimeout(chatJid);
     const timeout = setTimeout(async () => {
         const activeGame = await getActiveDiceGame(chatJid);
         if (activeGame && activeGame.currentTurn === currentPlayer) {
             await endDiceGame(chatJid);
             const otherPlayer = currentPlayer === activeGame.player1 ? activeGame.player2 : activeGame.player1;
-            await Guru.sendMessage(chatJid, {
+            await Bot.sendMessage(chatJid, {
                 text: `⏰ *DICE GAME - TIMEOUT*\n\n@${getPlayerName(currentPlayer)} took too long!\n🏆 @${getPlayerName(otherPlayer)} wins by default!`,
                 mentions: [currentPlayer, otherPlayer],
             });
@@ -126,7 +126,7 @@ const setDiceTurnTimeout = (chatJid, Guru, currentPlayer, game) => {
     diceTimeouts.set(chatJid, timeout);
 };
 
-async function handleAiTttMove(from, Guru, game) {
+async function handleAiTttMove(from, Bot, game) {
     const board = JSON.parse(game.board);
     const aiMove = findBestTttMove(board);
     if (aiMove === -1) return;
@@ -136,7 +136,7 @@ async function handleAiTttMove(from, Guru, game) {
     
     if (result.winner) {
         clearGameTimeout(from);
-        await Guru.sendMessage(from, {
+        await Bot.sendMessage(from, {
             text: `🎮 *TIC TAC TOE - AI WINS!*\n\n${renderBoard(JSON.parse(result.game.board))}\n\n🤖 AI wins! Better luck next time!`,
         });
         return;
@@ -144,22 +144,22 @@ async function handleAiTttMove(from, Guru, game) {
     
     if (result.draw) {
         clearGameTimeout(from);
-        await Guru.sendMessage(from, {
+        await Bot.sendMessage(from, {
             text: `🎮 *TIC TAC TOE - DRAW!*\n\n${renderBoard(JSON.parse(result.game.board))}\n\n🤝 It's a tie! Good game!`,
         });
         return;
     }
     
     const newBoard = JSON.parse(result.game.board);
-    await Guru.sendMessage(from, {
+    await Bot.sendMessage(from, {
         text: `🤖 AI played position ${aiMove + 1}\n\n${renderBoard(newBoard)}\n\n@${getPlayerName(result.game.currentTurn)}'s turn (❌)\n\n⏰ _30 seconds_`,
         mentions: [result.game.currentTurn],
     });
     
-    setMoveTimeout(from, Guru, result.game.currentTurn, BOT_JID, result.game.player1);
+    setMoveTimeout(from, Bot, result.game.currentTurn, BOT_JID, result.game.player1);
 }
 
-async function handleAiWcgMove(from, Guru, gameRef) {
+async function handleAiWcgMove(from, Bot, gameRef) {
     await new Promise(resolve => setTimeout(resolve, 1500));
     
     const freshGame = await getActiveWcgGame(from);
@@ -173,7 +173,7 @@ async function handleAiWcgMove(from, Guru, gameRef) {
     if (!aiWord) {
         const humanPlayer = freshGame.player1 === BOT_JID ? freshGame.player2 : freshGame.player1;
         const scores = JSON.parse(freshGame.scores || '{}');
-        await Guru.sendMessage(from, {
+        await Bot.sendMessage(from, {
             text: `🤖 AI couldn't find a word starting with *${lastLetter}*!\n\n🏆 *WINNER:* @${getPlayerName(humanPlayer)}\n\n📊 *Final Scores:*\n${formatScores(scores)}`,
             mentions: [humanPlayer],
         });
@@ -187,22 +187,22 @@ async function handleAiWcgMove(from, Guru, gameRef) {
     clearWcgTimeout(from);
     const nextLetter = result.word.slice(-1).toUpperCase();
     
-    await Guru.sendMessage(from, {
+    await Bot.sendMessage(from, {
         text: `🤖 AI: *${result.word}* (+${result.word.length} pts)\n\n🔄 @${getPlayerName(result.nextPlayer)}'s turn\nNext word starts with: *${nextLetter}*\n\n📊 Words: ${result.wordCount} | ⏰ 30s`,
         mentions: [result.nextPlayer],
     });
     
-    setWcgTurnTimeout(from, Guru, result.nextPlayer, result.game);
+    setWcgTurnTimeout(from, Bot, result.nextPlayer, result.game);
 }
 
-async function handleAiDiceRoll(from, Guru, gameRef) {
+async function handleAiDiceRoll(from, Bot, gameRef) {
     clearDiceTimeout(from);
     await new Promise(resolve => setTimeout(resolve, 1000));
     
     const result = await playerRoll(from, BOT_JID);
     
     if (result.error) {
-        await Guru.sendMessage(from, {
+        await Bot.sendMessage(from, {
             text: `❌ AI roll error. Game ended.`,
         });
         await endDiceGame(from);
@@ -234,16 +234,16 @@ async function handleAiDiceRoll(from, Guru, gameRef) {
     } else {
         text += `\n\n*Round ${result.nextRound}*\n@${getPlayerName(result.player1)}, type *roll*!`;
         const freshGame = await getActiveDiceGame(from);
-        setDiceTurnTimeout(from, Guru, result.player1, freshGame);
+        setDiceTurnTimeout(from, Bot, result.player1, freshGame);
     }
     
-    await Guru.sendMessage(from, {
+    await Bot.sendMessage(from, {
         text,
         mentions: [result.player1],
     });
 }
 
-const handleGameMessage = async (Guru, message) => {
+const handleGameMessage = async (Bot, message) => {
     try {
         if (!message?.message) return;
         
@@ -272,11 +272,11 @@ const handleGameMessage = async (Guru, message) => {
                 if (result && !result.error) {
                     clearGameTimeout(from);
                     const board = JSON.parse(result.board);
-                    await Guru.sendMessage(from, {
+                    await Bot.sendMessage(from, {
                         text: `🎮 *TIC TAC TOE - GAME STARTED!*\n\nPlayer 1: @${getPlayerName(result.player1)} (❌)\nPlayer 2: @${getPlayerName(result.player2)} (⭕)\n\n${renderBoard(board)}\n\n@${getPlayerName(result.currentTurn)}'s turn (❌)\n\n*Reply with a number (1-9) to move!*\n⏰ _30 seconds per move_`,
                         mentions: [result.player1, result.player2, result.currentTurn],
                     });
-                    setMoveTimeout(from, Guru, result.currentTurn, result.player2, result.player1);
+                    setMoveTimeout(from, Bot, result.currentTurn, result.player2, result.player1);
                     return;
                 }
             }
@@ -285,7 +285,7 @@ const handleGameMessage = async (Guru, message) => {
             if (wcgWaiting) {
                 const result = await joinWcgGame(from, sender);
                 if (result && !result.error) {
-                    await Guru.sendMessage(from, {
+                    await Bot.sendMessage(from, {
                         text: `✅ @${getPlayerName(sender)} joined the Word Chain game!\n\n👥 Players: ${result.players?.length || 0}\nHost can type *.wcgbegin* to start!`,
                         mentions: [sender],
                     });
@@ -298,11 +298,11 @@ const handleGameMessage = async (Guru, message) => {
                 const result = await joinDiceGame(from, sender);
                 if (result && !result.error) {
                     clearDiceTimeout(from);
-                    await Guru.sendMessage(from, {
+                    await Bot.sendMessage(from, {
                         text: `🎲 *DICE GAME STARTED!*\n\n@${getPlayerName(result.player1)} vs @${getPlayerName(result.player2)}\nRounds: ${result.totalRounds}\n\n@${getPlayerName(result.player1)}, type *roll* to start!`,
                         mentions: [result.player1, result.player2],
                     });
-                    setDiceTurnTimeout(from, Guru, result.player1, result.game);
+                    setDiceTurnTimeout(from, Bot, result.player1, result.game);
                     return;
                 }
             }
@@ -323,7 +323,7 @@ const handleGameMessage = async (Guru, message) => {
             if (result.winner) {
                 clearGameTimeout(from);
                 const winnerSymbol = result.symbol === "X" ? "❌" : "⭕";
-                await Guru.sendMessage(from, {
+                await Bot.sendMessage(from, {
                     text: `🎮 *TIC TAC TOE - GAME OVER!*\n\n${renderBoard(board)}\n\n🏆 *WINNER: @${getPlayerName(result.winner)}* ${winnerSymbol}\n\nCongratulations! 🎉`,
                     mentions: [result.winner],
                 });
@@ -332,7 +332,7 @@ const handleGameMessage = async (Guru, message) => {
             
             if (result.draw) {
                 clearGameTimeout(from);
-                await Guru.sendMessage(from, {
+                await Bot.sendMessage(from, {
                     text: `🎮 *TIC TAC TOE - GAME OVER!*\n\n${renderBoard(board)}\n\n🤝 *IT'S A DRAW!*\n\nGood game! Start a new one with *.ttt*`,
                 });
                 return;
@@ -342,19 +342,19 @@ const handleGameMessage = async (Guru, message) => {
             const otherPlayer = result.game.currentTurn === result.game.player1 ? result.game.player2 : result.game.player1;
             
             if (game.isAiGame && result.game.currentTurn === BOT_JID) {
-                await Guru.sendMessage(from, {
+                await Bot.sendMessage(from, {
                     text: `🎮 *TIC TAC TOE vs AI*\n\n${renderBoard(board)}\n\n🤖 AI is thinking...`,
                 });
-                await handleAiTttMove(from, Guru, result.game);
+                await handleAiTttMove(from, Bot, result.game);
                 return;
             }
             
-            await Guru.sendMessage(from, {
+            await Bot.sendMessage(from, {
                 text: `🎮 *TIC TAC TOE*\n\nPlayer 1: @${getPlayerName(result.game.player1)} (❌)\nPlayer 2: @${getPlayerName(result.game.player2)} (⭕)\n\n${renderBoard(board)}\n\n@${getPlayerName(result.game.currentTurn)}'s turn (${currentSymbol})\n\n*Reply 1-9 to move*\n⏰ _30 seconds_`,
                 mentions: [result.game.player1, result.game.player2, result.game.currentTurn],
             });
             
-            setMoveTimeout(from, Guru, result.game.currentTurn, otherPlayer, result.game.player1);
+            setMoveTimeout(from, Bot, result.game.currentTurn, otherPlayer, result.game.player1);
             return;
         }
         
@@ -392,28 +392,28 @@ const handleGameMessage = async (Guru, message) => {
                     await endDiceGame(from);
                 } else {
                     text += `\n\n*Round ${result.nextRound}*\n@${getPlayerName(result.player1)}, type *roll*!`;
-                    setDiceTurnTimeout(from, Guru, result.player1, game);
+                    setDiceTurnTimeout(from, Bot, result.player1, game);
                 }
                 
-                await Guru.sendMessage(from, {
+                await Bot.sendMessage(from, {
                     text,
                     mentions: [result.player1, result.player2, result.roundWinner, result.gameWinner].filter(Boolean),
                 });
             } else {
                 if (game.isAiGame && result.waitingFor === BOT_JID) {
-                    await Guru.sendMessage(from, {
+                    await Bot.sendMessage(from, {
                         text: `🎲 @${getPlayerName(sender)} rolled: ${getDiceEmoji(result.roll)} *${result.roll}*\n\n🤖 AI is rolling...`,
                         mentions: [sender],
                     });
-                    await handleAiDiceRoll(from, Guru, game);
+                    await handleAiDiceRoll(from, Bot, game);
                     return;
                 }
                 
-                await Guru.sendMessage(from, {
+                await Bot.sendMessage(from, {
                     text: `🎲 @${getPlayerName(sender)} rolled: ${getDiceEmoji(result.roll)} *${result.roll}*\n\n@${getPlayerName(result.waitingFor)}, type *roll*!`,
                     mentions: [sender, result.waitingFor],
                 });
-                setDiceTurnTimeout(from, Guru, result.waitingFor, game);
+                setDiceTurnTimeout(from, Bot, result.waitingFor, game);
             }
             return;
         }
@@ -430,25 +430,25 @@ const handleGameMessage = async (Guru, message) => {
             
             if (result.error === 'not_your_turn') return;
             if (result.error === 'word_used') {
-                await Guru.sendMessage(from, {
+                await Bot.sendMessage(from, {
                     text: `❌ "${word}" has already been used!`,
                 });
                 return;
             }
             if (result.error === 'wrong_letter') {
-                await Guru.sendMessage(from, {
+                await Bot.sendMessage(from, {
                     text: `❌ Word must start with *${result.expected.toUpperCase()}*!`,
                 });
                 return;
             }
             if (result.error === 'too_short') {
-                await Guru.sendMessage(from, {
+                await Bot.sendMessage(from, {
                     text: "❌ Word must be at least 2 letters!",
                 });
                 return;
             }
             if (result.error === 'invalid_word') {
-                await Guru.sendMessage(from, {
+                await Bot.sendMessage(from, {
                     text: `❌ "${word}" is not a valid English word!`,
                 });
                 return;
@@ -460,19 +460,19 @@ const handleGameMessage = async (Guru, message) => {
             
             const updatedGame = await getActiveWcgGame(from);
             if (updatedGame && updatedGame.isAiGame && result.nextPlayer === BOT_JID) {
-                await Guru.sendMessage(from, {
+                await Bot.sendMessage(from, {
                     text: `✅ *${result.word}* (+${result.word.length} pts)\n\n🤖 AI is thinking...`,
                 });
-                await handleAiWcgMove(from, Guru, updatedGame);
+                await handleAiWcgMove(from, Bot, updatedGame);
                 return;
             }
             
-            await Guru.sendMessage(from, {
+            await Bot.sendMessage(from, {
                 text: `✅ *${result.word}* (+${result.word.length} pts)\n\n🔄 @${getPlayerName(result.nextPlayer)}'s turn\nNext word starts with: *${nextLetter}*\n\n📊 Words: ${result.wordCount} | ⏰ 30s`,
                 mentions: [result.nextPlayer],
             });
             
-            setWcgTurnTimeout(from, Guru, result.nextPlayer, result.game);
+            setWcgTurnTimeout(from, Bot, result.nextPlayer, result.game);
             return;
         }
     } catch (err) {

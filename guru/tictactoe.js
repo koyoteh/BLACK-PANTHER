@@ -36,14 +36,14 @@ ${cell(board[3])} | ${cell(board[4])} | ${cell(board[5])}
 ${cell(board[6])} | ${cell(board[7])} | ${cell(board[8])}`;
 };
 
-const setMoveTimeout = (chatJid, Guru, currentPlayer, otherPlayer, player1) => {
+const setMoveTimeout = (chatJid, Bot, currentPlayer, otherPlayer, player1) => {
     clearGameTimeout(chatJid);
     const timeout = setTimeout(async () => {
         const active = await getActiveGame(chatJid);
         if (active && active.currentTurn === currentPlayer) {
             await endGame(chatJid);
             const currentSymbol = currentPlayer === active.player1 ? "❌" : "⭕";
-            await Guru.sendMessage(chatJid, {
+            await Bot.sendMessage(chatJid, {
                 text: `⏰ *TIC TAC TOE - TIMEOUT*\n\n@${getPlayerName(currentPlayer)} (${currentSymbol}) took too long to move!\n\n🏆 *WINNER: @${getPlayerName(otherPlayer)}* by timeout!\n\nStart a new game with *.ttt*`,
 
                 mentions: [currentPlayer, otherPlayer],
@@ -54,7 +54,7 @@ const setMoveTimeout = (chatJid, Guru, currentPlayer, otherPlayer, player1) => {
     gameTimeouts.set(chatJid, timeout);
 };
 
-const handleTicTacToeMessage = async (Guru, message) => {
+const handleTicTacToeMessage = async (Bot, message) => {
     try {
         if (!message?.message || message.key.fromMe) return;
         
@@ -80,12 +80,12 @@ const handleTicTacToeMessage = async (Guru, message) => {
             
             clearGameTimeout(from);
             const board = JSON.parse(result.board);
-            await Guru.sendMessage(from, {
+            await Bot.sendMessage(from, {
                 text: `🎮 *TIC TAC TOE - GAME STARTED!*\n\nPlayer 1: @${getPlayerName(result.player1)} (❌)\nPlayer 2: @${getPlayerName(result.player2)} (⭕)\n\n${renderBoard(board)}\n\n@${getPlayerName(result.currentTurn)}'s turn (❌)\n\n*Reply with a number (1-9) to move!*\n⏰ _30 seconds per move_`,
 
                 mentions: [result.player1, result.player2, result.currentTurn],
             });
-            setMoveTimeout(from, Guru, result.currentTurn, result.player2, result.player1);
+            setMoveTimeout(from, Bot, result.currentTurn, result.player2, result.player1);
             return;
         }
         
@@ -105,7 +105,7 @@ const handleTicTacToeMessage = async (Guru, message) => {
         if (result.winner) {
             clearGameTimeout(from);
             const winnerSymbol = result.symbol === "X" ? "❌" : "⭕";
-            await Guru.sendMessage(from, {
+            await Bot.sendMessage(from, {
                 text: `🎮 *TIC TAC TOE - GAME OVER!*\n\n${renderBoard(board)}\n\n🏆 *WINNER: @${getPlayerName(result.winner)}* ${winnerSymbol}\n\nCongratulations! 🎉`,
 
                 mentions: [result.winner],
@@ -115,7 +115,7 @@ const handleTicTacToeMessage = async (Guru, message) => {
         
         if (result.draw) {
             clearGameTimeout(from);
-            await Guru.sendMessage(from, {
+            await Bot.sendMessage(from, {
                 text: `🎮 *TIC TAC TOE - GAME OVER!*\n\n${renderBoard(board)}\n\n🤝 *IT'S A DRAW!*\n\nGood game! Start a new one with *.ttt*`,
 
             });
@@ -126,27 +126,27 @@ const handleTicTacToeMessage = async (Guru, message) => {
         const otherPlayer = result.game.currentTurn === result.game.player1 ? result.game.player2 : result.game.player1;
         
         if (game.isAiGame && result.game.currentTurn === BOT_JID) {
-            await Guru.sendMessage(from, {
+            await Bot.sendMessage(from, {
                 text: `🎮 *TIC TAC TOE vs AI*\n\n${renderBoard(board)}\n\n🤖 AI is thinking...`,
 
             });
             
-            await handleAiTttMove(from, Guru, result.game);
+            await handleAiTttMove(from, Bot, result.game);
             return;
         }
         
-        await Guru.sendMessage(from, {
+        await Bot.sendMessage(from, {
             text: `🎮 *TIC TAC TOE*\n\nPlayer 1: @${getPlayerName(result.game.player1)} (❌)\nPlayer 2: @${getPlayerName(result.game.player2)} (⭕)\n\n${renderBoard(board)}\n\n@${getPlayerName(result.game.currentTurn)}'s turn (${currentSymbol})\n\n*Reply 1-9 to move*\n⏰ _30 seconds_`,
             mentions: [result.game.player1, result.game.player2, result.game.currentTurn],
         });
         
-        setMoveTimeout(from, Guru, result.game.currentTurn, otherPlayer, result.game.player1);
+        setMoveTimeout(from, Bot, result.game.currentTurn, otherPlayer, result.game.player1);
     } catch (err) {
         console.error('TicTacToe handler error:', err);
     }
 };
 
-async function handleAiTttMove(from, Guru, game) {
+async function handleAiTttMove(from, Bot, game) {
     const board = JSON.parse(game.board);
     const aiMove = findBestTttMove(board);
     
@@ -158,7 +158,7 @@ async function handleAiTttMove(from, Guru, game) {
     
     if (result.winner) {
         clearGameTimeout(from);
-        await Guru.sendMessage(from, {
+        await Bot.sendMessage(from, {
             text: `🎮 *TIC TAC TOE - AI WINS!*\n\n${renderBoard(JSON.parse(result.game.board))}\n\n🤖 AI wins! Better luck next time!`,
         });
         return;
@@ -166,19 +166,19 @@ async function handleAiTttMove(from, Guru, game) {
     
     if (result.draw) {
         clearGameTimeout(from);
-        await Guru.sendMessage(from, {
+        await Bot.sendMessage(from, {
             text: `🎮 *TIC TAC TOE - DRAW!*\n\n${renderBoard(JSON.parse(result.game.board))}\n\n🤝 It's a tie! Good game!`,
         });
         return;
     }
     
     const newBoard = JSON.parse(result.game.board);
-    await Guru.sendMessage(from, {
+    await Bot.sendMessage(from, {
         text: `🤖 AI played position ${aiMove + 1}\n\n${renderBoard(newBoard)}\n\n@${getPlayerName(result.game.currentTurn)}'s turn (❌)\n\n⏰ _30 seconds_`,
         mentions: [result.game.currentTurn],
     });
     
-    setMoveTimeout(from, Guru, result.game.currentTurn, BOT_JID, result.game.player1);
+    setMoveTimeout(from, Bot, result.game.currentTurn, BOT_JID, result.game.player1);
 }
 
 module.exports = { 

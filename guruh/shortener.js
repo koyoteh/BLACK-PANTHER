@@ -57,7 +57,7 @@ for (const shortener of shorteners) {
             category: "tools",
             description: `Shorten a URL using ${shortener.name}`,
         },
-        async (from, Guru, conText) => {
+        async (from, Bot, conText) => {
             const {
                 sender,
                 mek,
@@ -67,7 +67,7 @@ for (const shortener of shorteners) {
                 botName,
                 botFooter,
                 PantherApi,
-                GuruApiKey,
+                BotApiKey,
             } = conText;
 
             if (!q || q.trim() === "") {
@@ -94,7 +94,7 @@ for (const shortener of shorteners) {
                     `${PantherApi}/api/tools/${shortener.endpoint}`,
                     {
                         params: {
-                            apikey: GuruApiKey,
+                            apikey: BotApiKey,
                             url: url,
                         },
                         timeout: 30000,
@@ -110,7 +110,7 @@ for (const shortener of shorteners) {
 
                 const shortUrl = res.data.result;
 
-                await sendButtons(Guru, from, {
+                await sendButtons(Bot, from, {
                     text: `🔗 *${botName} URL SHORTENER*\n\n📎 *Original:* ${url}\n✂️ *Shortened:* ${shortUrl}`,
                     footer: botFooter,
                     buttons: [
@@ -141,7 +141,7 @@ gmd(
         category: "tools",
         description: "Show all available URL shorteners",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply } = conText;
 
         const helpText = `🔗 *URL SHORTENER COMMANDS*

@@ -124,7 +124,7 @@ gmd(
         category: "advertise",
         description: "Show the business advertiser menu",
     },
-    async (_from, _Guru, conText) => {
+    async (_from, _Bot, conText) => {
         const { reply, react, botPrefix, botFooter, pushName } = conText;
         const p   = botPrefix || ".";
         const total = _allCount.get().total;
@@ -171,7 +171,7 @@ gmd(
         category: "advertise",
         description: "Create or update your business ad. Usage: .setad Name | Desc | Contact | Location",
     },
-    async (_from, _Guru, conText) => {
+    async (_from, _Bot, conText) => {
         const { q, reply, react, sender, botPrefix, botFooter, pushName } = conText;
         const p = botPrefix || ".";
 
@@ -235,7 +235,7 @@ gmd(
         category: "advertise",
         description: "Preview your saved business ad",
     },
-    async (_from, _Guru, conText) => {
+    async (_from, _Bot, conText) => {
         const { reply, react, sender, botPrefix, pushName } = conText;
         const p = botPrefix || ".";
 
@@ -264,7 +264,7 @@ gmd(
         category: "advertise",
         description: "Post your business ad in this chat",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { reply, react, sender, botPrefix, botFooter, pushName } = conText;
         const p = botPrefix || ".";
 
@@ -280,7 +280,7 @@ gmd(
 
         const adText = buildAdMessage(ad, pushName, botFooter);
 
-        await Guru.sendMessage(from, { text: adText });
+        await Bot.sendMessage(from, { text: adText });
         _incrementPosted.run(sender);
 
         await react("✅");
@@ -299,7 +299,7 @@ gmd(
         category: "advertise",
         description: "Edit a field of your ad. Usage: .editad name My New Name",
     },
-    async (_from, _Guru, conText) => {
+    async (_from, _Bot, conText) => {
         const { q, reply, react, sender, botPrefix } = conText;
         const p = botPrefix || ".";
 
@@ -363,7 +363,7 @@ gmd(
         category: "advertise",
         description: "Delete your saved business ad",
     },
-    async (_from, _Guru, conText) => {
+    async (_from, _Bot, conText) => {
         const { q, reply, react, sender, botPrefix } = conText;
         const p = botPrefix || ".";
 

@@ -27,7 +27,7 @@ function buildChunks(num, prefix) {
     const total  = cmds.length;
 
     const header = `⚡ ──「 ${emoji} *${label}* 」──\n▢ ${total} command${total !== 1 ? 's' : ''} available\n\n`;
-    const footer = `\n└──✦ _Powered by GuruTech_ ✦──`;
+    const footer = `\n└──✦ _Powered by TehseenTech_ ✦──`;
 
     if (!total) {
         return [`${header}▢ No commands found in this category yet.\n${footer}`];

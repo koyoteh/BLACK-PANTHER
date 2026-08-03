@@ -1,5 +1,5 @@
 // ════════════════════════════════════════════════════════════════════════════
-//  GURU CORE — Central Export Hub
+//  TTA CORE — Central Export Hub
 // ════════════════════════════════════════════════════════════════════════════
 
 "use strict";
@@ -32,18 +32,18 @@ const { createContext, createContext2, createFakeContact } = require("./gmdHelpe
 // ─── Media & Upload Utilities ────────────────────────────────────────────────
 const {
     getMediaBuffer, getFileContentType, bufferToStream,
-    uploadToGuruCdn, uploadToGithubCdn,
+    uploadToBotCdn, uploadToGithubCdn,
     uploadToPixhost, uploadToImgBB, uploadToCatbox,
 } = require("./gmdFunctions3");
 
 // ─── Core Functions & Event Handlers ─────────────────────────────────────────
 const {
     logger, emojis,
-    GuruAutoReact, PantherApi, GuruApiKey,
-    GuruAntiLink, GuruAntibad, GuruAntiBot, GuruAntiGroupMention,
-    GuruAutoBio, GuruChatBot, GuruPresence,
-    GuruAntiDelete, GuruAnticall, GuruAntiViewOnce, GuruAntiEdit,
-    setupVVTracker, GuruAntiSticker,
+    AutoReact, PantherApi, BotApiKey,
+    AntiLink, AntiBad, AntiBot, AntiGroupMention,
+    AutoBio, ChatBot, BotPresence,
+    AntiDelete, AntiCall, AntiViewOnce, AntiEdit,
+    setupVVTracker, AntiSticker,
 } = require("./gmdFunctions2");
 
 const { handleGameMessage } = require("./gameHandler");
@@ -51,7 +51,7 @@ const { handleGameMessage } = require("./gameHandler");
 const {
     toAudio, toVideo, toPtt, formatVideo, formatAudio,
     monospace, runtime, sleep, gmdFancy,
-    GuruUploader, stickerToImage, formatBytes,
+    BotUploader, stickerToImage, formatBytes,
     gmdBuffer, webp2mp4File, gmdJson, latestWaVersion,
     gmdRandom, isUrl, gmdStore, isNumber,
     loadSession, useSQLiteAuthState, verifyJidState,
@@ -107,17 +107,17 @@ module.exports = {
 
     // Media utilities
     getMediaBuffer, getFileContentType, bufferToStream,
-    uploadToGuruCdn, uploadToGithubCdn,
+    uploadToBotCdn, uploadToGithubCdn,
     uploadToPixhost, uploadToImgBB, uploadToCatbox,
 
     // API keys
-    PantherApi, GuruApiKey,
+    PantherApi, BotApiKey,
 
     // Bot event functions
-    GuruAutoReact, GuruAntiLink, GuruAntibad, GuruAntiBot,
-    GuruAntiGroupMention, GuruAutoBio, GuruChatBot, GuruPresence,
-    GuruAntiDelete, GuruAnticall, GuruAntiViewOnce, GuruAntiEdit,
-    setupVVTracker, GuruAntiSticker,
+    AutoReact, AntiLink, AntiBad, AntiBot,
+    AntiGroupMention, AutoBio, ChatBot, BotPresence,
+    AntiDelete, AntiCall, AntiViewOnce, AntiEdit,
+    setupVVTracker, AntiSticker,
 
     // Games
     handleGameMessage,
@@ -125,7 +125,7 @@ module.exports = {
     // Format / transform
     toAudio, toVideo, toPtt, formatVideo, formatAudio,
     monospace, runtime, sleep, gmdFancy,
-    GuruUploader, stickerToImage, formatBytes,
+    BotUploader, stickerToImage, formatBytes,
     gmdBuffer, webp2mp4File, gmdJson, gmdRandom, gmdStore, gmdSticker,
     latestWaVersion, isUrl, isNumber,
     loadSession, useSQLiteAuthState, verifyJidState,

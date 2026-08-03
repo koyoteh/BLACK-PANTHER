@@ -13,8 +13,8 @@ const logger  = require('./logger');
 const { gmdBanner, gmdTable, pickRandom, sleep } = require('./gmdFunctions');
 const { getGroupSettings, getSetting }            = require('../db/database');
 const {
-    sendButtons:           giftedSendButtons,
-    sendInteractiveMessage: giftedSendInteractive,
+    sendButtons:           sendBtns,
+    sendInteractiveMessage: sendIntr,
 } = require('gifted-btns');
 
 // ═══════════════════════════════════════════════════════════════
@@ -284,7 +284,7 @@ async function PantherPresence(sock, from, type = 'composing') {
 const BIO_TEMPLATES = [
     () => `⚡ ${config.BOT_NAME} | Online 24/7 🌍`,
     () => `⏰ ${new Date().toLocaleTimeString('en-KE',{ timeZone: config.TIME_ZONE })} | 🤖 ${config.BOT_NAME}`,
-    () => `🌐 Powered by GuruTech | ${new Date().toLocaleDateString('en-KE')}`,
+    () => `🌐 Powered by TehseenTech | ${new Date().toLocaleDateString('en-KE')}`,
     () => `🔥 ${config.BOT_NAME} is live! | +${config.OWNER_NUMBER}`,
     () => `⚡ Serving users 24/7`,
     () => `⚡ ${config.BOT_NAME} | TehseenTech 🚀`,
@@ -474,7 +474,7 @@ async function sendCopyButton(sock, jid, opts = {}, msgOpts = {}) {
     } = opts;
 
     try {
-        return await giftedSendButtons(sock, jid, {
+        return await sendBtns(sock, jid, {
             text:    body,
             footer,
             buttons: [
@@ -542,10 +542,10 @@ async function sendButtons(sock, jid, opts = {}, msgOpts = {}) {
         return btn;
     });
 
-    let giftedResult = null;
+    let btnResult = null;
     try {
-        giftedResult = await Promise.race([
-            giftedSendButtons(sock, jid, {
+        btnResult = await Promise.race([
+            sendBtns(sock, jid, {
                 title,
                 text:    bodyText,
                 footer,
@@ -558,7 +558,7 @@ async function sendButtons(sock, jid, opts = {}, msgOpts = {}) {
         logger.warn('SEND_BUTTONS', `gifted-btns threw: ${err.message} — using fallback`);
     }
 
-    if (giftedResult?.key?.id) return giftedResult;
+    if (btnResult?.key?.id) return btnResult;
 
     logger.warn('SEND_BUTTONS', 'gifted-btns did not confirm delivery — sending plain fallback');
     const lines = [title && `*${title}*`, bodyText, footer].filter(Boolean);

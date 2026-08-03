@@ -163,7 +163,7 @@ gmd(
         react: "🎶",
         description: "Download and send audio from YouTube. Usage: .play <song name or URL>",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { q, reply, react, mek, botFooter, botName } = conText;
 
         if (!q || !q.trim()) {
@@ -198,7 +198,7 @@ gmd(
         const { url, title, thumbnail, sourceUrl } = resolved;
 
         try {
-            await Guru.sendMessage(
+            await Bot.sendMessage(
                 from,
                 {
                     audio: { url },
@@ -220,7 +220,7 @@ gmd(
             );
 
             // Also send as document for easy download
-            await Guru.sendMessage(
+            await Bot.sendMessage(
                 from,
                 {
                     document: { url },
@@ -251,7 +251,7 @@ gmd(
         react: "🎵",
         description: "Download audio from a YouTube URL. Usage: .ytmp3 <YouTube URL>",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { q, reply, react, mek, botFooter } = conText;
 
         if (!q || !isYtUrl(q.trim())) {
@@ -280,7 +280,7 @@ gmd(
                 headers: { "User-Agent": "Mozilla/5.0" },
             }).then(r => Buffer.from(r.data));
 
-            await Guru.sendMessage(
+            await Bot.sendMessage(
                 from,
                 {
                     audio: buf,
@@ -313,7 +313,7 @@ gmd(
         react: "🎥",
         description: "Download and send video from YouTube. Usage: .video <title or URL>",
     },
-    async (from, Guru, conText) => {
+    async (from, Bot, conText) => {
         const { q, reply, react, mek, botFooter } = conText;
 
         if (!q || !q.trim()) {
@@ -349,7 +349,7 @@ gmd(
         const { url, title, duration } = resolved;
 
         try {
-            await Guru.sendMessage(
+            await Bot.sendMessage(
                 from,
                 {
                     video: { url },

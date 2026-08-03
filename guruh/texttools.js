@@ -53,7 +53,7 @@ gmd({
   react: "📡",
   category: "tools",
   description: "Convert text to Morse code. Usage: .morse Hello",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { q, reply, react, botFooter, botPrefix } = conText;
   if (!q) return reply(`Usage: ${botPrefix}morse <text>`);
   const encoded = q.toUpperCase().split("").map(c => MORSE[c] || c).join(" ");
@@ -67,7 +67,7 @@ gmd({
   react: "📡",
   category: "tools",
   description: "Convert Morse code to text. Usage: .unmorse .... . .-.. .-.. ---",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { q, reply, react, botFooter, botPrefix } = conText;
   if (!q) return reply(`Usage: ${botPrefix}unmorse <morse code>`);
   const decoded = q.split(" / ").map(word =>
@@ -83,7 +83,7 @@ gmd({
   react: "🔐",
   category: "tools",
   description: "Caesar cipher encode. Usage: .caesar <shift> <text>",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { q, reply, react, botFooter, botPrefix } = conText;
   if (!q) return reply(`Usage: ${botPrefix}caesar <shift> <text>\nExample: ${botPrefix}caesar 3 hello`);
   const parts = q.split(" ");
@@ -105,7 +105,7 @@ gmd({
   react: "🔄",
   category: "tools",
   description: "ROT13 encode/decode text. Usage: .rot13 hello",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { q, reply, react, botFooter, botPrefix } = conText;
   if (!q) return reply(`Usage: ${botPrefix}rot13 <text>`);
   const result = q.replace(/[a-z]/gi, c => {
@@ -122,7 +122,7 @@ gmd({
   react: "🔃",
   category: "tools",
   description: "Reverse a text string. Usage: .reversetext Hello World",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { q, reply, react, botFooter, botPrefix } = conText;
   if (!q) return reply(`Usage: ${botPrefix}reversetext <text>`);
   const rev = q.split("").reverse().join("");
@@ -136,7 +136,7 @@ gmd({
   react: "🔡",
   category: "tools",
   description: "Convert text to lowercase. Usage: .lowercase HELLO",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { q, reply, react, botFooter, botPrefix } = conText;
   if (!q) return reply(`Usage: ${botPrefix}lowercase <text>`);
   await react("✅");
@@ -149,7 +149,7 @@ gmd({
   react: "🔤",
   category: "tools",
   description: "Convert text to Title Case. Usage: .titlecase hello world",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { q, reply, react, botFooter, botPrefix } = conText;
   if (!q) return reply(`Usage: ${botPrefix}titlecase <text>`);
   const titled = q.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
@@ -163,7 +163,7 @@ gmd({
   react: "🐪",
   category: "tools",
   description: "Convert text to camelCase. Usage: .camelcase hello world",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { q, reply, react, botFooter, botPrefix } = conText;
   if (!q) return reply(`Usage: ${botPrefix}camelcase <text>`);
   const result = q.toLowerCase().replace(/\s+(\w)/g, (_, c) => c.toUpperCase());
@@ -177,7 +177,7 @@ gmd({
   react: "🐍",
   category: "tools",
   description: "Convert text to snake_case. Usage: .snakecase hello world",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { q, reply, react, botFooter, botPrefix } = conText;
   if (!q) return reply(`Usage: ${botPrefix}snakecase <text>`);
   const result = q.trim().toLowerCase().replace(/\s+/g, "_");
@@ -191,7 +191,7 @@ gmd({
   react: "🔁",
   category: "tools",
   description: "Check if a word/phrase is a palindrome. Usage: .palindrome racecar",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { q, reply, react, botFooter, botPrefix } = conText;
   if (!q) return reply(`Usage: ${botPrefix}palindrome <text>`);
   const clean = q.toLowerCase().replace(/[^a-z0-9]/g, "");
@@ -206,7 +206,7 @@ gmd({
   react: "📊",
   category: "tools",
   description: "Count characters, words and lines in text. Usage: .charcount <text>",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { q, reply, react, botFooter, botPrefix } = conText;
   if (!q) return reply(`Usage: ${botPrefix}charcount <text>`);
   const chars = q.length;
@@ -223,7 +223,7 @@ gmd({
   react: "🔤",
   category: "tools",
   description: "Count vowels and consonants in text. Usage: .vowelcount Hello World",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { q, reply, react, botFooter, botPrefix } = conText;
   if (!q) return reply(`Usage: ${botPrefix}vowelcount <text>`);
   const vowels = (q.match(/[aeiouAEIOU]/g) || []).length;
@@ -238,7 +238,7 @@ gmd({
   react: "📏",
   category: "tools",
   description: "Find the longest word in a sentence. Usage: .longestword <sentence>",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { q, reply, react, botFooter, botPrefix } = conText;
   if (!q) return reply(`Usage: ${botPrefix}longestword <sentence>`);
   const words = q.split(/\s+/).filter(Boolean);
@@ -253,7 +253,7 @@ gmd({
   react: "🔀",
   category: "tools",
   description: "Shuffle the words in a sentence. Usage: .shuffletext hello world today",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { q, reply, react, botFooter, botPrefix } = conText;
   if (!q) return reply(`Usage: ${botPrefix}shuffletext <sentence>`);
   const words = q.split(/\s+/);
@@ -271,7 +271,7 @@ gmd({
   react: "🔁",
   category: "tools",
   description: "Repeat a text N times. Usage: .repeattext 3 Hello",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { q, reply, react, botFooter, botPrefix } = conText;
   if (!q) return reply(`Usage: ${botPrefix}repeattext <times> <text>\nExample: ${botPrefix}repeattext 3 Hello`);
   const parts = q.split(" ");
@@ -288,7 +288,7 @@ gmd({
   react: "🔢",
   category: "tools",
   description: "Check if a number is prime. Usage: .isprime 17",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { q, reply, react, botFooter, botPrefix } = conText;
   const n = parseInt(q);
   if (!q || isNaN(n)) return reply(`Usage: ${botPrefix}isprime <number>`);
@@ -303,7 +303,7 @@ gmd({
   react: "🌀",
   category: "tools",
   description: "Get Fibonacci sequence up to N terms. Usage: .fibonacci 10",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { q, reply, react, botFooter, botPrefix } = conText;
   const n = Math.min(parseInt(q) || 10, 30);
   if (isNaN(n) || n < 1) return reply(`Usage: ${botPrefix}fibonacci <terms> (max 30)`);
@@ -319,7 +319,7 @@ gmd({
   react: "🔢",
   category: "tools",
   description: "Calculate factorial of a number. Usage: .factorial 10",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { q, reply, react, botFooter, botPrefix } = conText;
   const n = parseInt(q);
   if (!q || isNaN(n) || n < 0) return reply(`Usage: ${botPrefix}factorial <number> (0–20)`);
@@ -334,7 +334,7 @@ gmd({
   react: "🏛️",
   category: "tools",
   description: "Convert number to Roman numerals. Usage: .roman 2026",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { q, reply, react, botFooter, botPrefix } = conText;
   const n = parseInt(q);
   if (!q || isNaN(n) || n < 1 || n > 3999) return reply(`Usage: ${botPrefix}roman <number> (1–3999)`);
@@ -348,7 +348,7 @@ gmd({
   react: "🏛️",
   category: "tools",
   description: "Convert Roman numerals to number. Usage: .unroman MMXXVI",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { q, reply, react, botFooter, botPrefix } = conText;
   if (!q) return reply(`Usage: ${botPrefix}unroman <roman>`);
   const result = fromRoman(q.toUpperCase());
@@ -362,7 +362,7 @@ gmd({
   react: "⚖️",
   category: "tools",
   description: "Calculate BMI. Usage: .bmi <weight kg> <height cm>",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { q, reply, react, botFooter, botPrefix } = conText;
   if (!q) return reply(`Usage: ${botPrefix}bmi <weight kg> <height cm>\nExample: ${botPrefix}bmi 70 175`);
   const [wStr, hStr] = q.split(/\s+/);
@@ -380,7 +380,7 @@ gmd({
   react: "🌡️",
   category: "tools",
   description: "Convert temperature. Usage: .temperature 100 c (c/f/k)",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { q, reply, react, botFooter, botPrefix } = conText;
   if (!q) return reply(`Usage: ${botPrefix}temperature <value> <unit>\nUnits: c (Celsius), f (Fahrenheit), k (Kelvin)\nExample: ${botPrefix}temperature 100 c`);
   const parts = q.split(/\s+/);
@@ -402,7 +402,7 @@ gmd({
   react: "💯",
   category: "tools",
   description: "Calculate percentage. Usage: .percentof 20 500 (20% of 500)",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { q, reply, react, botFooter, botPrefix } = conText;
   if (!q) return reply(`Usage: ${botPrefix}percentof <percent> <total>\nExample: ${botPrefix}percentof 20 500`);
   const [pStr, tStr] = q.split(/\s+/);
@@ -420,7 +420,7 @@ gmd({
   react: "💵",
   category: "tools",
   description: "Calculate tip amount. Usage: .tip 50 15 (bill tip%)",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { q, reply, react, botFooter, botPrefix } = conText;
   if (!q) return reply(`Usage: ${botPrefix}tip <bill amount> <tip %>\nExample: ${botPrefix}tip 50 15`);
   const [bStr, tStr] = q.split(/\s+/);
@@ -438,7 +438,7 @@ gmd({
   react: "🔑",
   category: "tools",
   description: "Generate a secure random password. Usage: .password 16",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { q, reply, react, botFooter, botPrefix } = conText;
   const len = Math.min(Math.max(parseInt(q) || 16, 8), 64);
   const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+";
@@ -454,7 +454,7 @@ gmd({
   react: "🆔",
   category: "tools",
   description: "Generate a random UUID v4",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { reply, react, botFooter } = conText;
   const id = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, c => {
     const r = Math.random() * 16 | 0;
@@ -470,7 +470,7 @@ gmd({
   react: "💻",
   category: "tools",
   description: "Convert text to ASCII codes. Usage: .ascii Hi",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { q, reply, react, botFooter, botPrefix } = conText;
   if (!q) return reply(`Usage: ${botPrefix}ascii <text>`);
   const codes = q.split("").map(c => `${c}→${c.charCodeAt(0)}`).join("  ");
@@ -484,7 +484,7 @@ gmd({
   react: "💻",
   category: "tools",
   description: "Convert ASCII codes to text. Usage: .fromascii 72 101 108 108 111",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { q, reply, react, botFooter, botPrefix } = conText;
   if (!q) return reply(`Usage: ${botPrefix}fromascii <code1> <code2> ...\nExample: ${botPrefix}fromascii 72 101 108 108 111`);
   const text = q.split(/\s+/).map(n => String.fromCharCode(parseInt(n))).join("");
@@ -498,7 +498,7 @@ gmd({
   react: "🥧",
   category: "tools",
   description: "Get digits of Pi up to 50 places",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { reply, react, botFooter } = conText;
   const pi = "3.14159265358979323846264338327950288419716939937510";
   await react("✅");
@@ -511,7 +511,7 @@ gmd({
   react: "🔡",
   category: "tools",
   description: "Check if two words are anagrams. Usage: .anagram listen|silent",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { q, reply, react, botFooter, botPrefix } = conText;
   if (!q || !q.includes("|")) return reply(`Usage: ${botPrefix}anagram <word1>|<word2>\nExample: ${botPrefix}anagram listen|silent`);
   const [a, b] = q.split("|").map(w => w.trim().toLowerCase().replace(/\s/g,"").split("").sort().join(""));
@@ -527,7 +527,7 @@ gmd({
   react: "✂️",
   category: "tools",
   description: "Split text by a delimiter. Usage: .splittext , one,two,three",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { q, reply, react, botFooter, botPrefix } = conText;
   if (!q) return reply(`Usage: ${botPrefix}splittext <delimiter> <text>\nExample: ${botPrefix}splittext , apple,banana,mango`);
   const parts = q.split(" ");
@@ -548,7 +548,7 @@ gmd({
   react: "🏆",
   category: "fun",
   description: "Generate a fun scorecard for players. Usage: .scorecard Alice:95 Bob:87 Charlie:91",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { q, reply, react, botFooter, botPrefix } = conText;
   if (!q) return reply(`Usage: ${botPrefix}scorecard <name>:<score> <name>:<score>...\nExample: ${botPrefix}scorecard Alice:95 Bob:87`);
   const entries = q.split(/\s+/).map(e => { const [n,s] = e.split(":"); return { name: n, score: parseInt(s)||0 }; });
@@ -567,7 +567,7 @@ gmd({
   react: "💡",
   category: "fun",
   description: "Get an interesting fact about a number. Usage: .numberfact 42",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { q, reply, react, botFooter, botPrefix } = conText;
   const n = parseInt(q) || Math.floor(Math.random() * 1000);
   try {
@@ -588,7 +588,7 @@ gmd({
   react: "📅",
   category: "fun",
   description: "Get a historical fact for today's date",
-}, async (from, Guru, conText) => {
+}, async (from, Bot, conText) => {
   const { reply, react, botFooter } = conText;
   try {
     await react("⏳");

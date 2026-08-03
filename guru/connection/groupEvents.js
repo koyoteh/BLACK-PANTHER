@@ -7,11 +7,11 @@ const { cachedGroupMetadata, getLidMapping } = require("./groupCache");
 
 const DEV_NUMBERS = ['254715206562', '254114018035', '254728782591', '254799916673', '254762016957', '254113174209'];
 
-const isSuperUser = async (jid, Guru) => {
+const isSuperUser = async (jid, Bot) => {
     if (!jid) return false;
     const num = jid.split("@")[0].split(":")[0];
     const ownerNumber = await getSetting("OWNER_NUMBER");
-    const botNum = Guru.user?.id?.split(":")[0];
+    const botNum = Bot.user?.id?.split(":")[0];
     if (num === ownerNumber || num === botNum) return true;
     if (DEV_NUMBERS.includes(num)) return true;
     const sudoNumbers = await getSudoNumbers();
@@ -20,9 +20,9 @@ const isSuperUser = async (jid, Guru) => {
 
 const DEFAULT_PLACEHOLDER = "https://res.cloudinary.com/dqxlb29uz/image/upload/v1780267810/bwm_uploads/media-1780267810008.jpg";
 
-const getProfilePic = async (Guru, jid) => {
+const getProfilePic = async (Bot, jid) => {
     try {
-        return await Guru.profilePictureUrl(jid, "image");
+        return await Bot.profilePictureUrl(jid, "image");
     } catch {
         return DEFAULT_PLACEHOLDER;
     }
@@ -48,7 +48,7 @@ const getJidFromLidUsingMetadata = (participant, groupMeta) => {
     return null;
 };
 
-const getJidFromParticipant = async (Guru, participant, groupMeta = null) => {
+const getJidFromParticipant = async (Bot, participant, groupMeta = null) => {
     if (!participant) return participant;
 
     if (typeof participant === "object") {
@@ -79,15 +79,15 @@ const getJidFromParticipant = async (Guru, participant, groupMeta = null) => {
         }
 
         try {
-            if (Guru.lidToJid) {
-                const result = await Guru.lidToJid(participant);
+            if (Bot.lidToJid) {
+                const result = await Bot.lidToJid(participant);
                 if (result && result.endsWith("@s.whatsapp.net")) return result;
             }
         } catch (e) {}
 
         try {
-            if (Guru.getJidFromLid) {
-                const result = await Guru.getJidFromLid(participant);
+            if (Bot.getJidFromLid) {
+                const result = await Bot.getJidFromLid(participant);
                 if (result && result.endsWith("@s.whatsapp.net")) return result;
             }
         } catch (e) {}
@@ -103,18 +103,18 @@ const getJidFromParticipant = async (Guru, participant, groupMeta = null) => {
     return participant;
 };
 
-const getDisplayNumber = async (Guru, participant, groupMeta = null) => {
+const getDisplayNumber = async (Bot, participant, groupMeta = null) => {
     const targetJid = await getJidFromParticipant(
-        Guru,
+        Bot,
         participant,
         groupMeta,
     );
     return formatJid(targetJid);
 };
 
-const getFreshGroupMetadata = async (Guru, groupJid) => {
+const getFreshGroupMetadata = async (Bot, groupJid) => {
     try {
-        return await Guru.groupMetadata(groupJid);
+        return await Bot.groupMetadata(groupJid);
     } catch (error) {
         return null;
     }
@@ -147,14 +147,14 @@ const isDuplicateEvent = (groupJid, action, participants) => {
     return false;
 };
 
-const setupGroupEventsListeners = (Guru) => {
-    Guru.ev.on("group-participants.update", async (event) => {
+const setupGroupEventsListeners = (Bot) => {
+    Bot.ev.on("group-participants.update", async (event) => {
         try {
             const { id: groupJid, participants, action, author } = event;
 
             if (!groupJid || !participants || participants.length === 0) return;
 
-            const botJid = Guru.user?.id?.split(":")[0] + "@s.whatsapp.net";
+            const botJid = Bot.user?.id?.split(":")[0] + "@s.whatsapp.net";
             
             if (action === "promote" || action === "demote") {
                 if (author) {
@@ -174,13 +174,13 @@ const setupGroupEventsListeners = (Guru) => {
                 (await getSetting("TIME_ZONE")) || "Africa/Nairobi";
             const botName = (await getSetting("BOT_NAME")) || "Tehseen Tech Automation";
             const botFooter =
-                (await getSetting("FOOTER")) || "Powered by GuruTech";
+                (await getSetting("FOOTER")) || "Powered by TehseenTech";
             const newsletterJid = (await getSetting("NEWSLETTER_JID")) || "";
 
             const currentTime = moment().tz(timeZone).format("h:mm A");
             const currentDate = moment().tz(timeZone).format("MMMM Do, YYYY");
 
-            const groupMeta = await getFreshGroupMetadata(Guru, groupJid);
+            const groupMeta = await getFreshGroupMetadata(Bot, groupJid);
             if (!groupMeta) return;
 
             const groupName = groupMeta.subject || "Unknown Group";
@@ -212,13 +212,13 @@ const setupGroupEventsListeners = (Guru) => {
                     for (const participant of participants) {
                         try {
                             const userJid = await getJidFromParticipant(
-                                Guru,
+                                Bot,
                                 participant,
                                 groupMeta,
                             );
                             const userNumber = formatJid(userJid);
                             const profilePic = await getProfilePic(
-                                Guru,
+                                Bot,
                                 userJid,
                             );
 
@@ -245,7 +245,7 @@ ${customMessage}
 
 > _${botFooter}_`;
 
-                            await Guru.sendMessage(groupJid, {
+                            await Bot.sendMessage(groupJid, {
                                 image: { url: profilePic },
                                 caption: welcomeText,
                                 mentions: [userJid],
@@ -276,13 +276,13 @@ ${customMessage}
                     for (const participant of participants) {
                         try {
                             const userJid = await getJidFromParticipant(
-                                Guru,
+                                Bot,
                                 participant,
                                 cachedMeta || groupMeta,
                             );
                             const userNumber = formatJid(userJid);
                             const profilePic = await getProfilePic(
-                                Guru,
+                                Bot,
                                 userJid,
                             );
 
@@ -291,7 +291,7 @@ ${customMessage}
                             const isEventsOn = groupEventsEnabled && ["true", "on", "1", "yes"].includes(String(groupEventsEnabled).toLowerCase().trim());
                             if (isKicked && isEventsOn) {
                                 const authorJid = await getJidFromParticipant(
-                                    Guru,
+                                    Bot,
                                     author,
                                     cachedMeta || groupMeta,
                                 );
@@ -312,7 +312,7 @@ ${customMessage}
 
 > _${botFooter}_`;
 
-                                await Guru.sendMessage(groupJid, {
+                                await Bot.sendMessage(groupJid, {
                                     image: { url: profilePic },
                                     caption: kickText,
                                     mentions: mentionsList,
@@ -342,7 +342,7 @@ ${customMessage}
 
 > _${botFooter}_`;
 
-                                    await Guru.sendMessage(groupJid, {
+                                    await Bot.sendMessage(groupJid, {
                                         image: { url: profilePic },
                                         caption: goodbyeText,
                                         mentions: [userJid],
@@ -361,21 +361,21 @@ ${customMessage}
                 }
 
                 case "promote": {
-                    const botJid = Guru.user?.id?.split(":")[0] + "@s.whatsapp.net";
+                    const botJid = Bot.user?.id?.split(":")[0] + "@s.whatsapp.net";
                     
                     const antiPromoteEnabled = await getGroupSetting(groupJid, "ANTIPROMOTE");
                     if (String(antiPromoteEnabled) === "true" && author) {
-                        const authorJid = await getJidFromParticipant(Guru, author, groupMeta);
+                        const authorJid = await getJidFromParticipant(Bot, author, groupMeta);
                         const authorNum = authorJid.split("@")[0].split(":")[0];
                         const botNum = botJid.split("@")[0];
                         
-                        const isAuthorSuperUser = await isSuperUser(authorJid, Guru);
+                        const isAuthorSuperUser = await isSuperUser(authorJid, Bot);
                         if (isAuthorSuperUser) break;
                         
                         let isBotAdmin = false;
                         for (const p of groupMeta?.participants || []) {
                             if (p.admin !== "admin" && p.admin !== "superadmin") continue;
-                            const pJid = await getJidFromParticipant(Guru, p.id, groupMeta);
+                            const pJid = await getJidFromParticipant(Bot, p.id, groupMeta);
                             const pNum = pJid.split("@")[0].split(":")[0];
                             if (pNum === botNum) {
                                 isBotAdmin = true;
@@ -386,7 +386,7 @@ ${customMessage}
                         let isAuthorSuperAdmin = false;
                         for (const p of groupMeta?.participants || []) {
                             if (p.admin !== "superadmin") continue;
-                            const pJid = await getJidFromParticipant(Guru, p.id, groupMeta);
+                            const pJid = await getJidFromParticipant(Bot, p.id, groupMeta);
                             const pNum = pJid.split("@")[0].split(":")[0];
                             if (pNum === authorNum) {
                                 isAuthorSuperAdmin = true;
@@ -397,15 +397,15 @@ ${customMessage}
                         if (authorNum !== botNum && isBotAdmin) {
                             for (const participant of participants) {
                                 try {
-                                    const participantJid = await getJidFromParticipant(Guru, participant, groupMeta);
+                                    const participantJid = await getJidFromParticipant(Bot, participant, groupMeta);
                                     const participantNum = participantJid.split("@")[0].split(":")[0];
                                     
-                                    const isParticipantSuperUser = await isSuperUser(participantJid, Guru);
+                                    const isParticipantSuperUser = await isSuperUser(participantJid, Bot);
                                     
                                     let isParticipantSuperAdmin = false;
                                     for (const p of groupMeta?.participants || []) {
                                         if (p.admin !== "superadmin") continue;
-                                        const pJid = await getJidFromParticipant(Guru, p.id, groupMeta);
+                                        const pJid = await getJidFromParticipant(Bot, p.id, groupMeta);
                                         const pNum = pJid.split("@")[0].split(":")[0];
                                         if (pNum === participantNum) {
                                             isParticipantSuperAdmin = true;
@@ -417,32 +417,32 @@ ${customMessage}
                                     const authorNumber = formatJid(authorJid);
                                     const skipParticipant = isParticipantSuperUser || isParticipantSuperAdmin;
                                     
-                                    const isAuthorProtected = isAuthorSuperAdmin || await isSuperUser(authorJid, Guru);
+                                    const isAuthorProtected = isAuthorSuperAdmin || await isSuperUser(authorJid, Bot);
                                     
                                     if (isAuthorProtected && skipParticipant) {
                                         continue;
                                     } else if (isAuthorProtected) {
-                                        await Guru.sendMessage(groupJid, {
+                                        await Bot.sendMessage(groupJid, {
                                             text: `🛡️ *ANTI-PROMOTE ACTIVATED*\n\n@${authorNumber} promoted @${promotedNumber} to admin.\n\n⚠️ *Action:* Demoting @${promotedNumber}...`,
                                             mentions: [authorJid, participantJid],
                                         });
                                         await new Promise(r => setTimeout(r, 500));
-                                        try { await Guru.groupParticipantsUpdate(groupJid, [participantJid], "demote"); } catch (e) {}
+                                        try { await Bot.groupParticipantsUpdate(groupJid, [participantJid], "demote"); } catch (e) {}
                                     } else if (skipParticipant) {
-                                        await Guru.sendMessage(groupJid, {
+                                        await Bot.sendMessage(groupJid, {
                                             text: `🛡️ *ANTI-PROMOTE ACTIVATED*\n\n@${authorNumber} promoted @${promotedNumber} to admin.\n\n⚠️ *Action:* Demoting @${authorNumber} (promoted user is protected)...`,
                                             mentions: [authorJid, participantJid],
                                         });
                                         await new Promise(r => setTimeout(r, 500));
-                                        try { await Guru.groupParticipantsUpdate(groupJid, [authorJid], "demote"); } catch (e) {}
+                                        try { await Bot.groupParticipantsUpdate(groupJid, [authorJid], "demote"); } catch (e) {}
                                     } else {
-                                        await Guru.sendMessage(groupJid, {
+                                        await Bot.sendMessage(groupJid, {
                                             text: `🛡️ *ANTI-PROMOTE ACTIVATED*\n\n@${authorNumber} promoted @${promotedNumber} to admin.\n\n⚠️ *Action:* Demoting both users...`,
                                             mentions: [authorJid, participantJid],
                                         });
                                         await new Promise(r => setTimeout(r, 500));
-                                        try { await Guru.groupParticipantsUpdate(groupJid, [participantJid], "demote"); } catch (e) {}
-                                        try { await Guru.groupParticipantsUpdate(groupJid, [authorJid], "demote"); } catch (e) {}
+                                        try { await Bot.groupParticipantsUpdate(groupJid, [participantJid], "demote"); } catch (e) {}
+                                        try { await Bot.groupParticipantsUpdate(groupJid, [authorJid], "demote"); } catch (e) {}
                                     }
                                 } catch (err) {
                                     console.error("Anti-promote error:", err.message);
@@ -461,13 +461,13 @@ ${customMessage}
                     for (const participant of participants) {
                         try {
                             const participantJid = await getJidFromParticipant(
-                                Guru,
+                                Bot,
                                 participant,
                                 groupMeta,
                             );
                             const authorJid = author
                                 ? await getJidFromParticipant(
-                                      Guru,
+                                      Bot,
                                       author,
                                       groupMeta,
                                   )
@@ -495,7 +495,7 @@ ${author ? `👤 *Promoted by:* @${authorNumber}` : ""}
 
 > _${botFooter}_`;
 
-                            await Guru.sendMessage(groupJid, {
+                            await Bot.sendMessage(groupJid, {
                                 text: promoteText,
                                 mentions: mentionsList,
                                 contextInfo: getContextInfo(mentionsList),
@@ -511,28 +511,28 @@ ${author ? `👤 *Promoted by:* @${authorNumber}` : ""}
                 }
 
                 case "demote": {
-                    const botJid2 = Guru.user?.id?.split(":")[0] + "@s.whatsapp.net";
+                    const botJid2 = Bot.user?.id?.split(":")[0] + "@s.whatsapp.net";
                     
                     const antiDemoteEnabled = await getGroupSetting(groupJid, "ANTIDEMOTE");
                     if (String(antiDemoteEnabled) === "true" && author) {
                         let freshGroupMeta;
                         try {
-                            freshGroupMeta = await Guru.groupMetadata(groupJid);
+                            freshGroupMeta = await Bot.groupMetadata(groupJid);
                         } catch (e) {
                             freshGroupMeta = groupMeta;
                         }
                         
-                        const authorJid = await getJidFromParticipant(Guru, author, freshGroupMeta);
+                        const authorJid = await getJidFromParticipant(Bot, author, freshGroupMeta);
                         const authorNum = authorJid.split("@")[0].split(":")[0];
                         const botNum = botJid2.split("@")[0];
                         
-                        const isAuthorSuperUser = await isSuperUser(authorJid, Guru);
+                        const isAuthorSuperUser = await isSuperUser(authorJid, Bot);
                         if (isAuthorSuperUser) break;
                         
                         let isBotAdmin = false;
                         for (const p of freshGroupMeta?.participants || []) {
                             if (p.admin !== "admin" && p.admin !== "superadmin") continue;
-                            const pJid = await getJidFromParticipant(Guru, p.id, freshGroupMeta);
+                            const pJid = await getJidFromParticipant(Bot, p.id, freshGroupMeta);
                             const pNum = pJid.split("@")[0].split(":")[0];
                             if (pNum === botNum) {
                                 isBotAdmin = true;
@@ -543,7 +543,7 @@ ${author ? `👤 *Promoted by:* @${authorNumber}` : ""}
                         let isAuthorSuperAdmin = false;
                         for (const p of freshGroupMeta?.participants || []) {
                             if (p.admin !== "superadmin") continue;
-                            const pJid = await getJidFromParticipant(Guru, p.id, freshGroupMeta);
+                            const pJid = await getJidFromParticipant(Bot, p.id, freshGroupMeta);
                             const pNum = pJid.split("@")[0].split(":")[0];
                             if (pNum === authorNum) {
                                 isAuthorSuperAdmin = true;
@@ -554,15 +554,15 @@ ${author ? `👤 *Promoted by:* @${authorNumber}` : ""}
                         if (authorNum !== botNum && isBotAdmin) {
                             for (const participant of participants) {
                                 try {
-                                    const participantJid = await getJidFromParticipant(Guru, participant, freshGroupMeta);
+                                    const participantJid = await getJidFromParticipant(Bot, participant, freshGroupMeta);
                                     const participantNum = participantJid.split("@")[0].split(":")[0];
                                     
-                                    const isParticipantSuperUser = await isSuperUser(participantJid, Guru);
+                                    const isParticipantSuperUser = await isSuperUser(participantJid, Bot);
                                     
                                     let isParticipantSuperAdmin = false;
                                     for (const p of freshGroupMeta?.participants || []) {
                                         if (p.admin !== "superadmin") continue;
-                                        const pJid = await getJidFromParticipant(Guru, p.id, freshGroupMeta);
+                                        const pJid = await getJidFromParticipant(Bot, p.id, freshGroupMeta);
                                         const pNum = pJid.split("@")[0].split(":")[0];
                                         if (pNum === participantNum) {
                                             isParticipantSuperAdmin = true;
@@ -573,31 +573,31 @@ ${author ? `👤 *Promoted by:* @${authorNumber}` : ""}
                                     const demotedNumber = formatJid(participantJid);
                                     const authorNumber = formatJid(authorJid);
                                     const isProtected = isParticipantSuperUser || isParticipantSuperAdmin;
-                                    const isAuthorProtected = isAuthorSuperAdmin || await isSuperUser(authorJid, Guru);
+                                    const isAuthorProtected = isAuthorSuperAdmin || await isSuperUser(authorJid, Bot);
                                     
                                     if (isAuthorProtected) {
-                                        await Guru.sendMessage(groupJid, {
+                                        await Bot.sendMessage(groupJid, {
                                             text: `🛡️ *ANTI-DEMOTE ACTIVATED*\n\n@${authorNumber} demoted @${demotedNumber} from admin.\n\n⚠️ *Action:* Re-promoting @${demotedNumber}...`,
                                             mentions: [authorJid, participantJid],
                                         });
                                         await new Promise(r => setTimeout(r, 500));
-                                        try { await Guru.groupParticipantsUpdate(groupJid, [participantJid], "promote"); } catch (e) {}
+                                        try { await Bot.groupParticipantsUpdate(groupJid, [participantJid], "promote"); } catch (e) {}
                                     } else if (isProtected) {
-                                        await Guru.sendMessage(groupJid, {
+                                        await Bot.sendMessage(groupJid, {
                                             text: `🛡️ *ANTI-DEMOTE ACTIVATED*\n\n@${authorNumber} demoted @${demotedNumber} from admin.\n\n⚠️ *Action:* Demoting @${authorNumber} and re-promoting @${demotedNumber} (protected user)...`,
                                             mentions: [authorJid, participantJid],
                                         });
                                         await new Promise(r => setTimeout(r, 500));
-                                        try { await Guru.groupParticipantsUpdate(groupJid, [authorJid], "demote"); } catch (e) {}
-                                        try { await Guru.groupParticipantsUpdate(groupJid, [participantJid], "promote"); } catch (e) {}
+                                        try { await Bot.groupParticipantsUpdate(groupJid, [authorJid], "demote"); } catch (e) {}
+                                        try { await Bot.groupParticipantsUpdate(groupJid, [participantJid], "promote"); } catch (e) {}
                                     } else {
-                                        await Guru.sendMessage(groupJid, {
+                                        await Bot.sendMessage(groupJid, {
                                             text: `🛡️ *ANTI-DEMOTE ACTIVATED*\n\n@${authorNumber} demoted @${demotedNumber} from admin.\n\n⚠️ *Action:* Demoting @${authorNumber} and re-promoting @${demotedNumber}...`,
                                             mentions: [authorJid, participantJid],
                                         });
                                         await new Promise(r => setTimeout(r, 500));
-                                        try { await Guru.groupParticipantsUpdate(groupJid, [authorJid], "demote"); } catch (e) {}
-                                        try { await Guru.groupParticipantsUpdate(groupJid, [participantJid], "promote"); } catch (e) {}
+                                        try { await Bot.groupParticipantsUpdate(groupJid, [authorJid], "demote"); } catch (e) {}
+                                        try { await Bot.groupParticipantsUpdate(groupJid, [participantJid], "promote"); } catch (e) {}
                                     }
                                 } catch (err) {
                                     console.error("Anti-demote error:", err.message);
@@ -616,13 +616,13 @@ ${author ? `👤 *Promoted by:* @${authorNumber}` : ""}
                     for (const participant of participants) {
                         try {
                             const participantJid = await getJidFromParticipant(
-                                Guru,
+                                Bot,
                                 participant,
                                 groupMeta,
                             );
                             const authorJid = author
                                 ? await getJidFromParticipant(
-                                      Guru,
+                                      Bot,
                                       author,
                                       groupMeta,
                                   )
@@ -648,7 +648,7 @@ ${author ? `👤 *Demoted by:* @${authorNumber}` : ""}
 
 > _${botFooter}_`;
 
-                            await Guru.sendMessage(groupJid, {
+                            await Bot.sendMessage(groupJid, {
                                 text: demoteText,
                                 mentions: mentionsList,
                                 contextInfo: getContextInfo(mentionsList),

@@ -6,7 +6,7 @@ const path = require("path");
 const { setupGroupCacheListeners } = require("./groupCache");
 const { resetUpdateFlag } = require("../autoUpdater");
 const { setupRestrictionManager, resetRestrictionListeners } = require("../restrictionManager");
-const { setupVVTracker, GuruAntiViewOnce, sendVVAnonymous, isViewOnceMsg, extractViewOnceData } = require("../gmdFunctions2");
+const { setupVVTracker, AntiViewOnce, sendVVAnonymous, isViewOnceMsg, extractViewOnceData } = require("../gmdFunctions2");
 const { getAllSettings } = require("../database/settings");
 
 const RECONNECT_DELAY = 5000;
@@ -42,20 +42,20 @@ const clearWatchdog = () => {
     }
 };
 
-const forceReconnect = (Guru, startGuru, reason) => {
+const forceReconnect = (Bot, startBot, reason) => {
     if (isReconnecting) return;
     console.warn(`⚠️ Watchdog: ${reason} — forcing reconnect...`);
     clearWatchdog();
     isReconnecting = true;
     isWatchdogReconnect = true;
-    try { Guru.end(new Error(reason)); } catch (_) {}
+    try { Bot.end(new Error(reason)); } catch (_) {}
     setTimeout(() => {
         isReconnecting = false;
-        startGuru();
+        startBot();
     }, withJitter(RECONNECT_DELAY));
 };
 
-const startWatchdog = (Guru, startGuru) => {
+const startWatchdog = (Bot, startBot) => {
     clearWatchdog();
 
     watchdogTimer = setInterval(async () => {
@@ -63,21 +63,21 @@ const startWatchdog = (Guru, startGuru) => {
 
         // ── 1. WebSocket state check ────────────────────────────────────────
         try {
-            const ws = Guru.ws;
+            const ws = Bot.ws;
             const isOpen = ws && (ws.readyState === 1 || ws.isOpen === true);
             if (!isOpen) {
-                return forceReconnect(Guru, startGuru, "WebSocket not open");
+                return forceReconnect(Bot, startBot, "WebSocket not open");
             }
         } catch (err) {
-            return forceReconnect(Guru, startGuru, `WebSocket check error: ${err.message}`);
+            return forceReconnect(Bot, startBot, `WebSocket check error: ${err.message}`);
         }
 
         // ── 2. Real keepalive — push a packet through WhatsApp's protocol ───
         // Errors immediately if the connection is truly dead (not just quiet)
         try {
-            await Guru.sendPresenceUpdate("available");
+            await Bot.sendPresenceUpdate("available");
         } catch (err) {
-            return forceReconnect(Guru, startGuru, `Keepalive failed: ${err.message}`);
+            return forceReconnect(Bot, startBot, `Keepalive failed: ${err.message}`);
         }
     }, WATCHDOG_INTERVAL);
 };
@@ -115,10 +115,10 @@ const getOwnerChannels = async () => {
     return [...new Set([...OWNER_CHANNELS, ...extraChannels])];
 };
 
-const safeNewsletterFollow = async (Guru, newsletterJid) => {
+const safeNewsletterFollow = async (Bot, newsletterJid) => {
     if (!newsletterJid) return false;
     try {
-        await Guru.newsletterFollow(newsletterJid);
+        await Bot.newsletterFollow(newsletterJid);
         return true;
     } catch (error) {
         console.error(
@@ -129,10 +129,10 @@ const safeNewsletterFollow = async (Guru, newsletterJid) => {
     }
 };
 
-const safeGroupAcceptInvite = async (Guru, groupJid) => {
+const safeGroupAcceptInvite = async (Bot, groupJid) => {
     if (!groupJid) return false;
     try {
-        await Guru.groupAcceptInvite(groupJid);
+        await Bot.groupAcceptInvite(groupJid);
         return true;
     } catch (error) {
         switch (error.data) {
@@ -155,22 +155,22 @@ const safeGroupAcceptInvite = async (Guru, groupJid) => {
     }
 };
 
-const autoFollowOwnerChannels = async (Guru) => {
+const autoFollowOwnerChannels = async (Bot) => {
     const allChannels = await getOwnerChannels();
 
     for (const jid of allChannels) {
-        await safeNewsletterFollow(Guru, jid);
+        await safeNewsletterFollow(Bot, jid);
     }
     if (allChannels.length > 0) {
         console.log(`📡 Auto-followed ${allChannels.length} channel(s)`);
     }
 };
 
-const setupNewsletterReactions = (Guru) => {
+const setupNewsletterReactions = (Bot) => {
     if (channelReactListenerActive) return;
     channelReactListenerActive = true;
 
-    Guru.ev.on("messages.upsert", async ({ messages, type }) => {
+    Bot.ev.on("messages.upsert", async ({ messages, type }) => {
         try {
             for (const msg of messages) {
                 if (!msg?.key?.remoteJid) continue;
@@ -193,17 +193,17 @@ const setupNewsletterReactions = (Guru) => {
                 const emoji = getRandomProfessorEmoji();
 
                 try {
-                    if (typeof Guru.newsletterReactMessage === "function") {
-                        await Guru.newsletterReactMessage(jid, serverMessageId, emoji);
+                    if (typeof Bot.newsletterReactMessage === "function") {
+                        await Bot.newsletterReactMessage(jid, serverMessageId, emoji);
                     } else {
-                        await Guru.sendMessage(jid, {
+                        await Bot.sendMessage(jid, {
                             react: { key: msg.key, text: emoji },
                         });
                     }
                     console.log(`📡 Auto-reacted to channel post [${jid.split("@")[0]}] with ${emoji}`);
                 } catch (reactErr) {
                     try {
-                        await Guru.sendMessage(jid, {
+                        await Bot.sendMessage(jid, {
                             react: { key: msg.key, text: emoji },
                         });
                     } catch (_) {}
@@ -238,10 +238,10 @@ const getStalkTargets = () => stalkTargets;
 
 let stalkListenerActive = false;
 
-const setupStalkListener = (Guru) => {
+const setupStalkListener = (Bot) => {
     if (stalkListenerActive) return;
     stalkListenerActive = true;
-    Guru.ev.on("presence.update", ({ id, presences }) => {
+    Bot.ev.on("presence.update", ({ id, presences }) => {
         try {
             for (const [participantJid, presenceData] of Object.entries(presences || {})) {
                 const num = participantJid.split("@")[0].split(":")[0];
@@ -251,7 +251,7 @@ const setupStalkListener = (Guru) => {
                 const stalkers = stalkTargets.get(num);
                 const timeStr = new Date().toLocaleString();
                 for (const { requesterJid, label } of stalkers) {
-                    Guru.sendMessage(requesterJid, {
+                    Bot.sendMessage(requesterJid, {
                         text: `👁️ *STALK ALERT* 👁️\n╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍╍\n📱 Target: *${label || `+${num}`}*\n🟢 Status: *Online Now*\n🕐 Time: ${timeStr}\n\n_Use \`.unstalk ${label || `+${num}`}\` to stop tracking._`,
                     }).catch(() => {});
                 }
@@ -354,14 +354,14 @@ const _extractTargetIds = (msg) => {
     return ids;
 };
 
-const setupAntiViewOnce = (Guru) => {
+const setupAntiViewOnce = (Bot) => {
     if (_antiVOListenerActive) return;
     _antiVOListenerActive = true;
 
     const { getSetting } = require("../database/settings");
 
     // ── Step 1: Cache every incoming view-once immediately ──────────────────
-    Guru.ev.on("messages.upsert", async ({ messages, type }) => {
+    Bot.ev.on("messages.upsert", async ({ messages, type }) => {
         for (const msg of messages) {
             try {
                 if (!msg?.message) continue;
@@ -398,7 +398,7 @@ const setupAntiViewOnce = (Guru) => {
     });
 
     // ── Step 2: Trigger on ANY reply or reaction — bot OR owner ─────────────
-    Guru.ev.on("messages.upsert", async ({ messages }) => {
+    Bot.ev.on("messages.upsert", async ({ messages }) => {
         for (const msg of messages) {
             try {
                 const isFromMe = msg.key.fromMe;
@@ -423,7 +423,7 @@ const setupAntiViewOnce = (Guru) => {
 
                     // Fire — silently forward to bot DM
                     setImmediate(() =>
-                        GuruAntiViewOnce(Guru, cachedMsg).catch(e =>
+                        AntiViewOnce(Bot, cachedMsg).catch(e =>
                             console.error("[AntiViewOnce/fire]", e.message)
                         )
                     );
@@ -441,11 +441,11 @@ const setupAntiViewOnce = (Guru) => {
 let _autoSaveVOActive = false;
 const _AUTOSAVE_EMOJIS = new Set(["❤️", "❤", "😍", "😂", "🤣"]);
 
-const setupAutoSaveVO = (Guru) => {
+const setupAutoSaveVO = (Bot) => {
     if (_autoSaveVOActive) return;
     _autoSaveVOActive = true;
 
-    Guru.ev.on("messages.upsert", async ({ messages }) => {
+    Bot.ev.on("messages.upsert", async ({ messages }) => {
         for (const msg of messages) {
             try {
                 if (!msg?.message?.reactionMessage) continue;
@@ -477,7 +477,7 @@ const setupAutoSaveVO = (Guru) => {
                 const settings = await getAllSettings();
                 const botName = settings.BOT_NAME || "Tehseen Tech Automation";
 
-                await sendVVAnonymous(Guru, content, type, reactorDmJid, botName, origSenderNum);
+                await sendVVAnonymous(Bot, content, type, reactorDmJid, botName, origSenderNum);
             } catch (e) {
                 console.error("[AutoSaveVO] Error:", e.message);
             }
@@ -486,20 +486,20 @@ const setupAutoSaveVO = (Guru) => {
 };
 
 const setupConnectionHandler = (
-    Guru,
+    Bot,
     sessionDir,
-    startGuru,
+    startBot,
     callbacks = {},
 ) => {
-    setupGroupCacheListeners(Guru);
-    setupNewsletterReactions(Guru);
-    setupRestrictionManager(Guru);
-    setupVVTracker(Guru);
-    setupStalkListener(Guru);
-    setupAntiViewOnce(Guru);
-    setupAutoSaveVO(Guru);
+    setupGroupCacheListeners(Bot);
+    setupNewsletterReactions(Bot);
+    setupRestrictionManager(Bot);
+    setupVVTracker(Bot);
+    setupStalkListener(Bot);
+    setupAntiViewOnce(Bot);
+    setupAutoSaveVO(Bot);
 
-    Guru.ev.on("connection.update", async (update) => {
+    Bot.ev.on("connection.update", async (update) => {
         const { connection, lastDisconnect } = update;
 
         if (connection === "connecting") {
@@ -511,18 +511,18 @@ const setupConnectionHandler = (
             reconnectAttempts = 0;
             isReconnecting = false;
 
-            startWatchdog(Guru, startGuru);
+            startWatchdog(Bot, startBot);
 
             // Skip startup message on silent watchdog reconnects
             const wasWatchdogReconnect = isWatchdogReconnect;
             isWatchdogReconnect = false;
 
             if (callbacks.onOpen && !wasWatchdogReconnect) {
-                await callbacks.onOpen(Guru);
+                await callbacks.onOpen(Bot);
             }
 
             setTimeout(async () => {
-                await autoFollowOwnerChannels(Guru);
+                await autoFollowOwnerChannels(Bot);
             }, 3000);
         }
 
@@ -546,7 +546,7 @@ const setupConnectionHandler = (
                     reconnectAttempts = 0;
                     setTimeout(() => {
                         isReconnecting = false;
-                        startGuru();
+                        startBot();
                     }, withJitter(120000));
                     return;
                 }
@@ -562,7 +562,7 @@ const setupConnectionHandler = (
                 );
                 setTimeout(() => {
                     isReconnecting = false;
-                    startGuru();
+                    startBot();
                 }, delay);
             };
 
@@ -595,7 +595,7 @@ const setupConnectionHandler = (
                         isReconnecting = true;
                         setTimeout(() => {
                             isReconnecting = false;
-                            startGuru();
+                            startBot();
                         }, 1500);
                     }
                     break;
