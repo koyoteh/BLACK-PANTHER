@@ -9,8 +9,8 @@ export default {
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
         if (!input) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            return sendInteractive(client, m, `╭─❏ 「 ALAY TEXT」
-│ Give me text to alay-ify, genius.\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+            return sendInteractive(client, m, `⚡ ──「 ALAY TEXT 」──
+▢ Give me text to alay-ify, genius.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
         const alay = input.split('').map(v => {
             const r = Math.random();
@@ -29,7 +29,7 @@ export default {
             }
             return char;
         }).join('');
-        await sendInteractive(client, m, `╭─❏ 「 ALAY TEXT」
-│ ${alay}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+        await sendInteractive(client, m, `⚡ ──「 ALAY TEXT 」──
+▢ ${alay}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
     }
 };

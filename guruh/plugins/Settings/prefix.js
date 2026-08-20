@@ -15,48 +15,43 @@ export default async (context) => {
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
         return await sendInteractive(client, m, 
           `` +
-          `│ Already prefixless, you clueless twit! 😈\n` +
-          `│ Stop wasting my time! 🖕\n` +
-          `╰───────────────
-> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`
+          `▢ Already prefixless, you clueless twit! 😈\n` +
+          `▢ Stop wasting my time! 🖕\n` +
+          `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
         );
       }
       await updateSetting('prefix', '');
       await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
       await sendInteractive(client, m, 
         `` +
-        `│ Prefix obliterated! 🔥\n` +
-        `│ I’m prefixless now, bow down! 😈\n` +
-        `╰───────────────
-> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`
+        `▢ Prefix obliterated! 🔥\n` +
+        `▢ I’m prefixless now, bow down! 😈\n` +
+        `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
       );
     } else if (newPrefix) {
       if (settings.prefix === newPrefix) {
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
         return await sendInteractive(client, m, 
           `` +
-          `│ Prefix is already ${newPrefix}, moron! 😈\n` +
-          `│ Try something new, fool! 🥶\n` +
-          `╰───────────────
-> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`
+          `▢ Prefix is already ${newPrefix}, moron! 😈\n` +
+          `▢ Try something new, fool! 🥶\n` +
+          `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
         );
       }
       await updateSetting('prefix', newPrefix);
       await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
       await sendInteractive(client, m, 
         `` +
-        `│ New prefix set to ${newPrefix}! 🔥\n` +
-        `│ Obey the new order, king! 😈\n` +
-        `╰───────────────
-> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`
+        `▢ New prefix set to ${newPrefix}! 🔥\n` +
+        `▢ Obey the new order, king! 😈\n` +
+        `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
       );
     } else {
       await sendInteractive(client, m, 
         `` +
-        `│ Current Prefix: ${settings.prefix || 'No prefix, peasant! 🥶'}\n` +
-        `│ Use "${settings.prefix || '.'}prefix null" to go prefixless or "${settings.prefix || '.'}prefix <symbol>" to set one, noob!\n` +
-        `╰───────────────
-> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`
+        `▢ Current Prefix: ${settings.prefix || 'No prefix, peasant! 🥶'}\n` +
+        `▢ Use "${settings.prefix || '.'}prefix null" to go prefixless or "${settings.prefix || '.'}prefix <symbol>" to set one, noob!\n` +
+        `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
       );
     }
   });

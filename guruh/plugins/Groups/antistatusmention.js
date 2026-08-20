@@ -4,8 +4,8 @@ export default async (context) => {
     const { client, m, args, isAdmin, isBotAdmin } = context;
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
 
-    const fmt = (msg) => `╭─❏ 「 ANTISTATUSMENTION」
-│ ${msg}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`;
+    const fmt = (msg) => `⚡ ──「 ANTISTATUSMENTION 」──
+▢ ${msg}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
 
     if (!m.isGroup) {
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
@@ -39,14 +39,14 @@ export default async (context) => {
                 value === 'warn' ? `Status mentions deleted + user warned.\nHit the warn limit and they\'re KICKED. 😈` :
                 'Status mention = Instant kick. Zero tolerance. 😈';
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            return await client.sendMessage(m.chat, { text: fmt(`✅ AntiStatusMention set to *${value.toUpperCase()}*.\n│ ${desc}`) });
+            return await client.sendMessage(m.chat, { text: fmt(`✅ AntiStatusMention set to *${value.toUpperCase()}*.\n▢ ${desc}`) });
         }
 
         const currentMode = String(groupSettings.antistatusmention || "off").toUpperCase();
         const warnLimit = await getWarnLimit(m.chat);
 
         await client.sendMessage(m.chat, {
-            text: fmt(`Current mode: *${currentMode}*\n│ Warn limit: *${warnLimit}* (set with .setwarncount)\n│ \n│ 📖 *How to use:*\n│ .antistatusmention off — Allow status mentions\n│ .antistatusmention warn — Delete + warn user\n│ .antistatusmention kick — Delete + instant kick\n│ \n│ In warn mode, hitting the limit\n│ = auto kick. 😈\n│ \n│ Aliases: .antimention`)
+            text: fmt(`Current mode: *${currentMode}*\n▢ Warn limit: *${warnLimit}* (set with .setwarncount)\n▢ \n▢ 📖 *How to use:*\n▢ .antistatusmention off — Allow status mentions\n▢ .antistatusmention warn — Delete + warn user\n▢ .antistatusmention kick — Delete + instant kick\n▢ \n▢ In warn mode, hitting the limit\n▢ = auto kick. 😈\n▢ \n▢ Aliases: .antimention`)
         });
     } catch (error) {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});

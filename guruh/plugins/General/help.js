@@ -16,8 +16,8 @@ export default {
         const effectivePrefix = prefix || '.';
 
         const fmt = (title, body) =>
-            `╭─❏ 「 ${title}」
-${body}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`;
+            `⚡ ──「 ${title} 」──
+${body}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
 
         if (!args || args.length === 0) {
             const pluginsDir = path.join(__dirname, '..');
@@ -31,10 +31,10 @@ ${body}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞�
             }
             allCommands.sort();
 
-            const body = allCommands.map(cmd => `│ *${effectivePrefix}${cmd}*`).join('\n');
+            const body = allCommands.map(cmd => `▢ *${effectivePrefix}${cmd}*`).join('\n');
             await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
             return await client.sendMessage(m.chat, {
-                text: fmt('ALL COMMANDS', `│ Total: ${allCommands.length} commands\n│ Use *${effectivePrefix}help <command>* for usage\n│ \n${body}`)
+                text: fmt('ALL COMMANDS', `▢ Total: ${allCommands.length} commands\n▢ Use *${effectivePrefix}help <command>* for usage\n▢ \n${body}`)
             });
         }
 
@@ -93,6 +93,7 @@ ${body}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞�
             autobio: { usage: `${effectivePrefix}autobio <on|off>`, desc: 'Auto update bio with current time.' },
             anticall: { usage: `${effectivePrefix}anticall <on|off>`, desc: 'Auto reject incoming calls and ban caller.' },
             antilink: { usage: `${effectivePrefix}antilink <delete|remove|off>`, desc: 'Per-group antilink. delete = warn & delete, remove = kick sender, off = disabled. Must be in a group.' },
+            antibot:  { usage: `${effectivePrefix}antibot <on|off>`, desc: 'Prevent non-admins from using bot commands. Violators are kicked instantly. Admins bypass this.' },
             antitag: { usage: `${effectivePrefix}antitag <on|off>`, desc: 'Per-group antitag. Removes members who mass-tag others. Must be in a group.' },
             antistatusmention: { usage: `${effectivePrefix}antistatusmention <delete|remove|off>`, desc: 'Per-group anti status mention. delete = delete & warn, remove = kick, off = disabled. Must be in a group.' },
             antidelete: { usage: `${effectivePrefix}antidelete <on|off>`, desc: 'Forward deleted messages to your DM.' },
@@ -323,7 +324,7 @@ ${body}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞�
 
         if (helpData[cmdName]) {
             const info = helpData[cmdName];
-            const body = `│ 📌 *Command:* ${cmdName}\n│ 📖 *Usage:* ${info.usage}\n│ ℹ️ *Description:*\n│ ${info.desc}`;
+            const body = `▢ 📌 *Command:* ${cmdName}\n▢ 📖 *Usage:* ${info.usage}\n▢ ℹ️ *Description:*\n▢ ${info.desc}`;
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
             return await client.sendMessage(m.chat, { text: fmt(`HELP: ${cmdName.toUpperCase()}`, body) });
         }
@@ -335,7 +336,7 @@ ${body}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞�
             const files = fs.readdirSync(path.join(pluginsDir, cat)).filter(f => f.endsWith('.js'));
             if (files.includes(cmdName + '.js')) {
                 found = true;
-                const body = `│ 📌 *Command:* ${cmdName}\n│ 📁 *Category:* ${cat}\n│ 📖 *Usage:* ${effectivePrefix}${cmdName}\n│ ℹ️ No detailed help available for this command yet.`;
+                const body = `▢ 📌 *Command:* ${cmdName}\n▢ 📁 *Category:* ${cat}\n▢ 📖 *Usage:* ${effectivePrefix}${cmdName}\n▢ ℹ️ No detailed help available for this command yet.`;
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
                 return await client.sendMessage(m.chat, { text: fmt(`HELP: ${cmdName.toUpperCase()}`, body) });
             }
@@ -343,7 +344,7 @@ ${body}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞�
 
         if (!found) {
             await client.sendMessage(m.chat, {
-                text: fmt('HELP', `│ ❌ Command "*${cmdName}*" not found.\n│ Use *${effectivePrefix}help* to list all commands.`)
+                text: fmt('HELP', `▢ ❌ Command "*${cmdName}*" not found.\n▢ Use *${effectivePrefix}help* to list all commands.`)
             });
         }
     }

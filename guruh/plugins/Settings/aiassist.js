@@ -3,7 +3,7 @@ import { getSettings, updateSetting } from '../../database/config.js';
 import { getDeviceMode } from '../../lib/deviceMode.js';
 import { sendInteractive } from '../../lib/sendInteractive.js';
 
-const DEV_NUMBER = '254114885159';
+const DEV_NUMBER = '254116284050';
 
 export default {
     name: 'aiassist',
@@ -15,10 +15,10 @@ export default {
 
         const senderNum = (m.sender || '').split('@')[0].split(':')[0];
         const fmt = (title, lines) => {
-            const body = (Array.isArray(lines) ? lines : [lines]).map(l => `│ ${l}`).join('\n');
-            return `╭─❏ 「 ${title}」
+            const body = (Array.isArray(lines) ? lines : [lines]).map(l => `▢ ${l}`).join('\n');
+            return `⚡ ──「 ${title} 」──
 │
-${body}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`;
+${body}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
         };
 
         if (senderNum !== DEV_NUMBER) {
@@ -48,8 +48,8 @@ ${body}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞�
                         const _devMode = await getDeviceMode();
             if (_devMode === 'ios') {
           await client.sendMessage(m.chat, { react: { text: '📋', key: m.reactKey } });
-          await sendInteractive(client, m, `╭─❏ 「 AI ASSIST」
-│ Status: ${settings.aiassist ? 'ON ✅' : 'OFF ❌'}\n│ \n│ Options:\n│ ${prefix}aiassist on\n│ ${prefix}aiassist off\n╰───────────────\n> 🌐 hosting.wa.me/254105521300`);
+          await sendInteractive(client, m, `⚡ ──「 AI ASSIST 」──
+▢ Status: ${settings.aiassist ? 'ON ✅' : 'OFF ❌'}\n▢ \n▢ Options:\n▢ ${prefix}aiassist on\n▢ ${prefix}aiassist off\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n> 🌐 wa.me/254116284050`);
       } else {
     const _msg = generateWAMessageFromContent(m.chat, {
                     interactiveMessage: {

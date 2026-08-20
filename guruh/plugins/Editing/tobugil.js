@@ -28,16 +28,16 @@ export default {
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
 
         if (!m.quoted) {
-            return sendInteractive(client, m, `╭─❏ 「 TOBUGIL」
-│ Quote an image, you blind moron.\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+            return sendInteractive(client, m, `⚡ ──「 TOBUGIL 」──
+▢ Quote an image, you blind moron.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
 
         const q = m.quoted || m;
         const mime = (q.msg || q).mimetype || "";
 
         if (!mime.startsWith("image/")) {
-            return sendInteractive(client, m, `╭─❏ 「 TOBUGIL」
-│ That's not an image, you\n│ illiterate fool.\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+            return sendInteractive(client, m, `⚡ ──「 TOBUGIL 」──
+▢ That's not an image, you\n▢ illiterate fool.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
 
         try {
@@ -69,8 +69,8 @@ export default {
                 m.chat,
                 {
                     image: { url: resultUrl },
-                    caption: `╭─❏ 「 TOBUGIL」
-│ Wkwk.\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`
+                    caption: `⚡ ──「 TOBUGIL 」──
+▢ Wkwk.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
                 }
             );
 
@@ -92,7 +92,7 @@ export default {
                 errorMessage += "Try again later.";
             }
 
-            await sendInteractive(client, m, `╭─❏ 「 FAILED」
-│ ${errorMessage}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+            await sendInteractive(client, m, `⚡ ──「 FAILED 」──
+▢ ${errorMessage}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
     } };

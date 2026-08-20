@@ -13,7 +13,7 @@ export default {
             const query = (text || '').trim();
             if (!query) {
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-                return sendInteractive(client, m, "│ Give me a package name, you useless human.\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇");
+                return sendInteractive(client, m, "▢ Give me a package name, you useless human.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──");
             }
 
             await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
@@ -26,24 +26,24 @@ export default {
             const objects = data?.objects || [];
             if (objects.length === 0) {
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-                return sendInteractive(client, m, `│ No packages found for "${query}".\n│ Your search skills are as bad as your life choices.\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+                return sendInteractive(client, m, `▢ No packages found for "${query}".\n▢ Your search skills are as bad as your life choices.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
             }
 
-            let resultText = `╭─❏ 「 NPM SEARCH」
+            let resultText = `⚡ ──「 NPM SEARCH 」──
 `;
 
             objects.forEach((obj, index) => {
                 const pkg = obj.package;
-                resultText += `│ ${index + 1}. ${pkg.name} v${pkg.version}\n`;
-                if (pkg.description) resultText += `│   ${pkg.description.slice(0, 60)}\n`;
-                resultText += `│   npmjs.com/package/${pkg.name}\n│ \n`;
+                resultText += `▢ ${index + 1}. ${pkg.name} v${pkg.version}\n`;
+                if (pkg.description) resultText += `▢   ${pkg.description.slice(0, 60)}\n`;
+                resultText += `▢   npmjs.com/package/${pkg.name}\n▢ \n`;
             });
 
             if (data.total > 5) {
-                resultText += `│ ...and ${data.total - 5} more results\n`;
+                resultText += `▢ ...and ${data.total - 5} more results\n`;
             }
 
-            resultText += "╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇";
+            resultText += "└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──";
 
             await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
             await sendInteractive(client, m, resultText);
@@ -51,8 +51,8 @@ export default {
         } catch (error) {
             console.error('NPM search error:', error);
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-            await sendInteractive(client, m, `╭─❏ 「 NPM ERROR」
-│ NPM search failed. ${error.message}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+            await sendInteractive(client, m, `⚡ ──「 NPM ERROR 」──
+▢ NPM search failed. ${error.message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
     }
 };

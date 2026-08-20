@@ -28,15 +28,15 @@ async function sendPinButtons(client, m, fq, prefix) {
     const p = prefix || '.';
     const bodyText =
         `` +
-        `╭─❏ 「 PIN MESSAGE」
+        `⚡ ──「 PIN MESSAGE 」──
 │
 ` +
-        `│ How long should it stay pinned?\n│
+        `▢ How long should it stay pinned?\n│
 ` +
-        `╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`;
+        `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
     const _dev = await getDeviceMode();
     if (_dev === 'ios') {
-        return sendInteractive(client, m, `${bodyText}\n\n│ Use:\n│ ${p}pinm 24h\n│ ${p}pinm 7d\n│ ${p}pinm 30d`);
+        return sendInteractive(client, m, `${bodyText}\n\n▢ Use:\n▢ ${p}pinm 24h\n▢ ${p}pinm 7d\n▢ ${p}pinm 30d`);
     }
     try {
         const msg = generateWAMessageFromContent(m.chat, {
@@ -63,7 +63,7 @@ async function sendPinButtons(client, m, fq, prefix) {
         });
         await client.relayMessage(m.chat, msg.message, { messageId: msg.key.id });
     } catch {
-        await sendInteractive(client, m, `${bodyText}\n\n│ Use:\n│ ${p}pinm 24h\n│ ${p}pinm 7d\n│ ${p}pinm 30d`);
+        await sendInteractive(client, m, `${bodyText}\n\n▢ Use:\n▢ ${p}pinm 24h\n▢ ${p}pinm 7d\n▢ ${p}pinm 30d`);
     }
 }
 
@@ -76,7 +76,7 @@ export default {
 
         if (!IsGroup) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            return sendInteractive(client, m, `│ \n│ Groups only.\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+            return sendInteractive(client, m, `▢ \n▢ Groups only.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
 
         const rawInput = args[0] || '';
@@ -111,7 +111,7 @@ export default {
 
         if (!messageKey) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            return sendInteractive(client, m, `│ \n│ Reply to a message first, then use ${prefix}pinm.\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+            return sendInteractive(client, m, `▢ \n▢ Reply to a message first, then use ${prefix}pinm.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
 
         const pinTime = time || 86400;
@@ -121,10 +121,10 @@ export default {
             await client.sendMessage(m.chat, { pin: messageKey, type: 1, time: pinTime });
             global._pantherPinPending.delete(m.chat);
             await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
-            await sendInteractive(client, m, `│ \n│ 📌 Message pinned!\n│ Duration: ${durationLabel(pinTime)}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+            await sendInteractive(client, m, `▢ \n▢ 📌 Message pinned!\n▢ Duration: ${durationLabel(pinTime)}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         } catch (error) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            await sendInteractive(client, m, `│ \n│ ❌ Failed to pin: ${error.message}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+            await sendInteractive(client, m, `▢ \n▢ ❌ Failed to pin: ${error.message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
     }
 };

@@ -4,7 +4,7 @@
 //   Provides getBotName() helper used by plugins that need the
 //   bot's display name without a circular import back into the
 //   full config tree.
-// ╰─────────────────────────────────────────────────────────────╯
+// └──𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ────────────────────────────────────────────────╯
 
 const config = require('../guru/config/settings');
 

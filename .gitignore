@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+
+# Runtime database files — never commit (may contain session/auth data)
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# WhatsApp session auth state
+sessions/
+auth_info*/
+baileys_auth*/
+creds.json
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build / temp
+.cache/
+tmp/
+temp/
+
+# Lock files / local npm config
+package-lock.json
+.npmrc

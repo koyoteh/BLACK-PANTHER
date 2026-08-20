@@ -25,10 +25,10 @@ export default {
             await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
 
             const fmt = (title, lines) => {
-                const body = (Array.isArray(lines) ? lines : [lines]).map(l => `│ ${l}`).join('\n');
-                return `╭─❏ 「 ${title}」
+                const body = (Array.isArray(lines) ? lines : [lines]).map(l => `▢ ${l}`).join('\n');
+                return `⚡ ──「 ${title} 」──
 │
-${body}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`;
+${body}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
             };
 
             const sendModeButtons = async (currentMode) => {
@@ -65,7 +65,7 @@ ${body}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞�
                     const interactiveMsg = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                         interactiveMessage: {
                             body: { text: bodyText },
-                            footer: { text: '©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇' },
+                            footer: { text: '𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ' },
                             header: { hasMediaAttachment: false },
                             nativeFlowMessage: {
                                 buttons: [
@@ -88,7 +88,7 @@ ${body}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞�
                             buttonText: 'Choose Mode',
                             listType: 1,
                             sections: sections.map(s => ({ title: s.title, rows: s.rows.map(r => ({ title: r.title, description: r.description, rowId: r.id })) })),
-                            footer: '©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇' } });
+                            footer: '𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ' } });
                 }
             };
 

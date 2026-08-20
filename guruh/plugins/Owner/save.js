@@ -33,12 +33,12 @@ import { downloadContentFromMessage } from '@whiskeysockets/baileys';
               return client.sendMessage(m.chat, {
                   text:
                       `` +
-                      `╭─❏ 「 SAVE」
+                      `⚡ ──「 SAVE 」──
 ` +
-                      `│ \n` +
-                      `│ Reply to something first, genius.\n` +
-                      `╰───────────────\n` +
-                      `> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`
+                      `▢ \n` +
+                      `▢ Reply to something first, genius.\n` +
+                      `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n` +
+                      ``
               });
           }
 

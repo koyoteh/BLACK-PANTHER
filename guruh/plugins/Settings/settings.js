@@ -21,18 +21,18 @@ export default {
       try { groupCount = Object.keys(await client.groupFetchAllParticipating()).length; } catch (e) {}
 
       const fmt = (name, desc, status, cmd, example) => {
-        return `│ *${name}*\n│   ${desc}\n│   Status: ${status}\n│   Change: ${cmd}\n│   Example: ${example}\n│\n`;
+        return `▢ *${name}*\n▢   ${desc}\n▢   Status: ${status}\n▢   Change: ${cmd}\n▢   Example: ${example}\n│\n`;
       };
 
       const message =
         `*${bName} Settings*\n\n` +
-        `╭─❏ 「 Bot Info」\n` +
-        `│ Bot Name: ${bName}\n` +
-        `│ Sudo Users: ${sudoUsers.length}\n` +
-        `│ Banned Users: ${bannedUsers.length}\n` +
-        `│ Total Groups: ${groupCount}\n` +
+        `⚡ ──「 Bot Info 」──\n` +
+        `▢ Bot Name: ${bName}\n` +
+        `▢ Sudo Users: ${sudoUsers.length}\n` +
+        `▢ Banned Users: ${bannedUsers.length}\n` +
+        `▢ Total Groups: ${groupCount}\n` +
         `│\n` +
-        `╭─❏ 「 All Settings」\n│\n` +
+        `⚡ ──「 All Settings 」──\n│\n` +
         fmt(
           'Auto-Like Status',
           'Automatically reacts to contacts status updates with an emoji.',
@@ -166,10 +166,10 @@ export default {
           `${prefix}device android/ios/default`,
           `${prefix}device ios`
         ) +
-        `╭─❏ 「 Tips」\n` +
-        `│ Only owner/sudo can change settings.\n` +
-        `│ Settings save instantly to database.\n` +
-        `╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`;
+        `⚡ ──「 Tips 」──\n` +
+        `▢ Only owner/sudo can change settings.\n` +
+        `▢ Settings save instantly to database.\n` +
+        `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
 
       await sendInteractive(client, m, message);
     });

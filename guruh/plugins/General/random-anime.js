@@ -17,21 +17,20 @@ export default async (context) => {
     const episodes = data.episodes;
     const status = data.status;
 
-    const message = `╭─❏ 「 Rᴀɴᴅᴏᴍ Aɴɪᴍᴇ」
-│ Title: ${title}
-│ Episodes: ${episodes}
-│ Status: ${status}
-│ Synopsis: ${synopsis}
-│ URL: ${data.url}
-╰───────────────
-> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`;
+    const message = `⚡ ──「 Rᴀɴᴅᴏᴍ Aɴɪᴍᴇ 」──
+▢ Title: ${title}
+▢ Episodes: ${episodes}
+▢ Status: ${status}
+▢ Synopsis: ${synopsis}
+▢ URL: ${data.url}
+└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
 
     await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
     await client.sendMessage(m.chat, { image: { url: imageUrl }, caption: message });
   } catch (error) {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-   sendInteractive(client, m, `╭─❏ 「 Eʀʀᴏʀ」
-│ An error occurred fetching anime.\n│ Try again, weeb.\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+   sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
+▢ An error occurred fetching anime.\n▢ Try again, weeb.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
   }
 
 }

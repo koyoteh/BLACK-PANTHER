@@ -10,7 +10,7 @@ export default async (context) => {
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
 
         const fmt = (title, msg) =>
-            `╭─❏ 「 ${title}」\n│ ${msg}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`;
+            `⚡ ──「 ${title} 」──\n▢ ${msg}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
 
         try {
             const settings = await getSettings();
@@ -25,25 +25,25 @@ export default async (context) => {
                 const action = value === 'on';
                 if (settings.antiviewonce === action) {
                     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-                    return await sendInteractive(client, m, fmt('ANTIVIEWONCE', `Antiviewonce is already ${value.toUpperCase()}, genius. Stop wasting my time.\n│ \n│ 📌 Usage: ${prefix}antiviewonce on | ${prefix}antiviewonce off`));
+                    return await sendInteractive(client, m, fmt('ANTIVIEWONCE', `Antiviewonce is already ${value.toUpperCase()}, genius. Stop wasting my time.\n▢ \n▢ 📌 Usage: ${prefix}antiviewonce on | ${prefix}antiviewonce off`));
                 }
 
                 await updateSetting('antiviewonce', action);
                 await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
-                return await sendInteractive(client, m, fmt('ANTIVIEWONCE', `Antiviewonce ${value.toUpperCase()}! ${action ? 'Every view-once gets saved to my DM. Nothing gets past me. 😈' : 'View-once messages are free to vanish now.'}\n│ \n│ 📌 Usage: ${prefix}antiviewonce on | ${prefix}antiviewonce off`));
+                return await sendInteractive(client, m, fmt('ANTIVIEWONCE', `Antiviewonce ${value.toUpperCase()}! ${action ? 'Every view-once gets saved to my DM. Nothing gets past me. 😈' : 'View-once messages are free to vanish now.'}\n▢ \n▢ 📌 Usage: ${prefix}antiviewonce on | ${prefix}antiviewonce off`));
             }
 
             const _devMode = await getDeviceMode();
             if (_devMode === 'ios') {
                 await client.sendMessage(m.chat, { react: { text: '📋', key: m.reactKey } });
-                return await sendInteractive(client, m, `╭─❏ 「 ANTIVIEWONCE」\n│ Status: ${settings.antiviewonce ? 'ON ✅' : 'OFF ❌'}\n│ \n│ To turn ON:  ${prefix}antiviewonce on\n│ To turn OFF: ${prefix}antiviewonce off\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+                return await sendInteractive(client, m, `⚡ ──「 ANTIVIEWONCE 」──\n▢ Status: ${settings.antiviewonce ? 'ON ✅' : 'OFF ❌'}\n▢ \n▢ To turn ON:  ${prefix}antiviewonce on\n▢ To turn OFF: ${prefix}antiviewonce off\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
             }
 
             const _msg = generateWAMessageFromContent(
                 m.chat,
                 proto.Message.fromObject({
                     interactiveMessage: {
-                        body: { text: fmt('ANTIVIEWONCE', `Antiviewonce is ${settings.antiviewonce ? 'ON 😈' : 'OFF'}. Pick a vibe.\n│ \n│ 📌 Usage: ${prefix}antiviewonce on | ${prefix}antiviewonce off`) },
+                        body: { text: fmt('ANTIVIEWONCE', `Antiviewonce is ${settings.antiviewonce ? 'ON 😈' : 'OFF'}. Pick a vibe.\n▢ \n▢ 📌 Usage: ${prefix}antiviewonce on | ${prefix}antiviewonce off`) },
                         footer: { text: '' },
                         nativeFlowMessage: {
                             buttons: [{

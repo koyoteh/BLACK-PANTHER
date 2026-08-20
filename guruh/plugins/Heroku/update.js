@@ -14,9 +14,8 @@ export default async (context) => {
     const formatStylishReply = (message) => {
         return (
             `` +
-            `│ ${message}\n` +
-            `╰───────────────
-> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇\n` +
+            `▢ ${message}\n` +
+            `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n` +
             `Pσɯҽɾҽԃ Ⴆყ Tσxιƈ-ɱԃȥ 😈`
         );
     };
@@ -60,8 +59,8 @@ export default async (context) => {
                                 const _devMode = await getDeviceMode();
                 if (_devMode === 'ios') {
           await client.sendMessage(m.chat, { react: { text: '📋', key: m.reactKey } }).catch(()=>{});
-          await sendInteractive(client, m, `╭─❏ 「 UPDATE」
-│ Options:\n│ ${prefix}menu\n│ ${prefix}settings\n│ ${prefix}triggerupdate\n│ ${prefix}menu\n╰───────────────\n> 🌐 hosting.wa.me/254105521300`);
+          await sendInteractive(client, m, `⚡ ──「 UPDATE 」──
+▢ Options:\n▢ ${prefix}menu\n▢ ${prefix}settings\n▢ ${prefix}triggerupdate\n▢ ${prefix}menu\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n> 🌐 wa.me/254116284050`);
           return;
       } else {
     const msg = generateWAMessageFromContent(

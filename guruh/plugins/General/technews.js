@@ -13,18 +13,18 @@ export default {
             const articles = res.data || [];
             if (!articles.length) throw new Error('No articles');
             const headlines = articles.map((a, i) =>
-                `│ [${i+1}] ${(a.title?.rendered||'').replace(/&amp;/g,'&').replace(/&#8217;/g,"'").replace(/&#8216;/g,"'")}\n│     🔗 ${a.link||''}`
+                `▢ [${i+1}] ${(a.title?.rendered||'').replace(/&amp;/g,'&').replace(/&#8217;/g,"'").replace(/&#8216;/g,"'")}\n▢     🔗 ${a.link||''}`
             ).join(`\n│
 `);
             await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
-            return sendInteractive(client, m, `╭─❏ 「 Tᴇᴄʜ Nᴇᴡs」
+            return sendInteractive(client, m, `⚡ ──「 Tᴇᴄʜ Nᴇᴡs 」──
 │
-${headlines}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+${headlines}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         } catch {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-            return sendInteractive(client, m, `╭─❏ 「 Tᴇᴄʜ Nᴇᴡs」
+            return sendInteractive(client, m, `⚡ ──「 Tᴇᴄʜ Nᴇᴡs 」──
 │
-│ Tech world went offline. How ironic.\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+▢ Tech world went offline. How ironic.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
     }
 };

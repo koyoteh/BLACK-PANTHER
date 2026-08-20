@@ -5,8 +5,7 @@ export default async (context) => {
   await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
 
   const formatStylishReply = (message) => {
-    return `│ ${message}\n╰───────────────
-> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`;
+    return `▢ ${message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
   };
 
   if (!text) {
@@ -35,15 +34,14 @@ export default async (context) => {
   const videoUrl = song.url;
 
   const response = `` +
-                  `│ *${title}* found for @${m.sender.split('@')[0].split(':')[0]}! 🎶\n` +
+                  `▢ *${title}* found for @${m.sender.split('@')[0].split(':')[0]}! 🎶\n` +
                   `│🎤 *Artist*: ${artist}\n` +
                   `│👀 *Views*: ${views}\n` +
                   `│⏱ *Duration*: ${duration}\n` +
                   `│📅 *Uploaded*: ${uploaded}\n` +
                   (thumbnail ? `│🖼 *Thumbnail*: ${thumbnail}\n` : '') +
                   `│🔗 *Video*: ${videoUrl}\n` +
-                  `╰───────────────
-> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇\n` +
+                  `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n` +
                   `Powered by BLACK-PANTHER-MD`;
 
   await sendInteractive(client, m, formatStylishReply(response));

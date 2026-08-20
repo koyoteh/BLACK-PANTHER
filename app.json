@@ -1,20 +1,16 @@
 {
   "name": "BLACK PANTHER MD",
   "version": "5.0.0",
-  "description": "BLACK PANTHER MD - A Powerful Multi-Device WhatsApp Bot to Enhance Your WhatsApp Experience",
-  "logo": "https://files.catbox.moe/y2cw2k.jpg",
-  "keywords": [
-    "black-panther-md",
-    "whatsapp-bot",
-    "gifted-baileys",
-    "panther-md"
-  ],
+  "description": "BLACK PANTHER - A Powerful Multi-Device WhatsApp Bot built by Koyoteh to Enhance Your WhatsApp Experience",
+  "logo": "https://res.cloudinary.com/dqxlb29uz/image/upload/v1780267810/bwm_uploads/media-1780267810008.jpg",
+  "keywords": ["black-panther", "koyoteh", "whatsapp-bot", "black-panther-md"],
   "success_url": "/",
-  "stack": "heroku-22",
+  "stack": "heroku-24",
   "env": {
     "SESSION_ID": {
-      "description": "Your bot session ID (format: GURU~xxxxxxxxxxxxxxxx...). Get it from the pairing web UI.",
-      "required": true
+      "description": "Your WhatsApp session ID. Get it from the pairing page. Must start with PANTHER~",
+      "required": true,
+      "value": ""
     },
     "BOT_NAME": {
       "description": "Name of your bot",
@@ -24,12 +20,7 @@
     "OWNER_NAME": {
       "description": "Owner name",
       "required": false,
-      "value": "GURU-SL"
-    },
-    "OWNER_NUMBER": {
-      "description": "Your WhatsApp number with country code (e.g., 254712345678)",
-      "required": true,
-      "value": ""
+      "value": "Koyoteh"
     },
     "MODE": {
       "description": "Bot mode: 'public' (everyone can use) or 'private' (only bot owner)",
@@ -51,33 +42,13 @@
       "required": false,
       "value": "true"
     },
-    "AUTO_BIO": {
-      "description": "Auto-update bot profile bio every 10 minutes. Set true or false.",
-      "required": false,
-      "value": "true"
-    },
-    "AUTO_REACT": {
-      "description": "Auto-react to incoming messages with random emojis. Set true or false.",
-      "required": false,
-      "value": "false"
-    },
-    "BOT_PREFIX": {
-      "description": "Command prefix character (e.g., ., !, /)",
-      "required": false,
-      "value": "."
-    },
-    "APP_URL": {
-      "description": "Your Heroku app URL for keep-alive pings (e.g., https://your-app-name.herokuapp.com)",
-      "required": false,
-      "value": ""
-    },
-    "EXPIRY_DATE": {
-      "description": "Optional bot licence expiry date in YYYY-MM-DD format. Leave blank for no expiry.",
-      "required": false,
-      "value": ""
-    },
     "DATABASE_URL": {
       "description": "PostgreSQL connection URL. Leave blank to use auto-provisioned Heroku Postgres, or supply your own (Neon, Supabase, etc.). Falls back to SQLite if empty.",
+      "required": false,
+      "value": ""
+    },
+    "BOT_EXPIRY_DATE": {
+      "description": "Bot license expiry date (YYYY-MM-DD). Leave blank if bot has no expiry. When set, the menu will show ACTIVE/EXPIRY SOON/EXPIRED status.",
       "required": false,
       "value": ""
     }
@@ -89,14 +60,21 @@
     }
   ],
   "buildpacks": [
-    {
-      "url": "heroku/nodejs"
-    }
+    { "url": "heroku/nodejs" },
+    { "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest" }
   ],
   "formation": {
     "web": {
       "quantity": 1,
       "size": "basic"
+    }
+  },
+  "environments": {
+    "test": {
+      "addons": [],
+      "env": {
+        "DATABASE_URL": ""
+      }
     }
   }
 }

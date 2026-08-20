@@ -14,7 +14,8 @@ const config                          = require('../config/settings');
 const logger                          = require('../utils/logger');
 const { cleanJid, pickRandom }        = require('../utils/helpers');
 const { REACT_EMOJIS, channelCtx,
-        sendWithChannel }             = require('../utils/gmdFunctions2');
+        sendWithChannel,
+        PantherAntiBot }              = require('../utils/gmdFunctions2');
 
 // AFK map — lazy-loaded so it doesn't hard-fail if extras not yet loaded
 function getAfkMap() {
@@ -139,6 +140,13 @@ async function processOne(raw, sock) {
                     )
                 );
             }
+        }
+
+        // AntiBot — kick non-admins who send bot commands in groups where enabled.
+        // Awaited so command never executes for a violator that was kicked.
+        if (m.isGroup && m.isCmd && !m.fromMe) {
+            const kicked = await PantherAntiBot(sock, m).catch(() => false);
+            if (kicked) return; // Violator handled — do not process the command
         }
 
         // Command dispatcher

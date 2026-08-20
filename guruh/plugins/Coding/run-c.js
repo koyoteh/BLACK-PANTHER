@@ -12,13 +12,13 @@ async function runCode() {
   try {
     let result = await c.runSource(code);
     console.log(result);
-    sendInteractive(client, m, `╭─❏ 「 C OUTPUT」
-│ ${result.stdout || 'No output'}\n${result.stderr ? '│ stderr: ' + result.stderr + '\n' : ''}╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+    sendInteractive(client, m, `⚡ ──「 C OUTPUT 」──
+▢ ${result.stdout || 'No output'}\n${result.stderr ? '▢ stderr: ' + result.stderr + '\n' : ''}└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
   } catch (err) {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
     console.log(err);
-    sendInteractive(client, m, `╭─❏ 「 C ERROR」
-│ ${err.stderr || err.message}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+    sendInteractive(client, m, `⚡ ──「 C ERROR 」──
+▢ ${err.stderr || err.message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
   }
 }
 
@@ -26,8 +26,8 @@ runCode();
 
 } else { 
 
-sendInteractive(client, m, `╭─❏ 「 C COMPILER」
-│ Quote a valid and short C code\n│ to compile, you absolute walnut.\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`)
+sendInteractive(client, m, `⚡ ──「 C COMPILER 」──
+▢ Quote a valid and short C code\n▢ to compile, you absolute walnut.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`)
 
 }
 

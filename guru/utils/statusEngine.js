@@ -1,7 +1,7 @@
 'use strict';
 // ╔══════════════════════════════════════════════════════════════╗
 //  🐾  BLACK PANTHER MD  —  Status Engine
-//  👑  Owner : GuruTech  |  📞 +254105521300
+//  👑  Owner : Koyoteh  |  📞 +254105521300
 // ─────────────────────────────────────────────────────────────
 //  Features:
 //  ✅  Queue-based — never drops a status even under high load

@@ -10,9 +10,9 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
           if (!text) {
               await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-              return sendInteractive(client, m, `│ Example: ${prefix}soundcloud https://soundcloud.com/user/track\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+              return sendInteractive(client, m, `▢ Example: ${prefix}soundcloud https://soundcloud.com/user/track\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
           }
-          if (!text.includes('soundcloud.com')) return sendInteractive(client, m, '│ That\'s not a SoundCloud link.\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇');
+          if (!text.includes('soundcloud.com')) return sendInteractive(client, m, '▢ That\'s not a SoundCloud link.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──');
           await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
           try {
               const r = await fetch(NEXRAY + encodeURIComponent(text.trim()), { headers: { 'User-Agent': 'Mozilla/5.0' }, timeout: 25000 });
@@ -33,7 +33,7 @@ import { sendInteractive } from '../../lib/sendInteractive.js';
               });
           } catch (e) {
               await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-              sendInteractive(client, m, `│ Failed: ${e.message}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+              sendInteractive(client, m, `▢ Failed: ${e.message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
           }
       }
   };

@@ -6,8 +6,8 @@ export default async (context) => {
         const { client, m, body } = context;
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
 
-        const fmt = (msg) => `╭─❏ 「 SET WARN LIMIT」
-│ ${msg}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`;
+        const fmt = (msg) => `⚡ ──「 SET WARN LIMIT 」──
+▢ ${msg}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
 
         const current = await getWarnLimit(m.chat);
 
@@ -15,7 +15,7 @@ export default async (context) => {
 
         if (!rawInput) {
             return await client.sendMessage(m.chat, {
-                text: fmt(`Current warn limit for this group: *${current}*\n│ \n│ Usage: .setwarncount <number>\n│ Example: .setwarncount 5\n│ \n│ When a user hits the limit\n│ they get kicked automatically. 😈\n│ Min: 1 — Max: 10`)
+                text: fmt(`Current warn limit for this group: *${current}*\n▢ \n▢ Usage: .setwarncount <number>\n▢ Example: .setwarncount 5\n▢ \n▢ When a user hits the limit\n▢ they get kicked automatically. 😈\n▢ Min: 1 — Max: 10`)
             });
         }
 
@@ -34,7 +34,7 @@ export default async (context) => {
         await setWarnLimit(m.chat, num);
 
         await client.sendMessage(m.chat, {
-            text: fmt(`✅ Warn limit updated to *${num}*.\n│ Members now get kicked after ${num} warns. 😈`)
+            text: fmt(`✅ Warn limit updated to *${num}*.\n▢ Members now get kicked after ${num} warns. 😈`)
         });
     });
 };

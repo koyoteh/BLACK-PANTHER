@@ -1,7 +1,7 @@
 'use strict';
 // ╔══════════════════════════════════════════════════════════════╗
 //  🐾  BLACK PANTHER MD  —  gmdFunctions3.js  (Search & APIs)
-//  👑  Owner : GuruTech  |  📞 +254105521300
+//  👑  Owner : Koyoteh  |  📞 +254105521300
 //  🔍  Weather · News · Currency · Crypto · Dictionary · Lyrics
 //  🎬  Movie · Sports · Anime · GitHub · Color · Font · More
 // ╚══════════════════════════════════════════════════════════════╝

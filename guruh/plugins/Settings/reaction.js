@@ -9,7 +9,7 @@ export default async (context) => {
     const { client, m, args, prefix } = context;
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
 
-    const fmtMsg = (msg) => `│ ${msg}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`;
+    const fmtMsg = (msg) => `▢ ${msg}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
 
     try {
       const settings = await getSettings();
@@ -42,14 +42,14 @@ export default async (context) => {
             const _devMode = await getDeviceMode();
       if (_devMode === 'ios') {
           await client.sendMessage(m.chat, { react: { text: '📋', key: m.reactKey } });
-          await sendInteractive(client, m, `╭─❏ 「 REACTION」
-│ Status: ${settings.reaction ? 'ON ✅' : 'OFF ❌'}\n│ \n│ Options:\n│ ${prefix}reaction random\n│ ${prefix}reaction ❤️\n│ ${prefix}reaction 🔥\n│ ${prefix}reaction 😂\n╰───────────────\n> 🌐 hosting.wa.me/254105521300`);
+          await sendInteractive(client, m, `⚡ ──「 REACTION 」──
+▢ Status: ${settings.reaction ? 'ON ✅' : 'OFF ❌'}\n▢ \n▢ Options:\n▢ ${prefix}reaction random\n▢ ${prefix}reaction ❤️\n▢ ${prefix}reaction 🔥\n▢ ${prefix}reaction 😂\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n> 🌐 wa.me/254116284050`);
       } else {
     const _msg = generateWAMessageFromContent(
             m.chat,
             {
               interactiveMessage: {
-                body: { text: fmtMsg(`REACTION SETTINGS\n│ Current: ${currentText}\n│ \n│ Use "${prefix}reaction random" for random\n│ Use "${prefix}reaction <emoji>" for specific`) },
+                body: { text: fmtMsg(`REACTION SETTINGS\n▢ Current: ${currentText}\n▢ \n▢ Use "${prefix}reaction random" for random\n▢ Use "${prefix}reaction <emoji>" for specific`) },
                 footer: { text: '' },
                 nativeFlowMessage: {
                   buttons: [{

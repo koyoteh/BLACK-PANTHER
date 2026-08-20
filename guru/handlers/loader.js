@@ -1,7 +1,33 @@
 'use strict';
 const fs     = require('fs');
 const path   = require('path');
+const https  = require('https');
+const http   = require('http');
 const config = require('../config/settings');
+
+// ── Cached bot profile picture buffer ─────────────────────────
+let _pictCache = null;
+
+function fetchBotPict() {
+    if (_pictCache) return Promise.resolve(_pictCache);
+    return new Promise((resolve) => {
+        try {
+            const urlFile = path.join(__dirname, '../assets/bot_pp.url');
+            const ppUrl   = fs.existsSync(urlFile) ? fs.readFileSync(urlFile, 'utf8').trim() : '';
+            if (!ppUrl) return resolve(null);
+            const client = ppUrl.startsWith('https') ? https : http;
+            client.get(ppUrl, (res) => {
+                const chunks = [];
+                res.on('data', c => chunks.push(c));
+                res.on('end', () => { _pictCache = Buffer.concat(chunks); resolve(_pictCache); });
+                res.on('error', () => resolve(null));
+            }).on('error', () => resolve(null));
+        } catch { resolve(null); }
+    });
+}
+
+// Pre-fetch on startup
+fetchBotPict().catch(() => {});
 
 const PLUGINS_DIR = path.join(__dirname, '../../guruh/plugins');
 
@@ -38,6 +64,15 @@ function buildPluginCtx(ctx) {
         }
     });
 
+    const totalCmds = (() => {
+        const seen = new Set();
+        let count = 0;
+        for (const cmd of commands.values()) {
+            if (!seen.has(cmd.name)) { seen.add(cmd.name); count++; }
+        }
+        return count;
+    })();
+
     return {
         client:        ctx.sock,
         m:             pluginM,
@@ -62,6 +97,11 @@ function buildPluginCtx(ctx) {
         send:          ctx.send,
         react:         ctx.react,
         config,
+        // ── Fields required by guruh plugins ──────────────────
+        mode:          config.MODE       || 'public',
+        botname:       config.BOT_NAME   || 'BLACK PANTHER MD',
+        pict:          _pictCache,
+        totalCommands: totalCmds,
     };
 }
 
@@ -137,6 +177,26 @@ async function loadSubdirPlugins() {
                     });
                     loaded++;
                     continue;
+                }
+
+                // Pattern C: export default [ { name, aliases, run, description }, ... ]
+                if (Array.isArray(exported)) {
+                    let anyAdded = false;
+                    for (const item of exported) {
+                        if (typeof item === 'object' && typeof item.run === 'function') {
+                            const name    = (item.name    || cmdName).toLowerCase().trim();
+                            const aliases = (item.aliases || []).map(a => a.toLowerCase().trim());
+                            addCmd({
+                                name,
+                                aliases,
+                                desc:     item.description || item.desc || '',
+                                category: dir.toLowerCase(),
+                                handler:  (ctx) => item.run(buildPluginCtx(ctx)),
+                            });
+                            anyAdded = true;
+                        }
+                    }
+                    if (anyAdded) { loaded++; continue; }
                 }
 
                 skipped++;

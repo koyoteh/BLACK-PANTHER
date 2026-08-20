@@ -17,8 +17,8 @@ export default async (context) => {
 
     if (!m.isGroup) {
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-        return sendInteractive(client, m, `╭─❏ 「 Eʀʀᴏʀ」
-│ This command is meant for groups.\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+        return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
+▢ This command is meant for groups.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
     }
 
     let info = await client.groupMetadata(m.chat);
@@ -34,26 +34,25 @@ export default async (context) => {
     const adminsCount = info.participants.filter(p => p.admin).length;
     const owner = info.owner || info.participants.find(p => p.admin === 'superadmin')?.id;
 
-    const caption = `╭─❏ 「 Gʀᴏᴜᴘ Iɴꜰᴏ」
-│ Name : *${info.subject}*
-│ ID : *${info.id}*
-│ Owner : ${owner ? '@' + owner.split('@')[0] : 'Unknown'}
-│ 
-│ Created :
-│ ${ts.day}, ${ts.date} ${ts.month} ${ts.year}
-│ ${ts.time} UTC
-│ 
-│ Participants :
-│ Total : *${info.size}*
-│ Members : *${membersCount}*
-│ Admins : *${adminsCount}*
-│ 
-│ Settings :
-│ Messages : ${info.announce ? 'Admins Only' : 'Everyone'}
-│ Edit Info : ${info.restrict ? 'Admins Only' : 'Everyone'}
-│ Add Members : ${info.memberAddMode ? 'Everyone' : 'Admins Only'}
-╰───────────────
-> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`;
+    const caption = `⚡ ──「 Gʀᴏᴜᴘ Iɴꜰᴏ 」──
+▢ Name : *${info.subject}*
+▢ ID : *${info.id}*
+▢ Owner : ${owner ? '@' + owner.split('@')[0] : 'Unknown'}
+▢ 
+▢ Created :
+▢ ${ts.day}, ${ts.date} ${ts.month} ${ts.year}
+▢ ${ts.time} UTC
+▢ 
+▢ Participants :
+▢ Total : *${info.size}*
+▢ Members : *${membersCount}*
+▢ Admins : *${adminsCount}*
+▢ 
+▢ Settings :
+▢ Messages : ${info.announce ? 'Admins Only' : 'Everyone'}
+▢ Edit Info : ${info.restrict ? 'Admins Only' : 'Everyone'}
+▢ Add Members : ${info.memberAddMode ? 'Everyone' : 'Admins Only'}
+└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
 
     await client.sendMessage(m.chat, { 
         image: { url: pp }, 

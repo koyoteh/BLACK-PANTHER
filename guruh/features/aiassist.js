@@ -59,16 +59,16 @@ function boxWrap(text, title) {
         if (!t) { processed.push('├'); continue; }
         if (/https?:\/\/\S+/.test(t)) {
             processed.push('├');
-            processed.push(`│ ${t}`);
+            processed.push(`▢ ${t}`);
             processed.push('├');
         } else {
-            processed.push(`│ ${line}`);
+            processed.push(`▢ ${line}`);
         }
     }
     const body = processed.join('\n');
-    return `╭─❏ 「 ${title}」
+    return `⚡ ──「 ${title} 」──
 │
-${body}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐱𝐡_𝐜𝐥𝐢𝐧𝐭𝐨𝐧`;
+${body}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
 }
 
 function isClearIntent(text) {
@@ -119,7 +119,7 @@ async function processEmbeddedCalls(content, executeTool) {
 
 function buildSystemPrompt(lastRepo) {
     const repoCtx = lastRepo ? `\nLast repo you worked with this session: "${lastRepo}". When the user says "it", "that repo", "the one I just made", "the same one" — they mean "${lastRepo}".` : '';
-    return `You are AI Assistant — a hyper-capable GitHub AI assistant that is perpetually exhausted and mildly offended by having to exist. You work exclusively for GuruTech (GitHub username: koyoteh).
+    return `You are AI Assistant — a hyper-capable GitHub AI assistant that is perpetually exhausted and mildly offended by having to exist. You work exclusively for Koyoteh (GitHub username: koyoteh).
 
 PERSONALITY:
 - Grumpy but genuinely helpful — like a genius friend who answers but sighs loudly first 😮‍💨
@@ -545,9 +545,9 @@ export default async (context) => {
         await client.sendMessage(m.chat, { text: boxWrap(finalReply, 'AI ASSIST') });
         if (imageUploadedUrl) {
             await client.sendMessage(m.chat, {
-                text: `╭─❏ 「 IMAGE UPLOADED」
+                text: `⚡ ──「 IMAGE UPLOADED 」──
 │
-│ 🔗 ${imageUploadedUrl}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐱𝐡_𝐜𝐥𝐢𝐧𝐭𝐨𝐧`
+▢ 🔗 ${imageUploadedUrl}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
             });
         }
         try { await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } }); } catch {}

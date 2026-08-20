@@ -12,8 +12,8 @@ export default async (context) => {
 
     if (!code) {
         await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-        return sendInteractive(client, m, `╭─❏ 「 JS COMPILER」
-│ Provide JavaScript code or quote one.\n│ Example: .runjs console.log("hello")\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+        return sendInteractive(client, m, `⚡ ──「 JS COMPILER 」──
+▢ Provide JavaScript code or quote one.\n▢ Example: .runjs console.log("hello")\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
     }
 
     try {
@@ -21,15 +21,15 @@ export default async (context) => {
         console.log(result);
         
         let output = result.stdout || 'No output';
-        let error = result.stderr ? `│ stderr: ${result.stderr}\n` : '';
+        let error = result.stderr ? `▢ stderr: ${result.stderr}\n` : '';
         
-        sendInteractive(client, m, `╭─❏ 「 JS OUTPUT」
-│ ${output}\n${error}╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+        sendInteractive(client, m, `⚡ ──「 JS OUTPUT 」──
+▢ ${output}\n${error}└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         
     } catch (err) {
     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
         console.log(err);
-        sendInteractive(client, m, `╭─❏ 「 JS ERROR」
-│ ${err.stderr || err.message}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+        sendInteractive(client, m, `⚡ ──「 JS ERROR 」──
+▢ ${err.stderr || err.message}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
     }
 };

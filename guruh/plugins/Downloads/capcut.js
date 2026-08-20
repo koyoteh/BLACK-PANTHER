@@ -10,8 +10,8 @@ export default {
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
         if (!text) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-            return sendInteractive(client, m, `╭─❏ 「 CAPCUT DL」
-│ Usage: ${prefix}capcut <url>\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+            return sendInteractive(client, m, `⚡ ──「 CAPCUT DL 」──
+▢ Usage: ${prefix}capcut <url>\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
         if (!text.match(/capcut\.com/i)) return sendInteractive(client, m, 'That doesn\'t look like a CapCut link.');
         try {
@@ -22,12 +22,12 @@ export default {
             await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
             await client.sendMessage(m.chat, {
                 video: { url: result.play },
-                caption: `╭─❏ 「 CAPCUT VIDEO」
-│ Title: ${result.title || 'Unknown'}\n│ Author: ${result.author || 'Unknown'}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`
+                caption: `⚡ ──「 CAPCUT VIDEO 」──
+▢ Title: ${result.title || 'Unknown'}\n▢ Author: ${result.author || 'Unknown'}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
             });
         } catch {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-            sendInteractive(client, m, '│ Failed to download. Check the link and try again.\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇');
+            sendInteractive(client, m, '▢ Failed to download. Check the link and try again.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──');
         }
     }
 };

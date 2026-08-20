@@ -13,24 +13,24 @@ export default async (context) => {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
             return await sendInteractive(client, m, 
                 `` +
-                `╭─❏ 「 BAN LIST」
+                `⚡ ──「 BAN LIST 」──
 ` +
-                `│ \n` +
-                `│ There are no banned users at the moment.\n` +
-                `╰───────────────\n` +
-                `> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`
+                `▢ \n` +
+                `▢ There are no banned users at the moment.\n` +
+                `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n` +
+                ``
             );
         }
 
-        const list = bannedUsers.map((num, index) => `│ ${index + 1}. ${num}`).join('\n');
+        const list = bannedUsers.map((num, index) => `▢ ${index + 1}. ${num}`).join('\n');
         await sendInteractive(client, m, 
             `` +
-            `╭─❏ 「 BAN LIST」
+            `⚡ ──「 BAN LIST 」──
 ` +
-            `│ \n` +
+            `▢ \n` +
             `${list}\n` +
-            `╰───────────────\n` +
-            `> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`
+            `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n` +
+            ``
         );
         await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
     });

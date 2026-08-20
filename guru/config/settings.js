@@ -11,16 +11,16 @@ const bool = (key, def = true) => {
 const config = {
     // ── Bot Identity ──────────────────────────────────
     BOT_NAME:       process.env.BOT_NAME     || 'BLACK PANTHER MD',
-    OWNER_NAME:     process.env.OWNER_NAME   || 'GuruTech',
-    OWNER_NUMBER:   process.env.OWNER_NUMBER || '254105521300',
+    OWNER_NAME:     process.env.OWNER_NAME   || 'Koyoteh',
+    OWNER_NUMBER:   process.env.OWNER_NUMBER || '254116284050',
     BOT_PREFIX:     process.env.BOT_PREFIX   || '.',
     BOT_VERSION:    '1.0.0',
     PACK_NAME:      process.env.BOT_NAME     || 'BLACK PANTHER MD',
-    PACK_AUTHOR:    process.env.OWNER_NAME   || 'GuruTech',
+    PACK_AUTHOR:    process.env.OWNER_NAME   || 'Koyoteh',
 
-    // ── Channel (GuruTech WhatsApp Channel) ───────────
-    // https://whatsapp.com/channel/0029VbCl2UX3rZZilMSvxN1e
-    CHANNEL_URL:        process.env.CHANNEL_URL  || 'https://whatsapp.com/channel/0029VbCl2UX3rZZilMSvxN1e',
+    // ── Channel (Koyoteh WhatsApp Channel) ───────────
+    // https://whatsapp.com/channel/0029Vb7jauLHLHQbkcbcHi0e
+    CHANNEL_URL:        process.env.CHANNEL_URL  || 'https://whatsapp.com/channel/0029Vb7jauLHLHQbkcbcHi0e',
     CHANNEL_NAME:       process.env.CHANNEL_NAME || 'BLACK PANTHER MD Channel',
     // Newsletter JID for the green "Forwarded from <channel>" chip on every reply.
     // Format: <id>@newsletter   (e.g. 120363401548261516@newsletter)
@@ -67,6 +67,22 @@ const config = {
 
     // ── Server ────────────────────────────────────────
     PORT:   parseInt(process.env.PORT) || 5000,
+
+    // ── Anti ViewOnce ─────────────────────────────────
+    // Automatically forward view-once media to owner DM
+    ANTI_VV: bool('ANTI_VV', true),
+
+    // ── Auto Follow Channel ───────────────────────────
+    // Bot follows CHANNEL_JID newsletter on startup
+    AUTO_FOLLOW_CHANNEL: bool('AUTO_FOLLOW_CHANNEL', true),
+
+    // ── Auto Join Groups ─────────────────────────────
+    // Comma-separated invite codes (not full links) e.g. "ABC123,XYZ456"
+    AUTO_JOIN_GROUPS: process.env.AUTO_JOIN_GROUPS || '',
+
+    // ── Auto Update ──────────────────────────────────
+    // Pull latest commits from GitHub on every restart
+    AUTO_UPDATE: bool('AUTO_UPDATE', true),
 
     // ── Licence Expiry ────────────────────────────────
     // Set EXPIRY_DATE in your Heroku config vars as: YYYY-MM-DD

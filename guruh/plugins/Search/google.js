@@ -7,11 +7,11 @@ export default async (context) => {
   if (!text) {
     sendInteractive(client, m, 
       "" +
-      "│ ERROR\n" +
+      "▢ ERROR\n" +
       "" +
-      "│ 🚫 Please provide a search term!\n" +
-      "│ Example: .google What is treason\n" +
-      "╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇"
+      "▢ 🚫 Please provide a search term!\n" +
+      "▢ Example: .google What is treason\n" +
+      "└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──"
     );
     return;
   }
@@ -24,26 +24,26 @@ export default async (context) => {
     if (data.items.length == 0) {
       sendInteractive(client, m, 
         "" +
-        "│ ERROR\n" +
+        "▢ ERROR\n" +
         "" +
-        "│ ❌ Unable to find any results\n" +
-        "╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇"
+        "▢ ❌ Unable to find any results\n" +
+        "└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──"
       );
       return;
     }
 
     let tex = "";
     tex += "";
-    tex += "│ GOOGLE SEARCH\n";
+    tex += "▢ GOOGLE SEARCH\n";
     tex += "";
-    tex += "│ 🔍 Search Term: " + text + "\n";
+    tex += "▢ 🔍 Search Term: " + text + "\n";
     tex += "";
 
     for (let i = 0; i < data.items.length; i++) {
-      tex += "│ Result " + (i + 1) + "\n";
-      tex += "│ 🪧 Title: " + data.items[i].title + "\n";
-      tex += "│ 📝 Description: " + data.items[i].snippet + "\n";
-      tex += "│ 🌐 Link: " + data.items[i].link + "\n";
+      tex += "▢ Result " + (i + 1) + "\n";
+      tex += "▢ 🪧 Title: " + data.items[i].title + "\n";
+      tex += "▢ 📝 Description: " + data.items[i].snippet + "\n";
+      tex += "▢ 🌐 Link: " + data.items[i].link + "\n";
       tex += "";
     }
 
@@ -51,10 +51,10 @@ export default async (context) => {
   } catch (e) {
     sendInteractive(client, m, 
       "" +
-      "│ ERROR\n" +
+      "▢ ERROR\n" +
       "" +
-      "│ ❌ An error occurred: " + e.message + "\n" +
-      "╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇"
+      "▢ ❌ An error occurred: " + e.message + "\n" +
+      "└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──"
     );
   }
 };

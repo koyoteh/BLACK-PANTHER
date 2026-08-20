@@ -181,7 +181,7 @@ async function checkExpiry({ onExpire, onWarn, exitOnExpiry = true } = {}) {
             `║  📅  Expiry Date  : ${fmtDate(expiryDate)}\n` +
             `║  ⏱️   Expired      : ${expiredAgo} day(s) ago\n` +
             `║  🔒  All commands have been locked.\n` +
-            `║  📞  Contact GuruTech (+254105521300) to renew.\n` +
+            `║  📞  Contact Koyoteh (+254105521300) to renew.\n` +
             `║  💬  https://wa.me/254105521300\n` +
             `╚${'═'.repeat(56)}╝\n`;
 
@@ -216,7 +216,7 @@ async function checkExpiry({ onExpire, onWarn, exitOnExpiry = true } = {}) {
                 `⏳ *Time left:*  ${countdown}\n` +
                 `${expiryBar(days, 30)}\n\n` +
                 `📞 *Renew now:*  https://wa.me/254105521300\n` +
-                `💬 Contact *GuruTech* before it's too late!\n\n` +
+                `💬 Contact *Koyoteh* before it's too late!\n\n` +
                 `_${process.env.BOT_NAME || 'BLACK PANTHER MD'}_`;
 
             logger.warn('EXPIRY',

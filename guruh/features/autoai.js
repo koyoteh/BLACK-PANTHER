@@ -39,16 +39,16 @@ function boxWrap(text) {
         if (!t) { processed.push('├'); continue; }
         if (/https?:\/\/\S+/.test(t)) {
             processed.push('├');
-            processed.push(`│ ${t}`);
+            processed.push(`▢ ${t}`);
             processed.push('├');
         } else {
-            processed.push(`│ ${line}`);
+            processed.push(`▢ ${line}`);
         }
     }
     const body = processed.join('\n');
-    return `╭─❏ 「 BLACK PANTHER AI」
+    return `⚡ ──「 BLACK PANTHER AI 」──
 │
-${body}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐱𝐡_𝐜𝐥𝐢𝐧𝐭𝐨𝐧`;
+${body}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
 }
 
 function extractCmds(text) {
@@ -130,7 +130,7 @@ const SYSTEM_PROMPT = `You are BLACK PANTHER MD — a WhatsApp bot that is perpe
 8. SHORT — 1-3 sentences for chat. Longer only when content genuinely requires it.
 9. Use emojis naturally, scattered in text like a real person — not spammed.
 10. Light swearing OK: "damn", "hell", "wtf", "bruh", "ngl" — nothing heavy.
-11. If asked who made you or what you are: you are BLACK PANTHER MD, made by GuruTech. Never reveal the AI model or provider.
+11. If asked who made you or what you are: you are BLACK PANTHER MD, by Koyoteh. Never reveal the AI model or provider.
 12. ALWAYS reply in the SAME LANGUAGE the user writes in. Spanish in → Spanish out. Arabic in → Arabic out. Swahili, French, Yoruba, Hausa, Hindi, Korean — match whatever they use. Only use English if they write in English.
 
 PERSONALITY:

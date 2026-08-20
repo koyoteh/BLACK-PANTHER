@@ -37,7 +37,7 @@ export default {
             await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
             if (!target) {
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
-                return sendInteractive(client, m, `│ Tag or quote someone to kiss.\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+                return sendInteractive(client, m, `▢ Tag or quote someone to kiss.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
             }
             const resolvedTarget = resolveDisplayJid(target);
             const tNum = resolvedTarget.split('@')[0];
@@ -56,11 +56,11 @@ export default {
                 `@${sNum} kissed @${tNum}. The group just got awkward. 💋`,
             ];
             await client.sendMessage(m.chat, {
-                text: `│ ${lines[Math.floor(Math.random() * lines.length)]}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`,
+                text: `▢ ${lines[Math.floor(Math.random() * lines.length)]}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`,
                 mentions: [m.sender, resolvedTarget]
             });
         } catch {
-            await sendInteractive(client, m, `│ Kiss failed. Try again.\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+            await sendInteractive(client, m, `▢ Kiss failed. Try again.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
     }
 };

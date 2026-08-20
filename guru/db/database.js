@@ -3,7 +3,7 @@ const Database = require('better-sqlite3');
 const path     = require('path');
 const fs       = require('fs');
 
-const DB_DIR  = path.join(__dirname, '../GuruTech/sessions');
+const DB_DIR  = path.join(__dirname, '../Koyoteh/sessions');
 const DB_PATH = path.join(DB_DIR, 'panther.db');
 if (!fs.existsSync(DB_DIR)) fs.mkdirSync(DB_DIR, { recursive: true });
 
@@ -73,7 +73,7 @@ db.exec(`
     CREATE INDEX IF NOT EXISTS idx_notes_group        ON notes(group_jid, name);
 `);
 
-const newCols = ['antimention', 'antiviewonce', 'antiforeign', 'antisticker', 'antiflood', 'antiedit', 'welcomeMsg TEXT DEFAULT \'\''];
+const newCols = ['antimention', 'antiviewonce', 'antiforeign', 'antisticker', 'antiflood', 'antiedit', 'antibot INTEGER DEFAULT 0', 'welcomeMsg TEXT DEFAULT \'\''];
 for (const col of newCols) {
     try { db.exec(`ALTER TABLE group_settings ADD COLUMN ${col}`); } catch {}
 }

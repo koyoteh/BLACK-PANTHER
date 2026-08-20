@@ -1,7 +1,7 @@
 import { getGroupSettings } from '../database/config.js';
 import { resolveTargetJid } from '../lib/lidResolver.js';
 
-const DEV_NUMBER = '254114885159';
+const DEV_NUMBER = '254116284050';
 
 const cleanNum = (jid) => (jid || '').split('@')[0].split(':')[0].replace(/\D/g, '');
 
@@ -58,8 +58,8 @@ export default async (client, event) => {
                 try {
                     await client.groupParticipantsUpdate(event.id, [resolvedJid], 'remove');
                     await client.sendMessage(event.id, {
-                        text: `╭─❏ 「 ANTIFOREIGN」
-│ 🚫 @${pNum} was removed.\n│ Foreign numbers not allowed here!\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐱𝐡_𝐜𝐥𝐢𝐧𝐭𝐨𝐧`,
+                        text: `⚡ ──「 ANTIFOREIGN 」──
+▢ 🚫 @${pNum} was removed.\n▢ Foreign numbers not allowed here!\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`,
                         mentions: [resolvedJid]
                     });
                 } catch {}

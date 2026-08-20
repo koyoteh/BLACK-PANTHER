@@ -55,14 +55,14 @@ export default async (context) => {
 
                 if (!mediaMsg) {
                     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-                    return sendInteractive(client, m, `╭─❏ 「 STICKER」
-│ Where's the fvcking image or\n│ short video, idiot.\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+                    return sendInteractive(client, m, `⚡ ──「 STICKER 」──
+▢ Where's the fvcking image or\n▢ short video, idiot.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
                 }
 
                 if (mediaType === 'video' && mediaMsg.seconds > 30) {
                     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-                    return sendInteractive(client, m, `╭─❏ 「 STICKER」
-│ Videos must be 30 seconds or shorter.\n│ Learn to read, moron.\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+                    return sendInteractive(client, m, `⚡ ──「 STICKER 」──
+▢ Videos must be 30 seconds or shorter.\n▢ Learn to read, moron.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
                 }
 
                 const dlType = mediaType === 'sticker' ? 'sticker' : mediaType;
@@ -92,8 +92,8 @@ export default async (context) => {
             } catch (error) {
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } }).catch(() => {});
                 console.error(`Sticker error: ${error.message}`);
-                await sendInteractive(client, m, `╭─❏ 「 ERROR」
-│ Error while creating sticker.\n│ Try again, you failure.\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+                await sendInteractive(client, m, `⚡ ──「 ERROR 」──
+▢ Error while creating sticker.\n▢ Try again, you failure.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
             }
         }
     });

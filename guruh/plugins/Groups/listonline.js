@@ -9,9 +9,9 @@ export default {
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
         const _isGroup = isGroup || m.isGroup || m.chat?.endsWith('@g.us');
         if (!_isGroup) {
-            return sendInteractive(client, m, `╭─❏ 「 Oɴʟɪɴᴇ Lɪsᴛ」
+            return sendInteractive(client, m, `⚡ ──「 Oɴʟɪɴᴇ Lɪsᴛ 」──
 │
-│ This only works in groups, genius.\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+▢ This only works in groups, genius.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
         try {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
@@ -50,19 +50,19 @@ export default {
 
             await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
             const body = onlineList.length > 0
-                ? onlineList.map((j, i) => `│ [${i + 1}] @${j.split('@')[0]}`).join('\n')
-                : '│ Nobody seems online right now.\n│ WhatsApp only reports presence for subscribed contacts.';
+                ? onlineList.map((j, i) => `▢ [${i + 1}] @${j.split('@')[0]}`).join('\n')
+                : '▢ Nobody seems online right now.\n▢ WhatsApp only reports presence for subscribed contacts.';
             return client.sendMessage(m.chat, {
-                text: `╭─❏ 「 Oɴʟɪɴᴇ Mᴇᴍʙᴇʀs」
+                text: `⚡ ──「 Oɴʟɪɴᴇ Mᴇᴍʙᴇʀs 」──
 │
-${body}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`,
+${body}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`,
                 mentions: onlineList
             });
         } catch {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-            return sendInteractive(client, m, `╭─❏ 「 Oɴʟɪɴᴇ Lɪsᴛ」
+            return sendInteractive(client, m, `⚡ ──「 Oɴʟɪɴᴇ Lɪsᴛ 」──
 │
-│ Couldn't fetch online members.\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+▢ Couldn't fetch online members.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
     }
 };

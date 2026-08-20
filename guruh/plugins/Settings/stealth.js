@@ -9,7 +9,7 @@ export default async (context) => {
         const { client, m, args, prefix } = context;
         await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
 
-        const fmt = (msg) => `│ ${msg}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`;
+        const fmt = (msg) => `▢ ${msg}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
 
         try {
             const settings = await getSettings();
@@ -41,14 +41,14 @@ export default async (context) => {
                         const _devMode = await getDeviceMode();
             if (_devMode === 'ios') {
           await client.sendMessage(m.chat, { react: { text: '📋', key: m.reactKey } });
-          await sendInteractive(client, m, `╭─❏ 「 STEALTH」
-│ Status: ${settings.stealth ? 'ON ✅' : 'OFF ❌'}\n│ \n│ Options:\n│ ${prefix}stealth on\n│ ${prefix}stealth off\n╰───────────────\n> 🌐 hosting.wa.me/254105521300`);
+          await sendInteractive(client, m, `⚡ ──「 STEALTH 」──
+▢ Status: ${settings.stealth ? 'ON ✅' : 'OFF ❌'}\n▢ \n▢ Options:\n▢ ${prefix}stealth on\n▢ ${prefix}stealth off\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──\n> 🌐 wa.me/254116284050`);
       } else {
     const _stealthMsg = generateWAMessageFromContent(
                     m.chat,
                     {
                         interactiveMessage: {
-                            body: { text: fmt(`Stealth Mode: *${isEnabled ? 'ON 👻' : 'OFF 💡'}*\n│ Usage: *${prefix}stealth on/off*\n│ When ON, bot auto-deletes commands + replies after 8s.`) },
+                            body: { text: fmt(`Stealth Mode: *${isEnabled ? 'ON 👻' : 'OFF 💡'}*\n▢ Usage: *${prefix}stealth on/off*\n▢ When ON, bot auto-deletes commands + replies after 8s.`) },
                             footer: { text: '' },
                             nativeFlowMessage: {
                                 buttons: [{

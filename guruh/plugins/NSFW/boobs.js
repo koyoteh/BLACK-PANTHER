@@ -21,15 +21,15 @@ export default {
 
             await client.sendMessage(m.chat, {
                 image: { url: data.message },
-                caption: `╭─❏ 「 NSFW」
-│ Here's your boobs, you horny bastard.\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`
+                caption: `⚡ ──「 NSFW 」──
+▢ Here's your boobs, you horny bastard.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`
             });
 
         } catch (error) {
             console.error('Boobs error:', error);
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-            await sendInteractive(client, m, `╭─❏ 「 ERROR」
-│ Failed to get boobs. You're so\n│ unlucky even porn hates you.\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+            await sendInteractive(client, m, `⚡ ──「 ERROR 」──
+▢ Failed to get boobs. You're so\n▢ unlucky even porn hates you.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
     }
 };

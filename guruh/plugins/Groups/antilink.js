@@ -6,7 +6,7 @@ export default async (context) => {
     const { client, m, args, isAdmin, isBotAdmin, prefix } = context;
     await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
 
-    const fmt = (msg) => `╭─❏ 「 ANTILINK」\n│ ${msg}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`;
+    const fmt = (msg) => `⚡ ──「 ANTILINK 」──\n▢ ${msg}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
 
     if (!m.isGroup) {
         await client.sendMessage(m.chat, { react: { text: '', key: m.reactKey } }).catch(() => {});
@@ -41,12 +41,12 @@ export default async (context) => {
                 value === 'warn' ? `Links will be deleted and sender warned.\nAt the warn limit they're KICKED.` :
                 'Links = Instant kick. No second chances.';
             await client.sendMessage(m.chat, { react: { text: '', key: m.reactKey } }).catch(() => {});
-            return await client.sendMessage(m.chat, { text: fmt(`Antilink set to *${value.toUpperCase()}*.\n│ ${desc}`) });
+            return await client.sendMessage(m.chat, { text: fmt(`Antilink set to *${value.toUpperCase()}*.\n▢ ${desc}`) });
         }
 
         const currentMode = String(groupSettings.antilink || "off").toUpperCase();
         const warnLimit = await getWarnLimit(m.chat);
-        const bodyText = fmt(`Current mode: *${currentMode}*\n│ Warn limit: *${warnLimit}* (set with ${prefix}setwarncount)\n│ \n│ off — Allow links\n│ warn — Delete + warn user\n│ kick — Delete + instant kick`);
+        const bodyText = fmt(`Current mode: *${currentMode}*\n▢ Warn limit: *${warnLimit}* (set with ${prefix}setwarncount)\n▢ \n▢ off — Allow links\n▢ warn — Delete + warn user\n▢ kick — Delete + instant kick`);
 
         const device = await getDeviceMode();
         if (device === 'ios') {

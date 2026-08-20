@@ -13,8 +13,8 @@ export default {
             await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
 
             const fmt = (msg) =>
-                `╭─❏ 「 DEVICE MODE」
-│ ${msg}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`;
+                `⚡ ──「 DEVICE MODE 」──
+▢ ${msg}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
 
             const value = (args[0] || '').toLowerCase().trim();
 
@@ -24,7 +24,7 @@ export default {
                 await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
                 return await client.sendMessage(m.chat, {
                     text: fmt(
-                        `Current device mode: *${current.toUpperCase()}*\n│ \n│ android / default — Uses select list buttons\n│ ios — Text-only responses (no buttons)\n│ \n│ Usage: *${prefix}device android*\n│         *${prefix}device ios*\n│         *${prefix}device default*`
+                        `Current device mode: *${current.toUpperCase()}*\n▢ \n▢ android / default — Uses select list buttons\n▢ ios — Text-only responses (no buttons)\n▢ \n▢ Usage: *${prefix}device android*\n▢         *${prefix}device ios*\n▢         *${prefix}device default*`
                     )
                 });
             }
@@ -32,7 +32,7 @@ export default {
             if (!VALID_VALUES.includes(value)) {
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
                 return await client.sendMessage(m.chat, {
-                    text: fmt(`Invalid value: *${value}*\n│ Accepted: *android*, *ios*, *default*`)
+                    text: fmt(`Invalid value: *${value}*\n▢ Accepted: *android*, *ios*, *default*`)
                 });
             }
 
@@ -50,7 +50,7 @@ export default {
             await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
             return await client.sendMessage(m.chat, {
                 text: fmt(
-                    `Device mode set to *${value.toUpperCase()}*\n│ \n│ ${
+                    `Device mode set to *${value.toUpperCase()}*\n▢ \n▢ ${
                         value === 'ios'
                             ? 'iOS mode: buttons replaced with text-only responses.'
                             : 'Android mode: select list buttons enabled everywhere.'

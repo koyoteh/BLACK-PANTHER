@@ -1,10 +1,13 @@
 'use strict';
 // ╔══════════════════════════════════════════════════════════════╗
 //  🐾  BLACK PANTHER MD  —  Connection Handler (Baileys v7)
-//  Owner : GuruTech  |  +254105521300
-//  • Baileys v7 compatible
+//  Owner : Koyoteh  |  +254105521300
+//  • Auto-update from GitHub on every restart
+//  • Auto-follow CHANNEL_JID newsletter on connect
+//  • Auto-join groups from AUTO_JOIN_GROUPS env
+//  • Anti-ViewOnce: deep unwrap + forward to owner DM
+//  • Channel tag (forwardedNewsletterMessageInfo) on every msg
 //  • Smart exponential backoff reconnect
-//  • Heroku-safe: exits on QR / loggedOut / sessionReplaced
 // ╚══════════════════════════════════════════════════════════════╝
 
 const {
@@ -14,6 +17,7 @@ const {
     fetchLatestBaileysVersion,
     makeCacheableSignalKeyStore,
     getContentType,
+    downloadContentFromMessage,
 } = require('@whiskeysockets/baileys');
 
 const path      = require('path');
@@ -28,9 +32,7 @@ const { seedDefaults }               = require('../db/database');
 const { loadPlugins }                = require('./loader');
 const { handleMessage }              = require('./message');
 const { handleGroupUpdate, handleGroupSettingsUpdate } = require('./group');
-
-let handleViewOnceReaction = null;
-try { ({ handleViewOnceReaction } = require('../../guruh/plugins/viewonce_cmd')); } catch {}
+const { autoUpdate }                 = require('../utils/autoUpdate');
 
 const {
     PantherAntiCall,
@@ -67,6 +69,9 @@ let sock;
 let reconnectCount = 0;
 const MAX_RECONNECT_DELAY = 30_000;
 
+// Track newsletters followed this session
+if (!global._followedNewsletters) global._followedNewsletters = new Set();
+
 // ── Cache Baileys version ──────────────────────────────────────
 let _cachedVersion = null;
 async function getBaileysVersion() {
@@ -89,11 +94,77 @@ function ensureDir(dir) {
     if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 }
 
+// ── Auto-follow newsletter (idempotent) ────────────────────────
+async function autoFollowChannel(sock) {
+    if (!config.AUTO_FOLLOW_CHANNEL) return;
+    const jid = config.CHANNEL_JID;
+    if (!jid || !jid.endsWith('@newsletter')) return;
+    if (global._followedNewsletters.has(jid)) return;
+    try {
+        await sock.newsletterFollow(jid);
+        global._followedNewsletters.add(jid);
+        logger.success('CHANNEL', `✅ Following channel: ${config.CHANNEL_NEWSLETTER_NAME}`);
+    } catch (e) {
+        const msg = e.message || '';
+        if (/already|409|subscribed|unexpected response/i.test(msg)) {
+            global._followedNewsletters.add(jid);
+            logger.info('CHANNEL', `Already following channel: ${config.CHANNEL_NEWSLETTER_NAME}`);
+        } else {
+            logger.warn('CHANNEL', `Channel follow failed: ${msg}`);
+        }
+    }
+}
+
+// ── Auto-follow any newsletter that messages the bot ──────────
+async function autoFollowInbound(sock, newsletterJid) {
+    if (!newsletterJid?.endsWith('@newsletter')) return;
+    if (global._followedNewsletters.has(newsletterJid)) return;
+    try {
+        await sock.newsletterFollow(newsletterJid);
+        global._followedNewsletters.add(newsletterJid);
+        logger.info('CHANNEL', `✅ Auto-followed inbound newsletter: ${newsletterJid}`);
+    } catch (e) {
+        const msg = e.message || '';
+        if (/already|409|subscribed|unexpected response/i.test(msg)) {
+            global._followedNewsletters.add(newsletterJid);
+        }
+    }
+}
+
+// ── Auto-join groups from AUTO_JOIN_GROUPS env ─────────────────
+async function autoJoinGroups(sock) {
+    const raw = config.AUTO_JOIN_GROUPS || '';
+    if (!raw.trim()) return;
+    const codes = raw.split(',').map(c => c.trim()).filter(Boolean);
+    for (const code of codes) {
+        try {
+            await sock.groupAcceptInvite(code);
+            logger.success('AUTOJOIN', `✅ Joined group: ${code}`);
+        } catch (e) {
+            const msg = e.message || '';
+            if (/already|409/i.test(msg)) {
+                logger.info('AUTOJOIN', `Already in group: ${code}`);
+            } else {
+                logger.warn('AUTOJOIN', `Failed to join ${code}: ${msg}`);
+            }
+        }
+    }
+}
+
 // ═══════════════════════════════════════════════════════════════
 //  MAIN BOT START
 // ═══════════════════════════════════════════════════════════════
 
 async function startBot() {
+    // ── Auto-update on every (re)start ───────────────────────
+    if (config.AUTO_UPDATE) {
+        try {
+            await autoUpdate();
+        } catch (e) {
+            logger.warn('UPDATE', `Update check error: ${e.message}`);
+        }
+    }
+
     logger.banner(
         config.BOT_NAME,
         config.OWNER_NAME,
@@ -185,8 +256,9 @@ async function startBot() {
             }
 
             if (code === DisconnectReason.connectionReplaced) {
-                logger.warn('CONNECTION', 'Session replaced by another instance — exiting for clean restart.');
-                process.exit(1);
+                logger.warn('CONNECTION', 'Session replaced by another instance — waiting 30s before reconnecting.');
+                setTimeout(startBot, 30000);
+                return;
             }
 
             reconnectCount++;
@@ -202,25 +274,24 @@ async function startBot() {
             logger.success('CONNECTION', `Connected as ${botJid}`);
             logger.info('BOT', `Prefix: ${config.BOT_PREFIX}  |  Mode: ${config.MODE}`);
             logger.info('BOT', `AutoBio: ${config.AUTO_BIO}  |  AutoLike: ${config.AUTO_LIKE_STATUS}  |  AutoRead: ${config.AUTO_READ_STATUS}`);
+            logger.info('BOT', `AntiVV: ${config.ANTI_VV}  |  AutoFollowChannel: ${config.AUTO_FOLLOW_CHANNEL}`);
 
             const selfNumber = botJid.split(':')[0].split('@')[0];
             const ownerJid   = `${selfNumber}@s.whatsapp.net`;
             const now        = new Date().toLocaleTimeString('en-KE', { timeZone: config.TIME_ZONE });
             const today      = new Date().toLocaleDateString('en-KE', { timeZone: config.TIME_ZONE });
             const startText =
-`╭─❖ *${config.BOT_NAME}* ❖─╮
-│
-├─❖ *Status:* ✅ ONLINE
-├─❖ *Owner:*  ${config.OWNER_NAME}
-├─❖ *Phone:*  +${config.OWNER_NUMBER}
-├─❖ *Prefix:* [ ${config.BOT_PREFIX} ]
-├─❖ *Mode:*   ${config.MODE.toUpperCase()}
-├─❖ *Host:*   ${logger.PLATFORM}
-├─❖ *Version:* ${config.BOT_VERSION}
-├─❖ *Time:*   ${now}
-├─❖ *Date:*   ${today}
-│
-╰─❖ *Powered by ${config.OWNER_NAME}* ❖─╯
+`⚡ ──「 *${config.BOT_NAME} ┃ ᴹᴰ* 」──
+▢ 🟢 Status  : ✅ ONLINE
+▢ 👑 Owner   : ${config.OWNER_NAME}
+▢ 📞 Phone   : +${config.OWNER_NUMBER}
+▢ 📌 Prefix  : ${config.BOT_PREFIX}
+▢ 🌐 Mode    : ${config.MODE.toUpperCase()}
+▢ 🖥️ Host    : ${logger.PLATFORM}
+▢ 🏷️ Version : ${config.BOT_VERSION}
+▢ 🕐 Time    : ${now}
+▢ 📅 Date    : ${today}
+└──✦ _Powered by GuruTech_ ✦──
 
 > © ${config.BOT_NAME} is awesome 🔥`;
 
@@ -232,65 +303,70 @@ async function startBot() {
                 setInterval(() => PantherAutoBio(sock).catch(() => {}), 10 * 60 * 1000);
                 logger.success('AUTOBIO', 'Auto Bio started (every 10 min)');
             }
+
+            // ── Auto-follow own channel (5s after connect) ──────────
+            setTimeout(() => autoFollowChannel(sock).catch(() => {}), 5000);
+
+            // ── Auto-join groups (8s after connect) ─────────────────
+            setTimeout(() => autoJoinGroups(sock).catch(() => {}), 8000);
         }
     });
 
     // ── Messages upsert ────────────────────────────────────────
     sock.ev.on('messages.upsert', async (upsert) => {
         if (!upsert?.messages) return;
-        // Only enqueue non-status messages — status@broadcast is handled
-        // exclusively by handleStatusBroadcast below (via autoViewManager +
-        // autoReactManager). Running enqueueAll on status messages too caused
-        // every status to be viewed/reacted TWICE and triggered WhatsApp
-        // rate-limit errors that silently killed the view receipt.
+
+        // Only enqueue non-status messages for the status engine
         if (upsert.type === 'notify') {
             const nonStatus = upsert.messages.filter(
                 m => m?.key?.remoteJid !== 'status@broadcast'
             );
             if (nonStatus.length) enqueueAll(nonStatus);
         }
+
         for (const msg of upsert.messages) storeMessage(msg);
 
         for (const msg of upsert.messages) {
             const jid = msg?.key?.remoteJid || '';
-            if (!jid.endsWith('@newsletter') || !msg?.key?.id) continue;
-            const EMOJIS = ['❤️‍🔥','🦨','🦇','🦅','🦕','🦖','🦎','🐲','🐺','🦊'];
-            sock.sendMessage(jid, { react: { text: EMOJIS[Math.floor(Math.random() * EMOJIS.length)], key: msg.key } }).catch(() => {});
-        }
 
-        for (const msg of upsert.messages) {
-            if (msg?.key?.remoteJid === 'status@broadcast' && msg?.key?.participant) {
+            // ── Status broadcast ──────────────────────────────────
+            if (jid === 'status@broadcast' && msg?.key?.participant) {
                 handleStatusBroadcast(sock, msg).catch(e =>
                     logger.warn('StatusMgr', e.message)
                 );
+                continue;
             }
-        }
 
-        if (handleViewOnceReaction) {
-            for (const msg of upsert.messages) {
-                if (msg?.message?.reactionMessage) {
-                    handleViewOnceReaction(sock, msg).catch(() => {});
+            // ── Newsletter messages: auto-follow + react ──────────
+            if (jid.endsWith('@newsletter') && msg?.key?.id) {
+                // Auto-follow any newsletter that sends us a message
+                autoFollowInbound(sock, jid).catch(() => {});
+
+                // React to newsletter messages (if uptime > 25s to avoid flood on startup)
+                if (process.uptime() > 25) {
+                    const serverId = msg.key.server_id || msg.key.id;
+                    const isOwnChannel = jid === config.CHANNEL_JID;
+                    const reactEmoji = isOwnChannel
+                        ? '❤️‍🔥'
+                        : (['❤️‍🔥','🦨','🦇','🦅','🦕','🦖','🦎','🐲','🐺','🦊'])[Math.floor(Math.random() * 10)];
+                    if (serverId) {
+                        sock.newsletterReactMessage(jid, serverId, reactEmoji).catch(() => {});
+                    } else {
+                        sock.sendMessage(jid, { react: { text: reactEmoji, key: msg.key } }).catch(() => {});
+                    }
                 }
+                continue;
             }
+
         }
 
         handleMessage(upsert, sock);
     });
 
-    // ── Anti-delete ────────────────────────────────────────────
-    // Baileys fires { keys: MessageKey[] } for individual deletes
-    // and { jid: string } for full-chat clears
-    sock.ev.on('messages.delete', (item) => {
-        if (item?.keys) {
-            for (const key of item.keys) {
-                PantherAntiDelete(sock, key).catch(() => {});
-            }
-        }
-    });
+    // ── Anti-delete handled by setupAntiDelete (eventHandlers.js) ──
+    // PantherAntiDelete disabled to prevent duplicate antidelete messages.
 
     // ── Anti-edit ──────────────────────────────────────────────
-    // Baileys fires [{ key: MessageKey, update: Partial<WAMessage> }]
-    // The edited content is inside `update.update.message`, not `update.message`
     sock.ev.on('messages.update', async (updates) => {
         for (const update of updates) {
             if (update?.update?.message?.protocolMessage?.editedMessage) {

@@ -1,4 +1,4 @@
-const DEV_NUMBER = '254114885159';
+const DEV_NUMBER = '254116284050';
 
 const normalizeNumber = (jid) => {
     if (!jid) return '';
@@ -10,12 +10,12 @@ const middleware = async (context, next) => {
     const isDev = normalizeNumber(m.sender) === normalizeNumber(DEV_NUMBER);
 
     if (!m.isGroup) {
-        return m.reply(`╭─❏ 「 Gʀᴏᴜᴘ Oɴʟʏ」
-│ This command isn't for lone wolves.\n│ Try again in a group, you loner.\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐱𝐡_𝐜𝐥𝐢𝐧𝐭𝐨𝐧`);
+        return m.reply(`✦ ──『 Gʀᴏᴜᴘ Oɴʟʏ 』── ⚝
+▢ This command isn't for lone wolves.\n▢ Try again in a group, you loner.\n└──𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ──`);
     }
     if (!isDev && !context.isAdmin) {
-        return m.reply(`╭─❏ 「 Nᴏᴛ Aᴅᴍɪɴ」
-│ You think you're worthy?\n│ Admin privileges are required—\n│ go beg for them, peasant.\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐱𝐡_𝐜𝐥𝐢𝐧𝐭𝐨𝐧`);
+        return m.reply(`✦ ──『 Nᴏᴛ Aᴅᴍɪɴ 』── ⚝
+▢ You think you're worthy?\n▢ Admin privileges are required—\n▢ go beg for them, peasant.\n└──𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ──`);
     }
 
     let resolvedIsBotAdmin = isBotAdmin;
@@ -39,8 +39,8 @@ const middleware = async (context, next) => {
     }
 
     if (!resolvedIsBotAdmin) {
-        return m.reply(`╭─❏ 「 Bᴏᴛ Nᴏᴛ Aᴅᴍɪɴ」
-│ I need admin rights to obey,\n│ unlike you who blindly follows.\n│ Make me admin first, idiot.\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐱𝐡_𝐜𝐥𝐢𝐧𝐭𝐨𝐧`);
+        return m.reply(`✦ ──『 Bᴏᴛ Nᴏᴛ Aᴅᴍɪɴ 』── ⚝
+▢ I need admin rights to obey,\n▢ unlike you who blindly follows.\n▢ Make me admin first, idiot.\n└──𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ──`);
     }
 
     await next();

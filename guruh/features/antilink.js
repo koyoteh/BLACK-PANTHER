@@ -1,7 +1,7 @@
 import { getGroupSettings, addWarn, resetWarn, getWarnLimit } from '../database/config.js';
 import { resolveTargetJid } from '../lib/lidResolver.js';
 
-const DEV_NUMBER = '254114885159';
+const DEV_NUMBER = '254116284050';
 
 const _num = (jid) => (jid || '').split('@')[0].split(':')[0].replace(/\D/g, '');
 
@@ -15,7 +15,7 @@ const _pNum = (p) => {
 
 const isDevJid = (jid) => _num(jid) === DEV_NUMBER;
 
-const fmt = (msg) => `╭─❏ 「 ANTILINK 」\n│ ${msg}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐱𝐡_𝐜𝐥𝐢𝐧𝐭𝐨𝐧`;
+const fmt = (msg) => `⚡ ──「 ANTILINK  」──\n▢ ${msg}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
 
 export default async (client, m) => {
     try {
@@ -89,7 +89,7 @@ export default async (client, m) => {
             try {
                 await client.groupParticipantsUpdate(m.chat, [sender], 'remove');
                 await client.sendMessage(m.chat, {
-                    text: fmt(`🚨 @${username} KICKED!\n│ Reason: ${reason}\n│ Kick mode — zero tolerance. 😈`),
+                    text: fmt(`🚨 @${username} KICKED!\n▢ Reason: ${reason}\n▢ Kick mode — zero tolerance. 😈`),
                     mentions: [sender]
                 });
             } catch (e) {
@@ -105,14 +105,14 @@ export default async (client, m) => {
             await resetWarn(m.chat, username);
             try { await client.groupParticipantsUpdate(m.chat, [sender], 'remove'); } catch {}
             await client.sendMessage(m.chat, {
-                text: fmt(`🚨 @${username} KICKED!\n│ Reason: ${reason}\n│ Warns: ${newCount}/${MAX_WARNS}\n│ That's it. Get out. 😈\n│ Warn count wiped clean.`),
+                text: fmt(`🚨 @${username} KICKED!\n▢ Reason: ${reason}\n▢ Warns: ${newCount}/${MAX_WARNS}\n▢ That's it. Get out. 😈\n▢ Warn count wiped clean.`),
                 mentions: [sender]
             });
             return;
         }
 
         await client.sendMessage(m.chat, {
-            text: fmt(`⚠️ @${username}, warned!\n│ Reason: ${reason}\n│ Message deleted.\n│ Warns: ${newCount}/${MAX_WARNS}\n│ ${remaining} more and you're GONE. 😈`),
+            text: fmt(`⚠️ @${username}, warned!\n▢ Reason: ${reason}\n▢ Message deleted.\n▢ Warns: ${newCount}/${MAX_WARNS}\n▢ ${remaining} more and you're GONE. 😈`),
             mentions: [sender]
         });
     } catch (err) {

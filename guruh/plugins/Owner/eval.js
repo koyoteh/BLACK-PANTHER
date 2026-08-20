@@ -18,12 +18,12 @@ export default async (context) => {
         try {
             if (!raw) {
                 await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-                return sendInteractive(client, m, `╭─❏ 「 EVAL 」\n│ You sent nothing.\n│ What am I supposed to eval,\n│ your disappointment?\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+                return sendInteractive(client, m, `⚡ ──「 EVAL  」──\n▢ You sent nothing.\n▢ What am I supposed to eval,\n▢ your disappointment?\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
             }
             for (const pattern of BLOCKED_PATTERNS) {
                 if (pattern.test(raw)) {
                     await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-                    return sendInteractive(client, m, `╭─❏ 「 BLOCKED 」\n│ That eval is blocked for security.\n│ Nice try though.\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+                    return sendInteractive(client, m, `⚡ ──「 BLOCKED  」──\n▢ That eval is blocked for security.\n▢ Nice try though.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
                 }
             }
 
@@ -38,7 +38,7 @@ export default async (context) => {
             await sendInteractive(client, m, String(evaled ?? 'undefined'));
         } catch (err) {
             await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-            await sendInteractive(client, m, `╭─❏ 「 EVAL ERROR 」\n│ ${String(err)}\n╰───────────────\n> ©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇`);
+            await sendInteractive(client, m, `⚡ ──「 EVAL ERROR  」──\n▢ ${String(err)}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
         }
     });
 };

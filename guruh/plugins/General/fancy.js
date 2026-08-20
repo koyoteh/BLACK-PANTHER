@@ -68,15 +68,15 @@ export default {
 
     if (!text) {
       const example = 'PANTHER';
-      let preview = `╭─❏ 「 Fᴀɴᴄʏ Tᴇxᴛ」
+      let preview = `⚡ ──「 Fᴀɴᴄʏ Tᴇxᴛ 」──
 │
-│ Usage: ${prefix}fancy <number> <text>\n│ Example: ${prefix}fancy 1 BLACK-PANTHER-MD\n│
-│ Available styles (1-${totalStyles}):\n`;
+▢ Usage: ${prefix}fancy <number> <text>\n▢ Example: ${prefix}fancy 1 BLACK-PANTHER-MD\n│
+▢ Available styles (1-${totalStyles}):\n`;
       for (let i = 0; i < totalStyles; i++) {
         const styled = applyStyle(example, i);
-        if (styled) preview += `│ ${i + 1}. ${styled}\n`;
+        if (styled) preview += `▢ ${i + 1}. ${styled}\n`;
       }
-      preview += `╰───────────────`;
+      preview += `└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`;
       await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
       return client.sendMessage(m.chat, { text: preview });
     }
@@ -85,16 +85,16 @@ export default {
     const styleNum = parseInt(args[0]);
 
     if (isNaN(styleNum) || styleNum < 1 || styleNum > totalStyles) {
-      return sendInteractive(client, m, `╭─❏ 「 Eʀʀᴏʀ」
+      return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
 │
-│ Invalid style number!\n│ Use 1-${totalStyles}\n│ Example: ${prefix}fancy 1 BLACK-PANTHER-MD\n╰───────────────`);
+▢ Invalid style number!\n▢ Use 1-${totalStyles}\n▢ Example: ${prefix}fancy 1 BLACK-PANTHER-MD\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
     }
 
     const inputText = args.slice(1).join(' ');
     if (!inputText) {
-      return sendInteractive(client, m, `╭─❏ 「 Eʀʀᴏʀ」
+      return sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
 │
-│ No text provided!\n│ ${prefix}fancy ${styleNum} Your Text Here\n╰───────────────`);
+▢ No text provided!\n▢ ${prefix}fancy ${styleNum} Your Text Here\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
     }
 
     try {
@@ -106,7 +106,7 @@ export default {
         {
           interactiveMessage: {
             body: { text: styledText },
-            footer: { text: '©𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 𝐆𝐔𝐑𝐔𝐓𝐄𝐂𝐇' },
+            footer: { text: '𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ' },
             nativeFlowMessage: {
               messageVersion: 1,
               buttons: [{
@@ -123,9 +123,9 @@ export default {
 
     } catch (error) {
     await client.sendMessage(m.chat, { react: { text: '', key: m.reactKey } }).catch(() => {});
-      await sendInteractive(client, m, `╭─❏ 「 Eʀʀᴏʀ」
+      await sendInteractive(client, m, `⚡ ──「 Eʀʀᴏʀ 」──
 │
-│ Failed to apply fancy style.\n│ Try again or use a different number.\n╰───────────────`);
+▢ Failed to apply fancy style.\n▢ Try again or use a different number.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
     }
   }
 };
