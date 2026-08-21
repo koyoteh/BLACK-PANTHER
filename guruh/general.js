@@ -2,6 +2,7 @@
 
 const { gmd }          = require("../guru");
 const moment           = require("moment-timezone");
+const { setMenuState } = require("./lib/menuState.cjs");
 
 const {
     buildThemedMenu,
@@ -22,7 +23,8 @@ gmd(
         const { react, mek } = conText;
         await react("📋");
         const text = await buildThemedMenu(conText, Guru);
-        await sendMenuMsg(Guru, from, text, conText);
+        const sentMsg = await sendMenuMsg(Guru, from, text, conText);
+        setMenuState(from, sentMsg?.key?.id || null);
         await react("✅");
 
         // ── Live clock below the menu — ticks every second for 60s ──────────
