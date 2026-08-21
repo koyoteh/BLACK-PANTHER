@@ -114,19 +114,16 @@ async function buildMenuData(conText) {
     const sortedCats = getSortedCategories();
 
     // Quoted blockquote style: > 01  icon  LABEL  (N cmds)
-    const catLines = sortedCats.map(({ cat, cmds }, i) => {
-        const icon  = CAT_ICONS[cat] || "🔥";
-        const count = cmds.length;
+    const catLines = sortedCats.map(({ cat }, i) => {
         const label = (cat[0].toUpperCase() + cat.slice(1)).toUpperCase();
         const num   = String(i + 1).padStart(2, '0');
-        return `> ${num}  ${icon}  ${label}  _(${count})_`;
+        return `> ${num}  ${label}`;
     }).join("\n");
 
-    const catLinesGuruTech = sortedCats.map(({ cat, cmds }, i) => {
-        const icon  = CAT_ICONS[cat] || "🔥";
+    const catLinesGuruTech = sortedCats.map(({ cat }, i) => {
         const label = (cat[0].toUpperCase() + cat.slice(1)).toUpperCase();
         const num   = String(i + 1).padStart(2, ' ');
-        return `▢ ${num}  〢 ${icon} ${label}  _(${cmds.length})_`;
+        return `▢ ${num}  〢 ${label}`;
     }).join("\n");
 
     return {
