@@ -1,127 +1,85 @@
 <div align="center">
 
-# 🐾 BLACK PANTHER MD 🐾
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0D0D0D,50:6C3483,100:9B59B6&height=180&section=header&text=BLACK%20PANTHER%20MD&fontSize=42&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Silent.%20Swift.%20Unstoppable.&descAlignY=58&descSize=18" width="100%"/>
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=28&pause=1000&color=9B59B6&center=true&vCenter=true&width=600&lines=BLACK+PANTHER+MD;Ultimate+WhatsApp+Bot;Fast+%7C+Powerful+%7C+Unstoppable" alt="Typing SVG" />
-
-<br/>
-
-[![GitHub Stars](https://img.shields.io/github/stars/koyoteh/BLACK-PANTHER?style=for-the-badge&logo=github&color=9B59B6&labelColor=0D0D0D)](https://github.com/koyoteh/BLACK-PANTHER/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/koyoteh/BLACK-PANTHER?style=for-the-badge&logo=github&color=8E44AD&labelColor=0D0D0D)](https://github.com/koyoteh/BLACK-PANTHER/network/members)
-[![GitHub Issues](https://img.shields.io/github/issues/koyoteh/BLACK-PANTHER?style=for-the-badge&logo=github&color=6C3483&labelColor=0D0D0D)](https://github.com/koyoteh/BLACK-PANTHER/issues)
-[![License](https://img.shields.io/badge/LICENSE-MIT-9B59B6?style=for-the-badge&logo=opensourceinitiative&logoColor=white&labelColor=0D0D0D)](LICENSE)
-[![Author](https://img.shields.io/badge/AUTHOR-KOYOTEH-8E44AD?style=for-the-badge&logo=github&logoColor=white&labelColor=0D0D0D)](https://github.com/koyoteh)
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=22&duration=2800&pause=700&color=9B59B6&center=true&vCenter=true&width=560&lines=%F0%9F%A4%96+AI+Chat+Bot;%F0%9F%9B%A1%EF%B8%8F+Group+Protection;%F0%9F%93%A5+Media+Downloader;%E2%9A%A1+Fast+%7C+Free+%7C+24%2F7+Online" alt="Typing SVG" />
 
 <br/>
 
-> **⚡ Silent. Swift. Unstoppable. — The BLACK PANTHER WhatsApp Bot.**
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="90"/>
+
+<br/><br/>
+
+[![Stars](https://img.shields.io/github/stars/koyoteh/BLACK-PANTHER?style=for-the-badge&logo=github&color=9B59B6&labelColor=0D0D0D)](https://github.com/koyoteh/BLACK-PANTHER/stargazers)
+[![Forks](https://img.shields.io/github/forks/koyoteh/BLACK-PANTHER?style=for-the-badge&logo=github&color=8E44AD&labelColor=0D0D0D)](https://github.com/koyoteh/BLACK-PANTHER/network/members)
+[![Author](https://img.shields.io/badge/AUTHOR-KOYOTEH-6C3483?style=for-the-badge&logo=github&logoColor=white&labelColor=0D0D0D)](https://github.com/koyoteh)
+
+<br/>
+
+![Visitors](https://komarev.com/ghpvc/?username=koyoteh-blackpanther&label=PROFILE+VIEWS&color=9B59B6&style=for-the-badge)
 
 </div>
 
----
-
-## ✨ Features
+<br/>
 
 <div align="center">
 
-| 🤖 AI Integration | 🎮 Games | 🛡️ Group Tools | 📥 Downloaders |
-|:---:|:---:|:---:|:---:|
-| Smart chat bot | TicTacToe, Dice, WCG | Anti-link, Anti-spam | YouTube, TikTok, IG |
+## 🐾 &nbsp; FORK THE REPOSITORY &nbsp; 🐾
 
-| 🎵 Media | 🔒 Security | ⏰ Scheduler | 🌐 Multi-lang |
-|:---:|:---:|:---:|:---:|
-| Stickers, Audio FX | View-once guard | Daily greetings | Translate support |
+<a href="https://github.com/koyoteh/BLACK-PANTHER/fork">
+<img src="https://img.shields.io/badge/⭐_FORK_REPO-9B59B6?style=for-the-badge&logoColor=white&labelColor=1a1a1a" />
+</a>
 
-</div>
+<a href="https://github.com/koyoteh/BLACK-PANTHER/archive/refs/heads/main.zip">
+<img src="https://img.shields.io/badge/⬇️_DOWNLOAD_ZIP-8E44AD?style=for-the-badge&logoColor=white&labelColor=1a1a1a" />
+</a>
 
----
+<br/><br/>
 
-## 🚀 Quick Setup
+## 📲 &nbsp; GET YOUR SESSION ID &nbsp; 📲
 
-### 1️⃣ Fork the Repository
+<a href="https://ultra-guru-pair-1.onrender.com/pair">
+<img src="https://img.shields.io/badge/🔗_PAIR_CODE-25D366?style=for-the-badge&logoColor=white&labelColor=1a1a1a" />
+</a>
 
-[![Fork Repo](https://img.shields.io/badge/FORK%20REPO-9B59B6?style=for-the-badge&logo=github&logoColor=white)](https://github.com/koyoteh/BLACK-PANTHER/fork)
-[![Download ZIP](https://img.shields.io/badge/DOWNLOAD%20ZIP-8E44AD?style=for-the-badge&logo=github&logoColor=white)](https://github.com/koyoteh/BLACK-PANTHER/archive/refs/heads/main.zip)
+<br/><br/>
 
-### 2️⃣ Get Your SESSION ID
+## ☁️ &nbsp; DEPLOY THE BOT &nbsp; ☁️
 
-[![Pair Code](https://img.shields.io/badge/PAIR%20CODE-9B59B6?style=for-the-badge&logo=whatsapp&logoColor=white)](https://pantherr-session.onrender.com/pair)
-[![QR Code](https://img.shields.io/badge/SCAN%20QR%20CODE-6C3483?style=for-the-badge&logo=qrcode&logoColor=white)](https://pantherr-session.onrender.com/qr)
+<a href="https://freehost.gurutech.top">
+<img src="https://img.shields.io/badge/🚀_DEPLOY_NOW_(RECOMMENDED)-9B59B6?style=for-the-badge&logoColor=white&labelColor=1a1a1a" />
+</a>
 
-> 💡 *Self-host your pairing page using `/guru/pairing.js` and `/guru/pair.html`.*
+<br/><br/>
 
-### 3️⃣ Set Environment Variables
+<a href="https://heroku.com/deploy?template=https://github.com/koyoteh/BLACK-PANTHER">
+<img src="https://img.shields.io/badge/DEPLOY_TO_HEROKU-430098?style=for-the-badge&logo=heroku&logoColor=white&labelColor=430098" />
+</a>
 
-```env
-SESSION_ID=PANTHER~your_session_here
-MODE=public
-OWNER_NAME=YourName
-TIME_ZONE=Africa/Nairobi
-```
+<br/><br/>
 
----
+## 🌐 &nbsp; CONNECT WITH US &nbsp; 🌐
 
-## ☁️ Deployment
+<a href="https://whatsapp.com/channel/0029VbCWYqLL2ATzi4QP901q">
+<img src="https://img.shields.io/badge/💬_WHATSAPP_CHANNEL-25D366?style=for-the-badge&logoColor=white&labelColor=1a1a1a" />
+</a>
 
-<div align="center">
-
-### Heroku
-[![Deploy to Heroku](https://img.shields.io/badge/DEPLOY%20TO%20HEROKU-430098?style=for-the-badge&logo=heroku&logoColor=white)](https://heroku.com/deploy?template=https://github.com/koyoteh/BLACK-PANTHER)
-
-### VPS / Termux / Local
-```bash
-git clone https://github.com/koyoteh/BLACK-PANTHER.git
-cd BLACK-PANTHER
-npm install
-npm start
-```
+<a href="https://github.com/koyoteh">
+<img src="https://img.shields.io/badge/🐙_GITHUB-181717?style=for-the-badge&logoColor=white&labelColor=1a1a1a" />
+</a>
 
 </div>
 
----
-
-## 🛠️ Tech Stack
-
-<div align="center">
-
-![Node.js](https://img.shields.io/badge/Node.js-22.x-339933?style=flat-square&logo=nodedotjs&logoColor=white)
-![Baileys](https://img.shields.io/badge/Baileys-7.0.0-9B59B6?style=flat-square&logo=whatsapp&logoColor=white)
-![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat-square&logo=sqlite&logoColor=white)
-![Express](https://img.shields.io/badge/Express-4.x-000000?style=flat-square&logo=express&logoColor=white)
-![FFmpeg](https://img.shields.io/badge/FFmpeg-007808?style=flat-square&logo=ffmpeg&logoColor=white)
-
-</div>
-
----
-
-## ⚙️ Configuration
-
-| Variable | Description | Default |
-|---|---|---|
-| `SESSION_ID` | WhatsApp session token (`PANTHER~...`) | **Required** |
-| `MODE` | `public` or `private` | `public` |
-| `OWNER_NAME` | Your display name | `Koyoteh` |
-| `TIME_ZONE` | Your timezone | `Africa/Nairobi` |
-| `DATABASE_URL` | PostgreSQL URL (optional) | SQLite fallback |
-| `EXPIRY_DATE` | Bot expiry `YYYY-MM-DD` | None |
-
----
-
-## 🌐 Connect
-
-<div align="center">
-
-[![GitHub](https://img.shields.io/badge/GitHub-koyoteh-9B59B6?style=for-the-badge&logo=github&logoColor=white)](https://github.com/koyoteh)
-[![Star](https://img.shields.io/badge/⭐%20Star%20This%20Repo-9B59B6?style=for-the-badge)](https://github.com/koyoteh/BLACK-PANTHER/stargazers)
-
-</div>
+<br/>
 
 ---
 
 <div align="center">
+
+### ⭐ Love **BLACK PANTHER MD**? Star the repo and spread the word! ⭐
 
 **Built with 🐾 by [KOYOTEH](https://github.com/koyoteh)**
 
-*BLACK PANTHER MD — silent, swift, unstoppable.*
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:9B59B6,100:0D0D0D&height=100&section=footer" width="100%"/>
 
 </div>
