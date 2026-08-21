@@ -75,7 +75,7 @@ async function loadSession() {
                 console.error("╔══════════════════════════════════════════════════════════╗");
                 console.error("║  ❌  SESSION_ID is not set!                              ║");
                 console.error("║  Add SESSION_ID to your platform's environment variables.║");
-                console.error("║  Format:  SESSION_ID=PANTHER~xxxxxxxxxxxxxxxx...            ║");
+                console.error("║  Format:  SESSION_ID=PANTHER~xxxx... or GURU~xxxx...        ║");
                 console.error("╚══════════════════════════════════════════════════════════╝");
                 if (hostEnv === 'replit') {
                     // On Replit, keep the web server alive so the dashboard is accessible
@@ -92,7 +92,7 @@ async function loadSession() {
 ║           📱  BLACK PANTHER MD — SESSION SETUP                  ║
 ╠══════════════════════════════════════════════════════════════╣
 ║  Paste your SESSION_ID below and press Enter.                ║
-║  Format:  PANTHER~xxxxxxxx...                                   ║
+║  Format:  PANTHER~xxxxxxxx... or GURU~xxxxxxxx...               ║
 ╚══════════════════════════════════════════════════════════════╝`);
                 sessionId = await new Promise((resolve) => {
                     rl.question('\n> SESSION_ID: ', (answer) => {
@@ -163,11 +163,11 @@ function validateCreds(credsPath) {
 
 async function processSessionId(sessionId) {
     try {
-        // Only PANTHER~ format is supported
-        const isValidFormat = sessionId.startsWith('PANTHER~');
-        
+        // PANTHER~ and GURU~ formats are supported
+        const isValidFormat = sessionId.startsWith('PANTHER~') || sessionId.startsWith('GURU~');
+
         if (!isValidFormat) {
-            throw new Error("❌ Invalid session format. Expected 'PANTHER~.....'");
+            throw new Error("❌ Invalid session format. Expected 'PANTHER~.....' or 'GURU~.....'");
         }
 
         const [header, b64data] = sessionId.split('~');
