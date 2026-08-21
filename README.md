@@ -78,7 +78,7 @@
 
 ### ⭐ Love **BLACK PANTHER MD**? Star the repo and spread the word! ⭐
 
-**Built with 🐾 by [KOYOTEH](https://github.com/koyoteh)**
+**Built with 🐾 by [GuruTech](https://github.com/koyoteh)**
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:9B59B6,100:0D0D0D&height=100&section=footer" width="100%"/>
 
