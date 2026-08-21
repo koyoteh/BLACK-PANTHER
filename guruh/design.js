@@ -493,7 +493,7 @@ async function sendMenuMsg(Guru, from, text, conText) {
     const customPic = await getSetting("MENU_PIC_CUSTOM");
     const picUrl = customPic || MENU_IMAGE_URL;
     try {
-        await Guru.sendMessage(from, {
+        return await Guru.sendMessage(from, {
             image: { url: picUrl },
             caption: text.trim(),
             contextInfo: {
@@ -508,7 +508,7 @@ async function sendMenuMsg(Guru, from, text, conText) {
             },
         }, { quoted: mek });
     } catch {
-        await Guru.sendMessage(from, { text: text.trim() }, { quoted: mek });
+        return await Guru.sendMessage(from, { text: text.trim() }, { quoted: mek });
     }
 }
 
