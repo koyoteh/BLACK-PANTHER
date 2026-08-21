@@ -8,7 +8,7 @@ const __dirname  = dirname(__filename);
 const require    = createRequire(import.meta.url);
 
 const { setMenuState }                    = require('../../lib/menuState.cjs');
-const { getSortedCategories, CAT_ICONS } = require('../../design');
+const { getSortedCategories }             = require('../../design');
 
 export default {
     name: 'menu',
@@ -45,11 +45,10 @@ ${expiryLine}
         // ── Dynamic category list (same order as getSortedCategories / menuReply) ─
         const sorted = getSortedCategories();
         let catLines = '';
-        sorted.forEach(({ cat, cmds }, i) => {
-            const emoji = CAT_ICONS[cat] || '🔥';
+        sorted.forEach(({ cat }, i) => {
             const label = (cat[0].toUpperCase() + cat.slice(1)).toUpperCase();
             const num   = String(i + 1).padStart(2, ' ');
-            catLines += `▢ ${num} 〢 ${emoji} ${label}  _(${cmds.length})_\n`;
+            catLines += `▢ ${num} 〢 ${label}\n`;
         });
 
         const categoryText =
