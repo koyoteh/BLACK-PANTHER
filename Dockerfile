@@ -30,6 +30,9 @@ RUN mkdir -p sessions guru/database
 # Remove Replit-only files that have no meaning inside the container
 RUN rm -f .replit replit.md 2>/dev/null || true
 
+RUN chown -R node:node sessions guru/database
+USER node
+
 # Environment defaults (all can be overridden via Heroku Config Vars)
 ENV NODE_ENV=production \
     BOT_NAME="BLACK PANTHER MD" \
