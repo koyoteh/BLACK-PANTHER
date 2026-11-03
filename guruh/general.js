@@ -2,11 +2,13 @@
 
 const { gmd }          = require("../guru");
 const moment           = require("moment-timezone");
-const { setMenuState } = require("./lib/menuState.cjs");
 
 const {
     buildThemedMenu,
     sendMenuMsg,
+    getSortedCategories,
+    CAT_ICONS,
+    getMenuPicUrl,
 } = require("./design");
 
 // ─── 1. MENU ──────────────────────────────────────────────────────────────────
@@ -23,41 +25,77 @@ gmd(
         const { react, mek } = conText;
         await react("📋");
         const text = await buildThemedMenu(conText, Guru);
-        const sentMsg = await sendMenuMsg(Guru, from, text, conText);
-        setMenuState(from, sentMsg?.key?.id || null);
+        await sendMenuMsg(Guru, from, text, conText);
         await react("✅");
-
-        // ── Live clock below the menu — ticks every second for 60s ──────────
-        const tz = process.env.TIME_ZONE || 'Africa/Nairobi';
-        const buildClock = () => {
-            const t     = moment().tz(tz);
-            const time  = t.format('hh:mm:ss A');
-            const date  = t.format('ddd, DD MMM YYYY');
-            const total = Math.floor((Date.now() - (global._botStartTime || Date.now())) / 1000);
-            const d     = Math.floor(total / 86400);
-            const h     = Math.floor((total % 86400) / 3600);
-            const m     = Math.floor((total % 3600) / 60);
-            const s     = total % 60;
-            const alive = [d && `${d}d`, h && `${h}h`, m && `${m}m`, `${s}s`].filter(Boolean).join(' : ');
-            return `🕐 *${time}*\n📅 ${date}\n⏱️ Alive: *${alive}*`;
-        };
-
-        try {
-            const clockMsg = await Guru.sendMessage(from, { text: buildClock() }, { quoted: mek });
-            let ticks = 0;
-            const timer = setInterval(async () => {
-                ticks++;
-                try {
-                    await Guru.sendMessage(from, { text: buildClock(), edit: clockMsg.key });
-                } catch (_) {}
-                if (ticks >= 60) clearInterval(timer);
-            }, 1000);
-        } catch (_) {}
     }
 );
 
-// ─── Category handler lives in guruh/plugins/menuReply.js ────────────────────
-// (Removed duplicate gmd handler — menuReply.js is the single source of truth)
+// ─── 2. CATEGORY BODY HANDLER (reply with a number from the menu) ─────────────
+// Uses getSortedCategories() from design.js — SAME source of truth as the menu.
+
+gmd(
+    {
+        pattern: /^\d+$/,
+        on: "body",
+        dontAddCommandList: true,
+        react: "📂",
+        category: "general",
+        description: "Reply with a category number to browse commands",
+    },
+    async (from, Guru, conText) => {
+        const { body, mek, botName, botPrefix, botFooter, newsletterJid, sender, botId } = conText;
+
+        const n    = parseInt(body.trim(), 10);
+        const cats = getSortedCategories();
+
+        if (isNaN(n) || n < 1 || n > cats.length) return;
+
+        const { cat, cmds } = cats[n - 1];
+        const icon  = CAT_ICONS[cat] || "⚡";
+        const label = (cat[0].toUpperCase() + cat.slice(1)).toUpperCase();
+
+        const cmdList = cmds.map(c => {
+            const desc = c.description ? ` — _${c.description}_` : "";
+            const alts = (c.aliases || []).length
+                ? `\n> │   ↳ _${c.aliases.map(a => `${botPrefix}${a}`).join(", ")}_`
+                : "";
+            return `> │ ◈ *${botPrefix}${c.pattern}*${desc}${alts}`;
+        }).join("\n");
+
+        const text =
+`> ╭─⌈ ${icon} *${label}* ⌋
+> │ _${cmds.length} command${cmds.length !== 1 ? 's' : ''} available_
+> │
+${cmdList}
+> ╰⊷ ✨ _${botFooter || "Powered by GURUTECH"}_`;
+
+        const picUrl = await getMenuPicUrl(Guru, botId);
+        const contextInfo = {
+            mentionedJid: [sender],
+            forwardingScore: 5,
+            isForwarded: true,
+            forwardedNewsletterMessageInfo: {
+                newsletterJid: newsletterJid || "120363431857319034@newsletter",
+                newsletterName: botName || "ULTRA GURU",
+                serverMessageId: 0,
+            },
+        };
+
+        try {
+            if (picUrl) {
+                await Guru.sendMessage(from, {
+                    image: { url: picUrl },
+                    caption: text.trim(),
+                    contextInfo,
+                }, { quoted: mek });
+            } else {
+                await Guru.sendMessage(from, { text: text.trim(), contextInfo }, { quoted: mek });
+            }
+        } catch {
+            await Guru.sendMessage(from, { text: text.trim() }, { quoted: mek });
+        }
+    }
+);
 
 // ─── 3. PING / ALIVE ─────────────────────────────────────────────────────────
 
@@ -96,12 +134,12 @@ gmd(
 
         const buildMsg = () => {
             const alive = getAliveCount();
-            return `⚡ ──「 🏓 *PING* 」──
-▢ 🟢 Status  : ✅ Online
-▢ 📶 Ping    : *${ping}ms*
-▢ ⏱️ Alive   : *${alive}*
-▢ 📌 Prefix  : *${botPrefix || "."}*
-└──✦ _${botName || "BLACK PANTHER"} ┃ ᴹᴰ_ ✦──`;
+            return `╭─⌈ 🏓 *${botName || "ULTRA GURU"}* ⌋
+│ Status  : ✅ Online & Ready
+│ Ping    : *${ping}ms*
+│ Alive   : *${alive}*
+│ Prefix  : *${botPrefix || "."}*
+╰⊷ _counting live..._ ⏱️`;
         };
 
         // Send the first message
@@ -122,7 +160,7 @@ gmd(
                 // Final edit — remove the "counting live" footer
                 try {
                     await Guru.sendMessage(from, {
-                        text: buildMsg().replace(`_${botName || "BLACK PANTHER"} ┃ ᴹᴰ_ ✦──`, `*${botName || "BLACK PANTHER"} ┃ ᴹᴰ* ✦──`),
+                        text: buildMsg().replace('_counting live..._ ⏱️', `*${botName || "ULTRA GURU"}*`),
                         edit: sent.key,
                     });
                 } catch (_) {}
@@ -146,7 +184,7 @@ gmd(
         await react("⏱️");
 
         const tz = timeZone || process.env.TIME_ZONE || "Africa/Nairobi";
-        const bn = botName || "BLACK PANTHER";
+        const bn = botName || "ULTRA GURU";
 
         const buildMsg = () => {
             const t     = moment().tz(tz);
@@ -159,11 +197,11 @@ gmd(
             const s     = total % 60;
             const parts = [d && `${d}d`, h && `${h}h`, m && `${m}m`, `${s}s`].filter(Boolean);
             return (
-`⚡ ──「 ⏱️ *UPTIME* 」──
-▢ ⏱️ Alive   : *${parts.join(' : ')}*
-▢ 🕐 Time    : ${time}
-▢ 📅 Date    : ${date}
-└──✦ _${bn} ┃ ᴹᴰ_ ✦──`
+`╭─⌈ ⏱️ *${bn}* ⌋
+│ Uptime  : *${parts.join(' : ')}*
+│ Time    : ${time}
+│ Date    : ${date}
+╰⊷ *${bn}* _counting live..._ ⏱️`
             );
         };
 
@@ -179,7 +217,7 @@ gmd(
                 clearInterval(timer);
                 try {
                     await Guru.sendMessage(from, {
-                        text: buildMsg().replace(`_${bn} ┃ ᴹᴰ_ ✦──`, `*${bn} ┃ ᴹᴰ* ✦──`),
+                        text: buildMsg().replace("_counting live..._ ⏱️", `*${bn}*`),
                         edit: sent.key,
                     });
                 } catch (_) {}
@@ -211,15 +249,15 @@ gmd(
         const m  = Math.floor((up % 3600) / 60);
 
         await reply(
-`⚡ ──「 🤖 *BOT INFO* 」──
-▢ 🏷️ Version  : *v${botVersion || "5.0.0"}*
-▢ 📌 Prefix   : *${botPrefix || "."}*
-▢ 🌐 Mode     : *${(botMode || "public").toUpperCase()}*
-▢ 📚 Commands : *${totalCmds}*
-▢ ⏱️ Uptime   : *${h}h ${m}m*
-▢ 👑 Owner    : *${ownerName || "Koyoteh"}*
-▢ 📦 Library  : Baileys
-└──✦ _${botName || "BLACK PANTHER"} ┃ ᴹᴰ_ ✦──`
+`╭─⌈ 🤖 *${botName || "ULTRA GURU"}* ⌋
+│ Version   : *v${botVersion || "5.0.0"}*
+│ Prefix    : *${botPrefix || "."}*
+│ Mode      : *${(botMode || "public").toUpperCase()}*
+│ Commands  : *${totalCmds}*
+│ Uptime    : *${h}h ${m}m*
+│ Owner     : *${ownerName || "GuruTech"}*
+│ Library   : Baileys
+╰⊷ *${botName || "ULTRA GURU"}*`
         );
     }
 );
