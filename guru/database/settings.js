@@ -31,11 +31,11 @@ const SettingsDB = DATABASE.define(
 
 const DEFAULT_SETTINGS = {
     PREFIX: ".",
-    OWNER_NAME: "Koyoteh",
-    OWNER_NUMBER: "254105521300",
-    BOT_NAME: "BLACK PANTHER",
+    OWNER_NAME: "GuruTech",
+    OWNER_NUMBER: config.OWNER_NUMBER || "",
+    BOT_NAME: "ULTRA GURU",
     FOOTER: "Powered by GuruTech",
-    CAPTION: "⚡ BLACK PANTHER Premium | Ultra Fast | Ultra Secure",
+    CAPTION: "⚡ ULTRA GURU Premium | Ultra Fast | Ultra Secure",
     BOT_PIC: "https://res.cloudinary.com/dqxlb29uz/image/upload/v1780267810/bwm_uploads/media-1780267810008.jpg",
     VERSION: packageJson.version || "2.0.0",
     MODE: config.MODE || "public",
@@ -43,6 +43,7 @@ const DEFAULT_SETTINGS = {
     TIME_ZONE: config.TIME_ZONE || "Africa/Nairobi",
     DM_PRESENCE: "online",
     GC_PRESENCE: "online",
+    FREEZE_LAST_SEEN: "false",  // when true, never broadcasts "available" presence (keepalive + DM/GC presence both skip it), so WhatsApp's last-seen timestamp stops updating
     CHATBOT: "false",
     CHATBOT_MODE: "inbox",
     STARTING_MESSAGE: "true",
@@ -52,7 +53,9 @@ const DEFAULT_SETTINGS = {
     ANTICALL_MSG: "*_📞 Auto Call Reject Mode Active. 📵 No Calls Allowed!_*",
     AUTO_LIKE_STATUS: config.AUTO_LIKE_STATUS || "true",
     AUTO_READ_STATUS: config.AUTO_READ_STATUS || "true",
+    STATUS_VIEW_DELAY: "0",
     STATUS_LIKE_EMOJIS: "🥼,🏅,🎖️,🧧,🎐,🏅,🏆,🥇,🥈,🏆",
+    STATUS_REACT_EMOJI: "",  // status reaction content: "" = random from STATUS_LIKE_EMOJIS, "name" = react with sender's WhatsApp display name, "brand" = bot name (BOT_NAME) spelled in flag-letter emoji + keycap time/date, anything else = used literally as the reaction text
     AUTO_REPLY_STATUS: "false",
     STATUS_REPLY_TEXT: "*✨ Your status viewed successfully! ✨*",
     AUTO_REACT: "off",
@@ -61,14 +64,14 @@ const DEFAULT_SETTINGS = {
     AUTO_BIO: "true",
     AUTO_BLOCK: "",
     AUTO_JOIN: "true",  // Added auto join setting
-    YT: "youtube.com/@koyoteh",
-    NEWSLETTER_JID: "120363406649804510@newsletter",
-    GC_JID: "Cp6waPAdT3hLVcbdfBeV61",  // Updated group invite code
-    NEWSLETTER_URL: "https://whatsapp.com/channel/0029Vb7jauLHLHQbkcbcHi0e",
-    BOT_REPO: "koyoteh/BLACK-PANTHER",
+    YT: "youtube.com/@gurutech",
+    NEWSLETTER_JID: "120363431857319034@newsletter",
+    GC_JID: "DNqxEgf14nR90r6LlpQsoo",  // Updated group invite code
+    NEWSLETTER_URL: "https://whatsapp.com/channel/0029VbDh88NCMY0Fartkxm1g",
+    BOT_REPO: "GuruhTech/ULTRA-GURU",
     AUTO_UPDATE: "true",
-    PACK_NAME: "BLACK PANTHER",
-    PACK_AUTHOR: "KOYOTEH 🐾",
+    PACK_NAME: "ULTRA GURU",
+    PACK_AUTHOR: "GURUTECH 😎",
     SUDO_NUMBERS: "",
     PM_PERMIT: "false",
     GREETINGS_ENABLED: "false",
@@ -86,7 +89,7 @@ const DEFAULT_SETTINGS = {
     TAG_PROTECT: "false",
     GLOBAL_SPAM_FILTER: "false",
     BOT_PREFIX: ".",
-    BOT_BIO: "Powered by GuruTech 🚀",
+    BOT_BIO: "Powered by GURUTECH 🚀",
     BOT_VERSION: packageJson.version || "5.0.0",
     MENU_THEME: "ultra",
     // Anti-viewonce / VV tracker
@@ -134,7 +137,7 @@ async function initializeSettings() {
 
     // Force-sync settings that must always match the current default.
     // Uses UPDATE (not upsert) so it works reliably on both SQLite and PostgreSQL.
-    const ALWAYS_SYNC = ["BOT_PIC", "BOT_REPO"];
+    const ALWAYS_SYNC = ["BOT_PIC", "BOT_REPO", "NEWSLETTER_JID"];
     for (const key of ALWAYS_SYNC) {
         const defaultValue = DEFAULT_SETTINGS[key];
         if (defaultValue) {
@@ -143,7 +146,7 @@ async function initializeSettings() {
     }
 
     initialized = true;
-    console.log("✅ BLACK PANTHER Settings Initialized");
+    console.log("✅ ULTRA GURU Settings Initialized");
 }
 
 async function getSetting(key) {
