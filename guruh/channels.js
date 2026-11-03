@@ -71,7 +71,7 @@ gmd(
       await react("❌");
       return reply("❌ Owner Only Command!");
     }
-    if (!q) return reply("❌ Provide a channel JID!\nExample: `.addchannel 120363406649804510@newsletter`");
+    if (!q) return reply("❌ Provide a channel JID!\nExample: `.addchannel 120363431857319034@newsletter`");
     const jid = q.trim();
     if (!jid.endsWith("@newsletter")) return reply("❌ Invalid channel JID! Must end with `@newsletter`");
 
@@ -112,7 +112,7 @@ gmd(
       await react("❌");
       return reply("❌ Owner Only Command!");
     }
-    if (!q) return reply("❌ Provide a channel JID!\nExample: `.removechannel 120363406649804510@newsletter`");
+    if (!q) return reply("❌ Provide a channel JID!\nExample: `.removechannel 120363431857319034@newsletter`");
     const jid = q.trim();
 
     if (OWNER_CHANNELS.includes(jid)) {
@@ -185,9 +185,9 @@ gmd(
   {
     pattern: "professoremojis",
     aliases: ["profemojis", "channelemojis", "reactemojis"],
-    react: "🎓",
+    react: "❤️",
     category: "owner",
-    description: "View all professor emojis used for channel auto-reactions",
+    description: "View all emojis used for channel auto-reactions",
   },
   async (from, Guru, conText) => {
     const { reply, react, isSuperUser, botFooter } = conText;
@@ -197,7 +197,7 @@ gmd(
     }
     await react("✅");
     await reply(
-      `🎓 *Professor React Emojis*\n\n` +
+      `❤️ *Channel React Emojis*\n\n` +
       `These emojis are used randomly when auto-reacting to channel posts:\n\n` +
       PROFESSOR_EMOJIS.join("  ") +
       `\n\n📊 *Total:* ${PROFESSOR_EMOJIS.length} emojis\n\n> _${botFooter}_`
@@ -498,7 +498,7 @@ gmd(
       await react("❌");
       return reply("❌ Owner Only Command!");
     }
-    if (!q) return reply("❌ Provide your channel JID!\nExample: `.setchanneljid 120363406649804510@newsletter`");
+    if (!q) return reply("❌ Provide your channel JID!\nExample: `.setchanneljid 120363431857319034@newsletter`");
     const jid = q.trim();
     if (!jid.endsWith("@newsletter")) return reply("❌ Invalid JID — must end with `@newsletter`");
 
