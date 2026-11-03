@@ -32,7 +32,7 @@ const LEAGUE_CONFIG = {
 async function getContextInfo() {
   const botName = (await getSetting("BOT_NAME")) || "ULTRA MD";
   const channelJid =
-    (await getSetting("NEWSLETTER_JID")) || "120363406466294627@newsletter";
+    (await getSetting("NEWSLETTER_JID")) || "120363431857319034@newsletter";
   return {
     mentionedJid: [],
     forwardingScore: 1,
