@@ -9,7 +9,6 @@
 const { gmd, commands }                          = require("../guru");
 const { getSetting, setSetting, resetSetting }   = require("../guru/database/settings");
 const { getExpiryStatus }                        = require("../guru/expiry");
-const { Jimp }                                   = require("jimp");
 const { S_WHATSAPP_NET }                         = require("@whiskeysockets/baileys");
 const fs   = require("fs").promises;
 const path = require("path");
@@ -113,30 +112,24 @@ async function buildMenuData(conText) {
 
     const sortedCats = getSortedCategories();
 
-    // Quoted blockquote style: > 01  icon  LABEL  (N cmds)
-    const catLines = sortedCats.map(({ cat }, i) => {
+    // Quoted blockquote style: > 01  LABEL
+    const catLines = sortedCats.map(({ cat, cmds }, i) => {
         const label = (cat[0].toUpperCase() + cat.slice(1)).toUpperCase();
         const num   = String(i + 1).padStart(2, '0');
         return `> ${num}  ${label}`;
     }).join("\n");
 
-    const catLinesGuruTech = sortedCats.map(({ cat }, i) => {
-        const label = (cat[0].toUpperCase() + cat.slice(1)).toUpperCase();
-        const num   = String(i + 1).padStart(2, ' ');
-        return `▢ ${num}  〢 ${label}`;
-    }).join("\n");
-
     return {
         sender,
         pushName:   pushName   || "User",
-        botName:    botName    || "BLACK PANTHER",
+        botName:    botName    || "ULTRA GURU",
         botPrefix:  botPrefix  || ".",
         botVersion: botVersion || "5.0.0",
         botMode:    botMode    || "public",
-        botFooter:  botFooter  || "Powered by GuruTech",
+        botFooter:  botFooter  || "Powered by GURUTECH",
         botCaption: botCaption || "",
         newsletterJid,
-        uptime, totalCmds, catLines, catLinesGuruTech,
+        uptime, totalCmds, catLines,
         expiryLine, expiryDetail,
         memBar, memDetail,
         dateStr, timeStr, timeStr24,
@@ -149,56 +142,29 @@ async function buildMenuData(conText) {
 
 const THEMES = {
 
-    gurutech: {
-        name: "⚡ GURUTECH",
-        description: "Clean ⚡ panel style — small, smart & sharp",
-        render({ botName, botPrefix, botMode, botFooter,
-                  uptime, totalCmds, catLinesGuruTech, expiryLine,
-                  pushName, sender, numCats }) {
-            const userNum = sender ? sender.split('@')[0].split(':')[0] : pushName;
-            return (
-`⚡ ──「 *${botName} ┃ ᴹᴰ* 」──
-▢ 👤 𝐔𝐬𝐞𝐫    : @${userNum}
-▢ 🤖 𝐁𝐨𝐭     : ${botName}
-▢ 📌 𝐏𝐫𝐞𝐟𝐢𝐱  : ${botPrefix}
-▢ 🌐 𝐌𝐨𝐝𝐞    : ${botMode.toLowerCase()}
-▢ 📚 𝐂𝐦𝐝𝐬    : ${totalCmds}
-▢ ⏱️ 𝐀𝐥𝐢𝐯𝐞   : ${uptime}
-▢ ⏳ 𝐄𝐱𝐩𝐢𝐫𝐲  : ${expiryLine}
-└──✦ *${botName} ┃ ᴹᴰ* ✦──
-
-⚡ ──「 Sᴇʟᴇᴄᴛ Cᴀᴛᴇɢᴏʀʏ 」──
-${catLinesGuruTech}
-└──✦ _${botFooter}_ ✦──
-
-> *Reply with a number to view that category*`
-            );
-        },
-    },
-
     ultra: {
         name: "🔷 ULTRA",
-        description: "Premium blockquote style with clean stats",
-        render({ botName, botPrefix, botMode, botFooter,
-                  uptime, totalCmds, catLinesGuruTech, expiryLine,
-                  pushName, sender, numCats }) {
-            const userNum = sender ? sender.split('@')[0].split(':')[0] : pushName;
+        description: "Faded blockquote + corner-bracket box style",
+        render({ botName, botPrefix, botVersion, botMode, botFooter,
+                  uptime, totalCmds, catLines, expiryLine, numCats,
+                  pushName, memBar, dateStr, timeStr, timeGreet }) {
+            const cats = catLines.split("\n").map(l => l.replace(/^> ?/, "> │ ")).join("\n");
             return (
-`⚡ ──「 *${botName} ┃ ᴹᴰ* 」──
-▢ 👤 𝐔𝐬𝐞𝐫    : @${userNum}
-▢ 🤖 𝐁𝐨𝐭     : ${botName}
-▢ 📌 𝐏𝐫𝐞𝐟𝐢𝐱  : ${botPrefix}
-▢ 🌐 𝐌𝐨𝐝𝐞    : ${botMode.toLowerCase()}
-▢ 📚 𝐂𝐦𝐝𝐬    : ${totalCmds}
-▢ ⏱️ 𝐀𝐥𝐢𝐯𝐞   : ${uptime}
-▢ ⏳ 𝐄𝐱𝐩𝐢𝐫𝐲  : ${expiryLine}
-└──✦ *${botName} ┃ ᴹᴰ* ✦──
-
-⚡ ──「 Sᴇʟᴇᴄᴛ Cᴀᴛᴇɢᴏʀʏ 」──
-${catLinesGuruTech}
-└──✦ _${botFooter}_ ✦──
-
-> *Reply with a number to view that category*`
+`> ╭─⌈ 🔥 *${botName.toUpperCase()}*  ·  _v${botVersion}_ ⌋
+> │ 👤 Hey *${pushName}*  —  *${timeGreet}*
+> │ 📅 *${dateStr}*  ·  🕐 *${timeStr}*
+> │
+> │ 💬 Commands  ›  *${totalCmds}*
+> │ ⏱️  Uptime    ›  *${uptime}*
+> │ 🔑  Prefix    ›  *${botPrefix}*
+> │ 🛠️  Mode      ›  *${botMode.toUpperCase()}*
+> │ 💾  RAM       ›  *${memBar}*
+> │ 🔒  Licence   ›  *${expiryLine}*
+> │
+> │ 📋 *CATEGORIES*  ·  _reply 1–${numCats}_
+> │
+${cats}
+> ╰⊷ ✨ _${botFooter}_`
             );
         },
     },
@@ -485,30 +451,72 @@ const THEME_KEYS = Object.keys(THEMES);
 
 // ─── shared send helper ───────────────────────────────────────────────────────
 
-const MENU_IMAGE_URL = "https://files.catbox.moe/9dmdu1.jpg";
+// Resolves the image to use in menu/category cards: an owner-set custom pic
+// (via .setmenupic) takes priority, otherwise fall back to the bot's own
+// live WhatsApp profile picture — always valid, no dead hardcoded URLs.
+async function getMenuPicUrl(Guru, botId) {
+    const customPic = await getSetting("MENU_PIC_CUSTOM");
+    if (customPic) return customPic;
+
+    // Try a few JID forms — some WhatsApp accounts expose the bot's own id
+    // in the newer @lid format, which profilePictureUrl often can't resolve
+    // directly, so fall back to Guru.user.id raw as a second attempt.
+    const candidates = [botId, Guru.user?.id].filter(Boolean);
+    const tried = new Set();
+
+    for (const jid of candidates) {
+        if (tried.has(jid)) continue;
+        tried.add(jid);
+        try {
+            const pic = await Guru.profilePictureUrl(jid, "image");
+            if (pic) return pic;
+        } catch (err) {
+            console.warn(`[menu-pic] profilePictureUrl(${jid}) failed: ${err.message}`);
+        }
+    }
+
+    console.warn("[menu-pic] No bot profile picture available — set one with .setmenupic, or make sure the bot's WhatsApp account has a profile photo set.");
+    return null;
+}
 
 async function sendMenuMsg(Guru, from, text, conText) {
-    const { mek, botName, newsletterJid, sender } = conText;
-    // Use custom menu pic if owner set one via .setmenupic, otherwise use hardcoded default
-    const customPic = await getSetting("MENU_PIC_CUSTOM");
-    const picUrl = customPic || MENU_IMAGE_URL;
+    const { mek, botName, newsletterJid, sender, botId } = conText;
+
+    // Prefer the requesting user's own profile picture for the menu card.
+    // Falls back to the bot's custom/own picture if the user has none set
+    // or their privacy settings block it.
+    let picUrl = null;
+    if (sender) {
+        try {
+            picUrl = await Guru.profilePictureUrl(sender, "image");
+        } catch (_) {
+            // No photo, or privacy settings prevent fetching it — fall through
+        }
+    }
+    if (!picUrl) picUrl = await getMenuPicUrl(Guru, botId);
+
     try {
-        return await Guru.sendMessage(from, {
-            image: { url: picUrl },
+        const base = {
             caption: text.trim(),
             contextInfo: {
                 mentionedJid: [sender],
                 forwardingScore: 5,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
-                    newsletterJid: newsletterJid || "120363406649804510@newsletter",
-                    newsletterName: botName || "BLACK PANTHER",
+                    newsletterJid: newsletterJid || "120363431857319034@newsletter",
+                    newsletterName: botName || "ULTRA GURU",
                     serverMessageId: 0,
                 },
             },
-        }, { quoted: mek });
+        };
+        if (picUrl) {
+            await Guru.sendMessage(from, { image: { url: picUrl }, ...base }, { quoted: mek });
+        } else {
+            const { caption, ...rest } = base;
+            await Guru.sendMessage(from, { text: caption, ...rest }, { quoted: mek });
+        }
     } catch {
-        return await Guru.sendMessage(from, { text: text.trim() }, { quoted: mek });
+        await Guru.sendMessage(from, { text: text.trim() }, { quoted: mek });
     }
 }
 
@@ -635,6 +643,7 @@ gmd(
         let tempPath = null;
 
         try {
+            const { Jimp } = require("jimp"); // lazy-loaded: only when a bot pic is actually set
             let imageBuffer;
 
             if (quotedImg) {
@@ -744,7 +753,7 @@ gmd(
         if (!q || !q.trim()) {
             await react("❌");
             const cur = (await getSetting("FOOTER")) || "Not set";
-            return reply(`❌ Provide footer text!\n\nCurrent: _${cur}_\n\nExample: *.setfooter Powered by BLACK-PANTHER 🔥*`);
+            return reply(`❌ Provide footer text!\n\nCurrent: _${cur}_\n\nExample: *.setfooter Powered by ULTRA-GURU 🔥*`);
         }
 
         await setSetting("FOOTER", q.trim());
@@ -771,7 +780,7 @@ gmd(
         if (!q || !q.trim()) {
             await react("❌");
             const cur = (await getSetting("CAPTION")) || "Not set";
-            return reply(`❌ Provide a caption!\n\nCurrent: _${cur}_\n\nExample: *.setcaption ⚡ BLACK PANTHER | Ultra Fast*`);
+            return reply(`❌ Provide a caption!\n\nCurrent: _${cur}_\n\nExample: *.setcaption ⚡ ULTRA GURU | Ultra Fast*`);
         }
 
         await setSetting("CAPTION", q.trim());
@@ -797,7 +806,7 @@ gmd(
 
         if (!q || !q.trim()) {
             await react("❌");
-            const cur = (await getSetting("BOT_NAME")) || "BLACK PANTHER";
+            const cur = (await getSetting("BOT_NAME")) || "ULTRA GURU";
             return reply(`❌ Provide a name!\n\nCurrent: *${cur}*\n\nExample: *.setbotname MY GURU BOT*`);
         }
 
@@ -898,7 +907,7 @@ gmd(
 ┃  🎨  *BOT DESIGN SETTINGS*
 ┃━━━━━━━━━━━━━━━━━━━━━━━━━━━━┃
 ┃  Menu Theme : ${themeName} (${themeNum}/${THEME_KEYS.length})
-┃  Bot Name   : ${name || "BLACK PANTHER"}
+┃  Bot Name   : ${name || "ULTRA GURU"}
 ┃  Footer     : _${footer || "Not set"}_
 ┃  Caption    : _${caption || "Not set"}_
 ┃  Menu Pic   : ${picShort}
@@ -945,7 +954,7 @@ gmd(
             await react("⚠️");
             return reply(
                 "⚠️ *Reset Confirmation*\n\n" +
-                "This will reset:\n◈ Menu theme → gurutech\n◈ Bot name → default\n◈ Footer, caption, pic → defaults\n\n" +
+                "This will reset:\n◈ Menu theme → ultra\n◈ Bot name → default\n◈ Footer, caption, pic → defaults\n\n" +
                 "Send *.resetdesign* again within *25 seconds* to confirm."
             );
         }
@@ -968,10 +977,10 @@ gmd(
 // ─── exported for general.js ──────────────────────────────────────────────────
 
 async function buildThemedMenu(conText, Guru) {
-    const themeKey = (await getSetting("MENU_THEME")) || "gurutech";
-    const theme    = THEMES[themeKey] || THEMES.gurutech;
+    const themeKey = (await getSetting("MENU_THEME")) || "ultra";
+    const theme    = THEMES[themeKey] || THEMES.ultra;
     const data     = await buildMenuData(conText);
     return theme.render(data);
 }
 
-module.exports = { buildThemedMenu, THEMES, THEME_KEYS, buildMenuData, sendMenuMsg, getSortedCategories, CAT_ICONS };
+module.exports = { buildThemedMenu, THEMES, THEME_KEYS, buildMenuData, sendMenuMsg, getSortedCategories, CAT_ICONS, getMenuPicUrl };
