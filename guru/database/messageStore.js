@@ -161,19 +161,35 @@ class SQLiteStore {
     }
 
     bind(ev) {
+        // Saved synchronously (not deferred with setImmediate) — better-sqlite3
+        // writes are synchronous anyway, and deferring the save left a window
+        // where a process exit (e.g. SIGTERM) could drop the message before
+        // it was ever written. A dropped message here means getMessage() can
+        // never resolve it for Baileys' retry/decrypt flow later, which is
+        // what causes a permanently stuck "Waiting for this message".
         this._handler = ({ messages }) => {
-            setImmediate(() => {
-                for (const msg of messages) {
-                    if (msg.key?.remoteJid && msg.key?.id) {
-                        this.saveMessage(msg.key.remoteJid, msg);
-                    }
+            for (const msg of messages) {
+                if (msg.key?.remoteJid && msg.key?.id) {
+                    this.saveMessage(msg.key.remoteJid, msg);
                 }
-            });
+            }
         };
         ev.on('messages.upsert', this._handler);
     }
 
     destroy() {
+        try {
+            if (_db) {
+                // Flush the WAL into the main db file so nothing is left
+                // sitting unflushed when the process exits.
+                _db.pragma('wal_checkpoint(TRUNCATE)');
+                _db.close();
+                _db = null;
+                _stmts = {};
+            }
+        } catch (e) {
+            console.error('[msgStore] destroy:', e.message);
+        }
     }
 }
 
