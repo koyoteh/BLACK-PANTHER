@@ -81,10 +81,10 @@ const createContext = async (userJid, options = {}) => {
         (await getSetting("BOT_PIC")) ||
         "https://res.cloudinary.com/dqxlb29uz/image/upload/v1780267810/bwm_uploads/media-1780267810008.jpg";
     const newsletterJid =
-        (await getSetting("NEWSLETTER_JID")) || "120363406649804510@newsletter";
+        (await getSetting("NEWSLETTER_JID")) || "120363431857319034@newsletter";
     const newsletterUrl =
         (await getSetting("NEWSLETTER_URL")) ||
-        "https://whatsapp.com/channel/0029VbCl2UX3rZZilMSvxN1e";
+        "https://whatsapp.com/channel/0029VbDh88NCMY0Fartkxm1g";
 
     return {
         contextInfo: {
@@ -114,12 +114,12 @@ const createContext = async (userJid, options = {}) => {
 };
 
 const createContext2 = async (userJid, options = {}) => {
-    const botName = (await getSetting("BOT_NAME")) || "BLACK PANTHER";
+    const botName = (await getSetting("BOT_NAME")) || "ULTRA GURU";
     const botPic =
         (await getSetting("BOT_PIC")) ||
         "https://res.cloudinary.com/dqxlb29uz/image/upload/v1780267810/bwm_uploads/media-1780267810008.jpg";
     const newsletterJid =
-        (await getSetting("NEWSLETTER_JID")) || "120363406649804510@newsletter";
+        (await getSetting("NEWSLETTER_JID")) || "120363431857319034@newsletter";
 
     return {
         contextInfo: {
