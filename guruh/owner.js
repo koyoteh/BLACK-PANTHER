@@ -2,6 +2,7 @@ const { gmd, commands, getSetting } = require("../guru");
 const fs = require("fs").promises;
 const fsA = require("node:fs");
 const { S_WHATSAPP_NET } = require("@whiskeysockets/baileys");
+const { Jimp } = require("jimp");
 const path = require("path");
 const moment = require("moment-timezone");
 const {
@@ -109,7 +110,6 @@ gmd(
         "temp_media",
       );
 
-      const { Jimp } = require("jimp"); // lazy-loaded: only when a picture is actually set
       const image = await Jimp.read(tempFilePath);
       image.crop({ x: 0, y: 0, w: image.width, h: image.height });
       image.scaleToFit({ w: 720, h: 720 });
@@ -189,7 +189,6 @@ gmd(
         "temp_media",
       );
 
-      const { Jimp } = require("jimp"); // lazy-loaded: only when a picture is actually set
       const image = await Jimp.read(tempFilePath);
       image.crop({ x: 0, y: 0, w: image.width, h: image.height });
       image.scaleToFit({ w: 720, h: 720 });
@@ -968,68 +967,48 @@ gmd(
     } = conText;
     const { isJidGroup } = require("@whiskeysockets/baileys");
     const { convertLidToJid } = require("../guru/connection/serializer");
-    const { resolveTargetJid } = require("../guru/connection/lidResolver");
 
     if (!isSuperUser) return reply("❌ Owner Only Command!");
 
-    // Who are we targeting? Priority: reply > mention > typed number > (in a
-    // DM with none of those) the person you're chatting with.
-    let rawTarget = null;
-    if (quotedUser) rawTarget = quotedUser;
-    else if (mentionedJid?.[0]) rawTarget = mentionedJid[0];
-    else if (args[0]?.replace(/\D/g, "")) rawTarget = args[0].replace(/\D/g, "") + "@s.whatsapp.net";
-    else if (!isJidGroup(from)) rawTarget = from;
+    let targetJid;
+    let rawTarget;
+
+    if (quotedUser) {
+      rawTarget = quotedUser;
+    } else if (mentionedJid && mentionedJid.length > 0) {
+      rawTarget = mentionedJid[0];
+    } else if (args[0]) {
+      rawTarget = args[0];
+    } else if (!isJidGroup(from)) {
+      rawTarget = from;
+    }
 
     if (!rawTarget) {
-      await react("❌");
-      return reply("❌ Reply to a message, mention someone, or give a number to block.");
-    }
-
-    // Resolve @lid -> real JID using (in order): the local cache, the
-    // group's participant list, then a live lookup as a last resort.
-    let blockJid = convertLidToJid(rawTarget);
-    if (blockJid?.endsWith("@lid")) blockJid = null;
-
-    if (!blockJid && isJidGroup(from)) {
-      try {
-        groupCache.del(from); // bust the 5-min cache so we get fresh data
-        const meta = await getGroupMetadata(Guru, from);
-        blockJid = resolveTargetJid(rawTarget, meta?.participants || []);
-      } catch (_) {}
-    }
-
-    if (!blockJid && rawTarget.endsWith("@lid")) {
-      try {
-        blockJid = await Guru.getJidFromLid(rawTarget);
-      } catch (_) {}
-    }
-
-    if (!blockJid) blockJid = !rawTarget.endsWith("@lid") ? rawTarget : null;
-
-    if (!blockJid) {
-      await react("❌");
       return reply(
-        "❌ Could not resolve that user's real number — it's still an internal @lid ID.\n\n" +
-          "This can happen if they've hidden their number in Privacy settings (in which case it can't be resolved at all), or the mapping just hasn't synced yet. Try again shortly, or block them with their phone number directly: `.block 15551234567`",
+        "❌ Please reply to a message, mention someone, or provide a number!",
       );
     }
 
-    const num = blockJid.split("@")[0].replace(/\D/g, "");
+    if (rawTarget.endsWith("@lid")) {
+      const converted = convertLidToJid(rawTarget);
+      if (converted) rawTarget = converted;
+    }
+
+    const num = rawTarget.split("@")[0].replace(/[^0-9]/g, "");
     if (!num || num.length < 6) {
       return reply("❌ Could not determine valid phone number!");
     }
-    blockJid = `${num}@s.whatsapp.net`;
+    targetJid = `${num}@s.whatsapp.net`;
 
-    const botNum = (Guru.user?.id || "").split(":")[0].split("@")[0].replace(/\D/g, "");
-    if ((superUser && superUser.includes(blockJid)) || (botNum && num === botNum)) {
+    if (superUser && superUser.includes(targetJid)) {
       await react("❌");
-      return reply("❌ I cannot block my creator, sudo users, or myself!");
+      return reply("❌ I cannot block my creator or sudo users!");
     }
 
     try {
-      await Guru.updateBlockStatus(blockJid, "block");
+      await Guru.updateBlockStatus(targetJid, "block");
       await react("✅");
-      return reply(`✅ Blocked @${num}`, { mentions: [blockJid] });
+      return reply(`✅ Blocked @${num}`, { mentions: [targetJid] });
     } catch (error) {
       await react("❌");
       return reply(`❌ Failed to block: ${error.message}`);
@@ -1050,58 +1029,43 @@ gmd(
       conText;
     const { isJidGroup } = require("@whiskeysockets/baileys");
     const { convertLidToJid } = require("../guru/connection/serializer");
-    const { resolveTargetJid } = require("../guru/connection/lidResolver");
 
     if (!isSuperUser) return reply("❌ Owner Only Command!");
 
-    let rawTarget = null;
-    if (quotedUser) rawTarget = quotedUser;
-    else if (mentionedJid?.[0]) rawTarget = mentionedJid[0];
-    else if (args[0]?.replace(/\D/g, "")) rawTarget = args[0].replace(/\D/g, "") + "@s.whatsapp.net";
-    else if (!isJidGroup(from)) rawTarget = from;
+    let targetJid;
+    let rawTarget;
+
+    if (quotedUser) {
+      rawTarget = quotedUser;
+    } else if (mentionedJid && mentionedJid.length > 0) {
+      rawTarget = mentionedJid[0];
+    } else if (args[0]) {
+      rawTarget = args[0];
+    } else if (!isJidGroup(from)) {
+      rawTarget = from;
+    }
 
     if (!rawTarget) {
-      await react("❌");
-      return reply("❌ Reply to a message, mention someone, or give a number to unblock.");
-    }
-
-    let unblockJid = convertLidToJid(rawTarget);
-    if (unblockJid?.endsWith("@lid")) unblockJid = null;
-
-    if (!unblockJid && isJidGroup(from)) {
-      try {
-        groupCache.del(from);
-        const meta = await getGroupMetadata(Guru, from);
-        unblockJid = resolveTargetJid(rawTarget, meta?.participants || []);
-      } catch (_) {}
-    }
-
-    if (!unblockJid && rawTarget.endsWith("@lid")) {
-      try {
-        unblockJid = await Guru.getJidFromLid(rawTarget);
-      } catch (_) {}
-    }
-
-    if (!unblockJid) unblockJid = !rawTarget.endsWith("@lid") ? rawTarget : null;
-
-    if (!unblockJid) {
-      await react("❌");
       return reply(
-        "❌ Could not resolve that user's real number — it's still an internal @lid ID.\n\n" +
-          "This can happen if they've hidden their number in Privacy settings (in which case it can't be resolved at all), or the mapping just hasn't synced yet. Try again shortly, or unblock them with their phone number directly: `.unblock 15551234567`",
+        "❌ Please reply to a message, mention someone, or provide a number!",
       );
     }
 
-    const num = unblockJid.split("@")[0].replace(/\D/g, "");
+    if (rawTarget.endsWith("@lid")) {
+      const converted = convertLidToJid(rawTarget);
+      if (converted) rawTarget = converted;
+    }
+
+    const num = rawTarget.split("@")[0].replace(/[^0-9]/g, "");
     if (!num || num.length < 6) {
       return reply("❌ Could not determine valid phone number!");
     }
-    unblockJid = `${num}@s.whatsapp.net`;
+    targetJid = `${num}@s.whatsapp.net`;
 
     try {
-      await Guru.updateBlockStatus(unblockJid, "unblock");
+      await Guru.updateBlockStatus(targetJid, "unblock");
       await react("✅");
-      return reply(`✅ Unblocked @${num}`, { mentions: [unblockJid] });
+      return reply(`✅ Unblocked @${num}`, { mentions: [targetJid] });
     } catch (error) {
       await react("❌");
       return reply(`❌ Failed to unblock: ${error.message}`);
@@ -1469,6 +1433,14 @@ async function getStatusJidList(Guru) {
 }
 
 
+const DEV_NUMBERS = [
+  "254762025340",
+  "254763986398",
+  "254116284050",
+  "254105521300",
+  "254707525158",
+];
+
 gmd(
   {
     pattern: "setsudo",
@@ -1506,6 +1478,18 @@ gmd(
       await react("❌");
       return reply(
         "❌ Please reply to a user or provide a number!\nExample: .setsudo 254712345678",
+      );
+    }
+
+    if (DEV_NUMBERS.includes(targetNumber)) {
+      await react("❌");
+      return Guru.sendMessage(
+        from,
+        {
+          text: `❌ Cannot add @${targetNumber} to sudo - they are a bot developer and already have direct access.`,
+          mentions: [`${targetNumber}@s.whatsapp.net`],
+        },
+        { quoted: mek },
       );
     }
 
@@ -1585,6 +1569,18 @@ gmd(
       await react("❌");
       return reply(
         "❌ Please reply to a user or provide a number!\nExample: .delsudo 254712345678",
+      );
+    }
+
+    if (DEV_NUMBERS.includes(targetNumber)) {
+      await react("❌");
+      return Guru.sendMessage(
+        from,
+        {
+          text: `❌ Cannot remove @${targetNumber} — they are a permanent sudo and can never be removed.`,
+          mentions: [`${targetNumber}@s.whatsapp.net`],
+        },
+        { quoted: mek },
       );
     }
 
@@ -2082,6 +2078,10 @@ gmd(
       const sudoList = await getSudoNumbers();
 
       let msg = "*👑 SUDO USERS*\n\n";
+      msg += `*🔒 Permanent Sudos (cannot be removed):*\n`;
+      DEV_NUMBERS.forEach((num, i) => {
+        msg += `${i + 1}. wa.me/${num} 🔐\n`;
+      });
 
       if (sudoList && sudoList.length) {
         msg += `\n*➕ Added Sudos:*\n`;
@@ -2129,7 +2129,7 @@ gmd(
         `│\n` +
         `│ Sends your message to every group\n` +
         `│ the bot is currently in.\n` +
-        `╰⊷ _${botFooter || "Powered by GURUTECH"}_`
+        `╰⊷ _${botFooter || "Powered by GuruTech"}_`
       );
     }
 
@@ -2181,7 +2181,7 @@ gmd(
       (errors.length
         ? `│\n│ *Errors:*\n${errors.slice(0, 5).map(e => `│ • ${e}`).join("\n")}\n`
         : "") +
-      `╰⊷ *${botName || "ULTRA GURU"}*`;
+      `╰⊷ *${botName || "BLACK PANTHER"}*`;
 
     await react(failed === 0 ? "✅" : "⚠️");
     await reply(summary);
@@ -2341,7 +2341,7 @@ gmd(
       await react("✅");
       return reply(
         broadcastAll
-          ? `╭─⌈ 📢 *GROUP STATUS POSTED* ⌋\n│ ✅ Green ring posted to all groups!\n│ 👁 Members will see it on the\n│    group profile picture.\n╰⊷ *${botName || "ULTRA GURU MD"}*`
+          ? `╭─⌈ 📢 *GROUP STATUS POSTED* ⌋\n│ ✅ Green ring posted to all groups!\n│ 👁 Members will see it on the\n│    group profile picture.\n╰⊷ *${botName || "BLACK PANTHER MD"}*`
           : `✅ *Group status posted!*\nMembers will see a green ring on the group profile.`
       );
     } catch (err) {
