@@ -185,9 +185,9 @@ gmd(
   {
     pattern: "professoremojis",
     aliases: ["profemojis", "channelemojis", "reactemojis"],
-    react: "❤️",
+    react: "🎓",
     category: "owner",
-    description: "View all emojis used for channel auto-reactions",
+    description: "View all professor emojis used for channel auto-reactions",
   },
   async (from, Guru, conText) => {
     const { reply, react, isSuperUser, botFooter } = conText;
@@ -197,7 +197,7 @@ gmd(
     }
     await react("✅");
     await reply(
-      `❤️ *Channel React Emojis*\n\n` +
+      `🎓 *Professor React Emojis*\n\n` +
       `These emojis are used randomly when auto-reacting to channel posts:\n\n` +
       PROFESSOR_EMOJIS.join("  ") +
       `\n\n📊 *Total:* ${PROFESSOR_EMOJIS.length} emojis\n\n> _${botFooter}_`
