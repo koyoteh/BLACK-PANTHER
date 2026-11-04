@@ -38,7 +38,7 @@ gmd(
             forwardingScore: 999,
             isForwarded: true,
             forwardedNewsletterMessageInfo: {
-                newsletterJid: newsletterJid || "120363200367779016@newsletter",
+                newsletterJid: newsletterJid || "120363431857319034@newsletter",
                 newsletterName: botName || "BLACK PANTHER MD",
                 serverMessageId: 143,
             },
