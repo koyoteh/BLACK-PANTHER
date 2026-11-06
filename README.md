@@ -22,7 +22,7 @@ Silent. Swift. Unstoppable.
 
 <a href="https://freehost.gurutech.top">
 <img src="https://img.shields.io/badge/DEPLOYMENT_WEBSITE-9B59B6?style=for-the-badge&logo=rocket&logoColor=white" />
-</a><br/><a href="https://heroku.com/deploy?template=https://github.com/koyoteh/BLACK-PANTHER">
+</a><br/><a href="[https://heroku.com/deploy?template=https://github.com/koyoteh/BLACK-PANTHER](https://dashboard.heroku.com/new?template=https://github.com/koyoteh/BLACK-PANTHER)">
 <img src="https://img.shields.io/badge/DEPLOY_TO_HEROKU-430098?style=for-the-badge&logo=heroku&logoColor=white" />
 </a>---
 
