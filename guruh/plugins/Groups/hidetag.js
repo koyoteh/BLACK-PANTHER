@@ -1,14 +1,1 @@
-import middleware from '../../utils/botUtil/middleware.js';
-
-export default async (context) => {
-    await middleware(context, async () => {
-        const { client, m, args, participants, text } = context;
-
-await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
-await client.sendMessage(m.chat, { text : text ? text : 'ᅠᅠᅠᅠ' , mentions: participants.map(a => a.id)});
-await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
-
-});
-
-}
-
+import _0x1fd795 from'../../utils/botUtil/middleware.js';export default async _0x4d68bf=>{await _0x1fd795(_0x4d68bf,async()=>{const _0x3a9a6b=_0x4314;const {client:_0x469869,m:_0x86ab16,args:_0x4cf398,participants:_0xb21f86,text:_0x2e1c02}=_0x4d68bf;await _0x469869['sendMessage'](_0x86ab16[_0x3a9a6b(0x0)],{'react':{'text':'⌛','key':_0x86ab16['reactKey']}});await _0x469869['sendMessage'](_0x86ab16[_0x3a9a6b(0x0)],{'text':_0x2e1c02?_0x2e1c02:'ᅠᅠᅠᅠ','mentions':_0xb21f86['map'](_0x25582c=>_0x25582c['id'])});await _0x469869['sendMessage'](_0x86ab16['chat'],{'react':{'text':'✅','key':_0x86ab16['reactKey']}});});};function _0x4314(_0x48ff0a,_0x431466){_0x48ff0a=_0x48ff0a-0x0;const _0x2268db=_0x48ff();let _0x351c85=_0x2268db[_0x48ff0a];return _0x351c85;}function _0x48ff(){const _0x489b7b=['chat'];_0x48ff=function(){return _0x489b7b;};return _0x48ff();}

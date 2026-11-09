@@ -1,39 +1,75 @@
-<div align="left"><img src="https://capsule-render.vercel.app/api?type=waving&color=0:0D0D0D,50:6C3483,100:9B59B6&height=180&section=header&text=BLACK%20PANTHER%20MD&fontSize=42&fontColor=ffffff&animation=fadeIn&fontAlignY=38&desc=Silent.%20Swift.%20Unstoppable.&descAlignY=58&descSize=18" width="100%"/>🐾 BLACK PANTHER MD
+[![Black Panther Banner](https://raw.githubusercontent.com/cleanplata/BLACK-PANTHER/main/assets/black-panther.jpg)](https://github.com/cleanplata/BLACK-PANTHER)
 
-Silent. Swift. Unstoppable.
+# 🎖️ Black Panther MD 🎖️
+
+[![](https://img.shields.io/badge/AUTHOR-GURUHTECH-00b8ff?style=for-the-badge&logo=github)](https://github.com/GuruhTech)
+[![](https://img.shields.io/github/stars/cleanplata/BLACK-PANTHER?style=social)](https://github.com/cleanplata/BLACK-PANTHER/stargazers/)
+[![](https://img.shields.io/github/forks/cleanplata/BLACK-PANTHER?style=social)](https://github.com/cleanplata/BLACK-PANTHER/network/members)
+![Profile Views](https://komarev.com/ghpvc/?username=GuruhTech&label=PROFILE+VIEWS&color=00b8ff&style=for-the-badge)
 
 ---
 
-📦 REPOSITORY
+# 🛠️ QUICK SETUP
 
-<a href="https://github.com/koyoteh/BLACK-PANTHER">
-<img src="https://img.shields.io/badge/GITHUB_REPOSITORY-181717?style=flat-square&logo=github&logoColor=white"/>
-</a><br/><a href="https://github.com/koyoteh/BLACK-PANTHER/archive/refs/heads/main.zip">
-<img src="https://img.shields.io/badge/DOWNLOAD_ZIP-8E44AD?style=for-the-badge&logo=github&logoColor=white"/>
-</a>---
+## 1. FORK THE REPOSITORY
 
-🔑 GET SESSION ID
+[![Fork Repo](https://img.shields.io/badge/FORK%20REPO-1E90FF?style=for-the-badge&logo=github&logoColor=white)](https://github.com/cleanplata/BLACK-PANTHER/fork)
 
-<a href="https://ultra-guru-pair-1.onrender.com/pair">
-<img src="https://img.shields.io/badge/GET_SESSION_ID-25D366?style=for-the-badge&logo=whatsapp&logoColor=white"/>
-</a>---
+## 2. DOWNLOAD ZIP (Panel Users)
 
-🚀 DEPLOYMENT WEBSITE
+[![Download ZIP](https://img.shields.io/badge/DOWNLOAD%20ZIP-4169E1?style=for-the-badge&logo=github&logoColor=white)](https://github.com/cleanplata/BLACK-PANTHER/archive/refs/heads/main.zip)
 
-<a href="https://freehost.gurutech.top">
-<img src="https://img.shields.io/badge/DEPLOYMENT_WEBSITE-9B59B6?style=for-the-badge&logo=rocket&logoColor=white"/>
-</a><br/><a href="https://dashboard.heroku.com/new?template=https://github.com/koyoteh/BLACK-PANTHER">
-<img src="https://img.shields.io/badge/DEPLOY_TO_HEROKU-430098?style=for-the-badge&logo=heroku&logoColor=white"/>
-</a>---
+## 3. GET SESSION ID
 
-🌐 SOCIAL MEDIA
+Choose your preferred method:
 
-<a href="https://github.com/koyoteh">
-<img src="https://img.shields.io/badge/GITHUB_PROFILE-181717?style=flat-square&logo=github&logoColor=white"/>
-</a><br/><a href="https://whatsapp.com/channel/0029VbDh88NCMY0Fartkxm1g">
-<img src="https://img.shields.io/badge/WHATSAPP_CHANNEL-25D366?style=for-the-badge&logo=whatsapp&logoColor=white"/>
-</a><br/><br/>
+[![Pair Code](https://img.shields.io/badge/PAIR%20CODE-00b8ff?style=for-the-badge&logo=link&logoColor=white)](https://ultra-guru-pair-1.onrender.com/pair)
+[![QR Code](https://img.shields.io/badge/SCAN%20QR%20CODE-1E90FF?style=for-the-badge&logo=qrcode&logoColor=white)](https://ultra-guru-pair-1.onrender.com/qr)
 
-⭐ Star the repository and spread the word!
+---
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:9B59B6,100:0D0D0D&height=100&section=footer" width="100%"/></div>
+# 🚀 DEPLOYMENT
+
+[![DEPLOY BLACK PANTHER](https://img.shields.io/badge/DEPLOY%20BLACK%20PANTHER-00b8ff?style=for-the-badge&logo=rocket&logoColor=white)](https://fork.gurutech.top)
+
+### ⚡ One-click deployment
+
+Deploy **Black Panther MD** instantly using the official deployment portal. Simply click the button above, verify your repository, and complete the deployment process.
+
+---
+
+## ☁️ KataBump
+
+[![Deploy on KataBump](https://img.shields.io/badge/DEPLOY%20ON%20KATABUMP-4169E1?style=for-the-badge&logo=rocket&logoColor=white)](https://dashboard.katabump.com/auth/login#f98658)
+
+---
+
+## 🐧 VPS / Termux
+
+```bash
+git clone https://github.com/cleanplata/BLACK-PANTHER.git
+cd BLACK-PANTHER
+npm install
+npm start
+```
+
+## 🛡️ Security controls
+
+- `.lockdown on` enables the emergency shield; while active, only the recognized bot owner can run commands, regardless of public/private mode. Use `.lockdown off` to restore the configured access mode, or `.lockdown status` to inspect it.
+- `.security` shows the current runtime controls. `.securitylog` shows the latest privacy-minimal security events; it does not store message bodies or phone numbers.
+- Commands marked owner-only are rejected centrally before execution. Non-owner command bursts are throttled at 8 commands per 10 seconds.
+- Lockdown state and audit files are stored under `data/` with owner-only file permissions where supported. Hosts with ephemeral filesystems may clear this state when the instance is replaced or restarted.
+
+These are bot-level safeguards, not a substitute for protecting the WhatsApp session, hosting account, deployment secrets, and server access.
+
+---
+
+# 🌐 CONNECT WITH US
+
+[![Telegram](https://img.shields.io/badge/TELEGRAM-26A5E4?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/GURU_TECHLAB)
+
+[![WhatsApp Channel](https://img.shields.io/badge/WHATSAPP%20CHANNEL-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://whatsapp.com/channel/0029VbDh88NCMY0Fartkxm1g)
+
+---
+
+### ⭐ If you like **Black Panther MD**, don't forget to star the repository and share it with others!

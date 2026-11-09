@@ -1,1 +1,1 @@
-export { default } from './listonline.js';
+export{default}from'./listonline.js';

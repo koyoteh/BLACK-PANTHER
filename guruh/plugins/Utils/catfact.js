@@ -1,18 +1,1 @@
-import axios from 'axios';
-import { sendInteractive } from '../../lib/sendInteractive.js';
-
-export default async (context) => {
-    const { client, m } = context;
-    try {
-        await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
-        const { data } = await axios.get('https://catfact.ninja/fact', { timeout: 8000 });
-        const fact = data?.fact;
-        if (!fact) throw new Error('no fact');
-        await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
-        await sendInteractive(client, m, `⚡ ──「 CAT FACT 」──
-▢ ${fact}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
-    } catch {
-        await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-        sendInteractive(client, m, `▢ API down. Even the cats went offline.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
-    }
-};
+function _0x5b48(_0xc4ab04,_0x5b48bb){_0xc4ab04=_0xc4ab04-0x0;const _0x545eae=_0xc4ab();let _0x14e7c9=_0x545eae[_0xc4ab04];return _0x14e7c9;}import _0x554764 from'axios';import{sendInteractive}from'../../lib/sendInteractive.js';export default async _0x39b2cf=>{const _0x1fc3fe=_0x5b48;const {client:_0x28b130,m:_0x53e75b}=_0x39b2cf;try{await _0x28b130['sendMessage'](_0x53e75b[_0x1fc3fe(0x0)],{'react':{'text':'⌛','key':_0x53e75b['reactKey']}});const {data:_0x4db266}=await _0x554764[_0x1fc3fe(0x1)]('https://catfact.ninja/fact',{'timeout':0x1f40});const _0x5328c2=_0x4db266?.['fact'];if(!_0x5328c2)throw new Error('no\x20fact');await _0x28b130[_0x1fc3fe(0x2)](_0x53e75b['chat'],{'react':{'text':'✅','key':_0x53e75b[_0x1fc3fe(0x3)]}});await sendInteractive(_0x28b130,_0x53e75b,'⚡\x20──「\x20CAT\x20FACT\x20」──\x0a▢\x20'+_0x5328c2+_0x1fc3fe(0x4));}catch{await _0x28b130[_0x1fc3fe(0x2)](_0x53e75b[_0x1fc3fe(0x0)],{'react':{'text':'❌','key':_0x53e75b['reactKey']}});sendInteractive(_0x28b130,_0x53e75b,'▢\x20API\x20down.\x20Even\x20the\x20cats\x20went\x20offline.\x0a└──✦\x20𝐁𝐋𝐀𝐂𝐊\x20𝐏𝐀𝐍𝐓𝐇𝐄𝐑\x20┃\x20ᴹᴰ\x20✦──');}};function _0xc4ab(){const _0x4f7ef8=['chat','get','sendMessage','reactKey','\x0a└──✦\x20𝐁𝐋𝐀𝐂𝐊\x20𝐏𝐀𝐍𝐓𝐇𝐄𝐑\x20┃\x20ᴹᴰ\x20✦──'];_0xc4ab=function(){return _0x4f7ef8;};return _0xc4ab();}

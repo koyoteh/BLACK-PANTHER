@@ -1,18 +1,1 @@
-const { getSetting } = require("./database/settings");
-
-async function getContextInfo(mentionedJid = []) {
-    const botName = await getSetting("BOT_NAME") || "𝐔𝐋𝐓𝐑𝐀 𝐆𝐔𝐑𝐔";
-    const channelJid = await getSetting("NEWSLETTER_JID") || "120363431857319034@newsletter";
-    return {
-        mentionedJid,
-        forwardingScore: 1,
-        isForwarded: true,
-        forwardedNewsletterMessageInfo: {
-            newsletterJid: channelJid,
-            newsletterName: botName,
-            serverMessageId: -1
-        }
-    };
-}
-
-module.exports = { getContextInfo };
+const {getSetting}=require('./database/settings');function _0x826c(_0x5c6a94,_0x826c44){_0x5c6a94=_0x5c6a94-0x0;const _0x1aef78=_0x5c6a();let _0x392b3b=_0x1aef78[_0x5c6a94];return _0x392b3b;}async function getContextInfo(_0x26620f=[]){const _0x5b43c5=_0x826c;const _0x8690ef=await getSetting(_0x5b43c5(0x0))||'𝐔𝐋𝐓𝐑𝐀\x20𝐆𝐔𝐑𝐔';const _0x4af45b=await getSetting(_0x5b43c5(0x1))||'120363431857319034@newsletter';return{'mentionedJid':_0x26620f,'forwardingScore':0x1,'isForwarded':!![],'forwardedNewsletterMessageInfo':{'newsletterJid':_0x4af45b,'newsletterName':_0x8690ef,'serverMessageId':-0x1}};}module['exports']={'getContextInfo':getContextInfo};function _0x5c6a(){const _0x108cf7=['BOT_NAME','NEWSLETTER_JID'];_0x5c6a=function(){return _0x108cf7;};return _0x5c6a();}

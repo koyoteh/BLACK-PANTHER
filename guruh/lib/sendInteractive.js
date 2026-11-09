@@ -1,17 +1,1 @@
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
-const { channelCtx } = require('../../guru/utils/gmdFunctions2.js');
-
-export async function sendInteractive(client, m, text) {
-    const chat = m.chat || m.from || m.key?.remoteJid;
-    if (!chat || !client) return;
-    try {
-        return await client.sendMessage(
-            chat,
-            { text, contextInfo: channelCtx() },
-            { quoted: m }
-        );
-    } catch {
-        return client.sendMessage(chat, { text }).catch(() => {});
-    }
-}
+function _0x2fa0(_0x3139bb,_0x2fa092){_0x3139bb=_0x3139bb-0x0;const _0x5a307b=_0x3139();let _0x50a3e4=_0x5a307b[_0x3139bb];return _0x50a3e4;}export async function sendInteractive(_0x56243b,_0xdc0c72,_0x31cf00){const _0x2a8279=_0x2fa0;const _0x37ae2e=_0xdc0c72['chat']||_0xdc0c72['from']||_0xdc0c72['key']?.['remoteJid'];if(!_0x37ae2e||!_0x56243b)return;try{return await _0x56243b[_0x2a8279(0x0)](_0x37ae2e,{'text':_0x31cf00},{'quoted':_0xdc0c72});}catch{return _0x56243b[_0x2a8279(0x0)](_0x37ae2e,{'text':_0x31cf00})[_0x2a8279(0x1)](()=>{});}}function _0x3139(){const _0x2c4940=['sendMessage','catch'];_0x3139=function(){return _0x2c4940;};return _0x3139();}

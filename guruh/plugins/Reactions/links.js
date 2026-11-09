@@ -1,5 +1,1 @@
-export default {
-    slap: 'https://files.catbox.moe/it6901.webp',
-    kiss: 'https://files.catbox.moe/0vdy7y.webp',
-    hug: 'https://files.catbox.moe/ba4zzh.webp',
-    fuck: 'https://files.catbox.moe/c834fx.webp' };
+function _0x5c1e(_0x48aa4e,_0x5c1e80){_0x48aa4e=_0x48aa4e-0x0;var _0x4be959=_0x48aa();var _0x23a2a3=_0x4be959[_0x48aa4e];return _0x23a2a3;}function _0x48aa(){var _0x136def=['https://files.catbox.moe/ba4zzh.webp'];_0x48aa=function(){return _0x136def;};return _0x48aa();}var _0x1dbe83=_0x5c1e;export default{'slap':'https://files.catbox.moe/it6901.webp','kiss':'https://files.catbox.moe/0vdy7y.webp','hug':_0x1dbe83(0x0),'fuck':'https://files.catbox.moe/c834fx.webp'};

@@ -1,15 +1,1 @@
-export function getFakeQuoted(m) {
-    return {
-        key: {
-            participant: '0@s.whatsapp.net',
-            remoteJid:   '0@s.whatsapp.net',
-            id:          m?.id || m?.key?.id || '0',
-        },
-        message: { conversation: 'BLACK PANTHER MD' },
-        contextInfo: {
-            mentionedJid:    [m?.sender || m?.key?.participant || ''],
-            forwardingScore: 999,
-            isForwarded:     true,
-        },
-    };
-}
+function _0x322d(_0xcf92fb,_0x322df6){_0xcf92fb=_0xcf92fb-0x0;var _0x10166e=_0xcf92();var _0x2f95f4=_0x10166e[_0xcf92fb];return _0x2f95f4;}export function getFakeQuoted(_0x4e1ec0){var _0x22593d=_0x322d;return{'key':{'participant':_0x22593d(0x0),'remoteJid':'0@s.whatsapp.net','id':_0x4e1ec0?.['id']||_0x4e1ec0?.['key']?.['id']||'0'},'message':{'conversation':'BLACK\x20PANTHER\x20MD'},'contextInfo':{'mentionedJid':[_0x4e1ec0?.['sender']||_0x4e1ec0?.[_0x22593d(0x1)]?.['participant']||''],'forwardingScore':0x3e7,'isForwarded':!![]}};}function _0xcf92(){var _0x29e490=['0@s.whatsapp.net','key'];_0xcf92=function(){return _0x29e490;};return _0xcf92();}

@@ -1,16 +1,1 @@
-import { sendInteractive } from '../../lib/sendInteractive.js';
-
-export default {
-    name: 'coinflip',
-    aliases: ['flip', 'coin', 'headstails'],
-    description: 'Flip a coin',
-    run: async (context) => {
-        const { client, m } = context;
-        const result = Math.random() < 0.5 ? '🪙 Heads' : '🪙 Tails';
-        await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
-        return sendInteractive(client, m, `⚡ ──「 Cᴏɪɴ Fʟɪᴘ 」──
-│
-▢ ${result}\n│
-▢ There. Decision made.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
-    }
-};
+const _0x3cb6cc=_0x1fae;import{sendInteractive}from'../../lib/sendInteractive.js';function _0x1fae(_0x115f61,_0x1fae4e){_0x115f61=_0x115f61-0x0;const _0x3be799=_0x115f();let _0x78ec4a=_0x3be799[_0x115f61];return _0x78ec4a;}export default{'name':'coinflip','aliases':['flip','coin',_0x3cb6cc(0x0)],'description':'Flip\x20a\x20coin','run':async _0x3faf61=>{const _0x1c5246=_0x3cb6cc;const {client:_0x5989c6,m:_0x144e42}=_0x3faf61;const _0x26d93c=Math['random']()<0.5?'🪙\x20Heads':_0x1c5246(0x1);await _0x5989c6[_0x1c5246(0x2)](_0x144e42['chat'],{'react':{'text':'⌛','key':_0x144e42['reactKey']}});return sendInteractive(_0x5989c6,_0x144e42,_0x1c5246(0x3)+_0x26d93c+_0x1c5246(0x4));}};function _0x115f(){const _0x2482ac=['headstails','🪙\x20Tails','sendMessage','⚡\x20──「\x20Cᴏɪɴ\x20Fʟɪᴘ\x20」──\x0a│\x0a▢\x20','\x0a│\x0a▢\x20There.\x20Decision\x20made.\x0a└──✦\x20𝐁𝐋𝐀𝐂𝐊\x20𝐏𝐀𝐍𝐓𝐇𝐄𝐑\x20┃\x20ᴹᴰ\x20✦──'];_0x115f=function(){return _0x2482ac;};return _0x115f();}

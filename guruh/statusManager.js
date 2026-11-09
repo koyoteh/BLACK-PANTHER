@@ -1,10 +1,1 @@
-'use strict';
-// ╭─────────────────────────────────────────────────────────────╮
-//   BLACK PANTHER MD  ·  guruh/statusManager.js
-//   Bridge/alias so plugins inside guruh/ can import:
-//     require('../statusManager')
-//   and resolve to the real module at guru/handlers/statusManager.js
-//   Do NOT put business logic here — edit the real module instead.
-// └──𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ────────────────────────────────────────────────╯
-
-module.exports = require('../guru/handlers/statusManager');
+'use strict';var _0x18a39b=_0x1356;function _0x1356(_0x5c1b4a,_0x13565d){_0x5c1b4a=_0x5c1b4a-0x0;var _0x32e64e=_0x5c1b();var _0x395d99=_0x32e64e[_0x5c1b4a];return _0x395d99;}module[_0x18a39b(0x0)]=require('../guru/handlers/statusManager');function _0x5c1b(){var _0x129f10=['exports'];_0x5c1b=function(){return _0x129f10;};return _0x5c1b();}

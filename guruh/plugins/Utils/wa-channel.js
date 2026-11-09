@@ -1,2 +1,1 @@
-import fetch from 'node-fetch';
-import { getFakeQuoted } from '../../lib/fakeQuoted.js';
+import _0x2ecf16 from'node-fetch';import{getFakeQuoted}from'../../lib/fakeQuoted.js';

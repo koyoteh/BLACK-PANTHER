@@ -1,14 +1,1 @@
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
-const _s = require('../../guru/config/settings.js');
-
-export const botname      = _s.BOT_NAME      || 'BLACK PANTHER MD';
-export const prefix       = _s.BOT_PREFIX    || '.';
-export const ownerNumber  = _s.OWNER_NUMBER  || '';
-export const ownerName    = _s.OWNER_NAME    || 'Koyoteh';
-export const session      = _s.SESSION_ID    || '';
-export const mycode       = ownerNumber.replace(/\D/g, '').slice(0, 3) || '254';
-export const herokuAppName = process.env.HEROKU_APP_NAME || '';
-export function getHerokuApiKey() { return process.env.HEROKU_API_KEY || ''; }
-
-export default _s;
+const _0x36f4dc=_0x518f;function _0x518f(_0x1f9b29,_0x518ff9){_0x1f9b29=_0x1f9b29-0x0;const _0xc52060=_0x1f9b();let _0x4a610b=_0xc52060[_0x1f9b29];return _0x4a610b;}import{createRequire}from'module';const require=createRequire(import.meta.url);const _s=require('../../guru/config/settings.js');export const botname=_s['BOT_NAME']||_0x36f4dc(0x0);export const prefix=_s['BOT_PREFIX']||'.';export const ownerNumber=_s['OWNER_NUMBER']||'';export const ownerName=_s['OWNER_NAME']||'Black\x20Panther';export const session=_s[_0x36f4dc(0x1)]||'';export const mycode=ownerNumber[_0x36f4dc(0x2)](/\D/g,'')[_0x36f4dc(0x3)](0x0,0x3)||'254';export const herokuAppName=process.env.HEROKU_APP_NAME||'';export function getHerokuApiKey(){return process.env.HEROKU_API_KEY||'';}export default _s;function _0x1f9b(){const _0x3d9ee3=['BLACK\x20PANTHER\x20MD','SESSION_ID','replace','slice'];_0x1f9b=function(){return _0x3d9ee3;};return _0x1f9b();}

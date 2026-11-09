@@ -1,76 +1,144 @@
 {
-  "name": "BLACK PANTHER MD",
-  "version": "5.0.0",
-  "description": "BLACK PANTHER - A Powerful Multi-Device WhatsApp Bot built by Koyoteh to Enhance Your WhatsApp Experience",
-  "logo": "https://res.cloudinary.com/dqxlb29uz/image/upload/v1780267810/bwm_uploads/media-1780267810008.jpg",
-  "keywords": ["black-panther", "koyoteh", "whatsapp-bot", "black-panther-md"],
-  "success_url": "/",
-  "stack": "container",
+  "name": "BLACK-PANTHER-MD",
+  "description": "Black Panther WhatsApp Multi-Device Bot",
+  "repository": "https://github.com/cleanplata/BLACK-PANTHER",
+  "keywords": [
+    "whatsapp",
+    "baileys",
+    "bot",
+    "black-panther"
+  ],
   "env": {
-    "SESSION_ID": {
-      "description": "Your WhatsApp session ID. Get it from the pairing page. Must start with PANTHER~",
-      "required": true,
-      "value": ""
+    "MODE": {
+      "description": "Bot mode (private or public)",
+      "value": "private",
+      "required": false
     },
-    "BOT_NAME": {
-      "description": "Name of your bot",
-      "required": false,
-      "value": "BLACK PANTHER MD"
+    "PREFIXES": {
+      "description": "Command prefixes (comma separated)",
+      "value": ".",
+      "required": false
+    },
+    "OWNER_NUMBER": {
+      "description": "Owner phone number, digits only; leave blank to use the linked bot account",
+      "value": "",
+      "required": false
     },
     "OWNER_NAME": {
-      "description": "Owner name",
-      "required": false,
-      "value": "GuruTech"
+      "description": "Owner display name",
+      "value": "GuruTech",
+      "required": false
     },
-    "MODE": {
-      "description": "Bot mode: 'public' (everyone can use) or 'private' (only bot owner)",
-      "required": true,
-      "value": "public"
+    "BOT_NAME": {
+      "description": "Bot display name",
+      "value": "Black Panther",
+      "required": false
+    },
+    "BOT_PIC": {
+      "description": "Bot image URL",
+      "value": "https://raw.githubusercontent.com/cleanplata/BLACK-PANTHER/main/assets/black-panther.jpg",
+      "required": false
+    },
+    "CHANNEL_JID": {
+      "description": "WhatsApp channel JID used in forwarded message metadata",
+      "value": "120363431857319034@newsletter",
+      "required": false
+    },
+    "CHANNEL_URL": {
+      "description": "WhatsApp channel link",
+      "value": "https://whatsapp.com/channel/0029VbDh88NCMY0Fartkxm1g",
+      "required": false
+    },
+    "SESSION": {
+      "description": "Base64-encoded creds.json session (optional if SESSION_ID is set)",
+      "required": false
+    },
+    "SESSION_ID": {
+      "description": "GURU~gzip-base64 session or plain base64-encoded creds.json; both formats are accepted",
+      "required": false
+    },
+    "USER_LID": {
+      "description": "Optional comma-separated owner WhatsApp LIDs",
+      "required": false
+    },
+    "TZ": {
+      "description": "Timezone; TIME_ZONE is also supported for the existing deployment",
+      "value": "Africa/Nairobi",
+      "required": false
     },
     "TIME_ZONE": {
-      "description": "Your timezone (e.g., Africa/Nairobi, America/New_York, Asia/Kolkata)",
-      "required": true,
-      "value": "Africa/Nairobi"
+      "description": "Legacy timezone setting retained for existing deployments",
+      "value": "Africa/Nairobi",
+      "required": false
     },
-    "AUTO_LIKE_STATUS": {
-      "description": "Auto-like WhatsApp statuses. Set true or false.",
-      "required": false,
-      "value": "true"
+    "ANTICALL": {
+      "description": "Auto reject calls (on/off)",
+      "value": "off",
+      "required": false
     },
-    "AUTO_READ_STATUS": {
-      "description": "Auto-view WhatsApp statuses. Set true or false.",
-      "required": false,
-      "value": "true"
+    "ANTIDELETE": {
+      "description": "Detect deleted messages (on/off)",
+      "value": "on",
+      "required": false
     },
-    "DATABASE_URL": {
-      "description": "PostgreSQL connection URL. Leave blank to use auto-provisioned Heroku Postgres, or supply your own (Neon, Supabase, etc.). Falls back to SQLite if empty.",
-      "required": false,
-      "value": ""
+    "ANTIEDIT": {
+      "description": "Detect edited messages (on/off)",
+      "value": "on",
+      "required": false
     },
-    "BOT_EXPIRY_DATE": {
-      "description": "Bot license expiry date (YYYY-MM-DD). Leave blank if bot has no expiry. When set, the menu will show ACTIVE/EXPIRY SOON/EXPIRED status.",
-      "required": false,
-      "value": ""
+    "AUTO_READ": {
+      "description": "Auto read incoming messages (on/off)",
+      "value": "off",
+      "required": false
+    },
+    "AUTO_VIEW": {
+      "description": "Auto view status updates (on/off); AUTO_READ_STATUS is also supported",
+      "value": "on",
+      "required": false
+    },
+    "AUTO_LIKE": {
+      "description": "Auto react to status updates (on/off); AUTO_LIKE_STATUS is also supported",
+      "value": "on",
+      "required": false
+    },
+    "DM_PRESENCE": {
+      "description": "Presence type for private chats (typing/recording/online)",
+      "value": "typing",
+      "required": false
+    },
+    "GRP_PRESENCE": {
+      "description": "Presence type for groups (typing/recording/online)",
+      "value": "recording",
+      "required": false
+    },
+    "MENU_IMAGES": {
+      "description": "Optional comma-separated menu image URLs; retained for deployment compatibility",
+      "required": false
+    },
+    "HEROKU_API_KEY": {
+      "description": "Private Heroku Platform API token required for the owner-only .update command; never commit or share this value",
+      "required": false
+    },
+    "HEROKU_APP_NAME": {
+      "description": "Heroku app name that the owner-only .update command is allowed to build and release",
+      "required": false
+    },
+    "UPDATE_REPOSITORY": {
+      "description": "GitHub owner/repository to deploy from main when the owner runs .update",
+      "value": "cleanplata/BLACK-PANTHER",
+      "required": false
     }
   },
-  "addons": [
-    {
-      "plan": "heroku-postgresql:essential-0",
-      "as": "DATABASE"
-    }
-  ],
   "formation": {
     "web": {
       "quantity": 1,
       "size": "basic"
     }
   },
-  "environments": {
-    "test": {
-      "addons": [],
-      "env": {
-        "DATABASE_URL": ""
-      }
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
     }
-  }
+  ],
+  "stack": "heroku-24"
 }

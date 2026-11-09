@@ -1,15 +1,1 @@
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
-const loader = require('../../guru/handlers/loader.js');
-
-export const commands = loader.commands;
-
-export const aliases = (() => {
-    const map = new Map();
-    for (const [key, cmd] of loader.commands.entries()) {
-        if (key !== cmd.name.toLowerCase()) {
-            map.set(key, cmd.name);
-        }
-    }
-    return map;
-})();
+const _0x5e4988=_0x1efe;import{createRequire}from'module';const require=createRequire(import.meta.url);const loader=require(_0x5e4988(0x0));function _0x1efe(_0x4b27d0,_0x1efe62){_0x4b27d0=_0x4b27d0-0x0;const _0x44d298=_0x4b27();let _0xb3b773=_0x44d298[_0x4b27d0];return _0xb3b773;}export const commands=loader['commands'];function _0x4b27(){const _0x361b49=['../../guru/handlers/loader.js','toLowerCase','name'];_0x4b27=function(){return _0x361b49;};return _0x4b27();}export const aliases=((()=>{const _0x4fc8ae=_0x5e4988;const _0x2af9b3=new Map();for(const [_0x57c583,_0x3f0f62]of loader['commands']['entries']()){if(_0x57c583!==_0x3f0f62['name'][_0x4fc8ae(0x1)]()){_0x2af9b3['set'](_0x57c583,_0x3f0f62[_0x4fc8ae(0x2)]);}}return _0x2af9b3;})());

@@ -1,4 +1,1 @@
-export async function getDeviceMode() {
-    const val = (process.env.DEVICE || 'default').toLowerCase().trim();
-    return val === 'ios' ? 'ios' : 'android';
-}
+function _0x2164(_0x110f34,_0x216446){_0x110f34=_0x110f34-0x0;const _0x3b1759=_0x110f();let _0xb61697=_0x3b1759[_0x110f34];return _0xb61697;}export async function getDeviceMode(){const _0xac9d2d=_0x2164;const _0x54bb1a=(process.env.DEVICE||_0xac9d2d(0x0))['toLowerCase']()['trim']();return _0x54bb1a==='ios'?'ios':'android';}function _0x110f(){const _0x15d6b1=['default'];_0x110f=function(){return _0x15d6b1;};return _0x110f();}

@@ -1,13 +1,1 @@
-import ownerMiddleware from '../../utils/botUtil/Ownermiddleware.js';
-import { sendInteractive } from '../../lib/sendInteractive.js';
-
-export default async (context) => {
-    await ownerMiddleware(context, async () => {
-        const { client, m } = context;
-        await client.sendMessage(m.chat, { react: { text: '🔄', key: m.reactKey } });
-        await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
-        await sendInteractive(client, m, `⚡ ──「 RESTART 」──
-▢ Restarting BLACK-PANTHER-MD...\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
-        setTimeout(() => { process.exit(0); }, 3000);
-    });
-};
+function _0xb532(){const _0x1d2adc=['sendMessage','reactKey','⚡\x20──「\x20RESTART\x20」──\x0a▢\x20Restarting\x20BLACK-PANTHER-MD...\x0a└──✦\x20𝐁𝐋𝐀𝐂𝐊\x20𝐏𝐀𝐍𝐓𝐇𝐄𝐑\x20┃\x20ᴹᴰ\x20✦──','exit'];_0xb532=function(){return _0x1d2adc;};return _0xb532();}import _0x4535e9 from'../../utils/botUtil/Ownermiddleware.js';function _0x25c9(_0xb53237,_0x25c9c4){_0xb53237=_0xb53237-0x0;const _0x3e4768=_0xb532();let _0x11050a=_0x3e4768[_0xb53237];return _0x11050a;}import{sendInteractive}from'../../lib/sendInteractive.js';export default async _0x1dbbbd=>{await _0x4535e9(_0x1dbbbd,async()=>{const _0x11b3c9=_0x25c9;const {client:_0x325f74,m:_0x4ce326}=_0x1dbbbd;await _0x325f74[_0x11b3c9(0x0)](_0x4ce326['chat'],{'react':{'text':'🔄','key':_0x4ce326[_0x11b3c9(0x1)]}});await _0x325f74[_0x11b3c9(0x0)](_0x4ce326['chat'],{'react':{'text':'⌛','key':_0x4ce326[_0x11b3c9(0x1)]}});await sendInteractive(_0x325f74,_0x4ce326,_0x11b3c9(0x2));setTimeout(()=>{const _0x46a7ae=_0x11b3c9;process[_0x46a7ae(0x3)](0x0);},0xbb8);});};

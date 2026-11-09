@@ -1,18 +1,1 @@
-import axios from 'axios';
-import { sendInteractive } from '../../lib/sendInteractive.js';
-
-export default async (context) => {
-    const { client, m } = context;
-    try {
-        await client.sendMessage(m.chat, { react: { text: '⌛', key: m.reactKey } });
-        const { data } = await axios.get('https://uselessfacts.jsph.pl/api/v2/facts/random?language=en', { timeout: 8000 });
-        const fact = data?.text;
-        if (!fact) throw new Error('no fact');
-        await client.sendMessage(m.chat, { react: { text: '✅', key: m.reactKey } });
-        await sendInteractive(client, m, `⚡ ──「 RANDOM FACT 」──
-▢ ${fact}\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
-    } catch {
-        await client.sendMessage(m.chat, { react: { text: '❌', key: m.reactKey } });
-        sendInteractive(client, m, `▢ Couldn't fetch a fact. The universe said no.\n└──✦ 𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ ✦──`);
-    }
-};
+function _0x5e22(_0x1fad88,_0x5e22c7){_0x1fad88=_0x1fad88-0x0;const _0x4db3e7=_0x1fad();let _0x5f22ff=_0x4db3e7[_0x1fad88];return _0x5f22ff;}import _0x5e7b94 from'axios';function _0x1fad(){const _0xc7aec6=['get','https://uselessfacts.jsph.pl/api/v2/facts/random?language=en','sendMessage','reactKey'];_0x1fad=function(){return _0xc7aec6;};return _0x1fad();}import{sendInteractive}from'../../lib/sendInteractive.js';export default async _0x515f58=>{const _0x50056c=_0x5e22;const {client:_0x5ea95e,m:_0x5ea087}=_0x515f58;try{await _0x5ea95e['sendMessage'](_0x5ea087['chat'],{'react':{'text':'⌛','key':_0x5ea087['reactKey']}});const {data:_0x145f16}=await _0x5e7b94[_0x50056c(0x0)](_0x50056c(0x1),{'timeout':0x1f40});const _0x1b7346=_0x145f16?.['text'];if(!_0x1b7346)throw new Error('no\x20fact');await _0x5ea95e[_0x50056c(0x2)](_0x5ea087['chat'],{'react':{'text':'✅','key':_0x5ea087['reactKey']}});await sendInteractive(_0x5ea95e,_0x5ea087,'⚡\x20──「\x20RANDOM\x20FACT\x20」──\x0a▢\x20'+_0x1b7346+'\x0a└──✦\x20𝐁𝐋𝐀𝐂𝐊\x20𝐏𝐀𝐍𝐓𝐇𝐄𝐑\x20┃\x20ᴹᴰ\x20✦──');}catch{await _0x5ea95e['sendMessage'](_0x5ea087['chat'],{'react':{'text':'❌','key':_0x5ea087[_0x50056c(0x3)]}});sendInteractive(_0x5ea95e,_0x5ea087,'▢\x20Couldn\x27t\x20fetch\x20a\x20fact.\x20The\x20universe\x20said\x20no.\x0a└──✦\x20𝐁𝐋𝐀𝐂𝐊\x20𝐏𝐀𝐍𝐓𝐇𝐄𝐑\x20┃\x20ᴹᴰ\x20✦──');}};

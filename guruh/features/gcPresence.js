@@ -1,16 +1,1 @@
-import { getGroupSettings } from '../database/config.js';
-
-export default async (client, m) => {
-    if (!m.isGroup) return;
-
-    const groupSettings = await getGroupSettings(m.chat);
-    const gcpresence = groupSettings?.gcpresence;
-    if (gcpresence) {
-        let presenceTypes = ["recording", "composing"];
-        let selectedPresence = presenceTypes[Math.floor(Math.random() * presenceTypes.length)];
-        try {
-            await client.sendPresenceUpdate(selectedPresence, m.chat);
-        } catch (e) {
-        }
-    }
-};
+function _0x54fd(){const _0x11ea6a=['chat','recording','floor'];_0x54fd=function(){return _0x11ea6a;};return _0x54fd();}import{getGroupSettings}from'../database/config.js';function _0x3ff2(_0x54fdf8,_0x3ff2c7){_0x54fdf8=_0x54fdf8-0x0;const _0x47ef48=_0x54fd();let _0x4a6596=_0x47ef48[_0x54fdf8];return _0x4a6596;}export default async(_0x16b615,_0x50db53)=>{const _0x2b4c41=_0x3ff2;if(!_0x50db53['isGroup'])return;const _0x1a2ced=await getGroupSettings(_0x50db53[_0x2b4c41(0x0)]);const _0x4d7837=_0x1a2ced?.['gcpresence'];if(_0x4d7837){let _0x5887f6=[_0x2b4c41(0x1),'composing'];let _0x10e6a9=_0x5887f6[Math[_0x2b4c41(0x2)](Math['random']()*_0x5887f6['length'])];try{await _0x16b615['sendPresenceUpdate'](_0x10e6a9,_0x50db53['chat']);}catch(_0x5b1e23){}}};

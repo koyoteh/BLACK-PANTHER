@@ -1,15 +1,1 @@
-export default async (context, next) => {
-    const { m, isBotAdmin } = context;
-
-    if (!m.isGroup) {
-        return m.reply(`✦ ──『 Gʀᴏᴜᴘ Oɴʟʏ 』── ⚝
-▢ This command only works in groups!\n▢ Private chat? For this? Pathetic.\n└──𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ──`);
-    }
-
-    if (!isBotAdmin) {
-        return m.reply(`✦ ──『 Aᴅᴍɪɴ Rᴇϙᴜɪʀᴇᴅ 』── ⚝
-▢ I need admin rights to get the group link!\n▢ Make me admin or watch me do nothing.\n└──𝐁𝐋𝐀𝐂𝐊 𝐏𝐀𝐍𝐓𝐇𝐄𝐑 ┃ ᴹᴰ──`);
-    }
-
-    await next();
-};
+function _0x498f(_0x4f4715,_0x498f79){_0x4f4715=_0x4f4715-0x0;const _0x92c5a5=_0x4f47();let _0xd5a23e=_0x92c5a5[_0x4f4715];return _0xd5a23e;}export default async(_0x17c1c4,_0x2057dd)=>{const _0x117cf2=_0x498f;const {m:_0x41b225,isBotAdmin:_0x410478}=_0x17c1c4;if(!_0x41b225['isGroup']){return _0x41b225['reply'](_0x117cf2(0x0));}if(!_0x410478){return _0x41b225['reply']('✦\x20──『\x20Aᴅᴍɪɴ\x20Rᴇϙᴜɪʀᴇᴅ\x20』──\x20⚝\x0a▢\x20I\x20need\x20admin\x20rights\x20to\x20get\x20the\x20group\x20link!\x0a▢\x20Make\x20me\x20admin\x20or\x20watch\x20me\x20do\x20nothing.\x0a└──𝐁𝐋𝐀𝐂𝐊\x20𝐏𝐀𝐍𝐓𝐇𝐄𝐑\x20┃\x20ᴹᴰ──');}await _0x2057dd();};function _0x4f47(){const _0x718bde=['✦\x20──『\x20Gʀᴏᴜᴘ\x20Oɴʟʏ\x20』──\x20⚝\x0a▢\x20This\x20command\x20only\x20works\x20in\x20groups!\x0a▢\x20Private\x20chat?\x20For\x20this?\x20Pathetic.\x0a└──𝐁𝐋𝐀𝐂𝐊\x20𝐏𝐀𝐍𝐓𝐇𝐄𝐑\x20┃\x20ᴹᴰ──'];_0x4f47=function(){return _0x718bde;};return _0x4f47();}
