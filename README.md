@@ -1,75 +1,22 @@
-[![Black Panther Banner](https://raw.githubusercontent.com/cleanplata/BLACK-PANTHER/main/assets/black-panther.jpg)](https://github.com/cleanplata/BLACK-PANTHER)
+# Black Panther
 
-# 🎖️ Black Panther MD 🎖️
+Black Panther is a Node.js WhatsApp multi-device bot.
 
-[![](https://img.shields.io/badge/AUTHOR-GURUHTECH-00b8ff?style=for-the-badge&logo=github)](https://github.com/GuruhTech)
-[![](https://img.shields.io/github/stars/cleanplata/BLACK-PANTHER?style=social)](https://github.com/cleanplata/BLACK-PANTHER/stargazers/)
-[![](https://img.shields.io/github/forks/cleanplata/BLACK-PANTHER?style=social)](https://github.com/cleanplata/BLACK-PANTHER/network/members)
-![Profile Views](https://komarev.com/ghpvc/?username=GuruhTech&label=PROFILE+VIEWS&color=00b8ff&style=for-the-badge)
+## Project layout
 
----
+- `black/` — bot runtime, configuration, assets, and security utilities.
+- `Panther/` — commands, menu utilities, legacy feature modules, and tests.
 
-# 🛠️ QUICK SETUP
+Only required package, deployment, environment-template, license, and documentation files are kept at the repository root.
 
-## 1. FORK THE REPOSITORY
+## Run
 
-[![Fork Repo](https://img.shields.io/badge/FORK%20REPO-1E90FF?style=for-the-badge&logo=github&logoColor=white)](https://github.com/cleanplata/BLACK-PANTHER/fork)
+1. Install Node.js 20–24 and npm 9 or newer.
+2. Run `npm install`.
+3. Copy `.env-sample` to `.env` and configure the WhatsApp session and owner details. Never commit `.env` or session credentials.
+4. Run `npm test` for the regression suite.
+5. Run `npm start` to launch the bot.
 
-## 2. DOWNLOAD ZIP (Panel Users)
+JavaScript source files in this repository are obfuscated. Keep deployment secrets in the host's secret manager, not in source files.
 
-[![Download ZIP](https://img.shields.io/badge/DOWNLOAD%20ZIP-4169E1?style=for-the-badge&logo=github&logoColor=white)](https://github.com/cleanplata/BLACK-PANTHER/archive/refs/heads/main.zip)
-
-## 3. GET SESSION ID
-
-Choose your preferred method:
-
-[![Pair Code](https://img.shields.io/badge/PAIR%20CODE-00b8ff?style=for-the-badge&logo=link&logoColor=white)](https://ultra-guru-pair-1.onrender.com/pair)
-[![QR Code](https://img.shields.io/badge/SCAN%20QR%20CODE-1E90FF?style=for-the-badge&logo=qrcode&logoColor=white)](https://ultra-guru-pair-1.onrender.com/qr)
-
----
-
-# 🚀 DEPLOYMENT
-
-[![DEPLOY BLACK PANTHER](https://img.shields.io/badge/DEPLOY%20BLACK%20PANTHER-00b8ff?style=for-the-badge&logo=rocket&logoColor=white)](https://fork.gurutech.top)
-
-### ⚡ One-click deployment
-
-Deploy **Black Panther MD** instantly using the official deployment portal. Simply click the button above, verify your repository, and complete the deployment process.
-
----
-
-## ☁️ KataBump
-
-[![Deploy on KataBump](https://img.shields.io/badge/DEPLOY%20ON%20KATABUMP-4169E1?style=for-the-badge&logo=rocket&logoColor=white)](https://dashboard.katabump.com/auth/login#f98658)
-
----
-
-## 🐧 VPS / Termux
-
-```bash
-git clone https://github.com/cleanplata/BLACK-PANTHER.git
-cd BLACK-PANTHER
-npm install
-npm start
-```
-
-## 🛡️ Security controls
-
-- `.lockdown on` enables the emergency shield; while active, only the recognized bot owner can run commands, regardless of public/private mode. Use `.lockdown off` to restore the configured access mode, or `.lockdown status` to inspect it.
-- `.security` shows the current runtime controls. `.securitylog` shows the latest privacy-minimal security events; it does not store message bodies or phone numbers.
-- Commands marked owner-only are rejected centrally before execution. Non-owner command bursts are throttled at 8 commands per 10 seconds.
-- Lockdown state and audit files are stored under `data/` with owner-only file permissions where supported. Hosts with ephemeral filesystems may clear this state when the instance is replaced or restarted.
-
-These are bot-level safeguards, not a substitute for protecting the WhatsApp session, hosting account, deployment secrets, and server access.
-
----
-
-# 🌐 CONNECT WITH US
-
-[![Telegram](https://img.shields.io/badge/TELEGRAM-26A5E4?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/GURU_TECHLAB)
-
-[![WhatsApp Channel](https://img.shields.io/badge/WHATSAPP%20CHANNEL-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://whatsapp.com/channel/0029VbDh88NCMY0Fartkxm1g)
-
----
-
-### ⭐ If you like **Black Panther MD**, don't forget to star the repository and share it with others!
+Repository: [koyoteh/BLACK-PANTHER](https://github.com/koyoteh/BLACK-PANTHER)

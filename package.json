@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node \"black/sharp-fix.js\" && node --loader \"./black/preload.js\" \"black/index.js\"",
     "dev": "node \"black/index.js\"",
-    "test": "node --test test/*.test.js",
+    "test": "node --test Panther/test/*.test.js",
     "postinstall": "PUPPETEER_SKIP_DOWNLOAD=true npm rebuild sharp --force"
   },
   "engines": {
@@ -18,12 +18,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cleanplata/BLACK-PANTHER.git"
+    "url": "git+https://github.com/koyoteh/BLACK-PANTHER.git"
   },
   "bugs": {
-    "url": "https://github.com/cleanplata/BLACK-PANTHER/issues"
+    "url": "https://github.com/koyoteh/BLACK-PANTHER/issues"
   },
-  "homepage": "https://github.com/cleanplata/BLACK-PANTHER#readme",
+  "homepage": "https://github.com/koyoteh/BLACK-PANTHER#readme",
   "dependencies": {
     "@hapi/boom": "^10.0.1",
     "@whiskeysockets/baileys": "git+https://lyfe00011-admin@bitbucket.org/lyfe00011/baileys.git",

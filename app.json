@@ -1,7 +1,7 @@
 {
   "name": "BLACK-PANTHER-MD",
   "description": "Black Panther WhatsApp Multi-Device Bot",
-  "repository": "https://github.com/cleanplata/BLACK-PANTHER",
+  "repository": "https://github.com/koyoteh/BLACK-PANTHER",
   "keywords": [
     "whatsapp",
     "baileys",
@@ -26,7 +26,7 @@
     },
     "OWNER_NAME": {
       "description": "Owner display name",
-      "value": "GuruTech",
+      "value": "Black Panther",
       "required": false
     },
     "BOT_NAME": {
@@ -36,7 +36,7 @@
     },
     "BOT_PIC": {
       "description": "Bot image URL",
-      "value": "https://raw.githubusercontent.com/cleanplata/BLACK-PANTHER/main/assets/black-panther.jpg",
+      "value": "https://raw.githubusercontent.com/koyoteh/BLACK-PANTHER/main/black/assets/black-panther.jpg",
       "required": false
     },
     "CHANNEL_JID": {
@@ -125,7 +125,7 @@
     },
     "UPDATE_REPOSITORY": {
       "description": "GitHub owner/repository to deploy from main when the owner runs .update",
-      "value": "cleanplata/BLACK-PANTHER",
+      "value": "koyoteh/BLACK-PANTHER",
       "required": false
     }
   },
