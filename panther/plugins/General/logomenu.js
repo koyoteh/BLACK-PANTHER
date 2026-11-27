@@ -1,0 +1,1 @@
+import{sendCategoryMenu}from'../../lib/menuNavigation.js';export default{'name':'logomenu','aliases':['effectsmenu','effectslist','logolist'],'description':'Displays\x20the\x20logo\x20command\x20table','run':async _0x585408=>sendCategoryMenu(_0x585408,'logo')};

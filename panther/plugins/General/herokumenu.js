@@ -1,0 +1,1 @@
+import{sendFolderMenu}from'../../lib/menuNavigation.js';export default{'name':'herokumenu','aliases':['heroku'],'description':'Displays\x20the\x20hosting\x20and\x20owner\x20command\x20table','run':async _0x74b0dd=>sendFolderMenu(_0x74b0dd,'Heroku','OWNER\x20/\x20HOSTING')};

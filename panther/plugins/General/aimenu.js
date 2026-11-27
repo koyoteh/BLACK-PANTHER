@@ -1,0 +1,1 @@
+import{sendFolderMenu}from'../../lib/menuNavigation.js';export default{'name':'aimenu','aliases':['aimenu'],'description':'Displays\x20the\x20AI\x20command\x20table','run':async _0xbe4af6=>sendFolderMenu(_0xbe4af6,'AI','AI')};

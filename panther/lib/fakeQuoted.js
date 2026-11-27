@@ -1,0 +1,1 @@
+function getFakeQuoted(_0x2ab066){return{'key':{'participant':'0@s.whatsapp.net','remoteJid':'0@s.whatsapp.net','id':_0x2ab066?.['id']||_0x2ab066?.['key']?.['id']||'0'},'message':{'conversation':'BLACK\x20PANTHER'},'contextInfo':{'mentionedJid':[_0x2ab066?.['sender']||_0x2ab066?.['key']?.['participant']||''],'forwardingScore':0x3e7,'isForwarded':!![]}};}export{getFakeQuoted};

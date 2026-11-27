@@ -1,0 +1,1 @@
+module['exports']={'apps':[{'name':'ultra-guru','script':'index.js','interpreter':'node','node_args':'--experimental-specifier-resolution=node','instances':0x1,'autorestart':!![],'watch':![],'max_memory_restart':'512M','error_file':'/dev/null','out_file':'/dev/null','log_file':'/dev/null','merge_logs':![],'env':{'NODE_ENV':'production'}}]};

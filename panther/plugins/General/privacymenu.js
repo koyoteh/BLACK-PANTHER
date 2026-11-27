@@ -1,0 +1,1 @@
+import{sendFolderMenu}from'../../lib/menuNavigation.js';export default{'name':'privacymenu','aliases':['privmenu'],'description':'Displays\x20the\x20privacy\x20and\x20user\x20command\x20table','run':async _0x2c5bdf=>sendFolderMenu(_0x2c5bdf,'Privacy','USER\x20/\x20PRIVACY')};

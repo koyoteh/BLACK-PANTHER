@@ -1,0 +1,1 @@
+import{sendFolderMenu}from'../../lib/menuNavigation.js';export default{'name':'generalmenu','aliases':['genmenu'],'description':'Displays\x20the\x20general\x20command\x20table','run':async _0x52cd41=>sendFolderMenu(_0x52cd41,'General','GENERAL')};

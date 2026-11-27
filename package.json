@@ -6,10 +6,10 @@
   "type": "module",
   "main": "index.js",
   "workspaces": [
-    "GuruTech"
+    "panther"
   ],
   "scripts": {
-    "prestart": "node GuruTech/patch-baileys.js",
+    "prestart": "node panther/patch-baileys.js",
     "start": "node index.js",
     "test": "npm run test --workspace=black-panther-md"
   },

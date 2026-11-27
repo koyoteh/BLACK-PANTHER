@@ -1,0 +1,1 @@
+import{saveMessage,getMessage,deleteMessage,cleanupOldMsgStore}from'../database/config.js';function cleanupOldMessages(_0x36b4da=0xc*0x3c*0x3c*0x3e8){cleanupOldMsgStore(_0x36b4da);}export{saveMessage,getMessage,deleteMessage,cleanupOldMessages};

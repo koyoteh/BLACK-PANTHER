@@ -1,0 +1,1 @@
+import{sendFolderMenu}from'../../lib/menuNavigation.js';export default{'name':'reactionsmenu','aliases':['reactmenu','reactionlist'],'description':'Displays\x20the\x20reaction\x20command\x20table','run':async _0x3f3d5d=>sendFolderMenu(_0x3f3d5d,'Reactions','FUN\x20/\x20REACTIONS')};

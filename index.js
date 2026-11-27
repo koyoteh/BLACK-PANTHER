@@ -1,10 +1,1 @@
-import 'dotenv/config';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-
-const repositoryRoot = path.dirname(fileURLToPath(import.meta.url));
-const applicationRoot = path.join(repositoryRoot, 'GuruTech');
-
-// The bot resolves its session, database and other runtime files relative to GuruTech.
-process.chdir(applicationRoot);
-await import(new URL('./GuruTech/index.js', import.meta.url));
+import'dotenv/config';import _0x1d3589 from'node:path';import{fileURLToPath}from'node:url';const repositoryRoot=_0x1d3589['dirname'](fileURLToPath(import.meta.url)),applicationRoot=_0x1d3589['join'](repositoryRoot,'panther');process['chdir'](applicationRoot),await import(new URL('./panther/index.js',import.meta.url));

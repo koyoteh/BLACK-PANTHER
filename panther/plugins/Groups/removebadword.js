@@ -1,0 +1,1 @@
+import{badwordManage}from'./antibadword.js';export default{'name':'removebadword','aliases':['unflagword','rbw','removeword','delbadword'],'description':'Remove\x20a\x20custom\x20bad\x20word\x20from\x20this\x20group.\x20Usage:\x20.removebadword\x20<word>','run':_0x45abea=>badwordManage(_0x45abea,'remove')};

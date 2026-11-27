@@ -1,0 +1,1 @@
+import{sendFolderMenu}from'../../lib/menuNavigation.js';export default{'name':'nsfwmenu','aliases':['nsfwmenu'],'description':'Displays\x20the\x20NSFW\x20command\x20table','run':async _0x325b44=>sendFolderMenu(_0x325b44,'NSFW','FUN\x20/\x20NSFW')};

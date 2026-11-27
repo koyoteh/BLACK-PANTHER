@@ -9,6 +9,6 @@ config.env
 session.json
 creds.json
 *.session
-GuruTech/Session/
-GuruTech/database/whatsasena.json
-GuruTech/database/whatsasena.json-*
+panther/Session/
+panther/database/whatsasena.json
+panther/database/whatsasena.json-*
