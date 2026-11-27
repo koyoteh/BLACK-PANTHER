@@ -1,1 +1,1 @@
-import{sendFolderMenu}from'../../lib/menuNavigation.js';export default{'name':'animemenu','aliases':['animmenu','animelist'],'description':'Displays\x20the\x20Anime\x20command\x20table','run':async _0x27cd17=>sendFolderMenu(_0x27cd17,'Anime','ANIME\x20/\x20ULTRA\x20PICS')};
+import{sendFolderMenu}from'../../lib/menuNavigation.js';export default{'name':'animemenu','aliases':['animmenu','animelist'],'description':'Displays\x20the\x20Anime\x20command\x20table','run':async _0x29aa61=>sendFolderMenu(_0x29aa61,'Anime','ANIME\x20/\x20ULTRA\x20PICS')};

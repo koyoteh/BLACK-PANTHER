@@ -1,1 +1,1 @@
-import{sendFolderMenu}from'../../lib/menuNavigation.js';export default{'name':'effectsmenu','aliases':['effectlist','fxmenu','texteffects'],'description':'Displays\x20the\x20text-effects\x20command\x20table','run':async _0x124712=>sendFolderMenu(_0x124712,'Effects','FUN\x20/\x20EFFECTS')};
+import{sendFolderMenu}from'../../lib/menuNavigation.js';export default{'name':'effectsmenu','aliases':['effectlist','fxmenu','texteffects'],'description':'Displays\x20the\x20text-effects\x20command\x20table','run':async _0x3983bc=>sendFolderMenu(_0x3983bc,'Effects','FUN\x20/\x20EFFECTS')};

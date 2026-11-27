@@ -1,1 +1,1 @@
-import{sendFolderMenu}from'../../lib/menuNavigation.js';export default{'name':'editingmenu','aliases':['editmenu'],'description':'Displays\x20the\x20editing\x20and\x20converter\x20command\x20table','run':async _0x3f663c=>sendFolderMenu(_0x3f663c,'Editing','CONVERTER\x20/\x20EDITING')};
+import{sendFolderMenu}from'../../lib/menuNavigation.js';export default{'name':'editingmenu','aliases':['editmenu'],'description':'Displays\x20the\x20editing\x20and\x20converter\x20command\x20table','run':async _0x5d16e7=>sendFolderMenu(_0x5d16e7,'Editing','CONVERTER\x20/\x20EDITING')};

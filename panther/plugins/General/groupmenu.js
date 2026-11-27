@@ -1,1 +1,1 @@
-import{sendFolderMenu}from'../../lib/menuNavigation.js';export default{'name':'groupmenu','aliases':['grupmenu'],'description':'Displays\x20the\x20group\x20command\x20table','run':async _0x3a630a=>sendFolderMenu(_0x3a630a,'Groups','GROUP')};
+import{sendFolderMenu}from'../../lib/menuNavigation.js';export default{'name':'groupmenu','aliases':['grupmenu'],'description':'Displays\x20the\x20group\x20command\x20table','run':async _0x193eab=>sendFolderMenu(_0x193eab,'Groups','GROUP')};

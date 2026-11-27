@@ -1,1 +1,1 @@
-import{badwordManage}from'./antibadword.js';export default{'name':'badwordlist','aliases':['badwords','listbadwords','bwlist'],'description':'List\x20this\x20group\x27s\x20custom\x20bad\x20words.','run':_0x5751d8=>badwordManage(_0x5751d8,'list')};
+import{badwordManage}from'./antibadword.js';export default{'name':'badwordlist','aliases':['badwords','listbadwords','bwlist'],'description':'List\x20this\x20group\x27s\x20custom\x20bad\x20words.','run':_0x423019=>badwordManage(_0x423019,'list')};

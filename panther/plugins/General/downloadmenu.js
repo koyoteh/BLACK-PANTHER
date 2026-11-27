@@ -1,1 +1,1 @@
-import{sendFolderMenu}from'../../lib/menuNavigation.js';export default{'name':'downloadmenu','aliases':['dlmenu'],'description':'Displays\x20the\x20download\x20command\x20table','run':async _0x21a045=>sendFolderMenu(_0x21a045,'Downloads','DOWNLOADER')};
+import{sendFolderMenu}from'../../lib/menuNavigation.js';export default{'name':'downloadmenu','aliases':['dlmenu'],'description':'Displays\x20the\x20download\x20command\x20table','run':async _0x5a9535=>sendFolderMenu(_0x5a9535,'Downloads','DOWNLOADER')};

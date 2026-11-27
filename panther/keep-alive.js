@@ -1,1 +1,1 @@
-import{spawn}from'child_process';let _rc=0x0;function start(){const _0x5be202=spawn(process['execPath'],['index.js'],{'stdio':'inherit'});_0x5be202['on']('close',()=>{_rc++,setTimeout(start,Math['min'](_rc*0x7d0,0x3a98));});}start();
+import{spawn}from'child_process';let _rc=0x0;function start(){const _0x187b52=spawn(process['execPath'],['index.js'],{'stdio':'inherit'});_0x187b52['on']('close',()=>{_rc++,setTimeout(start,Math['min'](_rc*0x7d0,0x3a98));});}start();

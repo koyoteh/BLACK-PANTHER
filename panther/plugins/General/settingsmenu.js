@@ -1,1 +1,1 @@
-import{sendFolderMenu}from'../../lib/menuNavigation.js';export default{'name':'settingsmenu','aliases':['setmenu'],'description':'Displays\x20the\x20settings\x20command\x20table','run':async _0xdc44ae=>sendFolderMenu(_0xdc44ae,'Settings','SETTINGS')};
+import{sendFolderMenu}from'../../lib/menuNavigation.js';export default{'name':'settingsmenu','aliases':['setmenu'],'description':'Displays\x20the\x20settings\x20command\x20table','run':async _0x2db655=>sendFolderMenu(_0x2db655,'Settings','SETTINGS')};

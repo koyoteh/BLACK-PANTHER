@@ -1,1 +1,1 @@
-import{sendFolderMenu}from'../../lib/menuNavigation.js';export default{'name':'utilsmenu','aliases':['utils'],'description':'Displays\x20the\x20utility\x20command\x20table','run':async _0x13bd1e=>sendFolderMenu(_0x13bd1e,'Utils','UTILITY')};
+import{sendFolderMenu}from'../../lib/menuNavigation.js';export default{'name':'utilsmenu','aliases':['utils'],'description':'Displays\x20the\x20utility\x20command\x20table','run':async _0x1b5512=>sendFolderMenu(_0x1b5512,'Utils','UTILITY')};

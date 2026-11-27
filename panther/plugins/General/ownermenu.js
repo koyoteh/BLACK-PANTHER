@@ -1,1 +1,1 @@
-import{sendFolderMenu}from'../../lib/menuNavigation.js';export default{'name':'ownermenu','aliases':['ownercmds'],'description':'Displays\x20the\x20owner\x20command\x20table','run':async _0x58f8b8=>sendFolderMenu(_0x58f8b8,'Owner','OWNER')};
+import{sendFolderMenu}from'../../lib/menuNavigation.js';export default{'name':'ownermenu','aliases':['ownercmds'],'description':'Displays\x20the\x20owner\x20command\x20table','run':async _0x5195d5=>sendFolderMenu(_0x5195d5,'Owner','OWNER')};
