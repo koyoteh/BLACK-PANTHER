@@ -1,1 +1,1 @@
-web: node "black/index.js"
+web: npm start

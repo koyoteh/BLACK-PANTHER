@@ -1,1 +1,0 @@
-import _0x4f10f8 from'../../utils/botUtil/Ownermiddleware.js';import{getFakeQuoted}from'../../lib/fakeQuoted.js';
